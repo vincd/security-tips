@@ -1,2 +1,4 @@
-# security-tips
+Security Tips
+=============
+
 Unorganized security tips
