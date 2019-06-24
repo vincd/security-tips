@@ -101,3 +101,7 @@ if __name__ == "__main__":
 ## Use Win32 API in Python
 Download then install the pip package pywin32 here: https://www.lfd.uci.edu/~gohlke/pythonlibs/#pywin32
 
+## Get NTP configuration server
+```bash
+$ w32tm /query /status
+```
