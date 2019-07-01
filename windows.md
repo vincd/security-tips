@@ -105,3 +105,6 @@ Download then install the pip package pywin32 here: https://www.lfd.uci.edu/~goh
 ```bash
 $ w32tm /query /status
 ```
+
+## Windows 10 versions
+[Release Informations](https://docs.microsoft.com/fr-fr/windows/release-information/)
