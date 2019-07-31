@@ -1,0 +1,26 @@
+site_name: Security Tips
+nav:
+  - Home: index.md
+  - AWS: aws.md
+  - Firefox: firefox.md
+  - Kubernetes: kubernetes.md
+  - Nginx: nginx.md
+  - SSL/TLS: ssl.md
+  - WAF: waf.md
+  - Windows: windows.md
+  - XXE: xxe.md
+  - Zip: zip.md
+  - Web:
+    - API: API.md
+    - OAuth: oauth.md
+    - 'Path Traversal': path-traversal.md
+    - GraphQL: graphql.md
+  - 'Configuration review': configuration-review.md
+  - CVE:
+    - CVE-2019–11581: cve/CVE-2019–11581.md
+  - SDR:
+    - 'Challs Dont Matter Anymore': sdr/challs-dont-matter-anymore/hackingforsoju.md
+    - 'lit-fam': sdr/lit-fam/hackingforsoju.md
+theme:
+  name: readthedocs
+  highlightjs: true

@@ -108,3 +108,14 @@ $ w32tm /query /status
 
 ## Windows 10 versions
 [Release Informations](https://docs.microsoft.com/fr-fr/windows/release-information/)
+
+## SAM and SYSTEM backup
+```
+reg save HKLM\SYSTEM SystemBkup.hiv
+reg save HKLM\SAM SamBkup.hiv
+```
+
+## List Email aliases
+```
+$ (Get-ADUser -Identity <user_ad_id> -Properties proxyAddresses).proxyAddresses
+```
