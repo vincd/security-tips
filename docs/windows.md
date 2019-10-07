@@ -119,3 +119,33 @@ reg save HKLM\SAM SamBkup.hiv
 ```
 $ (Get-ADUser -Identity <user_ad_id> -Properties proxyAddresses).proxyAddresses
 ```
+
+## Truster Account
+https://www.sstic.org/media/SSTIC2014/SSTIC-actes/secrets_dauthentification_pisode_ii__kerberos_cont/SSTIC2014-Article-secrets_dauthentification_pisode_ii__kerberos_contre-attaque-bordes_2.pdf
+
+```
+sAMAccountType: 805306370 = ( TRUST_ACCOUNT );
+```
+
+## Compile .Net without Visual Studio
+```
+> cd \Windows\Microsoft.NET\Framework\v4*
+> "path\to\SharpUp-master\SharpUp.sln" /t:Rebuild /p:Configuration=Release /p:Platform="Any CPU"
+```
+
+Or to compile a single file:
+```
+> cd \Windows\Microsoft.NET\Framework\v4.0.30319
+> csc.exe /t:exe /out:path\to\main.exe path\to\main.cs
+```
+
+```csharp
+using System;
+
+public class HelloWorld {
+    public static void Main()
+    {
+        Console.WriteLine("Hello world!");
+    }
+}
+```
