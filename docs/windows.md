@@ -149,3 +149,9 @@ public class HelloWorld {
     }
 }
 ```
+
+## List Wifi networks and password
+```
+> netsh wlan show profile
+> netsh wlan show profile <WiFi name> key=clear
+```
