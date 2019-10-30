@@ -28,4 +28,5 @@ nav:
     - ISCSI: iscsi.md
 theme:
   name: readthedocs
+  custom_dir: 'theme/'
   highlightjs: true
