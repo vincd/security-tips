@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="shortcut icon" href="../../../img/favicon.ico">
+  <title>Writeup - Security Tips</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../../../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Writeup";
+    var mkdocs_page_input_path = "sdr\\challs-dont-matter-anymore\\writeup.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../../../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../../../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href="../../.." class="icon icon-home"> Security Tips</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../../..">Home</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../../../aws/">AWS</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../../../firefox/">Firefox</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../../../kubernetes/">Kubernetes</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../../../nginx/">Nginx</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../../../ssl/">SSL/TLS</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../../../waf/">WAF</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../../../windows/">Windows</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../../../xxe/">XXE</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../../../zip/">Zip</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Web</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../../../API/">API</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../../oauth/">OAuth</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../../path-traversal/">Path Traversal</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../../graphql/">GraphQL</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../../../configuration-review/">Configuration review</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">CVE</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../../../cve/CVE-2019–11581/">CVE-2019–11581</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">SDR</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../hackingforsoju/">Challs Dont Matter Anymore</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../lit-fam/hackingforsoju/">lit-fam</a>
+                </li>
+    </ul>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../..">Security Tips</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Writeup</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <pre><code class="python">import wave
+import matplotlib.pyplot as plt
+import struct
+
+CODE_LENGTH = 32
+assert CODE_LENGTH%2 == 0
+N_HOSTS = 8
+N_BITS = 880
+
+wav = wave.open('CDMA_interception.wav', 'r')
+raw_signal=[]
+for i in range(N_BITS*CODE_LENGTH):
+    frames = wav.readframes(100)
+    samples = struct.unpack('h'*100, frames)
+    raw_signal.append(sum(samples)/100)
+
+buckets = [
+    (2000, 6000),
+    (8000, 13000),
+    (15000, 21000),
+    (22500, 28000),
+    (30000, 36000),
+    (38000, 43000),
+    (45500, 50000),
+    (53000, 57500),
+    (60000, 63000)]
+
+signal = []
+for sig in raw_signal:
+    for i in range(10):
+        if buckets[i][0]&lt;=sig+32768&lt;=buckets[i][1]:
+            signal.append(float(i)/N_HOSTS)
+            break
+
+
+codeset = set()
+
+for veci in range(0,CODE_LENGTH*N_BITS,CODE_LENGTH):
+    vec = [round(s*N_HOSTS) for s in signal[veci:veci+CODE_LENGTH]]
+    codeset.add(tuple(vec))
+print len(codeset)
+
+codelist = list(codeset)
+
+recovered_codes = set()
+for i in range(len(codelist)):
+    similar = []
+    for j in range(len(codelist)):
+        if i==j: continue
+        if all(abs(b-a)&lt;=1 for b,a in zip(codelist[i], codelist[j])):
+            similar.append(i)
+            recovered_codes.add(tuple([b-a for b,a in zip(codelist[i], codelist[j])]))
+
+print len(recovered_codes)
+
+for rc in recovered_codes:
+    code = [bool(c+1.) for c in rc]
+
+    recovered_sig = []
+    for nbit, veci in enumerate(range(0,CODE_LENGTH*N_BITS,CODE_LENGTH)):
+        vec = [round(s*N_HOSTS) for s in signal[veci:veci+CODE_LENGTH]]
+        nvec = [v*2-5 for v in vec]
+        res = sum(rci*nvi for rci, nvi in zip(rc, nvec))
+        recovered_sig.append(res)
+    assert len(set(recovered_sig)) == 2
+    mx = max(recovered_sig)
+    sig = ''
+    ch = ''
+    for rsg in recovered_sig:
+        ch += '1' if rsg==mx else '0'
+        if len(ch) == 8:
+            sig += chr(int(ch,2))
+            ch = ''
+    print sig
+    print '\n\n==================\n\n'
+</code></pre>
+              
+            </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+      
+    </span>
+</div>
+    <script>var base_url = '../../..';</script>
+    <script src="../../../js/theme.js" defer></script>
+      <script src="../../../search/main.js" defer></script>
+
+</body>
+</html>

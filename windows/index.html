@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Windows - Security Tips</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Windows";
+    var mkdocs_page_input_path = "windows.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Security Tips</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="..">Home</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../aws/">AWS</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../firefox/">Firefox</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../kubernetes/">Kubernetes</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../nginx/">Nginx</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../ssl/">SSL/TLS</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../waf/">WAF</a>
+	    </li>
+          
+            <li class="toctree-l1 current">
+		
+    <a class="current" href="./">Windows</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l2"><a href="#windows">Windows</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l3" href="#kerberosunconstraineddelegation">KerberosUnConstrainedDelegation</a></li>
+        
+            <li><a class="toctree-l3" href="#collect-ad-users-information">Collect AD users information</a></li>
+        
+            <li><a class="toctree-l3" href="#decrypt-gpo-with-cpassword">Decrypt GPO with cpassword</a></li>
+        
+            <li><a class="toctree-l3" href="#use-win32-api-in-python">Use Win32 API in Python</a></li>
+        
+            <li><a class="toctree-l3" href="#get-ntp-configuration-server">Get NTP configuration server</a></li>
+        
+            <li><a class="toctree-l3" href="#windows-10-versions">Windows 10 versions</a></li>
+        
+            <li><a class="toctree-l3" href="#sam-and-system-backup">SAM and SYSTEM backup</a></li>
+        
+            <li><a class="toctree-l3" href="#list-email-aliases">List Email aliases</a></li>
+        
+            <li><a class="toctree-l3" href="#truster-account">Truster Account</a></li>
+        
+            <li><a class="toctree-l3" href="#compile-net-without-visual-studio">Compile .Net without Visual Studio</a></li>
+        
+        </ul>
+    
+
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../xxe/">XXE</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../zip/">Zip</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Web</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../API/">API</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../oauth/">OAuth</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../path-traversal/">Path Traversal</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../graphql/">GraphQL</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../configuration-review/">Configuration review</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">CVE</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../cve/CVE-2019–11581/">CVE-2019–11581</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">SDR</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../sdr/challs-dont-matter-anymore/hackingforsoju/">Challs Dont Matter Anymore</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../sdr/lit-fam/hackingforsoju/">lit-fam</a>
+                </li>
+    </ul>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Security Tips</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Windows</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="windows">Windows</h1>
+<h2 id="kerberosunconstraineddelegation">KerberosUnConstrainedDelegation</h2>
+<p>More information here: https://adsecurity.org/?p=1667</p>
+<pre><code class="Powershell">$ Import-Module ActiveDirectory
+$ Get-ADComputer -Filter {(TrustedForDelegation -eq $True) -AND (PrimaryGroupID -eq 515)} -Properties 'TrustedForDelegation,TrustedToAuthForDelegation,servicePrincipalName,Description'
+
+# UserAccountControl &amp; 0x80000 (TRUSTED_FOR_DELEGATION)
+# UserAccountControl &amp; 0x100000 (TRUSTED_TO_AUTHENTICATE_FOR_DELEGATION)
+$ $computers = (New-Object System.DirectoryServices.DirectorySearcher(&quot;(&amp;(objectCategory=Computer)(primaryGroupID=515)(useraccountcontrol:1.2.840.113556.1.4.804:=524288))&quot;)).FindAll().Properties
+$ foreach($c in $computers) { echo &quot;$($c.name) ($($c.useraccountcontrol))&quot; }
+</code></pre>
+
+<p>https://adsecurity.org/wp-content/uploads/2015/08/KerberosUnConstrainedDelegation-PowerShell-DiscoverServers2.png</p>
+<h2 id="collect-ad-users-information">Collect AD users information</h2>
+<pre><code class="Powershell"># Helping functions
+function Get-ADUserDirectoryEntry($user) {
+    return (New-Object System.DirectoryServices.DirectorySearcher(&quot;(&amp;(objectCategory=User)(samAccountName=$user))&quot;)).FindOne().GetDirectoryEntry()
+}
+
+function Get-ADUserGroups($user) {
+    $userDirectoryEntry = Get-ADUserDirectoryEntry($user)
+    $groups = $userDirectoryEntry.memberOf
+
+    return $groups
+}
+
+function Get-ADGroupMembers($GroupName) {
+    if ($GroupName -like &quot;CN=*&quot;) {
+        $GroupDistinguishedName = $GroupName
+    } else {
+        # find the distinguished name from the group name
+        $GroupDistinguishedName = (New-Object System.DirectoryServices.DirectorySearcher(&quot;(&amp;(objectCategory=Group)(cn=$GroupName))&quot;)).FindOne().GetDirectoryEntry().distinguishedName
+    }
+
+    # limited to the first 10k entries
+    $GroupMembers = (New-Object System.DirectoryServices.DirectorySearcher(&quot;(&amp;(objectCategory=User)(memberOf=$GroupDistinguishedName ))&quot;)).FindAll()
+
+    return $GroupMembers.properties
+}
+
+# Get &quot;Domain admins&quot; users, be carefull the name may change depending on the DC lang
+$DomainAdmins = Get-ADGroupMembers(&quot;Domain Admins&quot;)
+foreach($user in $DomainAdmins) { echo &quot;$($user.displayname) ($($user.samaccountname))&quot; }
+
+#
+(New-Object System.DirectoryServices.DirectorySearcher(&quot;(&amp;(objectCategory=Computer)(cn=SCU44625))&quot;)).FindAll()
+</code></pre>
+
+<h3 id="ldap-query-structure">LDAP Query structure</h3>
+<p>The website <a href="https://ldapwiki.com/wiki/">LdapWiki</a> explains how to write a LDAP query. For instance,
+if we want to use bitwise in ldap queries, we need to use some splecial arguments.
+There are two Bitwise operation Extensible Match Rules.</p>
+<pre><code>1.2.840.113556.1.4.803 which is also referred to as LDAP_MATCHING_RULE_BIT_AND (Bitwise AND)
+1.2.840.113556.1.4.804 which is also referred to as LDAP_MATCHING_RULE_BIT_OR (Bitwise OR)
+</code></pre>
+
+<h2 id="decrypt-gpo-with-cpassword">Decrypt GPO with cpassword</h2>
+<pre><code class="python">#!/usr/bin/python
+
+import sys
+import binascii
+
+from Crypto.Cipher import AES
+from base64 import b64decode
+
+unpad = lambda s: s[:-1 * ord(s[-1])]
+
+def decrypt(cpassword):
+    # Init the key
+    # From MSDN: http://msdn.microsoft.com/en-us/library/2c15cbf0-f086-4c74-8b70-1f2fa45dd4be%28v=PROT.13%29#endNote2
+    key = binascii.unhexlify(&quot;4e9906e8fcb66cc9faf49310620ffee8f496e806cc057990209b09a433b66c1b&quot;)
+
+    # Add padding to the base64 string and decode it
+    cpassword += &quot;=&quot; * ((4 - len(cpassword) % 4) % 4)
+    password = b64decode(cpassword)
+    o = AES.new(key, AES.MODE_CBC, &quot;\x00&quot; * 16).decrypt(password)
+
+    return unpad(o).decode(&quot;utf16&quot;)
+
+def main():
+    if len(sys.argv) != 2:
+        print(&quot;Usage: gpprefdecrypt.py &lt;cpassword&gt;&quot;)
+        sys.exit(0)
+
+    cpassword = sys.argv[1]
+    o = decrypt(cpassword)
+
+    print o
+
+if __name__ == &quot;__main__&quot;:
+    main()
+</code></pre>
+
+<h2 id="use-win32-api-in-python">Use Win32 API in Python</h2>
+<p>Download then install the pip package pywin32 here: https://www.lfd.uci.edu/~gohlke/pythonlibs/#pywin32</p>
+<h2 id="get-ntp-configuration-server">Get NTP configuration server</h2>
+<pre><code class="bash">$ w32tm /query /status
+</code></pre>
+
+<h2 id="windows-10-versions">Windows 10 versions</h2>
+<p><a href="https://docs.microsoft.com/fr-fr/windows/release-information/">Release Informations</a></p>
+<h2 id="sam-and-system-backup">SAM and SYSTEM backup</h2>
+<pre><code>reg save HKLM\SYSTEM SystemBkup.hiv
+reg save HKLM\SAM SamBkup.hiv
+</code></pre>
+
+<h2 id="list-email-aliases">List Email aliases</h2>
+<pre><code>$ (Get-ADUser -Identity &lt;user_ad_id&gt; -Properties proxyAddresses).proxyAddresses
+</code></pre>
+
+<h2 id="truster-account">Truster Account</h2>
+<p>https://www.sstic.org/media/SSTIC2014/SSTIC-actes/secrets_dauthentification_pisode_ii__kerberos_cont/SSTIC2014-Article-secrets_dauthentification_pisode_ii__kerberos_contre-attaque-bordes_2.pdf</p>
+<pre><code>sAMAccountType: 805306370 = ( TRUST_ACCOUNT );
+</code></pre>
+
+<h2 id="compile-net-without-visual-studio">Compile .Net without Visual Studio</h2>
+<pre><code>&gt; cd \Windows\Microsoft.NET\Framework\v4*
+&gt; msbuild &quot;path\to\SharpUp-master\SharpUp.sln&quot; /t:Rebuild /p:Configuration=Release /p:Platform=&quot;Any CPU&quot;
+</code></pre>
+
+<p>Or to compile a single file:</p>
+<pre><code>&gt; cd \Windows\Microsoft.NET\Framework\v4.0.30319
+&gt; csc.exe /t:exe /out:path\to\main.exe path\to\main.cs
+</code></pre>
+
+<pre><code class="csharp">using System;
+
+public class HelloWorld {
+    public static void Main()
+    {
+        Console.WriteLine(&quot;Hello world!&quot;);
+    }
+}
+</code></pre>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../xxe/" class="btn btn-neutral float-right" title="XXE">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../waf/" class="btn btn-neutral" title="WAF"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../waf/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../xxe/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+
+</body>
+</html>

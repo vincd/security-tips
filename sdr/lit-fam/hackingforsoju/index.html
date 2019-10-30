@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="shortcut icon" href="../../../img/favicon.ico">
+  <title>lit-fam - Security Tips</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../../../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "lit-fam";
+    var mkdocs_page_input_path = "sdr\\lit-fam\\hackingforsoju.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../../../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../../../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href="../../.." class="icon icon-home"> Security Tips</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../../..">Home</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../../../aws/">AWS</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../../../firefox/">Firefox</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../../../kubernetes/">Kubernetes</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../../../nginx/">Nginx</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../../../ssl/">SSL/TLS</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../../../waf/">WAF</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../../../windows/">Windows</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../../../xxe/">XXE</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../../../zip/">Zip</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Web</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../../../API/">API</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../../oauth/">OAuth</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../../path-traversal/">Path Traversal</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../../graphql/">GraphQL</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../../../configuration-review/">Configuration review</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">CVE</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../../../cve/CVE-2019–11581/">CVE-2019–11581</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">SDR</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../../challs-dont-matter-anymore/hackingforsoju/">Challs Dont Matter Anymore</a>
+                </li>
+                <li class=" current">
+                    
+    <a class="current" href="./">lit-fam</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l3"><a href="#write-up-inshack-2019-lit-fam">WRITE UP - INS'HACK 2019: LIT FAM</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l4" href="#description">Description</a></li>
+        
+            <li><a class="toctree-l4" href="#initial-analysis">Initial analysis</a></li>
+        
+            <li><a class="toctree-l4" href="#decoding-fsk">Decoding FSK</a></li>
+        
+            <li><a class="toctree-l4" href="#decoding-am">Decoding AM</a></li>
+        
+            <li><a class="toctree-l4" href="#solution-script">Solution script</a></li>
+        
+        </ul>
+    
+
+    </ul>
+                </li>
+    </ul>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../..">Security Tips</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>SDR &raquo;</li>
+        
+      
+    
+    <li>lit-fam</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="write-up-inshack-2019-lit-fam">WRITE UP - INS'HACK 2019: LIT FAM</h1>
+<p>This is a write-up for the LIT FAM dual challenge of INS’hAck 2019 by LarsH on behalf of team HackingForSoju.</p>
+<h2 id="description">Description</h2>
+<blockquote>
+<p>We have a proof of extraterrestrial life ! Or is it just a random amateur radio operator ?</p>
+<p>Anyway, here is a strange RF interception. The file contains two independent flags</p>
+</blockquote>
+<p>The RF interception was given as a WAV file, and The A-part flag matches INSA{[A-Z]+} and the F-part matches INSA{[A-Za-z0-9_]+}.</p>
+<h2 id="initial-analysis">Initial analysis</h2>
+<p>If we open the WAV file in Audacity and zoom in, we can see that the file consists of sine-waves with two different frequencies. This is called FSK modulation, the changing frequency is used to encode the data.</p>
+<p><img alt="FSK-data" src="../fsk.png" />
+If we zoom out a bit more, we can see that the amplitude of the FSK signal varies and encodes an analog signal. This is AM, amplitude modulation, the amplitude is used to encode the data.</p>
+<p><img alt="AM-data" src="../am.png" /></p>
+<h2 id="decoding-fsk">Decoding FSK</h2>
+<p>There are several ways to decode an FSK signal, but as we have a pure sine wave there is a special trick.</p>
+<p>The trick is based on the fact that the second derivative of <code>sin(w*x)</code> is <code>-w*w * sin(w*x)</code>. If we take the second derivative and divide by the original function value we get <code>-w**2</code>, so we can extract the time.</p>
+<p>We have a sampled sine wave in discrete time <code>f(n) = A * sin(n*dt*w)</code>, so we can not get the exact derivative, but we can use approximations and simplifications. It will be enough to decode the data.</p>
+<p>The second derivative (ignoring discretization constant) can be approximated with</p>
+<pre><code>f''(n) = f(n-1) - 2*f(n) + f(n+1) =
+       = A * (sin(n*dt*w - dt*w) - 2*sin(n*dt*w) + sin(n*dt*w + dt*w)) =
+       = A * (sin(n*dt*w)*cos(dt*w) - cos(n*dt*w)*sin(dt*w) - 2*sin(n*dt*w) + sin(n*dt*w)*cos(dt*w) + cos(n*dt*w)*sin(w*t) =
+       = A * (2*sin(n*dt*w)*cos(dt*w) - 2*sin(n*dt*w)) =
+       = A * 2 * sin(n*dt*w) * (cos(dt*w) - 1)
+</code></pre>
+
+<p>so the value of f''(n) / f(n) is</p>
+<pre><code>f''(n) / f(n) = (A * 2 * sin(n*dt*w) * (cos(dt*w) - 1)) / A*sin(n*dt*w) =
+              = 2 * (cos(dt*w - 1)
+</code></pre>
+
+<p>This expression only depends on the frequency of the signal, wich is the quantity we want to extract!</p>
+<p>We can now decode and plot the raw frequency dependent data:</p>
+<pre><code class="python">import wavio
+from matplotlib import pyplot as plt
+wav = wavio.read('FAM.wav')
+l = [(a-2*b+c) / float(b) for a,b,c in zip(wav.data[:500], wav.data[1:], wav.data[2:])]
+plt.plot(l)
+plt.show()
+</code></pre>
+
+<p><img alt="Plot of the decoded signal" src="../plot.png" />
+The frequency signal is stable at -0.1 and -0.4, except for at the boundaries where the bit level changes. The bits change every 20th sample, so we can reduce the data set by picking every 20th sample, starting at sample 10. We compute the bit value using 0.25 as a threshold value.</p>
+<pre><code class="python">&gt;&gt;&gt; b = [int(e&lt;-0.25) for e in l][10::20]
+&gt;&gt;&gt; numpy.array(b[:80]).reshape((10,8))
+array([[1, 0, 1, 1, 1, 1, 1, 0],
+       [1, 1, 0, 1, 0, 0, 1, 0],
+       [1, 1, 0, 1, 1, 1, 0, 0],
+       [1, 0, 1, 1, 1, 1, 1, 0],
+       [1, 1, 1, 0, 1, 0, 0, 0],
+       [1, 1, 0, 1, 0, 0, 0, 0],
+       [0, 1, 1, 0, 0, 1, 1, 0],
+       [1, 0, 1, 1, 1, 1, 1, 0],
+       [1, 0, 0, 0, 0, 0, 1, 0],
+       [1, 1, 0, 1, 0, 0, 1, 0]])
+</code></pre>
+
+<p>We can see that the the last bits align nicely and we should be able to decode this as ASCII. However, the challenge creators put in a small trick. The bytes are stored in big endian with only 7 bits given for the first byte. One way to decode the bits is to add a zero to the beginning and decode using bitarray.</p>
+<h2 id="decoding-am">Decoding AM</h2>
+<p>The simplest circuit to decode an AM signal with is a diode receiver. The digital equivalent is to use the abs() function, we can just write back the rectified data to a WAV-file and listen to it.</p>
+<h2 id="solution-script">Solution script</h2>
+<p>This is the final solution script:</p>
+<pre><code>import wavio, bitarray
+wav = wavio.read('FAM.wav')
+wavio.write('rectified.wav', abs(wav.data), wav.rate)
+l = [(a-2*b+c) / float(b) for a,b,c in zip(wav.data[:10000], wav.data[1:], wav.data[2:])]
+print bitarray.bitarray([0]+[int(e&lt;-0.25) for e in l][10::20]).tobytes()
+</code></pre>
+
+<p>Running the script prints the the flag</p>
+<pre><code>_in_th3_AiR_4_u_4nd_Me}INSA{iS_in_th3_AiR_4_u_4nd_Me}INSA{iS_ih*
+</code></pre>
+
+<p>and if we listen to the file rectified.wav we can hear some space sounds followed by the voice message:</p>
+<blockquote>
+<p>The flag is I, N, S, A, opening bracket, RADIOACTIVITY, closing bracket. All letters are in uppercase.</p>
+</blockquote>
+<p>so the flag is <code>INSA{RADIOACTIVITY}.</code></p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="../../challs-dont-matter-anymore/hackingforsoju/" class="btn btn-neutral" title="Challs Dont Matter Anymore"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../../challs-dont-matter-anymore/hackingforsoju/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+    </span>
+</div>
+    <script>var base_url = '../../..';</script>
+    <script src="../../../js/theme.js" defer></script>
+      <script src="../../../search/main.js" defer></script>
+
+</body>
+</html>
