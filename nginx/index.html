@@ -65,7 +65,17 @@
           
             <li class="toctree-l1">
 		
+    <span class="caption-text">Containers</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../docker/">Docker</a>
+                </li>
+                <li class="">
+                    
     <a class="" href="../kubernetes/">Kubernetes</a>
+                </li>
+    </ul>
 	    </li>
           
             <li class="toctree-l1 current">
@@ -78,6 +88,8 @@
         <ul>
         
             <li><a class="toctree-l3" href="#configuration-file">Configuration file</a></li>
+        
+            <li><a class="toctree-l3" href="#rce-in-php-fpm-cve-2019-11043">RCE in php-fpm (CVE-2019-11043)</a></li>
         
         </ul>
     
@@ -114,6 +126,10 @@
 		
     <span class="caption-text">Web</span>
     <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../xss/">XSS</a>
+                </li>
                 <li class="">
                     
     <a class="" href="../API/">API</a>
@@ -164,6 +180,17 @@
     </ul>
 	    </li>
           
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Misc</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../iscsi/">ISCSI</a>
+                </li>
+    </ul>
+	    </li>
+          
         </ul>
       </div>
       &nbsp;
@@ -206,6 +233,18 @@ location /static {
 </code></pre>
 
 <p>The location value does not end with a <code>/</code> but the alias value does. Which means that if we query: <code>https://example.com/static../foo</code> then the location will match and will concatenate <code>../foo</code> to the alias, which gives us this local file access: <code>/srv/app/static/../foo</code></p>
+<h2 id="rce-in-php-fpm-cve-2019-11043">RCE in php-fpm (CVE-2019-11043)</h2>
+<p>If a webserver runs nginx + php-fpm and nginx have a configuration like</p>
+<pre><code>location ~ [^/]\.php(/|$) {
+  ...
+  fastcgi_split_path_info ^(.+?\.php)(/.*)$;
+  fastcgi_param PATH_INFO $fastcgi_path_info;
+  fastcgi_pass            php:9000;
+  ...
+}
+</code></pre>
+
+<p>More informations on <a href="https://github.com/neex/phuip-fpizdam">https://github.com/neex/phuip-fpizdam</a>.</p>
               
             </div>
           </div>
