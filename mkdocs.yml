@@ -18,6 +18,7 @@ nav:
     - OAuth: oauth.md
     - 'Path Traversal': path-traversal.md
     - GraphQL: graphql.md
+    - Git: git.md
   - 'Configuration review': configuration-review.md
   - CVE:
     - CVE-2019–11581: cve/CVE-2019–11581.md
