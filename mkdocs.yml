@@ -1,4 +1,8 @@
 site_name: Security Tips
+site_url: https://security-tips.vincd.com
+site_description: A collection of security tips
+site_author: @vincd
+
 nav:
   - Home: index.md
   - AWS: aws.md
@@ -27,6 +31,7 @@ nav:
     - 'lit-fam': sdr/lit-fam/hackingforsoju.md
   - Misc:
     - ISCSI: iscsi.md
+
 theme:
   name: readthedocs
   custom_dir: 'theme/'
