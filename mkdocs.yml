@@ -1,7 +1,7 @@
 site_name: Security Tips
 site_url: https://security-tips.vincd.com
 site_description: A collection of security tips
-site_author: @vincd
+site_author: https://github.com/vincd
 
 nav:
   - Home: index.md
