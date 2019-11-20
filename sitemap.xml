@@ -26,11 +26,6 @@
      <changefreq>daily</changefreq>
     </url>
     <url>
-     <loc>https://security-tips.vincd.com/ssl/</loc>
-     <lastmod>2019-11-20</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-    <url>
      <loc>https://security-tips.vincd.com/windows/</loc>
      <lastmod>2019-11-20</lastmod>
      <changefreq>daily</changefreq>
@@ -86,8 +81,8 @@
      <changefreq>daily</changefreq>
     </url>
     <url>
-     <loc></loc>
-     
+     <loc>https://security-tips.vincd.com/cve/CVE-2019-11581/</loc>
+     <lastmod>2019-11-20</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
