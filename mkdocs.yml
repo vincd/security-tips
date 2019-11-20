@@ -1,5 +1,5 @@
 site_name: Security Tips
-site_url: https://security-tips.vincd.com
+site_url: https://security-tips.vincd.com/
 site_description: A collection of security tips
 site_author: Vincent D. (@vincd)
 
@@ -30,7 +30,7 @@ nav:
     - Git: git.md
   - 'Configuration review': configuration-review.md
   - CVE:
-    - CVE-2019–11581: cve/CVE-2019-11581.md
+    - CVE-2019-11581: cve/CVE-2019-11581.md
   - SDR:
     - 'Challs Dont Matter Anymore': sdr/challs-dont-matter-anymore/hackingforsoju.md
     - 'lit-fam': sdr/lit-fam/hackingforsoju.md
@@ -39,5 +39,3 @@ nav:
     - ISCSI: iscsi.md
     - Reverse Shell: reverse-shell.md
     - WAF: waf.md
-
-
