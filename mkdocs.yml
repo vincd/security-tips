@@ -1,19 +1,25 @@
 site_name: Security Tips
 site_url: https://security-tips.vincd.com
 site_description: A collection of security tips
-site_author: https://github.com/vincd
+site_author: Vincent D. (@vincd)
+
+theme:
+  name: readthedocs
+  custom_dir: 'theme/'
+  highlightjs: true
+
+google_analytics: ['UA-128044070-2', 'security-tips.vincd.com']
 
 nav:
   - Home: index.md
   - AWS: aws.md
-  - Firefox: firefox.md
   - Containers:
     - Docker: docker.md
     - Kubernetes: kubernetes.md
   - Nginx: nginx.md
   - SSL/TLS: ssl.md
-  - WAF: waf.md
   - Windows: windows.md
+  - Linux: linux.md
   - XXE: xxe.md
   - Zip: zip.md
   - Web:
@@ -30,9 +36,9 @@ nav:
     - 'Challs Dont Matter Anymore': sdr/challs-dont-matter-anymore/hackingforsoju.md
     - 'lit-fam': sdr/lit-fam/hackingforsoju.md
   - Misc:
+    - Firefox: firefox.md
     - ISCSI: iscsi.md
+    - Reverse Shell: reverse-shell.md
+    - WAF: waf.md
 
-theme:
-  name: readthedocs
-  custom_dir: 'theme/'
-  highlightjs: true
+
