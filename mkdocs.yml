@@ -1,9 +1,15 @@
 site_name: Security Tips
+site_url: https://security-tips.vincd.com
+site_description: A collection of security tips
+site_author: https://github.com/vincd
+
 nav:
   - Home: index.md
   - AWS: aws.md
   - Firefox: firefox.md
-  - Kubernetes: kubernetes.md
+  - Containers:
+    - Docker: docker.md
+    - Kubernetes: kubernetes.md
   - Nginx: nginx.md
   - SSL/TLS: ssl.md
   - WAF: waf.md
@@ -11,16 +17,22 @@ nav:
   - XXE: xxe.md
   - Zip: zip.md
   - Web:
+    - XSS: xss.md
     - API: API.md
     - OAuth: oauth.md
     - 'Path Traversal': path-traversal.md
     - GraphQL: graphql.md
+    - Git: git.md
   - 'Configuration review': configuration-review.md
   - CVE:
     - CVE-2019–11581: cve/CVE-2019–11581.md
   - SDR:
     - 'Challs Dont Matter Anymore': sdr/challs-dont-matter-anymore/hackingforsoju.md
     - 'lit-fam': sdr/lit-fam/hackingforsoju.md
+  - Misc:
+    - ISCSI: iscsi.md
+
 theme:
   name: readthedocs
+  custom_dir: 'theme/'
   highlightjs: true
