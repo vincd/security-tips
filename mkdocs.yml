@@ -17,7 +17,6 @@ nav:
     - Docker: docker.md
     - Kubernetes: kubernetes.md
   - Nginx: nginx.md
-  - SSL/TLS: ssl.md
   - Windows: windows.md
   - Linux: linux.md
   - XXE: xxe.md
@@ -31,7 +30,7 @@ nav:
     - Git: git.md
   - 'Configuration review': configuration-review.md
   - CVE:
-    - CVE-2019–11581: cve/CVE-2019–11581.md
+    - CVE-2019–11581: cve/CVE-2019-11581.md
   - SDR:
     - 'Challs Dont Matter Anymore': sdr/challs-dont-matter-anymore/hackingforsoju.md
     - 'lit-fam': sdr/lit-fam/hackingforsoju.md
