@@ -101,6 +101,8 @@
         
             <li><a class="toctree-l3" href="#collect-ad-users-information">Collect AD users information</a></li>
         
+            <li><a class="toctree-l3" href="#ldap-query-structure">LDAP Query structure</a></li>
+        
             <li><a class="toctree-l3" href="#decrypt-gpo-with-cpassword">Decrypt GPO with cpassword</a></li>
         
             <li><a class="toctree-l3" href="#use-win32-api-in-python">Use Win32 API in Python</a></li>
@@ -173,13 +175,17 @@
           
             <li class="toctree-l1">
 		
-    <a class="" href="../configuration-review/">Configuration review</a>
+    <a class="" href="../configuration-review/">Configuration Review</a>
 	    </li>
           
             <li class="toctree-l1">
 		
     <span class="caption-text">CVE</span>
     <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../cve/CVE-2019-1388/">CVE-2019-1388</a>
+                </li>
                 <li class="">
                     
     <a class="" href="../cve/CVE-2019-11581/">CVE-2019-11581</a>
@@ -258,8 +264,8 @@
             <div class="section">
               
                 <h1 id="windows">Windows</h1>
-<h2 id="kerberosunconstraineddelegation">KerberosUnConstrainedDelegation</h2>
-<p>More information here: https://adsecurity.org/?p=1667</p>
+<h3 id="kerberosunconstraineddelegation">KerberosUnConstrainedDelegation</h3>
+<p>More information <a href="https://adsecurity.org/?p=1667">here</a></p>
 <pre><code class="Powershell">$ Import-Module ActiveDirectory
 $ Get-ADComputer -Filter {(TrustedForDelegation -eq $True) -AND (PrimaryGroupID -eq 515)} -Properties 'TrustedForDelegation,TrustedToAuthForDelegation,servicePrincipalName,Description'
 
@@ -269,9 +275,9 @@ $ $computers = (New-Object System.DirectoryServices.DirectorySearcher(&quot;(&am
 $ foreach($c in $computers) { echo &quot;$($c.name) ($($c.useraccountcontrol))&quot; }
 </code></pre>
 
-<p>https://adsecurity.org/wp-content/uploads/2015/08/KerberosUnConstrainedDelegation-PowerShell-DiscoverServers2.png</p>
-<h2 id="collect-ad-users-information">Collect AD users information</h2>
-<pre><code class="Powershell"># Helping functions
+<p><img alt="" src="https://adsecurity.org/wp-content/uploads/2015/08/KerberosUnConstrainedDelegation-PowerShell-DiscoverServers2.png" /></p>
+<h3 id="collect-ad-users-information">Collect AD users information</h3>
+<pre><code class="Powerhell"># Helping functions
 function Get-ADUserDirectoryEntry($user) {
     return (New-Object System.DirectoryServices.DirectorySearcher(&quot;(&amp;(objectCategory=User)(samAccountName=$user))&quot;)).FindOne().GetDirectoryEntry()
 }
@@ -307,13 +313,13 @@ foreach($user in $DomainAdmins) { echo &quot;$($user.displayname) ($($user.samac
 
 <h3 id="ldap-query-structure">LDAP Query structure</h3>
 <p>The website <a href="https://ldapwiki.com/wiki/">LdapWiki</a> explains how to write a LDAP query. For instance,
-if we want to use bitwise in ldap queries, we need to use some splecial arguments.
-There are two Bitwise operation Extensible Match Rules.</p>
+if we want to use bitwise in ldap queries, we need to use some splecial arguments.</p>
+<p>There are two Bitwise operation Extensible Match Rules.</p>
 <pre><code>1.2.840.113556.1.4.803 which is also referred to as LDAP_MATCHING_RULE_BIT_AND (Bitwise AND)
 1.2.840.113556.1.4.804 which is also referred to as LDAP_MATCHING_RULE_BIT_OR (Bitwise OR)
 </code></pre>
 
-<h2 id="decrypt-gpo-with-cpassword">Decrypt GPO with cpassword</h2>
+<h3 id="decrypt-gpo-with-cpassword">Decrypt GPO with cpassword</h3>
 <pre><code class="python">#!/usr/bin/python
 
 import sys
@@ -350,29 +356,33 @@ if __name__ == &quot;__main__&quot;:
     main()
 </code></pre>
 
-<h2 id="use-win32-api-in-python">Use Win32 API in Python</h2>
-<p>Download then install the pip package pywin32 here: https://www.lfd.uci.edu/~gohlke/pythonlibs/#pywin32</p>
-<h2 id="get-ntp-configuration-server">Get NTP configuration server</h2>
+<h3 id="use-win32-api-in-python">Use Win32 API in Python</h3>
+<p>Download then install the pip package <code>pywin32</code> here: <a href="https://www.lfd.uci.edu/~gohlke/pythonlibs/#pywin32">https://www.lfd.uci.edu/~gohlke/pythonlibs/#pywin32</a></p>
+<h3 id="get-ntp-configuration-server">Get NTP configuration server</h3>
 <pre><code class="bash">$ w32tm /query /status
 </code></pre>
 
-<h2 id="windows-10-versions">Windows 10 versions</h2>
+<h3 id="windows-10-versions">Windows 10 versions</h3>
 <p><a href="https://docs.microsoft.com/fr-fr/windows/release-information/">Release Informations</a></p>
-<h2 id="sam-and-system-backup">SAM and SYSTEM backup</h2>
+<h3 id="sam-and-system-backup">SAM and SYSTEM backup</h3>
 <pre><code>reg save HKLM\SYSTEM SystemBkup.hiv
 reg save HKLM\SAM SamBkup.hiv
 </code></pre>
 
-<h2 id="list-email-aliases">List Email aliases</h2>
+<p>Then with <code>mimikatz</code> you can recover the hashes:</p>
+<pre><code class="bash">&gt; lsadump::sam /system:SystemBkup.hiv /sam:SamBkup.hiv
+</code></pre>
+
+<h3 id="list-email-aliases">List Email aliases</h3>
 <pre><code>$ (Get-ADUser -Identity &lt;user_ad_id&gt; -Properties proxyAddresses).proxyAddresses
 </code></pre>
 
-<h2 id="truster-account">Truster Account</h2>
-<p>https://www.sstic.org/media/SSTIC2014/SSTIC-actes/secrets_dauthentification_pisode_ii__kerberos_cont/SSTIC2014-Article-secrets_dauthentification_pisode_ii__kerberos_contre-attaque-bordes_2.pdf</p>
+<h3 id="truster-account">Truster Account</h3>
+<p>The <a href="https://www.sstic.org/media/SSTIC2014/SSTIC-actes/secrets_dauthentification_pisode_ii__kerberos_cont/SSTIC2014-Article-secrets_dauthentification_pisode_ii__kerberos_contre-attaque-bordes_2.pdf">PDF</a> from SSTIC 2014 describes trusts accounts on Windows: </p>
 <pre><code>sAMAccountType: 805306370 = ( TRUST_ACCOUNT );
 </code></pre>
 
-<h2 id="compile-net-without-visual-studio">Compile .Net without Visual Studio</h2>
+<h3 id="compile-net-without-visual-studio">Compile .Net without Visual Studio</h3>
 <pre><code>&gt; cd \Windows\Microsoft.NET\Framework\v4*
 &gt; msbuild &quot;path\to\SharpUp-master\SharpUp.sln&quot; /t:Rebuild /p:Configuration=Release /p:Platform=&quot;Any CPU&quot;
 </code></pre>
@@ -392,8 +402,8 @@ public class HelloWorld {
 }
 </code></pre>
 
-<h2 id="list-wifi-networks-and-password">List Wifi networks and password</h2>
-<pre><code>&gt; netsh wlan show profile
+<h3 id="list-wifi-networks-and-password">List Wifi networks and password</h3>
+<pre><code class="bash">&gt; netsh wlan show profile
 &gt; netsh wlan show profile &lt;WiFi name&gt; key=clear
 </code></pre>
               
