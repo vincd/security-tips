@@ -28,8 +28,9 @@ nav:
     - 'Path Traversal': path-traversal.md
     - GraphQL: graphql.md
     - Git: git.md
-  - 'Configuration review': configuration-review.md
+  - Configuration Review: configuration-review.md
   - CVE:
+    - CVE-2019-1388: cve/CVE-2019-1388.md
     - CVE-2019-11581: cve/CVE-2019-11581.md
   - SDR:
     - 'Challs Dont Matter Anymore': sdr/challs-dont-matter-anymore/hackingforsoju.md
