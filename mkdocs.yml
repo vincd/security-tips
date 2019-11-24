@@ -28,6 +28,7 @@ nav:
     - 'Path Traversal': path-traversal.md
     - GraphQL: graphql.md
     - Git: git.md
+    - JWT: jwt.md
   - Configuration Review: configuration-review.md
   - CVE:
     - CVE-2019-1388: cve/CVE-2019-1388/
