@@ -7,23 +7,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <meta name="author" content="Vincent D. (@vincd)">
-  <link rel="shortcut icon" href="../../../img/favicon.ico">
-  <title>Writeup - Security Tips</title>
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>JWT - Security Tips</title>
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 
-  <link rel="stylesheet" href="../../../css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
   
   <script>
     // Current page data
-    var mkdocs_page_name = "Writeup";
-    var mkdocs_page_input_path = "sdr/lit-fam/writeup.md";
-    var mkdocs_page_url = "/sdr/lit-fam/writeup/";
+    var mkdocs_page_name = "JWT";
+    var mkdocs_page_input_path = "jwt.md";
+    var mkdocs_page_url = "/jwt/";
   </script>
   
-  <script src="../../../js/jquery-2.1.1.min.js" defer></script>
-  <script src="../../../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
   <script>hljs.initHighlightingOnLoad();</script> 
   
@@ -46,9 +46,9 @@
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
       <div class="wy-side-nav-search">
-        <a href="../../.." class="icon icon-home"> Security Tips</a>
+        <a href=".." class="icon icon-home"> Security Tips</a>
         <div role="search">
-  <form id ="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
   </form>
 </div>
@@ -60,12 +60,12 @@
           
             <li class="toctree-l1">
 		
-    <a class="" href="../../..">Home</a>
+    <a class="" href="..">Home</a>
 	    </li>
           
             <li class="toctree-l1">
 		
-    <a class="" href="../../../aws/">AWS</a>
+    <a class="" href="../aws/">AWS</a>
 	    </li>
           
             <li class="toctree-l1">
@@ -74,38 +74,38 @@
     <ul class="subnav">
                 <li class="">
                     
-    <a class="" href="../../../docker/">Docker</a>
+    <a class="" href="../docker/">Docker</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../../../kubernetes/">Kubernetes</a>
+    <a class="" href="../kubernetes/">Kubernetes</a>
                 </li>
     </ul>
 	    </li>
           
             <li class="toctree-l1">
 		
-    <a class="" href="../../../nginx/">Nginx</a>
+    <a class="" href="../nginx/">Nginx</a>
 	    </li>
           
             <li class="toctree-l1">
 		
-    <a class="" href="../../../windows/">Windows</a>
+    <a class="" href="../windows/">Windows</a>
 	    </li>
           
             <li class="toctree-l1">
 		
-    <a class="" href="../../../linux/">Linux</a>
+    <a class="" href="../linux/">Linux</a>
 	    </li>
           
             <li class="toctree-l1">
 		
-    <a class="" href="../../../xxe/">XXE</a>
+    <a class="" href="../xxe/">XXE</a>
 	    </li>
           
             <li class="toctree-l1">
 		
-    <a class="" href="../../../zip/">Zip</a>
+    <a class="" href="../zip/">Zip</a>
 	    </li>
           
             <li class="toctree-l1">
@@ -114,38 +114,54 @@
     <ul class="subnav">
                 <li class="">
                     
-    <a class="" href="../../../xss/">XSS</a>
+    <a class="" href="../xss/">XSS</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../../../API/">API</a>
+    <a class="" href="../API/">API</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../../../oauth/">OAuth</a>
+    <a class="" href="../oauth/">OAuth</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../../../path-traversal/">Path Traversal</a>
+    <a class="" href="../path-traversal/">Path Traversal</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../../../graphql/">GraphQL</a>
+    <a class="" href="../graphql/">GraphQL</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../../../git/">Git</a>
+    <a class="" href="../git/">Git</a>
                 </li>
-                <li class="">
+                <li class=" current">
                     
-    <a class="" href="../../../jwt/">JWT</a>
+    <a class="current" href="./">JWT</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l3"><a href="#json-web-token">JSON Web Token</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l4" href="#finding-public-keys">Finding Public Keys</a></li>
+        
+            <li><a class="toctree-l4" href="#vulnerabilities">Vulnerabilities</a></li>
+        
+            <li><a class="toctree-l4" href="#jwt-toolkit">JWT Toolkit</a></li>
+        
+        </ul>
+    
+
+    </ul>
                 </li>
     </ul>
 	    </li>
           
             <li class="toctree-l1">
 		
-    <a class="" href="../../../configuration-review/">Configuration Review</a>
+    <a class="" href="../configuration-review/">Configuration Review</a>
 	    </li>
           
             <li class="toctree-l1">
@@ -154,11 +170,11 @@
     <ul class="subnav">
                 <li class="">
                     
-    <a class="" href="../../../cve/CVE-2019-1388/">CVE-2019-1388</a>
+    <a class="" href="../cve/CVE-2019-1388/">CVE-2019-1388</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../../../cve/CVE-2019-11581/">CVE-2019-11581</a>
+    <a class="" href="../cve/CVE-2019-11581/">CVE-2019-11581</a>
                 </li>
     </ul>
 	    </li>
@@ -169,11 +185,11 @@
     <ul class="subnav">
                 <li class="">
                     
-    <a class="" href="../../challs-dont-matter-anymore/hackingforsoju/">Challs Dont Matter Anymore</a>
+    <a class="" href="../sdr/challs-dont-matter-anymore/hackingforsoju/">Challs Dont Matter Anymore</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../hackingforsoju/">lit-fam</a>
+    <a class="" href="../sdr/lit-fam/hackingforsoju/">lit-fam</a>
                 </li>
     </ul>
 	    </li>
@@ -184,19 +200,19 @@
     <ul class="subnav">
                 <li class="">
                     
-    <a class="" href="../../../firefox/">Firefox</a>
+    <a class="" href="../firefox/">Firefox</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../../../iscsi/">ISCSI</a>
+    <a class="" href="../iscsi/">ISCSI</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../../../reverse-shell/">Reverse Shell</a>
+    <a class="" href="../reverse-shell/">Reverse Shell</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../../../waf/">WAF</a>
+    <a class="" href="../waf/">WAF</a>
                 </li>
     </ul>
 	    </li>
@@ -211,7 +227,7 @@
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
         <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../../..">Security Tips</a>
+        <a href="..">Security Tips</a>
       </nav>
 
       
@@ -219,11 +235,15 @@
         <div class="rst-content">
           <div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
-    <li><a href="../../..">Docs</a> &raquo;</li>
+    <li><a href="..">Docs</a> &raquo;</li>
     
       
+        
+          <li>Web &raquo;</li>
+        
+      
     
-    <li>Writeup</li>
+    <li>JWT</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -233,47 +253,41 @@
           <div role="main">
             <div class="section">
               
-                <pre><code class="python">import struct
-import wave
-
-wav = wave.open('FAM.wav', 'r')
-am_sig = []
-
-nframes = wav.getnframes()
-frames = wav.readframes(nframes)
-samples = struct.unpack('h'*nframes, frames)
-lastinvert = 0
-sgn = 1
-fm_sig=''
-for i in range(15,nframes,20):
-    sv = max(map(abs,samples[i:i+20]))
-    am_sig.append(sv*2-32768)
-    switchcnt = 0
-    for j in range(19):
-        if samples[i+j]*samples[i+j+1]&lt;0:
-            switchcnt += 1
-    fm_sig += '1' if switchcnt &gt; 2 else '0'
-
-
-# INSA{iS_in_th3_AiR_4_u_4nd_Me}
-for cut in range(8):
-    s = fm_sig[cut:800+cut]
-    print ''.join(chr(int(s[i*8:i*8+8],2)) for i in range(len(s)//8))
-
-
-# INSA{RADIOACTIVITY}
-output_wav = wave.open('extracted_am.wav', 'w')
-output_wav.setparams((1, 2, 44100, 0, 'NONE', 'not compressed'))
-packed_values=[]
-for sample in am_sig:
-    packed_values.append(struct.pack('h', sample))
-output_wav.writeframes(''.join(packed_values))
-output_wav.close()
+                <h1 id="json-web-token">JSON Web Token</h1>
+<h2 id="finding-public-keys">Finding Public Keys</h2>
+<p>Some common locations for public keys are:</p>
+<pre><code>/api/keys
+/api/v1/keys
+/.well-known/jwks.json
+/openid/connect/jwks.json
+/jwks.json
 </code></pre>
+
+<h2 id="vulnerabilities">Vulnerabilities</h2>
+<p>There is know vulnerabilities on JWT:</p>
+<ul>
+<li><a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2015-2951">CVE-2015-2951</a>: The alg=none signature-bypass vulnerability in <code>JWT.php</code></li>
+<li><a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2016-10555">CVE-2016-10555</a>: The RS/HS256 public key mismatch vulnerability because the server does not enforce "algorithm"</li>
+<li><a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2018-0114">CVE-2018-0114</a>: It's possible to re-sign a token using a key that is embedded within the token</li>
+</ul>
+<h2 id="jwt-toolkit">JWT Toolkit</h2>
+<pre><code>jwt_tool.py is a toolkit for validating, forging and cracking JWTs (JSON Web Tokens).
+</code></pre>
+
+<p><a href="https://github.com/ticarpi/jwt_tool">https://github.com/ticarpi/jwt_tool</a></p>
               
             </div>
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../configuration-review/" class="btn btn-neutral float-right" title="Configuration Review">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../git/" class="btn btn-neutral" title="Git"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>
@@ -297,12 +311,16 @@ output_wav.close()
     <span class="rst-current-version" data-toggle="rst-current-version">
       
       
+        <span><a href="../git/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../configuration-review/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>
-    <script>var base_url = '../../..';</script>
-    <script src="../../../js/theme.js" defer></script>
-      <script src="../../../search/main.js" defer></script>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
 
 </body>
 </html>

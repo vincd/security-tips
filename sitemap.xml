@@ -2,82 +2,87 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
      <loc>https://security-tips.vincd.com/</loc>
-     <lastmod>2019-11-22</lastmod>
+     <lastmod>2019-11-24</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://security-tips.vincd.com/aws/</loc>
-     <lastmod>2019-11-22</lastmod>
+     <lastmod>2019-11-24</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://security-tips.vincd.com/docker/</loc>
-     <lastmod>2019-11-22</lastmod>
+     <lastmod>2019-11-24</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://security-tips.vincd.com/kubernetes/</loc>
-     <lastmod>2019-11-22</lastmod>
+     <lastmod>2019-11-24</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://security-tips.vincd.com/nginx/</loc>
-     <lastmod>2019-11-22</lastmod>
+     <lastmod>2019-11-24</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://security-tips.vincd.com/windows/</loc>
-     <lastmod>2019-11-22</lastmod>
+     <lastmod>2019-11-24</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://security-tips.vincd.com/linux/</loc>
-     <lastmod>2019-11-22</lastmod>
+     <lastmod>2019-11-24</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://security-tips.vincd.com/xxe/</loc>
-     <lastmod>2019-11-22</lastmod>
+     <lastmod>2019-11-24</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://security-tips.vincd.com/zip/</loc>
-     <lastmod>2019-11-22</lastmod>
+     <lastmod>2019-11-24</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://security-tips.vincd.com/xss/</loc>
-     <lastmod>2019-11-22</lastmod>
+     <lastmod>2019-11-24</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://security-tips.vincd.com/API/</loc>
-     <lastmod>2019-11-22</lastmod>
+     <lastmod>2019-11-24</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://security-tips.vincd.com/oauth/</loc>
-     <lastmod>2019-11-22</lastmod>
+     <lastmod>2019-11-24</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://security-tips.vincd.com/path-traversal/</loc>
-     <lastmod>2019-11-22</lastmod>
+     <lastmod>2019-11-24</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://security-tips.vincd.com/graphql/</loc>
-     <lastmod>2019-11-22</lastmod>
+     <lastmod>2019-11-24</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://security-tips.vincd.com/git/</loc>
-     <lastmod>2019-11-22</lastmod>
+     <lastmod>2019-11-24</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>https://security-tips.vincd.com/jwt/</loc>
+     <lastmod>2019-11-24</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://security-tips.vincd.com/configuration-review/</loc>
-     <lastmod>2019-11-22</lastmod>
+     <lastmod>2019-11-24</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
@@ -87,37 +92,37 @@
     </url>
     <url>
      <loc>https://security-tips.vincd.com/cve/CVE-2019-11581/</loc>
-     <lastmod>2019-11-22</lastmod>
+     <lastmod>2019-11-24</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://security-tips.vincd.com/sdr/challs-dont-matter-anymore/hackingforsoju/</loc>
-     <lastmod>2019-11-22</lastmod>
+     <lastmod>2019-11-24</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://security-tips.vincd.com/sdr/lit-fam/hackingforsoju/</loc>
-     <lastmod>2019-11-22</lastmod>
+     <lastmod>2019-11-24</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://security-tips.vincd.com/firefox/</loc>
-     <lastmod>2019-11-22</lastmod>
+     <lastmod>2019-11-24</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://security-tips.vincd.com/iscsi/</loc>
-     <lastmod>2019-11-22</lastmod>
+     <lastmod>2019-11-24</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://security-tips.vincd.com/reverse-shell/</loc>
-     <lastmod>2019-11-22</lastmod>
+     <lastmod>2019-11-24</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://security-tips.vincd.com/waf/</loc>
-     <lastmod>2019-11-22</lastmod>
+     <lastmod>2019-11-24</lastmod>
      <changefreq>daily</changefreq>
     </url>
 </urlset>

