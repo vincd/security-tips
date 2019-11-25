@@ -129,6 +129,14 @@
     <ul>
             
     
+    <ul>
+    
+        <li><a class="" href="#common-vulnerabilities">Common vulnerabilities</a></li>
+    
+        <li><a class="" href="#bypassing-githubs-oauth-flow">Bypassing GitHub's OAuth flow</a></li>
+    
+    </ul>
+    
 
     </ul>
                 </li>
@@ -224,6 +232,7 @@
           <div class="section">
             
               <h1 id="oauth">OAuth</h1>
+<h2 id="common-vulnerabilities">Common vulnerabilities</h2>
 <ul>
 <li>CSRF: use state parameter</li>
 <li>Open redirection</li>
@@ -232,6 +241,12 @@
 <li>Attack with pre-approved Client</li>
 <li>PKCE: Proof Key for Code Exchange (https://oauth.net/2/pkce/)</li>
 </ul>
+<h2 id="bypassing-githubs-oauth-flow">Bypassing GitHub's OAuth flow</h2>
+<p>In this <a href="https://blog.teddykatz.com/2019/11/05/github-oauth-bypass.html">article</a>
+Teddy katz bypasses the OAuth flow using a common mistake in Rails router.
+By default, Rails pretend that the <code>HEAD</code> method is a <code>GET</code> without response body.
+Then it's possible to abuse the API (<code>POST</code>requests still need CSRF token) and
+execute <code>GET</code> commands.</p>
             
           </div>
           <footer>
