@@ -7,6 +7,12 @@ theme:
   name: readthedocs
   custom_dir: 'theme/'
   highlightjs: true
+  hljs_languages:
+    - yaml
+    - powershell
+    - bash
+    - nginx
+    - python
 
 google_analytics: ['UA-128044070-2', 'security-tips.vincd.com']
 
@@ -31,7 +37,7 @@ nav:
     - JWT: jwt.md
   - Configuration Review: configuration-review.md
   - CVE:
-    - CVE-2019-1388: cve/CVE-2019-1388/
+    - CVE-2019-1388: cve/CVE-2019-1388/index.md
     - CVE-2019-11581: cve/CVE-2019-11581.md
     - CVE-2019-16759: cve/CVE-2019-16759.md
   - SDR:
