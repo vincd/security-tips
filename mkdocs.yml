@@ -33,6 +33,7 @@ nav:
   - CVE:
     - CVE-2019-1388: cve/CVE-2019-1388/
     - CVE-2019-11581: cve/CVE-2019-11581.md
+    - CVE-2019-16759: cve/CVE-2019-16759.md
   - SDR:
     - 'Challs Dont Matter Anymore': sdr/challs-dont-matter-anymore/hackingforsoju.md
     - 'lit-fam': sdr/lit-fam/hackingforsoju.md
