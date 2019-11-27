@@ -1,7 +1,4 @@
-# Security Tips
+Security Tips
+=============
 
-A list of security tips.
-
-## Commands
-- `mkdocs serve` - start the live-reloading docs server
-- `mkdocs build` - build the documentation site
+This is a collection of security tips that I use during my pentest.

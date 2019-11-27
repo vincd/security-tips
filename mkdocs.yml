@@ -22,7 +22,6 @@ nav:
   - Containers:
     - Docker: docker.md
     - Kubernetes: kubernetes.md
-  - Nginx: nginx.md
   - Windows: windows.md
   - Linux: linux.md
   - XXE: xxe.md
@@ -37,7 +36,7 @@ nav:
     - Git: git.md
     - JWT: jwt.md
     - IIS: iis.md
-  - Configuration Review: configuration-review.md
+    - Nginx: nginx.md
   - CVE:
     - CVE-2019-1388: cve/CVE-2019-1388/index.md
     - CVE-2019-11581: cve/CVE-2019-11581.md
