@@ -27,6 +27,7 @@ nav:
   - Linux: linux.md
   - XXE: xxe.md
   - Zip: zip.md
+  - Kafka: kafka.md
   - Web:
     - XSS: xss.md
     - API: API.md
