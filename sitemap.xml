@@ -21,11 +21,6 @@
      <changefreq>daily</changefreq>
     </url>
     <url>
-     <loc>https://security-tips.vincd.com/nginx/</loc>
-     <lastmod>2019-11-27</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-    <url>
      <loc>https://security-tips.vincd.com/windows/</loc>
      <lastmod>2019-11-27</lastmod>
      <changefreq>daily</changefreq>
@@ -91,7 +86,7 @@
      <changefreq>daily</changefreq>
     </url>
     <url>
-     <loc>https://security-tips.vincd.com/configuration-review/</loc>
+     <loc>https://security-tips.vincd.com/nginx/</loc>
      <lastmod>2019-11-27</lastmod>
      <changefreq>daily</changefreq>
     </url>

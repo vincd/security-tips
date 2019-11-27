@@ -2,7 +2,6 @@ html, body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 }
 
-
 * {
   -webkit-font-smoothing: antialiased;
   -webkit-overflow-scrolling: touch;
@@ -639,8 +638,8 @@ body {
   margin: 6px 0 6px 0;
 }
 .sidebar ul li a {
-  color: #505d6b;
-  font-size: 14px;
+  color: #364149;
+  font-size: 15px;
   font-weight: normal;
   overflow: hidden;
   text-decoration: none;
@@ -958,4 +957,8 @@ pre::after {
 .sidebar-nav li.bold > a,
 .sidebar-nav li.bold > span {
   font-weight: 800;
+}
+
+footer .content-info {
+  text-align: center;
 }
