@@ -245,7 +245,7 @@
 <li>PKCE: Proof Key for Code Exchange (https://oauth.net/2/pkce/)</li>
 </ul>
 <h2 id="bypassing-githubs-oauth-flow">Bypassing GitHub's OAuth flow</h2>
-<p>In this <a href="https://blog.teddykatz.com/2019/11/05/github-oauth-bypass.html">article</a>
+<p>In this <a href="https://blog.teddykatz.com/2019/11/05/github-oauth-bypass.html" target="_blank">article</a>
 Teddy katz bypasses the OAuth flow using a common mistake in Rails router.
 By default, Rails pretend that the <code>HEAD</code> method is a <code>GET</code> without response body.
 Then it's possible to abuse the API (<code>POST</code>requests still need CSRF token) and

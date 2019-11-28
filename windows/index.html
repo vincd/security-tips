@@ -256,7 +256,7 @@
             
               <h1 id="windows">Windows</h1>
 <h3 id="kerberosunconstraineddelegation">KerberosUnConstrainedDelegation</h3>
-<p>More information <a href="https://adsecurity.org/?p=1667">here</a></p>
+<p>More information <a href="https://adsecurity.org/?p=1667" target="_blank">here</a></p>
 <pre><code class="Powershell">$ Import-Module ActiveDirectory
 $ Get-ADComputer -Filter {(TrustedForDelegation -eq $True) -AND (PrimaryGroupID -eq 515)} -Properties 'TrustedForDelegation,TrustedToAuthForDelegation,servicePrincipalName,Description'
 
@@ -303,7 +303,7 @@ foreach($user in $DomainAdmins) { echo &quot;$($user.displayname) ($($user.samac
 </code></pre>
 
 <h3 id="ldap-query-structure">LDAP Query structure</h3>
-<p>The website <a href="https://ldapwiki.com/wiki/">LdapWiki</a> explains how to write a LDAP query. For instance,
+<p>The website <a href="https://ldapwiki.com/wiki/" target="_blank">LdapWiki</a> explains how to write a LDAP query. For instance,
 if we want to use bitwise in ldap queries, we need to use some splecial arguments.</p>
 <p>There are two Bitwise operation Extensible Match Rules.</p>
 <pre><code>1.2.840.113556.1.4.803 which is also referred to as LDAP_MATCHING_RULE_BIT_AND (Bitwise AND)
@@ -348,13 +348,13 @@ if __name__ == &quot;__main__&quot;:
 </code></pre>
 
 <h3 id="use-win32-api-in-python">Use Win32 API in Python</h3>
-<p>Download then install the pip package <code>pywin32</code> here: <a href="https://www.lfd.uci.edu/~gohlke/pythonlibs/#pywin32">https://www.lfd.uci.edu/~gohlke/pythonlibs/#pywin32</a></p>
+<p>Download then install the pip package <code>pywin32</code> here: <a href="https://www.lfd.uci.edu/~gohlke/pythonlibs/#pywin32" target="_blank">https://www.lfd.uci.edu/~gohlke/pythonlibs/#pywin32</a></p>
 <h3 id="get-ntp-configuration-server">Get NTP configuration server</h3>
 <pre><code class="bash">$ w32tm /query /status
 </code></pre>
 
 <h3 id="windows-10-versions">Windows 10 versions</h3>
-<p><a href="https://docs.microsoft.com/fr-fr/windows/release-information/">Release Informations</a></p>
+<p><a href="https://docs.microsoft.com/fr-fr/windows/release-information/" target="_blank">Release Informations</a></p>
 <h3 id="sam-and-system-backup">SAM and SYSTEM backup</h3>
 <pre><code>reg save HKLM\SYSTEM SystemBkup.hiv
 reg save HKLM\SAM SamBkup.hiv
@@ -369,7 +369,7 @@ reg save HKLM\SAM SamBkup.hiv
 </code></pre>
 
 <h3 id="truster-account">Truster Account</h3>
-<p>The <a href="https://www.sstic.org/media/SSTIC2014/SSTIC-actes/secrets_dauthentification_pisode_ii__kerberos_cont/SSTIC2014-Article-secrets_dauthentification_pisode_ii__kerberos_contre-attaque-bordes_2.pdf">PDF</a> from SSTIC 2014 describes trusts accounts on Windows: </p>
+<p>The <a href="https://www.sstic.org/media/SSTIC2014/SSTIC-actes/secrets_dauthentification_pisode_ii__kerberos_cont/SSTIC2014-Article-secrets_dauthentification_pisode_ii__kerberos_contre-attaque-bordes_2.pdf" target="_blank">PDF</a> from SSTIC 2014 describes trusts accounts on Windows: </p>
 <pre><code>sAMAccountType: 805306370 = ( TRUST_ACCOUNT );
 </code></pre>
 
