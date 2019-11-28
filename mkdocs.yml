@@ -14,6 +14,9 @@ theme:
     - nginx
     - python
 
+markdown_extensions:
+  - markdown_new_tab
+
 google_analytics: ['UA-128044070-2', 'security-tips.vincd.com']
 
 nav:

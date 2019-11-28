@@ -1,6 +1,5 @@
-deploy:
-	(rm -rf site)
-	(mkdocs gh-deploy)
-
 serve:
-	mkdocs serve
+	python -m mkdocs serve
+
+build:
+	python -m mkdocs build
