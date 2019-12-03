@@ -42,6 +42,7 @@ nav:
     - Nginx: nginx.md
   - CVE:
     - CVE-2019-1388: cve/CVE-2019-1388/index.md
+    - CVE-2019-11510: cve/CVE-2019-11510.md
     - CVE-2019-11581: cve/CVE-2019-11581.md
     - CVE-2019-16759: cve/CVE-2019-16759.md
   - SDR:
