@@ -101,6 +101,8 @@
     
         <li><a class="" href="#wildcard">Wildcard</a></li>
     
+        <li><a class="" href="#run-elf-using-ld-linux">Run ELF using ld-linux</a></li>
+    
     </ul>
     
 
@@ -237,7 +239,7 @@
           <div class="section">
             
               <h1 id="linux">Linux</h1>
-<h2 id="wildcard">Wildcard</h2>
+<h3 id="wildcard">Wildcard</h3>
 <pre><code class="bash">$ ls -al /*a*/www/*l/*la*/*la*.*
 #        /var/www/html/flag/flag.php
 </code></pre>
@@ -247,6 +249,23 @@
 $ ls *
 -rw-rw-r-- 1 root root 0 jun 28 21:38 -al
 </code></pre>
+
+<h3 id="run-elf-using-ld-linux">Run ELF using ld-linux</h3>
+<p>You can run an ELF binary without the <code>x</code> flag using <code>ld-linux</code>:</p>
+<pre><code class="bash"># From: https://twitter.com/leonjza/status/1201946856005259264
+$ cp /bin/ls .
+$ ls
+ls
+$ chmod -x ls
+$ ls -l ls
+-rw-r--r-- 1 root root 126584 Dec  4 08:32 ls
+$ ./ls
+-bash: ./ls: Permission denied
+$ /lib64/ld-linux-x86-64.so.2 ./ls
+ls
+</code></pre>
+
+<p>It can be useful when you can't set the bit or you have a capability on <code>ld-linux</code> set.</p>
             
           </div>
           <footer>
