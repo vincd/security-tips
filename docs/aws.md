@@ -2,12 +2,12 @@ AWS
 ===
 
 ## Check if domain is on a bucket
-```
+```bash
 $ dig +nocmd flaws.cloud any +multiline +noall +answer
 ```
 
 ## List a bucket
-```
+```bash
 $ aws s3 ls  s3://flaws.cloud/ --no-sign-request --region us-west-2
 ```
 

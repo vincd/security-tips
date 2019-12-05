@@ -5,7 +5,7 @@ Windows
 ### KerberosUnConstrainedDelegation
 More information [here](https://adsecurity.org/?p=1667)
 
-```Powershell
+```powerhsell
 $ Import-Module ActiveDirectory
 $ Get-ADComputer -Filter {(TrustedForDelegation -eq $True) -AND (PrimaryGroupID -eq 515)} -Properties 'TrustedForDelegation,TrustedToAuthForDelegation,servicePrincipalName,Description'
 
@@ -19,7 +19,7 @@ $ foreach($c in $computers) { echo "$($c.name) ($($c.useraccountcontrol))" }
 
 
 ### Collect AD users information
-```Powerhell
+```powerhsell
 # Helping functions
 function Get-ADUserDirectoryEntry($user) {
     return (New-Object System.DirectoryServices.DirectorySearcher("(&(objectCategory=User)(samAccountName=$user))")).FindOne().GetDirectoryEntry()
@@ -119,19 +119,19 @@ $ w32tm /query /status
 
 
 ### SAM and SYSTEM backup
-```
-reg save HKLM\SYSTEM SystemBkup.hiv
-reg save HKLM\SAM SamBkup.hiv
+```bash
+$ reg save HKLM\SYSTEM SystemBkup.hiv
+$ reg save HKLM\SAM SamBkup.hiv
 ```
 
 Then with `mimikatz` you can recover the hashes:
 ```bash
-> lsadump::sam /system:SystemBkup.hiv /sam:SamBkup.hiv
+$ lsadump::sam /system:SystemBkup.hiv /sam:SamBkup.hiv
 ```
 
 
 ### List Email aliases
-```
+```bash
 $ (Get-ADUser -Identity <user_ad_id> -Properties proxyAddresses).proxyAddresses
 ```
 
@@ -145,15 +145,15 @@ sAMAccountType: 805306370 = ( TRUST_ACCOUNT );
 
 
 ### Compile .Net without Visual Studio
-```
-> cd \Windows\Microsoft.NET\Framework\v4*
-> msbuild "path\to\SharpUp-master\SharpUp.sln" /t:Rebuild /p:Configuration=Release /p:Platform="Any CPU"
+```bash
+$ cd \Windows\Microsoft.NET\Framework\v4*
+$ msbuild "path\to\SharpUp-master\SharpUp.sln" /t:Rebuild /p:Configuration=Release /p:Platform="Any CPU"
 ```
 
 Or to compile a single file:
-```
-> cd \Windows\Microsoft.NET\Framework\v4.0.30319
-> csc.exe /t:exe /out:path\to\main.exe path\to\main.cs
+```bash
+$ cd \Windows\Microsoft.NET\Framework\v4.0.30319
+$ csc.exe /t:exe /out:path\to\main.exe path\to\main.cs
 ```
 
 ```csharp
@@ -169,8 +169,8 @@ public class HelloWorld {
 
 ### List Wifi networks and password
 ```bash
-> netsh wlan show profile
-> netsh wlan show profile <WiFi name> key=clear
+$ netsh wlan show profile
+$ netsh wlan show profile <WiFi name> key=clear
 ```
 
 ### TCP dump with netsh
@@ -179,12 +179,12 @@ You can use `netsh trace` to dump TCP connexions on a Windows system. The follow
 command start a service that dump the packets:
 
 ```bash
-> netsh trace start scenario=NetConnection capture=yes report=yes persistent=no maxsize=1024 correlation=yes traceFile=C:\Temp\NetTrace.etl
+$ netsh trace start scenario=NetConnection capture=yes report=yes persistent=no maxsize=1024 correlation=yes traceFile=C:\Temp\NetTrace.etl
 ```
 
 To start to service, you need to type:
 ```bash
-> netsh trace stop
+$ netsh trace stop
 ```
 
 When the service is stopped, it create an `etl` file (and a `cab` for the report)
@@ -193,7 +193,7 @@ to a `pcap` file. The tool `etl2pcapng` can be used to convert the file. It's
 available on [Github](https://github.com/microsoft/etl2pcapng).
 
 ```bash
-> etl2pcapng.exe NetTrace.etl  NetTrace.pcapng
+$ etl2pcapng.exe NetTrace.etl  NetTrace.pcapng
 IF: medium=eth  ID=0    IfIndex=13
 Converted 3948 frames
 ```
@@ -201,8 +201,8 @@ Converted 3948 frames
 ### Add user to local admin
 ```bash
 # create a local user
-> net user <username> <password> /add
+$ net user <username> <password> /add
 # add user to local admin group
-> net localgroup Administrateur <username> /add
+$ net localgroup Administrateur <username> /add
 ```
 

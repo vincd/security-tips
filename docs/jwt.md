@@ -20,7 +20,7 @@ There is know vulnerabilities on JWT:
 
 
 ## JWT Toolkit
-```
+```bash
 jwt_tool.py is a toolkit for validating, forging and cracking JWTs (JSON Web Tokens).
 ```
 

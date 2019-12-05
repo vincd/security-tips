@@ -12,7 +12,7 @@ http://<host>:<port>/version
 ```
 
 Then, using the CLI you can execute commands, for instance:
-```
+```bash
 $ docker -H <host>:<port> ps
 
 CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES

