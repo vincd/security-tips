@@ -10,7 +10,6 @@
   <link rel="shortcut icon" href="../../../img/favicon.ico">
   <title>lit-fam - Security Tips</title>
   <link rel="stylesheet" href="../../../css/style.css" type="text/css" />
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
   
   <script>
     // Current page data
@@ -20,31 +19,19 @@
   </script>
   
   <script src="../../../js/jquery-2.1.1.min.js" defer></script>
-  <script src="../../../js/modernizr-2.8.3.min.js" defer></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/yaml.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/powershell.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/bash.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/nginx.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/python.min.js"></script>
-  <script>hljs.initHighlightingOnLoad();</script> 
-  
-  <script>
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-      ga('create', 'UA-128044070-2', 'security-tips.vincd.com');
-      ga('send', 'pageview');
-  </script>
-  
+  <script src="../../../js/modernizr-2.8.3.min.js" defer></script> 
 </head>
 
 <body class="ready sticky">
+  <button class="sidebar-toggle">
+    <div class="sidebar-toggle-button">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </button>
 
   <main>
-
     
     <aside class="sidebar">
       <div class="search">
@@ -54,7 +41,7 @@
 		</form>
 	</div>
 </div>
-      
+
       <h1 class="app-name"><a class="app-name-link" data-nosearch="" href="/">Security Tips</a></h1>
 
       <div class="sidebar-nav">
@@ -276,7 +263,7 @@ If we zoom out a bit more, we can see that the amplitude of the FSK signal varie
 
 <p>This expression only depends on the frequency of the signal, wich is the quantity we want to extract!</p>
 <p>We can now decode and plot the raw frequency dependent data:</p>
-<pre><code class="python">import wavio
+<pre><code class="language-python">import wavio
 from matplotlib import pyplot as plt
 wav = wavio.read('FAM.wav')
 l = [(a-2*b+c) / float(b) for a,b,c in zip(wav.data[:500], wav.data[1:], wav.data[2:])]
@@ -286,7 +273,7 @@ plt.show()
 
 <p><img alt="Plot of the decoded signal" src="../plot.png" />
 The frequency signal is stable at -0.1 and -0.4, except for at the boundaries where the bit level changes. The bits change every 20th sample, so we can reduce the data set by picking every 20th sample, starting at sample 10. We compute the bit value using 0.25 as a threshold value.</p>
-<pre><code class="python">&gt;&gt;&gt; b = [int(e&lt;-0.25) for e in l][10::20]
+<pre><code class="language-python">&gt;&gt;&gt; b = [int(e&lt;-0.25) for e in l][10::20]
 &gt;&gt;&gt; numpy.array(b[:80]).reshape((10,8))
 array([[1, 0, 1, 1, 1, 1, 1, 0],
        [1, 1, 0, 1, 0, 0, 1, 0],
@@ -333,7 +320,7 @@ print bitarray.bitarray([0]+[int(e&lt;-0.25) for e in l][10::20]).tobytes()
         </div>
       </article>
     </section>
-  </div>
+  </main>
 
   <div class="rst-versions" role="note" style="cursor: pointer">
     <span class="rst-current-version" data-toggle="rst-current-version">
@@ -347,8 +334,27 @@ print bitarray.bitarray([0]+[int(e&lt;-0.25) for e in l][10::20]).tobytes()
     </span>
 </div>
     <script>var base_url = '../../..';</script>
-    <script src="../../../js/theme.js" defer></script>
-      <script src="../../../search/main.js" defer></script>
+    <script src="../../../js/theme.js"></script>
+    <script src="../../../js/prism-core.min.js"></script>
+    <script src="../../../js/prism-clike.min.js"></script>
+    <script src="../../../js/prism-yaml.min.js"></script>
+    <script src="../../../js/prism-powershell.min.js"></script>
+    <script src="../../../js/prism-bash.min.js"></script>
+    <script src="../../../js/prism-nginx.min.js"></script>
+    <script src="../../../js/prism-python.min.js"></script>
+    <script src="../../../js/prism-markup.min.js"></script>
+    <script src="../../../search/main.js"></script>
+    
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-128044070-2', 'security-tips.vincd.com');
+      ga('send', 'pageview');
+    </script>
+    
 
 </body>
 </html>

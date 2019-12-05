@@ -10,7 +10,6 @@
   <link rel="shortcut icon" href="../img/favicon.ico">
   <title>Nginx - Security Tips</title>
   <link rel="stylesheet" href="../css/style.css" type="text/css" />
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
   
   <script>
     // Current page data
@@ -20,31 +19,19 @@
   </script>
   
   <script src="../js/jquery-2.1.1.min.js" defer></script>
-  <script src="../js/modernizr-2.8.3.min.js" defer></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/yaml.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/powershell.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/bash.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/nginx.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/python.min.js"></script>
-  <script>hljs.initHighlightingOnLoad();</script> 
-  
-  <script>
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-      ga('create', 'UA-128044070-2', 'security-tips.vincd.com');
-      ga('send', 'pageview');
-  </script>
-  
+  <script src="../js/modernizr-2.8.3.min.js" defer></script> 
 </head>
 
 <body class="ready sticky">
+  <button class="sidebar-toggle">
+    <div class="sidebar-toggle-button">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </button>
 
   <main>
-
     
     <aside class="sidebar">
       <div class="search">
@@ -54,7 +41,7 @@
 		</form>
 	</div>
 </div>
-      
+
       <h1 class="app-name"><a class="app-name-link" data-nosearch="" href="/">Security Tips</a></h1>
 
       <div class="sidebar-nav">
@@ -241,7 +228,7 @@
               <h1 id="nginx">Nginx</h1>
 <h2 id="configuration-file">Configuration file</h2>
 <p>Here is a miss-configuration in the the <code>nginx.conf</code> file:</p>
-<pre><code># static files
+<pre><code class="language-nginx"># static files
 location /static {
     alias /srv/app/static/;
 }
@@ -250,7 +237,7 @@ location /static {
 <p>The location value does not end with a <code>/</code> but the alias value does. Which means that if we query: <code>https://example.com/static../foo</code> then the location will match and will concatenate <code>../foo</code> to the alias, which gives us this local file access: <code>/srv/app/static/../foo</code></p>
 <h2 id="rce-in-php-fpm-cve-2019-11043">RCE in php-fpm (CVE-2019-11043)</h2>
 <p>If a webserver runs nginx + php-fpm and nginx have a configuration like</p>
-<pre><code>location ~ [^/]\.php(/|$) {
+<pre><code class="language-nginx">location ~ [^/]\.php(/|$) {
   ...
   fastcgi_split_path_info ^(.+?\.php)(/.*)$;
   fastcgi_param PATH_INFO $fastcgi_path_info;
@@ -272,7 +259,7 @@ location /static {
         </div>
       </article>
     </section>
-  </div>
+  </main>
 
   <div class="rst-versions" role="note" style="cursor: pointer">
     <span class="rst-current-version" data-toggle="rst-current-version">
@@ -286,8 +273,27 @@ location /static {
     </span>
 </div>
     <script>var base_url = '..';</script>
-    <script src="../js/theme.js" defer></script>
-      <script src="../search/main.js" defer></script>
+    <script src="../js/theme.js"></script>
+    <script src="../js/prism-core.min.js"></script>
+    <script src="../js/prism-clike.min.js"></script>
+    <script src="../js/prism-yaml.min.js"></script>
+    <script src="../js/prism-powershell.min.js"></script>
+    <script src="../js/prism-bash.min.js"></script>
+    <script src="../js/prism-nginx.min.js"></script>
+    <script src="../js/prism-python.min.js"></script>
+    <script src="../js/prism-markup.min.js"></script>
+    <script src="../search/main.js"></script>
+    
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-128044070-2', 'security-tips.vincd.com');
+      ga('send', 'pageview');
+    </script>
+    
 
 </body>
 </html>

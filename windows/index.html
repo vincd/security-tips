@@ -10,7 +10,6 @@
   <link rel="shortcut icon" href="../img/favicon.ico">
   <title>Windows - Security Tips</title>
   <link rel="stylesheet" href="../css/style.css" type="text/css" />
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
   
   <script>
     // Current page data
@@ -20,31 +19,19 @@
   </script>
   
   <script src="../js/jquery-2.1.1.min.js" defer></script>
-  <script src="../js/modernizr-2.8.3.min.js" defer></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/yaml.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/powershell.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/bash.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/nginx.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/python.min.js"></script>
-  <script>hljs.initHighlightingOnLoad();</script> 
-  
-  <script>
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-      ga('create', 'UA-128044070-2', 'security-tips.vincd.com');
-      ga('send', 'pageview');
-  </script>
-  
+  <script src="../js/modernizr-2.8.3.min.js" defer></script> 
 </head>
 
 <body class="ready sticky">
+  <button class="sidebar-toggle">
+    <div class="sidebar-toggle-button">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </button>
 
   <main>
-
     
     <aside class="sidebar">
       <div class="search">
@@ -54,7 +41,7 @@
 		</form>
 	</div>
 </div>
-      
+
       <h1 class="app-name"><a class="app-name-link" data-nosearch="" href="/">Security Tips</a></h1>
 
       <div class="sidebar-nav">
@@ -265,7 +252,7 @@
               <h1 id="windows">Windows</h1>
 <h3 id="kerberosunconstraineddelegation">KerberosUnConstrainedDelegation</h3>
 <p>More information <a href="https://adsecurity.org/?p=1667" target="_blank">here</a></p>
-<pre><code class="Powershell">$ Import-Module ActiveDirectory
+<pre><code class="language-powerhsell">$ Import-Module ActiveDirectory
 $ Get-ADComputer -Filter {(TrustedForDelegation -eq $True) -AND (PrimaryGroupID -eq 515)} -Properties 'TrustedForDelegation,TrustedToAuthForDelegation,servicePrincipalName,Description'
 
 # UserAccountControl &amp; 0x80000 (TRUSTED_FOR_DELEGATION)
@@ -276,7 +263,7 @@ $ foreach($c in $computers) { echo &quot;$($c.name) ($($c.useraccountcontrol))&q
 
 <p><img alt="" src="https://adsecurity.org/wp-content/uploads/2015/08/KerberosUnConstrainedDelegation-PowerShell-DiscoverServers2.png" /></p>
 <h3 id="collect-ad-users-information">Collect AD users information</h3>
-<pre><code class="Powerhell"># Helping functions
+<pre><code class="language-powerhsell"># Helping functions
 function Get-ADUserDirectoryEntry($user) {
     return (New-Object System.DirectoryServices.DirectorySearcher(&quot;(&amp;(objectCategory=User)(samAccountName=$user))&quot;)).FindOne().GetDirectoryEntry()
 }
@@ -319,7 +306,7 @@ if we want to use bitwise in ldap queries, we need to use some splecial argument
 </code></pre>
 
 <h3 id="decrypt-gpo-with-cpassword">Decrypt GPO with cpassword</h3>
-<pre><code class="python">#!/usr/bin/python
+<pre><code class="language-python">#!/usr/bin/python
 
 import sys
 import binascii
@@ -358,22 +345,22 @@ if __name__ == &quot;__main__&quot;:
 <h3 id="use-win32-api-in-python">Use Win32 API in Python</h3>
 <p>Download then install the pip package <code>pywin32</code> here: <a href="https://www.lfd.uci.edu/~gohlke/pythonlibs/#pywin32" target="_blank">https://www.lfd.uci.edu/~gohlke/pythonlibs/#pywin32</a></p>
 <h3 id="get-ntp-configuration-server">Get NTP configuration server</h3>
-<pre><code class="bash">$ w32tm /query /status
+<pre><code class="language-bash">$ w32tm /query /status
 </code></pre>
 
 <h3 id="windows-10-versions">Windows 10 versions</h3>
 <p><a href="https://docs.microsoft.com/fr-fr/windows/release-information/" target="_blank">Release Informations</a></p>
 <h3 id="sam-and-system-backup">SAM and SYSTEM backup</h3>
-<pre><code>reg save HKLM\SYSTEM SystemBkup.hiv
-reg save HKLM\SAM SamBkup.hiv
+<pre><code class="language-bash">$ reg save HKLM\SYSTEM SystemBkup.hiv
+$ reg save HKLM\SAM SamBkup.hiv
 </code></pre>
 
 <p>Then with <code>mimikatz</code> you can recover the hashes:</p>
-<pre><code class="bash">&gt; lsadump::sam /system:SystemBkup.hiv /sam:SamBkup.hiv
+<pre><code class="language-bash">$ lsadump::sam /system:SystemBkup.hiv /sam:SamBkup.hiv
 </code></pre>
 
 <h3 id="list-email-aliases">List Email aliases</h3>
-<pre><code>$ (Get-ADUser -Identity &lt;user_ad_id&gt; -Properties proxyAddresses).proxyAddresses
+<pre><code class="language-bash">$ (Get-ADUser -Identity &lt;user_ad_id&gt; -Properties proxyAddresses).proxyAddresses
 </code></pre>
 
 <h3 id="truster-account">Truster Account</h3>
@@ -382,16 +369,16 @@ reg save HKLM\SAM SamBkup.hiv
 </code></pre>
 
 <h3 id="compile-net-without-visual-studio">Compile .Net without Visual Studio</h3>
-<pre><code>&gt; cd \Windows\Microsoft.NET\Framework\v4*
-&gt; msbuild &quot;path\to\SharpUp-master\SharpUp.sln&quot; /t:Rebuild /p:Configuration=Release /p:Platform=&quot;Any CPU&quot;
+<pre><code class="language-bash">$ cd \Windows\Microsoft.NET\Framework\v4*
+$ msbuild &quot;path\to\SharpUp-master\SharpUp.sln&quot; /t:Rebuild /p:Configuration=Release /p:Platform=&quot;Any CPU&quot;
 </code></pre>
 
 <p>Or to compile a single file:</p>
-<pre><code>&gt; cd \Windows\Microsoft.NET\Framework\v4.0.30319
-&gt; csc.exe /t:exe /out:path\to\main.exe path\to\main.cs
+<pre><code class="language-bash">$ cd \Windows\Microsoft.NET\Framework\v4.0.30319
+$ csc.exe /t:exe /out:path\to\main.exe path\to\main.cs
 </code></pre>
 
-<pre><code class="csharp">using System;
+<pre><code class="language-csharp">using System;
 
 public class HelloWorld {
     public static void Main()
@@ -402,34 +389,34 @@ public class HelloWorld {
 </code></pre>
 
 <h3 id="list-wifi-networks-and-password">List Wifi networks and password</h3>
-<pre><code class="bash">&gt; netsh wlan show profile
-&gt; netsh wlan show profile &lt;WiFi name&gt; key=clear
+<pre><code class="language-bash">$ netsh wlan show profile
+$ netsh wlan show profile &lt;WiFi name&gt; key=clear
 </code></pre>
 
 <h3 id="tcp-dump-with-netsh">TCP dump with netsh</h3>
 <p>You can use <code>netsh trace</code> to dump TCP connexions on a Windows system. The following
 command start a service that dump the packets:</p>
-<pre><code class="bash">&gt; netsh trace start scenario=NetConnection capture=yes report=yes persistent=no maxsize=1024 correlation=yes traceFile=C:\Temp\NetTrace.etl
+<pre><code class="language-bash">$ netsh trace start scenario=NetConnection capture=yes report=yes persistent=no maxsize=1024 correlation=yes traceFile=C:\Temp\NetTrace.etl
 </code></pre>
 
 <p>To start to service, you need to type:</p>
-<pre><code class="bash">&gt; netsh trace stop
+<pre><code class="language-bash">$ netsh trace stop
 </code></pre>
 
 <p>When the service is stopped, it create an <code>etl</code> file (and a <code>cab</code> for the report)
 that contains the packets. To import it to Wireshark, you need to convert the file
 to a <code>pcap</code> file. The tool <code>etl2pcapng</code> can be used to convert the file. It's
 available on <a href="https://github.com/microsoft/etl2pcapng" target="_blank">Github</a>.</p>
-<pre><code class="bash">&gt; etl2pcapng.exe NetTrace.etl  NetTrace.pcapng
+<pre><code class="language-bash">$ etl2pcapng.exe NetTrace.etl  NetTrace.pcapng
 IF: medium=eth  ID=0    IfIndex=13
 Converted 3948 frames
 </code></pre>
 
 <h3 id="add-user-to-local-admin">Add user to local admin</h3>
-<pre><code class="bash"># create a local user
-&gt; net user &lt;username&gt; &lt;password&gt; /add
+<pre><code class="language-bash"># create a local user
+$ net user &lt;username&gt; &lt;password&gt; /add
 # add user to local admin group
-&gt; net localgroup Administrateur &lt;username&gt; /add
+$ net localgroup Administrateur &lt;username&gt; /add
 </code></pre>
             
           </div>
@@ -443,7 +430,7 @@ Converted 3948 frames
         </div>
       </article>
     </section>
-  </div>
+  </main>
 
   <div class="rst-versions" role="note" style="cursor: pointer">
     <span class="rst-current-version" data-toggle="rst-current-version">
@@ -457,8 +444,27 @@ Converted 3948 frames
     </span>
 </div>
     <script>var base_url = '..';</script>
-    <script src="../js/theme.js" defer></script>
-      <script src="../search/main.js" defer></script>
+    <script src="../js/theme.js"></script>
+    <script src="../js/prism-core.min.js"></script>
+    <script src="../js/prism-clike.min.js"></script>
+    <script src="../js/prism-yaml.min.js"></script>
+    <script src="../js/prism-powershell.min.js"></script>
+    <script src="../js/prism-bash.min.js"></script>
+    <script src="../js/prism-nginx.min.js"></script>
+    <script src="../js/prism-python.min.js"></script>
+    <script src="../js/prism-markup.min.js"></script>
+    <script src="../search/main.js"></script>
+    
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-128044070-2', 'security-tips.vincd.com');
+      ga('send', 'pageview');
+    </script>
+    
 
 </body>
 </html>

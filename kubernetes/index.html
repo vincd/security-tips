@@ -10,7 +10,6 @@
   <link rel="shortcut icon" href="../img/favicon.ico">
   <title>Kubernetes - Security Tips</title>
   <link rel="stylesheet" href="../css/style.css" type="text/css" />
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
   
   <script>
     // Current page data
@@ -20,31 +19,19 @@
   </script>
   
   <script src="../js/jquery-2.1.1.min.js" defer></script>
-  <script src="../js/modernizr-2.8.3.min.js" defer></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/yaml.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/powershell.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/bash.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/nginx.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/python.min.js"></script>
-  <script>hljs.initHighlightingOnLoad();</script> 
-  
-  <script>
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-      ga('create', 'UA-128044070-2', 'security-tips.vincd.com');
-      ga('send', 'pageview');
-  </script>
-  
+  <script src="../js/modernizr-2.8.3.min.js" defer></script> 
 </head>
 
 <body class="ready sticky">
+  <button class="sidebar-toggle">
+    <div class="sidebar-toggle-button">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </button>
 
   <main>
-
     
     <aside class="sidebar">
       <div class="search">
@@ -54,7 +41,7 @@
 		</form>
 	</div>
 </div>
-      
+
       <h1 class="app-name"><a class="app-name-link" data-nosearch="" href="/">Security Tips</a></h1>
 
       <div class="sidebar-nav">
@@ -262,45 +249,45 @@
 </code></pre>
 
 <p>With the above information it's possible to send requests to the API to execute commands:</p>
-<pre><code class="bash">$ curl --insecure -v -H &quot;W-Stream-Protocol-Version: v2.channel.k8s.io&quot; -H &quot;X-Stream-Protocol-Version: channel.k8s.io&quot; -H &quot;Connection: upgrade&quot; -H &quot;Upgrade: SPDY/3.1&quot; -X POST &quot;https://&lt;host&gt;:&lt;port&gt;/exec/&lt;namespace&gt;/&lt;pod_name&gt;/&lt;container_name&gt;?command=&lt;cmd&gt;&amp;input=1&amp;output=1&amp;tty=1&quot;
+<pre><code class="language-bash">$ curl --insecure -v -H &quot;W-Stream-Protocol-Version: v2.channel.k8s.io&quot; -H &quot;X-Stream-Protocol-Version: channel.k8s.io&quot; -H &quot;Connection: upgrade&quot; -H &quot;Upgrade: SPDY/3.1&quot; -X POST &quot;https://&lt;host&gt;:&lt;port&gt;/exec/&lt;namespace&gt;/&lt;pod_name&gt;/&lt;container_name&gt;?command=&lt;cmd&gt;&amp;input=1&amp;output=1&amp;tty=1&quot;
 </code></pre>
 
 <p>In the response, there is a <code>Location</code> header to create a WebSocket connection:</p>
-<pre><code class="bash">$ wscat -c &quot;https://&lt;host&gt;:&lt;port&gt;/&lt;location_header&gt;&quot; --no-check
+<pre><code class="language-bash">$ wscat -c &quot;https://&lt;host&gt;:&lt;port&gt;/&lt;location_header&gt;&quot; --no-check
 </code></pre>
 
 <h2 id="lancer-un-pod-qui-se-supprime-automatiquement-a-la-fin">Lancer un pod qui se supprime automatiquement à la fin</h2>
-<pre><code class="bash">$ kubectl run k8s-2-test -ti --rm --image=debian --generator=run-pod/v1
+<pre><code class="language-bash">$ kubectl run k8s-2-test -ti --rm --image=debian --generator=run-pod/v1
 </code></pre>
 
 <h2 id="sattacher-a-un-pod-existant">S'attacher à un pod existant</h2>
-<pre><code class="bash">$ kubectl exec -it k8s-2-test -- /bin/bash
+<pre><code class="language-bash">$ kubectl exec -it k8s-2-test -- /bin/bash
 </code></pre>
 
 <h2 id="se-connecter-a-une-session-existante">Se connecter à une session existante</h2>
-<pre><code class="bash">$ kubectl attach k8s-1-test -c k8s-1-test -i -t
+<pre><code class="language-bash">$ kubectl attach k8s-1-test -c k8s-1-test -i -t
 </code></pre>
 
 <h2 id="copier-un-fichier-dun-pod-a-sa-machine">Copier un fichier d'un pod à sa machine</h2>
-<pre><code class="bash">$ kubectl cp default/k8s-1-test:results.nmap ./result_nmaps_banner
+<pre><code class="language-bash">$ kubectl cp default/k8s-1-test:results.nmap ./result_nmaps_banner
 </code></pre>
 
 <h2 id="afficher-les-services-format-simple-a-traiter">Afficher les services (format simple à traiter)</h2>
-<pre><code class="bash">$ kubectl get services (-o wide)
+<pre><code class="language-bash">$ kubectl get services (-o wide)
 </code></pre>
 
 <h2 id="afficher-les-pods-json">Afficher les pods (json)</h2>
-<pre><code class="bash">$ kubectl get pods -o json
+<pre><code class="language-bash">$ kubectl get pods -o json
 </code></pre>
 
 <h2 id="afficher-les-pods-format-simple-a-traiter">Afficher les pods (format simple à traiter)</h2>
-<pre><code class="bash">$ kubectl get pods -o wide
+<pre><code class="language-bash">$ kubectl get pods -o wide
 ## Get IP list
 $ kubectl get pods -o wide | sed -e 's/\s\+/ /g' | cut -f6 -d &quot; &quot;
 </code></pre>
 
 <h2 id="afficher-lensemble-des-secrets">Afficher l'ensemble des secrets</h2>
-<pre><code class="bash">$ kubectl get secrets -o yaml
+<pre><code class="language-bash">$ kubectl get secrets -o yaml
 </code></pre>
             
           </div>
@@ -314,7 +301,7 @@ $ kubectl get pods -o wide | sed -e 's/\s\+/ /g' | cut -f6 -d &quot; &quot;
         </div>
       </article>
     </section>
-  </div>
+  </main>
 
   <div class="rst-versions" role="note" style="cursor: pointer">
     <span class="rst-current-version" data-toggle="rst-current-version">
@@ -328,8 +315,27 @@ $ kubectl get pods -o wide | sed -e 's/\s\+/ /g' | cut -f6 -d &quot; &quot;
     </span>
 </div>
     <script>var base_url = '..';</script>
-    <script src="../js/theme.js" defer></script>
-      <script src="../search/main.js" defer></script>
+    <script src="../js/theme.js"></script>
+    <script src="../js/prism-core.min.js"></script>
+    <script src="../js/prism-clike.min.js"></script>
+    <script src="../js/prism-yaml.min.js"></script>
+    <script src="../js/prism-powershell.min.js"></script>
+    <script src="../js/prism-bash.min.js"></script>
+    <script src="../js/prism-nginx.min.js"></script>
+    <script src="../js/prism-python.min.js"></script>
+    <script src="../js/prism-markup.min.js"></script>
+    <script src="../search/main.js"></script>
+    
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-128044070-2', 'security-tips.vincd.com');
+      ga('send', 'pageview');
+    </script>
+    
 
 </body>
 </html>
