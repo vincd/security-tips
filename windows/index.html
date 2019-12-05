@@ -118,6 +118,10 @@
     
         <li><a class="" href="#list-wifi-networks-and-password">List Wifi networks and password</a></li>
     
+        <li><a class="" href="#tcp-dump-with-netsh">TCP dump with netsh</a></li>
+    
+        <li><a class="" href="#add-user-to-local-admin">Add user to local admin</a></li>
+    
     </ul>
     
 
@@ -373,7 +377,7 @@ reg save HKLM\SAM SamBkup.hiv
 </code></pre>
 
 <h3 id="truster-account">Truster Account</h3>
-<p>The <a href="https://www.sstic.org/media/SSTIC2014/SSTIC-actes/secrets_dauthentification_pisode_ii__kerberos_cont/SSTIC2014-Article-secrets_dauthentification_pisode_ii__kerberos_contre-attaque-bordes_2.pdf" target="_blank">PDF</a> from SSTIC 2014 describes trusts accounts on Windows: </p>
+<p>The <a href="https://www.sstic.org/media/SSTIC2014/SSTIC-actes/secrets_dauthentification_pisode_ii__kerberos_cont/SSTIC2014-Article-secrets_dauthentification_pisode_ii__kerberos_contre-attaque-bordes_2.pdf" target="_blank">PDF</a> from SSTIC 2014 describes trusts accounts on Windows:</p>
 <pre><code>sAMAccountType: 805306370 = ( TRUST_ACCOUNT );
 </code></pre>
 
@@ -400,6 +404,32 @@ public class HelloWorld {
 <h3 id="list-wifi-networks-and-password">List Wifi networks and password</h3>
 <pre><code class="bash">&gt; netsh wlan show profile
 &gt; netsh wlan show profile &lt;WiFi name&gt; key=clear
+</code></pre>
+
+<h3 id="tcp-dump-with-netsh">TCP dump with netsh</h3>
+<p>You can use <code>netsh trace</code> to dump TCP connexions on a Windows system. The following
+command start a service that dump the packets:</p>
+<pre><code class="bash">&gt; netsh trace start scenario=NetConnection capture=yes report=yes persistent=no maxsize=1024 correlation=yes traceFile=C:\Temp\NetTrace.etl
+</code></pre>
+
+<p>To start to service, you need to type:</p>
+<pre><code class="bash">&gt; netsh trace stop
+</code></pre>
+
+<p>When the service is stoped, it create an <code>etl</code> file (and a <code>cab</code> for the report)
+that contains the packets. To import it to Wireshark, you need to convert the file
+to a <code>pcap</code> file. The tool <code>etl2pcapng</code> can be used to convert the file. It's
+available on <a href="https://github.com/microsoft/etl2pcapng" target="_blank">Github</a>.</p>
+<pre><code class="bash">&gt; etl2pcapng.exe NetTrace.etl  NetTrace.pcapng
+IF: medium=eth  ID=0    IfIndex=13
+Converted 3948 frames
+</code></pre>
+
+<h3 id="add-user-to-local-admin">Add user to local admin</h3>
+<pre><code class="bash"># create a local user
+&gt; net user &lt;username&gt; &lt;password&gt; /add
+# add user to local admin group
+&gt; net localgroup Administrateur &lt;username&gt; /add
 </code></pre>
             
           </div>
