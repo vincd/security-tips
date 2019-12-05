@@ -11,7 +11,7 @@ with body like {"email_address":["admin@breadcrumb.com","attacker@evil.com"]}
 ```
 
 ## JSON to XML to XXE
-When the API accept JSON type format payload, then you can try to send the same playload but as a XML file. You can download the Burp extension named "Content Type Converter".
+When the API accept JSON type format payload, then you can try to send the same payload but as a XML file. You can download the Burp extension named "Content Type Converter".
 > This extension helps you to modify the JSON request to XML, XML request to JSON and normal form request to JSON in order to play with request and responses.
 > https://exploitstube.com/xxe-for-fun-and-profit-converting-json-request-to-xml.html
 

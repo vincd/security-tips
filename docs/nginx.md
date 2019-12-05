@@ -2,7 +2,7 @@ Nginx
 =====
 
 ## Configuration file
-Here is a miss-configuration in the the nginx.conf file:
+Here is a miss-configuration in the the `nginx.conf` file:
 
 ```
 # static files

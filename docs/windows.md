@@ -187,7 +187,7 @@ To start to service, you need to type:
 > netsh trace stop
 ```
 
-When the service is stoped, it create an `etl` file (and a `cab` for the report)
+When the service is stopped, it create an `etl` file (and a `cab` for the report)
 that contains the packets. To import it to Wireshark, you need to convert the file
 to a `pcap` file. The tool `etl2pcapng` can be used to convert the file. It's
 available on [Github](https://github.com/microsoft/etl2pcapng).

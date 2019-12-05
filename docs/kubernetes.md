@@ -2,7 +2,7 @@ Kubernetes
 ==========
 
 ## API
-The Kubernetes API exposes the port `10250`. This API can be used to interact with the Kubernetes engine which basically give ou the right to do anything you desire unauthenticated.
+The Kubernetes API exposes the port `10250`. This API can be used to interact with the Kubernetes engine which basically give us the right to do anything you desire unauthenticated.
 
 To confirm that the host is running Docker you can make a GET requests to `/pods` :
 

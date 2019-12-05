@@ -1,7 +1,7 @@
 GraphQL
 =======
 
-## Request usefull informations
+## Request useful informations
 Introspection is explained [here](https://graphql.org/learn/introspection/). First we need to collect all available
 types then recursively enumerate all individual types.
 
