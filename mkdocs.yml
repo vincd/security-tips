@@ -8,14 +8,17 @@ theme:
   custom_dir: 'theme/'
   highlightjs: true
   hljs_languages:
+    - clike
     - yaml
     - powershell
     - bash
     - nginx
     - python
+    - markup
 
 markdown_extensions:
   - markdown_new_tab
+  - markdown_prism
 
 google_analytics: ['UA-128044070-2', 'security-tips.vincd.com']
 
