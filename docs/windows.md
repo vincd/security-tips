@@ -137,7 +137,7 @@ $ (Get-ADUser -Identity <user_ad_id> -Properties proxyAddresses).proxyAddresses
 
 
 ### Truster Account
-The [PDF](https://www.sstic.org/media/SSTIC2014/SSTIC-actes/secrets_dauthentification_pisode_ii__kerberos_cont/SSTIC2014-Article-secrets_dauthentification_pisode_ii__kerberos_contre-attaque-bordes_2.pdf) from SSTIC 2014 describes trusts accounts on Windows: 
+The [PDF](https://www.sstic.org/media/SSTIC2014/SSTIC-actes/secrets_dauthentification_pisode_ii__kerberos_cont/SSTIC2014-Article-secrets_dauthentification_pisode_ii__kerberos_contre-attaque-bordes_2.pdf) from SSTIC 2014 describes trusts accounts on Windows:
 
 ```
 sAMAccountType: 805306370 = ( TRUST_ACCOUNT );
@@ -172,3 +172,37 @@ public class HelloWorld {
 > netsh wlan show profile
 > netsh wlan show profile <WiFi name> key=clear
 ```
+
+### TCP dump with netsh
+
+You can use `netsh trace` to dump TCP connexions on a Windows system. The following
+command start a service that dump the packets:
+
+```bash
+> netsh trace start scenario=NetConnection capture=yes report=yes persistent=no maxsize=1024 correlation=yes traceFile=C:\Temp\NetTrace.etl
+```
+
+To start to service, you need to type:
+```bash
+> netsh trace stop
+```
+
+When the service is stoped, it create an `etl` file (and a `cab` for the report)
+that contains the packets. To import it to Wireshark, you need to convert the file
+to a `pcap` file. The tool `etl2pcapng` can be used to convert the file. It's
+available on [Github](https://github.com/microsoft/etl2pcapng).
+
+```bash
+> etl2pcapng.exe NetTrace.etl  NetTrace.pcapng
+IF: medium=eth  ID=0    IfIndex=13
+Converted 3948 frames
+```
+
+### Add user to local admin
+```bash
+# create a local user
+> net user <username> <password> /add
+# add user to local admin group
+> net localgroup Administrateur <username> /add
+```
+
