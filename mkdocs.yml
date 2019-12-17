@@ -45,6 +45,7 @@ nav:
     - IIS: iis.md
     - Nginx: nginx.md
   - CVE:
+    - CVE-2016-3714: cve/CVE-2016-3714.md
     - CVE-2019-1388: cve/CVE-2019-1388/index.md
     - CVE-2019-11510: cve/CVE-2019-11510.md
     - CVE-2019-11581: cve/CVE-2019-11581.md
