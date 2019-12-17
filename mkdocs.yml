@@ -58,5 +58,6 @@ nav:
     - ISCSI: iscsi.md
     - Reverse Shell: reverse-shell.md
     - WAF: waf.md
+    - Others: miscs.md
 
 dev_addr: 0.0.0.0:4000
