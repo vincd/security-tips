@@ -8,14 +8,14 @@
   
   <meta name="author" content="Vincent D. (@vincd)">
   <link rel="shortcut icon" href="../img/favicon.ico">
-  <title>Ssl - Security Tips</title>
+  <title>Others - Security Tips</title>
   <link rel="stylesheet" href="../css/style.css" type="text/css" />
   
   <script>
     // Current page data
-    var mkdocs_page_name = "Ssl";
-    var mkdocs_page_input_path = "ssl.md";
-    var mkdocs_page_url = "/ssl/";
+    var mkdocs_page_name = "Others";
+    var mkdocs_page_input_path = "miscs.md";
+    var mkdocs_page_url = "/miscs/";
   </script>
   
   <script src="../js/jquery-2.1.1.min.js" defer></script>
@@ -152,6 +152,10 @@
     <ul>
                 <li class="">
                     
+    <a class="section-link" href="../cve/CVE-2016-3714/">CVE-2016-3714</a>
+                </li>
+                <li class="">
+                    
     <a class="section-link" href="../cve/CVE-2019-1388/">CVE-2019-1388</a>
                 </li>
                 <li class="">
@@ -186,7 +190,7 @@
           
           <li class="bold">
 		        
-    <span class="section-link ">Misc</span>
+    <span class="section-link active">Misc</span>
     <ul>
                 <li class="">
                     
@@ -204,6 +208,23 @@
                     
     <a class="section-link" href="../waf/">WAF</a>
                 </li>
+                <li class="active">
+                    
+    <a class="section-link" href="./">Others</a>
+    <ul>
+            
+    
+    <ul>
+    
+        <li><a class="" href="#web">Web</a></li>
+    
+        <li><a class="" href="#ssltls">SSL/TLS</a></li>
+    
+    </ul>
+    
+
+    </ul>
+                </li>
     </ul>
           </li>
           
@@ -217,8 +238,15 @@
         <div role="main">
           <div class="section">
             
-              <h1 id="ssl-configuration">SSL Configuration</h1>
-<p>https://ssl-config.mozilla.org/</p>
+              <h1 id="miscellaneous">Miscellaneous</h1>
+<h2 id="web">Web</h2>
+<h3 id="serve-a-file-locally">Serve a file locally</h3>
+<pre><code class="language-bash">$ while :; do (echo -ne &quot;HTTP/1.1 200 OK\r\nContent-Length: $(wc -c &lt; index.html)\r\n\r\n&quot;; cat index.html) | nc -l -p 8080; done
+</code></pre>
+
+<h2 id="ssltls">SSL/TLS</h2>
+<h3 id="ssl-configuration-examples">SSL configuration examples</h3>
+<p><a href="https://ssl-config.mozilla.org/" target="_blank">Mozilla Config</a></p>
             
           </div>
           <footer>
@@ -236,6 +264,8 @@
   <div class="rst-versions" role="note" style="cursor: pointer">
     <span class="rst-current-version" data-toggle="rst-current-version">
       
+      
+        <span><a href="../waf/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
     </span>
