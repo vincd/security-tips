@@ -1,5 +1,9 @@
 serve:
-	python -m mkdocs serve
+	python3 -m mkdocs serve
+
+install:
+	python3 -m pip install --upgrade pip
+	python3 -m pip install -r ./requirements.txt
 
 build:
-	python -m mkdocs build
+	python3 -m mkdocs build

