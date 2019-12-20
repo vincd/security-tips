@@ -30,3 +30,67 @@ are explain [here](https://blog.jeroenhd.nl/article/android-7-nougat-and-certifi
 Then, on the application you may need to patch some instructions. You will need
 some Android tools and patch the `smali` code. One again, technical details are
 explained [here](https://medium.com/@felipecsl/bypassing-certificate-pinning-on-android-for-fun-and-profit-1b0d14beab2b).
+
+### Burp AC
+Export the certificate with DER format. Then use `openssl` to convert to PEM format
+and get the hash:
+
+```bash
+$ openssl x509 -inform DER -in cacert.der -out cacert.pem
+$ openssl x509 -inform PEM -subject_hash_old -in cacert.pem |head -1
+$ mv cacert.pem <hash>.0
+```
+
+Once you have the file with the correct name, push it to the phone using `adb`:
+
+```bash
+$ adb root
+$ adb remount
+$ adb push <cert>.0 /sdcard/
+$ adb shell
+```
+
+
+On the phone, move the file to the cert store and fix the permissions:
+
+```bash
+$ mv /sdcard/<cert>.0 /system/etc/security/cacerts/
+$ chmod 644 /system/etc/security/cacerts/<cert>.0
+```
+
+Then you need to reboot the device (`adb reboot`). After the device reboots,
+check if everything is fine in `Settings / Security / Trusted Credentials`. You
+should show a new "Portswigger CA" as a system trusted CA.
+
+
+## Edit Android APK
+
+
+### Edit an APK file using apktool
+```bash
+$ apktool d example/ -o example.unaligned.apk
+```
+
+Then when you finished to edit the files (smali, AndroidManifest, ...) you can
+recompile and sign the new apk file.
+
+```bash
+$ apktool b example/ -o example.unaligned.apk
+$ jarsigner -verbose -sigalg MD5withRSA -digestalg SHA1 -keystore ~/.android/debug.keystore -storepass android example.unaligned.apk androiddebugkey
+$ zipalign -v 4 example.unaligned.apk example.smali.apk
+```
+
+## ADB
+
+### List packages
+```bash
+$ adb shell pm list packages
+```
+
+
+### Install application
+```bash
+$ adb shell settings put global verifier_verify_adb_installs 0
+# adb shell settings put global package_verifier_enable 0
+$ adb install <app.apk>
+```
