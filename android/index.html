@@ -271,7 +271,58 @@ are explain <a href="https://blog.jeroenhd.nl/article/android-7-nougat-and-certi
 <p>Then, on the application you may need to patch some instructions. You will need
 some Android tools and patch the <code>smali</code> code. One again, technical details are
 explained <a href="https://medium.com/@felipecsl/bypassing-certificate-pinning-on-android-for-fun-and-profit-1b0d14beab2b" target="_blank">here</a>.</p>
-<h3 id="burp-ac">Burp AC</h3>
+<h3 id="okhttp3">OkHTTP3</h3>
+<p>The framework allows the developers to set <code>SHA1</code> or <code>SHA256</code> certificate signature
+to handle certificate pinning. Therefore, the easiest way to bypass the pinning
+is to change the framework logic.
+The logic is located inside the file <code>CertificatePinner.kt</code> (or <code>CertificatePinner.java</code>
+for old versions).</p>
+<pre><code class="language-java">for (peerCertificate in peerCertificates) {
+  // Lazily compute the hashes for each certificate.
+  var sha1: ByteString? = null
+  var sha256: ByteString? = null
+
+  for (pin in pins) {
+    when (pin.hashAlgorithm) {
+      &quot;sha256/&quot; -&gt; {
+        if (sha256 == null) sha256 = peerCertificate.toSha256ByteString()
+        if (pin.hash == sha256) return // Success!
+      }
+      &quot;sha1/&quot; -&gt; {
+        if (sha1 == null) sha1 = peerCertificate.toSha1ByteString()
+        if (pin.hash == sha1) return // Success!
+      }
+      else -&gt; throw AssertionError(&quot;unsupported hashAlgorithm: ${pin.hashAlgorithm}&quot;)
+    }
+  }
+}
+</code></pre>
+
+<p>We should not throw an exception. This is straightforward, let's change the
+conditions <code>pin.hash == sha256</code> and <code>pin.hash == sha1</code>. TO do this, we need to
+edit the smali code. By the way, I find quite handy to use <code>jadx</code> to match smali
+to Java code.</p>
+<p>The smali code for the check is the following :</p>
+<pre><code>    .line 180
+    :cond_2
+    iget-object v9, v9, Lokhttp3/CertificatePinner$Pin;-&gt;hash:Lokio/ByteString;
+
+    invoke-virtual {v9, v7}, Lokio/ByteString;-&gt;equals(Ljava/lang/Object;)Z
+
+    move-result v9
+
+    **if-eqz** v9, :cond_5
+</code></pre>
+
+<p>At the end, we need to inverse the condition from <code>if-eqz</code> (<code>if equal zero</code>) to
+<code>if-nez</code> (<code>if non-zero</code>). There is a list of all <code>opcode</code> <a href="http://pallergabor.uw.hu/androidblog/dalvik_opcodes.html" target="_blank">here</a>.
+Don't forget to check your code is correct to <code>jadx</code>:</p>
+<pre><code class="language-java">if (!pin.hash.equals(byteString)) {
+  return;
+}
+</code></pre>
+
+<h3 id="add-burp-ac">Add Burp AC</h3>
 <p>Export the certificate with DER format. Then use <code>openssl</code> to convert to PEM format
 and get the hash:</p>
 <pre><code class="language-bash">$ openssl x509 -inform DER -in cacert.der -out cacert.pem
