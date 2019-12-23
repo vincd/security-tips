@@ -1,7 +1,6 @@
 Android
 =======
 
-
 ## Installation
 Download [GenyMotion](https://www.genymotion.com/) and install it. It's free for
 a personal use.
@@ -31,7 +30,66 @@ Then, on the application you may need to patch some instructions. You will need
 some Android tools and patch the `smali` code. One again, technical details are
 explained [here](https://medium.com/@felipecsl/bypassing-certificate-pinning-on-android-for-fun-and-profit-1b0d14beab2b).
 
-### Burp AC
+### OkHTTP3
+The framework allows the developers to set `SHA1` or `SHA256` certificate signature
+to handle certificate pinning. Therefore, the easiest way to bypass the pinning
+is to change the framework logic.
+The logic is located inside the file `CertificatePinner.kt` (or `CertificatePinner.java`
+for old versions).
+
+```java
+for (peerCertificate in peerCertificates) {
+  // Lazily compute the hashes for each certificate.
+  var sha1: ByteString? = null
+  var sha256: ByteString? = null
+
+  for (pin in pins) {
+    when (pin.hashAlgorithm) {
+      "sha256/" -> {
+        if (sha256 == null) sha256 = peerCertificate.toSha256ByteString()
+        if (pin.hash == sha256) return // Success!
+      }
+      "sha1/" -> {
+        if (sha1 == null) sha1 = peerCertificate.toSha1ByteString()
+        if (pin.hash == sha1) return // Success!
+      }
+      else -> throw AssertionError("unsupported hashAlgorithm: ${pin.hashAlgorithm}")
+    }
+  }
+}
+```
+
+We should not throw an exception. This is straightforward, let's change the
+conditions `pin.hash == sha256` and `pin.hash == sha1`. TO do this, we need to
+edit the smali code. By the way, I find quite handy to use `jadx` to match smali
+to Java code.
+
+The smali code for the check is the following :
+
+```
+    .line 180
+    :cond_2
+    iget-object v9, v9, Lokhttp3/CertificatePinner$Pin;->hash:Lokio/ByteString;
+
+    invoke-virtual {v9, v7}, Lokio/ByteString;->equals(Ljava/lang/Object;)Z
+
+    move-result v9
+
+    **if-eqz** v9, :cond_5
+```
+
+At the end, we need to inverse the condition from `if-eqz` (`if equal zero`) to
+`if-nez` (`if non-zero`). There is a list of all `opcode` [here](http://pallergabor.uw.hu/androidblog/dalvik_opcodes.html).
+Don't forget to check your code is correct to `jadx`:
+
+```java
+if (!pin.hash.equals(byteString)) {
+  return;
+}
+```
+
+
+### Add Burp AC
 Export the certificate with DER format. Then use `openssl` to convert to PEM format
 and get the hash:
 
@@ -65,7 +123,6 @@ should show a new "Portswigger CA" as a system trusted CA.
 
 ## Edit Android APK
 
-
 ### Edit an APK file using apktool
 ```bash
 $ apktool d example/ -o example.unaligned.apk
@@ -80,13 +137,13 @@ $ jarsigner -verbose -sigalg MD5withRSA -digestalg SHA1 -keystore ~/.android/deb
 $ zipalign -v 4 example.unaligned.apk example.smali.apk
 ```
 
+
 ## ADB
 
 ### List packages
 ```bash
 $ adb shell pm list packages
 ```
-
 
 ### Install application
 ```bash
