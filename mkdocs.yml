@@ -33,6 +33,7 @@ nav:
     - Kubernetes: kubernetes.md
   - Windows: windows.md
   - Linux: linux.md
+  - SSH: ssh.md
   - XXE: xxe.md
   - Zip: zip.md
   - Kafka: kafka.md
@@ -43,7 +44,6 @@ nav:
     - 'Path Traversal': path-traversal.md
     - GraphQL: graphql.md
     - PHP: php.md
-    - Git: git.md
     - JWT: jwt.md
     - IIS: iis.md
     - Nginx: nginx.md
@@ -58,6 +58,7 @@ nav:
     - 'lit-fam': sdr/lit-fam/hackingforsoju.md
   - Misc:
     - Firefox: firefox.md
+    - Git: git.md
     - ISCSI: iscsi.md
     - Reverse Shell: reverse-shell.md
     - WAF: waf.md
