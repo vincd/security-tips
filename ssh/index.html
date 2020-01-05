@@ -8,14 +8,14 @@
   
   <meta name="author" content="Vincent D. (@vincd)">
   <link rel="shortcut icon" href="../img/favicon.ico">
-  <title>Linux - Security Tips</title>
+  <title>SSH - Security Tips</title>
   <link rel="stylesheet" href="../css/style.css" type="text/css" />
   
   <script>
     // Current page data
-    var mkdocs_page_name = "Linux";
-    var mkdocs_page_input_path = "linux.md";
-    var mkdocs_page_url = "/linux/";
+    var mkdocs_page_name = "SSH";
+    var mkdocs_page_input_path = "ssh.md";
+    var mkdocs_page_url = "/ssh/";
   </script>
   
   <script src="../js/jquery-2.1.1.min.js" defer></script>
@@ -83,29 +83,25 @@
     <a class="section-link" href="../windows/">Windows</a>
           </li>
           
+          <li class="bold">
+		        
+    <a class="section-link" href="../linux/">Linux</a>
+          </li>
+          
           <li class="bold active">
 		        
-    <a class="section-link" href="./">Linux</a>
+    <a class="section-link" href="./">SSH</a>
     <ul>
             
     
     <ul>
     
-        <li><a class="" href="#wildcard">Wildcard</a></li>
-    
-        <li><a class="" href="#run-elf-using-ld-linux">Run ELF using ld-linux</a></li>
-    
-        <li><a class="" href="#compile-cc-including-a-file">Compile C/C++ including a file</a></li>
+        <li><a class="" href="#configuration-review">Configuration Review</a></li>
     
     </ul>
     
 
     </ul>
-          </li>
-          
-          <li class="bold">
-		        
-    <a class="section-link" href="../ssh/">SSH</a>
           </li>
           
           <li class="bold">
@@ -249,50 +245,9 @@
         <div role="main">
           <div class="section">
             
-              <h1 id="linux">Linux</h1>
-<h3 id="wildcard">Wildcard</h3>
-<pre><code class="language-bash">$ ls -al /*a*/www/*l/*la*/*la*.*
-#        /var/www/html/flag/flag.php
-</code></pre>
-
-<pre><code class="language-bash">$ ls
--al
-$ ls *
--rw-rw-r-- 1 root root 0 jun 28 21:38 -al
-</code></pre>
-
-<h3 id="run-elf-using-ld-linux">Run ELF using ld-linux</h3>
-<p>You can run an ELF binary without the <code>x</code> flag using <code>ld-linux</code>:</p>
-<pre><code class="language-bash"># From: https://twitter.com/leonjza/status/1201946856005259264
-$ cp /bin/ls .
-$ ls
-ls
-$ chmod -x ls
-$ ls -l ls
--rw-r--r-- 1 root root 126584 Dec  4 08:32 ls
-$ ./ls
--bash: ./ls: Permission denied
-$ /lib64/ld-linux-x86-64.so.2 ./ls
-ls
-</code></pre>
-
-<p>It can be useful when you can't set the bit or you have a capability on <code>ld-linux</code> set.</p>
-<h3 id="compile-cc-including-a-file">Compile C/C++ including a file</h3>
-<p>From <a href="https://twitter.com/Poita_/status/1198413809670598662" target="_blank">@Poita_</a> and <a href="https://blog.hboeck.de/archives/898-include-etcshadow.html" target="_blank">hboeck</a>. You can include a file or even <code>/dev/stdin</code>
-when you compile a file. So, it's possible to include <code>/etc/shadow</code> if you have
-the correct permissions on the server. Hboeck explains that it's possible to get
-the file from online compiler (<a href="http://cpp.sh/" target="_blank">cpp.sh</a> may work).</p>
-<pre><code class="language-c">#include &lt;stdio.h&gt;
-int main() {
-  printf(&quot;%s\n&quot;,
-    #include &lt;/etc/shadow&gt;
-  )
-  return 0;
-}
-</code></pre>
-
-<pre><code class="language-bash">$ g++ a.cpp &amp;&amp; ./a.out
-</code></pre>
+              <h1 id="secure-shell">Secure Shell</h1>
+<h2 id="configuration-review">Configuration Review</h2>
+<p>Here is a good SSH configuration review/hardening guide: <a href="https://community.turgensec.com/ssh-hacking-guide/" target="_blank">https://community.turgensec.com/ssh-hacking-guide/</a></p>
             
           </div>
           <footer>
@@ -311,10 +266,10 @@ int main() {
     <span class="rst-current-version" data-toggle="rst-current-version">
       
       
-        <span><a href="../windows/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href="../linux/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
-        <span style="margin-left: 15px"><a href="../ssh/" style="color: #fcfcfc">Next &raquo;</a></span>
+        <span style="margin-left: 15px"><a href="../xxe/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>
