@@ -367,10 +367,15 @@ $ zipalign -v 4 example.unaligned.apk example.smali.apk
 <pre><code class="language-bash">$ adb shell pm list packages
 </code></pre>
 
+<h3 id="get-apk-from-android-device">Get APK from Android device</h3>
+<pre><code class="language-bash">adb shell pm path com.example.someapp
+adb pull &lt;apk_path&gt; &lt;path_on_your_disk&gt;
+</code></pre>
+
 <h3 id="install-application">Install application</h3>
-<pre><code class="language-bash">$ adb shell settings put global verifier_verify_adb_installs 0
+<pre><code class="language-bash">adb shell settings put global verifier_verify_adb_installs 0
 # adb shell settings put global package_verifier_enable 0
-$ adb install &lt;app.apk&gt;
+adb install &lt;app.apk&gt;
 </code></pre>
             
           </div>
