@@ -144,6 +144,8 @@
     
         <li><a class="" href="#cve-2012-1823-rce-in-php-cgi">CVE-2012-1823: RCE in PHP-CGI</a></li>
     
+        <li><a class="" href="#laravel-configuration-file">Laravel configuration file</a></li>
+    
     </ul>
     
 
@@ -187,6 +189,10 @@
                 <li class="">
                     
     <a class="section-link" href="../cve/CVE-2019-16759/">CVE-2019-16759</a>
+                </li>
+                <li class="">
+                    
+    <a class="section-link" href="../cve/CVE-2019-19781/">CVE-2019-19781</a>
                 </li>
     </ul>
           </li>
@@ -311,6 +317,15 @@ unlink
 </code></pre>
 
 <p>More details can be found on the Metasploit script <a href="https://github.com/rapid7/metasploit-framework/blob/master/modules/exploits/multi/http/php_cgi_arg_injection.rb" target="_blank">here</a></p>
+<h2 id="laravel-configuration-file">Laravel configuration file</h2>
+<p>The Laravel configuration file is sometimes exposed on the Internet with a dotEnv
+file at the root level of the web server:</p>
+<pre><code>https://&lt;host&gt;/.env
+</code></pre>
+
+<p>You can find vulnerable target using a Google dork:</p>
+<pre><code>&quot;DB_PASSWORD&quot; filetype:env
+</code></pre>
             
           </div>
           <footer>
