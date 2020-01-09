@@ -76,3 +76,20 @@ POST https://<host>/file.php?-d%20allow_url_include%3d1%20-d%20auto_prepend_file
 ```
 
 More details can be found on the Metasploit script [here](https://github.com/rapid7/metasploit-framework/blob/master/modules/exploits/multi/http/php_cgi_arg_injection.rb)
+
+
+
+## Laravel configuration file
+
+The Laravel configuration file is sometimes exposed on the Internet with a dotEnv
+file at the root level of the web server:
+
+```
+https://<host>/.env
+```
+
+You can find vulnerable target using a Google dork:
+
+```
+"DB_PASSWORD" filetype:env
+```
