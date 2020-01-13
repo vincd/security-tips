@@ -36,3 +36,23 @@ git diff <commit_hash>
 ```
 
 Don't forget to also check the username or email address of the committer.
+
+
+## Use git over an HTTP Proxy
+You can use `git` (therefore `ssh`) over an HTTP Proxy using the `ProxyCommand`
+configuration.
+
+For `ssh` the command looks like:
+```bash
+ssh <ssh_user>@<ssh_host> -o "ProxyCommand=nc -X connect -x <proxy_host>:<proxy_port> %h %p"
+```
+
+Or you can edit the `~/.ssh/config`  file to add the `ProxyCommand` to a specific
+host. For example, if you want to use Github through an HTTP proxy:
+
+```
+Host github.com
+    User                  git
+    ProxyCommand          nc -X connect -x <proxy_host>:<proxy_port> %h %p
+    ServerAliveInterval   10
+```
