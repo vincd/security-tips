@@ -217,6 +217,8 @@
     
         <li><a class="" href="#find-git-secrets">Find git secrets</a></li>
     
+        <li><a class="" href="#use-git-over-an-http-proxy">Use git over an HTTP Proxy</a></li>
+    
     </ul>
     
 
@@ -278,6 +280,20 @@ git diff &lt;commit_hash&gt;
 </code></pre>
 
 <p>Don't forget to also check the username or email address of the committer.</p>
+<h2 id="use-git-over-an-http-proxy">Use git over an HTTP Proxy</h2>
+<p>You can use <code>git</code> (therefore <code>ssh</code>) over an HTTP Proxy using the <code>ProxyCommand</code>
+configuration.</p>
+<p>For <code>ssh</code> the command looks like:</p>
+<pre><code class="language-bash">ssh &lt;ssh_user&gt;@&lt;ssh_host&gt; -o &quot;ProxyCommand=nc -X connect -x &lt;proxy_host&gt;:&lt;proxy_port&gt; %h %p&quot;
+</code></pre>
+
+<p>Or you can edit the <code>~/.ssh/config</code>  file to add the <code>ProxyCommand</code> to a specific
+host. For example, if you want to use Github through an HTTP proxy:</p>
+<pre><code>Host github.com
+    User                  git
+    ProxyCommand          nc -X connect -x &lt;proxy_host&gt;:&lt;proxy_port&gt; %h %p
+    ServerAliveInterval   10
+</code></pre>
             
           </div>
           <footer>
