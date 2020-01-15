@@ -116,6 +116,8 @@
     
         <li><a class="" href="#add-user-to-local-admin">Add user to local admin</a></li>
     
+        <li><a class="" href="#extract-microsoft-update-files">Extract Microsoft Update files</a></li>
+    
     </ul>
     
 
@@ -457,6 +459,14 @@ Converted 3948 frames
 $ net user &lt;username&gt; &lt;password&gt; /add
 # add user to local admin group
 $ net localgroup Administrateur &lt;username&gt; /add
+</code></pre>
+
+<h3 id="extract-microsoft-update-files">Extract Microsoft Update files</h3>
+<p>A Windows Update is a <code>.msu</code> archive that contains a <code>.cab</code> archive. This file
+contains the new binaries (<code>.dll</code>, <code>.exe</code>, ...). To extract the two archive you
+can use the <code>expand</code> command:</p>
+<pre><code class="language-bash">expand -f:* &quot;update.msu&quot; &quot;%temp%\\update.msu&quot;
+expand -f:* &quot;%temp%\\update.msu\\update.cab&quot; &quot;%temp%\\update.msu\\update.cab&quot;
 </code></pre>
             
           </div>
