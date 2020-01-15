@@ -1,6 +1,19 @@
 Firefox
 =======
 
+
+## Useful addons
+
+Here are good Firefox addons to install:
+
+- [Firefox Multi-Account Containers](https://addons.mozilla.org/en-US/firefox/addon/multi-account-containers/)
+- [FoxyProxy Standard](https://addons.mozilla.org/en-US/firefox/addon/foxyproxy-standard/)
+- [Wappalyzer](https://addons.mozilla.org/en-US/firefox/addon/wappalyzer/)
+- [HackBar](https://addons.mozilla.org/fr/firefox/addon/hackbartool/)
+- [User-Agent Switcher and Manager](https://addons.mozilla.org/en-US/firefox/addon/user-agent-string-switcher/)
+- [Tamper Data for FF Quantum](https://addons.mozilla.org/en-US/firefox/addon/tamper-data-for-ff-quantum)
+
+
 ## Read password (old)
 ```python
 import os
