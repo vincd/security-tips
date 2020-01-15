@@ -221,3 +221,14 @@ $ net user <username> <password> /add
 $ net localgroup Administrateur <username> /add
 ```
 
+
+### Extract Microsoft Update files
+
+A Windows Update is a `.msu` archive that contains a `.cab` archive. This file
+contains the new binaries (`.dll`, `.exe`, ...). To extract the two archive you
+can use the `expand` command:
+
+```bash
+expand -f:* "update.msu" "%temp%\\update.msu"
+expand -f:* "%temp%\\update.msu\\update.cab" "%temp%\\update.msu\\update.cab"
+```
