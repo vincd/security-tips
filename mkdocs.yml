@@ -61,6 +61,7 @@ nav:
   - Misc:
     - Firefox: firefox.md
     - Git: git.md
+    - JDWP: jdwp.md
     - ISCSI: iscsi.md
     - Reverse Shell: reverse-shell.md
     - WAF: waf.md
