@@ -14,13 +14,24 @@ nc -lvnp {PORT}
 python -c 'import pty; pty.spawn("/bin/bash")'
 ```
 
-Then, `Ctrl-Z` and type:
+Then, `Ctrl-Z` to suspend the connection and return to your own terminal.
+Type on your terminal:
 ```bash
 stty raw -echo
 ```
 
-The console should be black, next foreground the shell with `fg` then
-reinitialize the terminal with `reset`.
+The console should be black, next foreground the shell with:
+```bash
+fg
+reset
+```
+
+On target host
+```
+export SHELL=bash
+export TERM=xterm-256color
+stty rows 24 columns 80
+```
 
 
 ## On the remote server
