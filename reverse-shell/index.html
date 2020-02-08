@@ -275,12 +275,22 @@ a listener with <code>netcat</code>:</p>
 python -c 'import pty; pty.spawn(&quot;/bin/bash&quot;)'
 </code></pre>
 
-<p>Then, <code>Ctrl-Z</code> and type:</p>
+<p>Then, <code>Ctrl-Z</code> to suspend the connection and return to your own terminal.
+Type on your terminal:</p>
 <pre><code class="language-bash">stty raw -echo
 </code></pre>
 
-<p>The console should be black, next foreground the shell with <code>fg</code> then
-reinitialize the terminal with <code>reset</code>.</p>
+<p>The console should be black, next foreground the shell with:</p>
+<pre><code class="language-bash">fg
+reset
+</code></pre>
+
+<p>On target host</p>
+<pre><code>export SHELL=bash
+export TERM=xterm-256color
+stty rows 24 columns 80
+</code></pre>
+
 <h2 id="on-the-remote-server">On the remote server</h2>
 <h3 id="windows">Windows</h3>
 <pre><code class="language-bash">&gt; cmd.exe /C &lt;cmd&gt;

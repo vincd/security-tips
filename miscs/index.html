@@ -245,6 +245,10 @@
     
         <li><a class="" href="#ssltls">SSL/TLS</a></li>
     
+        <li><a class="" href="#nmap">Nmap</a></li>
+    
+        <li><a class="" href="#google-api-key">Google API key</a></li>
+    
     </ul>
     
 
@@ -272,6 +276,19 @@
 <h2 id="ssltls">SSL/TLS</h2>
 <h3 id="ssl-configuration-examples">SSL configuration examples</h3>
 <p><a href="https://ssl-config.mozilla.org/" target="_blank">Mozilla Config</a></p>
+<h2 id="nmap">Nmap</h2>
+<pre><code class="language-bash">nmap -sC -sV -oA &lt;output_name&gt; &lt;host&gt;
+</code></pre>
+
+<h2 id="google-api-key">Google API key</h2>
+<p>There is potential miss-configuration when an application uses the Google Maps API:</p>
+<ul>
+<li>Contain an HTTP Referrer with a <code>star</code> like <code>*example.com*/*</code></li>
+<li>Use on other Google Cloud Platform Console (BigQuery, Compute Engine, ...)</li>
+<li>Return the <code>signature</code>parameter</li>
+</ul>
+<p>The tool <a href="https://github.com/ozguralp/gmapsapiscanner" target="_blank"><code>gmapsapiscanner</code></a> can be
+used to detect invalid permissions on Google Maps API.</p>
             
           </div>
           <footer>
