@@ -15,6 +15,13 @@ $ while :; do (echo -ne "HTTP/1.1 200 OK\r\nContent-Length: $(wc -c < index.html
 [Mozilla Config](https://ssl-config.mozilla.org/)
 
 
+## Nmap
+
+```bash
+nmap -sC -sV -oA <output_name> <host>
+```
+
+
 ## Google API key
 There is potential miss-configuration when an application uses the Google Maps API:
 
