@@ -54,6 +54,7 @@ nav:
     - CVE-2019-11581: cve/CVE-2019-11581.md
     - CVE-2019-16759: cve/CVE-2019-16759.md
     - CVE-2019-19781: cve/CVE-2019-19781.md
+    - CVE-2020-0618: cve/CVE-2020-0618.md
     - FFmpeg HLS vulnerability: cve/ffmpeg.md
   - SDR:
     - 'Challs Dont Matter Anymore': sdr/challs-dont-matter-anymore/hackingforsoju.md
