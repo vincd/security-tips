@@ -33,3 +33,11 @@ There is potential miss-configuration when an application uses the Google Maps A
 The tool [`gmapsapiscanner`](https://github.com/ozguralp/gmapsapiscanner) can be
 used to detect invalid permissions on Google Maps API.
 
+
+## Github dorking
+
+Search a PoC for a CVE on Github:
+
+```
+https://github.com/search?q="<CVE-ID>"+AND+exploit+in:name+in:description+in:readme
+```
