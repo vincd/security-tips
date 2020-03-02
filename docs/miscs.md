@@ -41,3 +41,9 @@ Search a PoC for a CVE on Github:
 ```
 https://github.com/search?q="<CVE-ID>"+AND+exploit+in:name+in:description+in:readme
 ```
+
+## Download recursively an Apache Directory Listing
+
+```bash
+wget -r -N --no-parent --reject '*index.html*' -nH --cut-dirs=1  <url>
+```
