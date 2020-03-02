@@ -259,6 +259,8 @@
     
         <li><a class="" href="#github-dorking">Github dorking</a></li>
     
+        <li><a class="" href="#download-recursively-an-apache-directory-listing">Download recursively an Apache Directory Listing</a></li>
+    
     </ul>
     
 
@@ -302,6 +304,10 @@ used to detect invalid permissions on Google Maps API.</p>
 <h2 id="github-dorking">Github dorking</h2>
 <p>Search a PoC for a CVE on Github:</p>
 <pre><code>https://github.com/search?q=&quot;&lt;CVE-ID&gt;&quot;+AND+exploit+in:name+in:description+in:readme
+</code></pre>
+
+<h2 id="download-recursively-an-apache-directory-listing">Download recursively an Apache Directory Listing</h2>
+<pre><code class="language-bash">wget -r -N --no-parent --reject '*index.html*' -nH --cut-dirs=1  &lt;url&gt;
 </code></pre>
             
           </div>

