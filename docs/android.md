@@ -14,10 +14,10 @@ GenyMotion has it's own `adb`, but you can still use your own version. On Window
 it's located here: `C:\Program Files\Genymobile\Genymotion\tools`.
 
 ```bash
-$ cd "C:\Program Files\Genymobile\Genymotion\tools"
-$ adb.exe devices
-$ adb.exe connect <device ip>
-$ adb.exe shell
+cd "C:\Program Files\Genymobile\Genymotion\tools"
+adb.exe devices
+adb.exe connect <device ip>
+adb.exe shell
 vbox86p:/ #
 ```
 
@@ -67,15 +67,15 @@ to Java code.
 The smali code for the check is the following :
 
 ```
-    .line 180
-    :cond_2
-    iget-object v9, v9, Lokhttp3/CertificatePinner$Pin;->hash:Lokio/ByteString;
+.line 180
+:cond_2
+iget-object v9, v9, Lokhttp3/CertificatePinner$Pin;->hash:Lokio/ByteString;
 
-    invoke-virtual {v9, v7}, Lokio/ByteString;->equals(Ljava/lang/Object;)Z
+invoke-virtual {v9, v7}, Lokio/ByteString;->equals(Ljava/lang/Object;)Z
 
-    move-result v9
+move-result v9
 
-    **if-eqz** v9, :cond_5
+**if-eqz** v9, :cond_5
 ```
 
 At the end, we need to inverse the condition from `if-eqz` (`if equal zero`) to
@@ -94,26 +94,26 @@ Export the certificate with DER format. Then use `openssl` to convert to PEM for
 and get the hash:
 
 ```bash
-$ openssl x509 -inform DER -in cacert.der -out cacert.pem
-$ openssl x509 -inform PEM -subject_hash_old -in cacert.pem |head -1
-$ mv cacert.pem <hash>.0
+openssl x509 -inform DER -in cacert.der -out cacert.pem
+openssl x509 -inform PEM -subject_hash_old -in cacert.pem |head -1
+mv cacert.pem <hash>.0
 ```
 
 Once you have the file with the correct name, push it to the phone using `adb`:
 
 ```bash
-$ adb root
-$ adb remount
-$ adb push <cert>.0 /sdcard/
-$ adb shell
+adb root
+adb remount
+adb push <cert>.0 /sdcard/
+adb shell
 ```
 
 
 On the phone, move the file to the cert store and fix the permissions:
 
 ```bash
-$ mv /sdcard/<cert>.0 /system/etc/security/cacerts/
-$ chmod 644 /system/etc/security/cacerts/<cert>.0
+mv /sdcard/<cert>.0 /system/etc/security/cacerts/
+chmod 644 /system/etc/security/cacerts/<cert>.0
 ```
 
 Then you need to reboot the device (`adb reboot`). After the device reboots,
@@ -125,16 +125,16 @@ should show a new "Portswigger CA" as a system trusted CA.
 
 ### Edit an APK file using apktool
 ```bash
-$ apktool d example/ -o example.unaligned.apk
+apktool d example/ -o example.unaligned.apk
 ```
 
 Then when you finished to edit the files (smali, AndroidManifest, ...) you can
 recompile and sign the new apk file.
 
 ```bash
-$ apktool b example/ -o example.unaligned.apk
-$ jarsigner -verbose -sigalg MD5withRSA -digestalg SHA1 -keystore ~/.android/debug.keystore -storepass android example.unaligned.apk androiddebugkey
-$ zipalign -v 4 example.unaligned.apk example.smali.apk
+apktool b example/ -o example.unaligned.apk
+jarsigner -verbose -sigalg MD5withRSA -digestalg SHA1 -keystore ~/.android/debug.keystore -storepass android example.unaligned.apk androiddebugkey
+zipalign -v 4 example.unaligned.apk example.smali.apk
 ```
 
 
@@ -142,7 +142,7 @@ $ zipalign -v 4 example.unaligned.apk example.smali.apk
 
 ### List packages
 ```bash
-$ adb shell pm list packages
+adb shell pm list packages
 ```
 
 ### Get APK from Android device
