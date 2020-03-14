@@ -8,6 +8,7 @@ theme:
   custom_dir: 'theme/'
   highlightjs: true
   hljs_languages:
+    - line-numbers
     - clike
     - yaml
     - powershell

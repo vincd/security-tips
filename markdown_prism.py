@@ -27,7 +27,7 @@ class PrismBlockPreprocessor(Preprocessor):
         re.MULTILINE | re.DOTALL
     )
     CODE_WRAP = '<pre><code%s>%s</code></pre>'
-    LANG_TAG = ' class="language-%s"'
+    LANG_TAG = ' class="language-%s line-numbers"'
 
     def __init__(self, md):
         super(PrismBlockPreprocessor, self).__init__(md)
@@ -54,6 +54,8 @@ class PrismBlockPreprocessor(Preprocessor):
                 lang = ''
                 if m.group('lang'):
                     lang = self.LANG_TAG % m.group('lang')
+                else:
+                    lang = self.LANG_TAG % 'none'
 
                 # If config is not empty, then the codehighlite extension
                 # is enabled, so we call it to highlite the code
