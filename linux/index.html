@@ -279,11 +279,11 @@
             
               <h1 id="linux">Linux</h1>
 <h3 id="wildcard">Wildcard</h3>
-<pre><code class="language-bash">$ ls -al /*a*/www/*l/*la*/*la*.*
+<pre><code class="language-bash line-numbers">$ ls -al /*a*/www/*l/*la*/*la*.*
 #        /var/www/html/flag/flag.php
 </code></pre>
 
-<pre><code class="language-bash">$ ls
+<pre><code class="language-bash line-numbers">$ ls
 -al
 $ ls *
 -rw-rw-r-- 1 root root 0 jun 28 21:38 -al
@@ -291,7 +291,7 @@ $ ls *
 
 <h3 id="run-elf-using-ld-linux">Run ELF using ld-linux</h3>
 <p>You can run an ELF binary without the <code>x</code> flag using <code>ld-linux</code>:</p>
-<pre><code class="language-bash"># From: https://twitter.com/leonjza/status/1201946856005259264
+<pre><code class="language-bash line-numbers"># From: https://twitter.com/leonjza/status/1201946856005259264
 $ cp /bin/ls .
 $ ls
 ls
@@ -310,7 +310,7 @@ ls
 when you compile a file. So, it's possible to include <code>/etc/shadow</code> if you have
 the correct permissions on the server. Hboeck explains that it's possible to get
 the file from online compiler (<a href="http://cpp.sh/" target="_blank">cpp.sh</a> may work).</p>
-<pre><code class="language-c">#include &lt;stdio.h&gt;
+<pre><code class="language-c line-numbers">#include &lt;stdio.h&gt;
 int main() {
   printf(&quot;%s\n&quot;,
     #include &lt;/etc/shadow&gt;
@@ -319,7 +319,7 @@ int main() {
 }
 </code></pre>
 
-<pre><code class="language-bash">$ g++ a.cpp &amp;&amp; ./a.out
+<pre><code class="language-bash line-numbers">$ g++ a.cpp &amp;&amp; ./a.out
 </code></pre>
             
           </div>
@@ -349,6 +349,7 @@ int main() {
     <script>var base_url = '..';</script>
     <script src="../js/theme.js"></script>
     <script src="../js/prism-core.min.js"></script>
+    <script src="../js/prism-line-numbers.min.js"></script>
     <script src="../js/prism-clike.min.js"></script>
     <script src="../js/prism-yaml.min.js"></script>
     <script src="../js/prism-powershell.min.js"></script>

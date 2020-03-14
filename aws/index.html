@@ -281,18 +281,18 @@
             
               <h1 id="aws">AWS</h1>
 <h2 id="check-if-domain-is-on-a-bucket">Check if domain is on a bucket</h2>
-<pre><code class="language-bash">$ dig +nocmd flaws.cloud any +multiline +noall +answer
+<pre><code class="language-bash line-numbers">$ dig +nocmd flaws.cloud any +multiline +noall +answer
 </code></pre>
 
 <h2 id="list-a-bucket">List a bucket</h2>
-<pre><code class="language-bash">$ aws s3 ls  s3://flaws.cloud/ --no-sign-request --region us-west-2
+<pre><code class="language-bash line-numbers">$ aws s3 ls  s3://flaws.cloud/ --no-sign-request --region us-west-2
 </code></pre>
 
 <h2 id="ressources">Ressources</h2>
 <p>http://flaws.cloud/</p>
 <h2 id="ssrf-on-aws-to-get-credentials">SSRF on AWS to get credentials</h2>
 <p>On AWS there is a metadata server that can be accessed through the REST API located at: <code>http://169.254.169.254</code>. Sending a GET requests to the following endpoint will dump a list of roles that are attaches to the current EC2 instance.</p>
-<pre><code>http://169.254.169.254/latest/meta-data/iam/security-credentials/
+<pre><code class="language-none line-numbers">http://169.254.169.254/latest/meta-data/iam/security-credentials/
 http://169.254.169.254/latest/meta-data/iam/security-credentials/&lt;role_name&gt;
 </code></pre>
             
@@ -323,6 +323,7 @@ http://169.254.169.254/latest/meta-data/iam/security-credentials/&lt;role_name&g
     <script>var base_url = '..';</script>
     <script src="../js/theme.js"></script>
     <script src="../js/prism-core.min.js"></script>
+    <script src="../js/prism-line-numbers.min.js"></script>
     <script src="../js/prism-clike.min.js"></script>
     <script src="../js/prism-yaml.min.js"></script>
     <script src="../js/prism-powershell.min.js"></script>

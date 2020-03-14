@@ -286,14 +286,14 @@
               <h1 id="miscellaneous">Miscellaneous</h1>
 <h2 id="web">Web</h2>
 <h3 id="serve-a-file-locally">Serve a file locally</h3>
-<pre><code class="language-bash">$ while :; do (echo -ne &quot;HTTP/1.1 200 OK\r\nContent-Length: $(wc -c &lt; index.html)\r\n\r\n&quot;; cat index.html) | nc -l -p 8080; done
+<pre><code class="language-bash line-numbers">$ while :; do (echo -ne &quot;HTTP/1.1 200 OK\r\nContent-Length: $(wc -c &lt; index.html)\r\n\r\n&quot;; cat index.html) | nc -l -p 8080; done
 </code></pre>
 
 <h2 id="ssltls">SSL/TLS</h2>
 <h3 id="ssl-configuration-examples">SSL configuration examples</h3>
 <p><a href="https://ssl-config.mozilla.org/" target="_blank">Mozilla Config</a></p>
 <h2 id="nmap">Nmap</h2>
-<pre><code class="language-bash">nmap -sC -sV -oA &lt;output_name&gt; &lt;host&gt;
+<pre><code class="language-bash line-numbers">nmap -sC -sV -oA &lt;output_name&gt; &lt;host&gt;
 </code></pre>
 
 <h2 id="google-api-key">Google API key</h2>
@@ -307,11 +307,11 @@
 used to detect invalid permissions on Google Maps API.</p>
 <h2 id="github-dorking">Github dorking</h2>
 <p>Search a PoC for a CVE on Github:</p>
-<pre><code>https://github.com/search?q=&quot;&lt;CVE-ID&gt;&quot;+AND+exploit+in:name+in:description+in:readme
+<pre><code class="language-none line-numbers">https://github.com/search?q=&quot;&lt;CVE-ID&gt;&quot;+AND+exploit+in:name+in:description+in:readme
 </code></pre>
 
 <h2 id="download-recursively-an-apache-directory-listing">Download recursively an Apache Directory Listing</h2>
-<pre><code class="language-bash">wget -r -N --no-parent --reject '*index.html*' -nH --cut-dirs=1  &lt;url&gt;
+<pre><code class="language-bash line-numbers">wget -r -N --no-parent --reject '*index.html*' -nH --cut-dirs=1  &lt;url&gt;
 </code></pre>
             
           </div>
@@ -339,6 +339,7 @@ used to detect invalid permissions on Google Maps API.</p>
     <script>var base_url = '..';</script>
     <script src="../js/theme.js"></script>
     <script src="../js/prism-core.min.js"></script>
+    <script src="../js/prism-line-numbers.min.js"></script>
     <script src="../js/prism-clike.min.js"></script>
     <script src="../js/prism-yaml.min.js"></script>
     <script src="../js/prism-powershell.min.js"></script>

@@ -276,7 +276,7 @@
               <h1 id="waf">WAF</h1>
 <h2 id="bypass-wef-in-php">Bypass WEF in PHP</h2>
 <p>From: https://www.secjuice.com/abusing-php-query-string-parser-bypass-ids-ips-waf/</p>
-<pre><code>/news.php?%20news[id%00=42&quot;+AND+1=0--
+<pre><code class="language-none line-numbers">/news.php?%20news[id%00=42&quot;+AND+1=0--
 /news.php?news_id=42
 </code></pre>
             
@@ -307,6 +307,7 @@
     <script>var base_url = '..';</script>
     <script src="../js/theme.js"></script>
     <script src="../js/prism-core.min.js"></script>
+    <script src="../js/prism-line-numbers.min.js"></script>
     <script src="../js/prism-clike.min.js"></script>
     <script src="../js/prism-yaml.min.js"></script>
     <script src="../js/prism-powershell.min.js"></script>

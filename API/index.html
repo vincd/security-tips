@@ -277,7 +277,7 @@
             
               <h1 id="api">API</h1>
 <h2 id="password-reset">Password reset</h2>
-<pre><code>From: https://hackerone.com/reports/322985
+<pre><code class="language-none line-numbers">From: https://hackerone.com/reports/322985
 The attacker was able to send a password reset link to an arbitrary email by sending an array of email addresses instead of a single email address.
 
 POST https://hq.breadcrumb.com/api/v1/password_reset HTTP/1.1
@@ -290,7 +290,7 @@ with body like {&quot;email_address&quot;:[&quot;admin@breadcrumb.com&quot;,&quo
 <p>This extension helps you to modify the JSON request to XML, XML request to JSON and normal form request to JSON in order to play with request and responses.
 https://exploitstube.com/xxe-for-fun-and-profit-converting-json-request-to-xml.html</p>
 </blockquote>
-<pre><code>PUT /api/search HTTP/1.1
+<pre><code class="language-none line-numbers">PUT /api/search HTTP/1.1
 Host: test.com
 ...
 Content-Type: application/json;charset=UTF-8
@@ -300,7 +300,7 @@ Content-Type: application/json;charset=UTF-8
 }
 </code></pre>
 
-<pre><code>PUT /api/message HTTP/1.1
+<pre><code class="language-none line-numbers">PUT /api/message HTTP/1.1
 Host: test.com
 ...
 Content-Type: application/xml;charset=UTF-8
@@ -338,6 +338,7 @@ Content-Type: application/xml;charset=UTF-8
     <script>var base_url = '..';</script>
     <script src="../js/theme.js"></script>
     <script src="../js/prism-core.min.js"></script>
+    <script src="../js/prism-line-numbers.min.js"></script>
     <script src="../js/prism-clike.min.js"></script>
     <script src="../js/prism-yaml.min.js"></script>
     <script src="../js/prism-powershell.min.js"></script>

@@ -278,7 +278,7 @@
 <p>Introspection is explained <a href="https://graphql.org/learn/introspection/" target="_blank">here</a>. First we need to collect all available
 types then recursively enumerate all individual types.</p>
 <h3 id="querying-all-available-types-in-a-schema">Querying All Available Types in a Schema</h3>
-<pre><code class="language-graphql">query allSchemaTypes {
+<pre><code class="language-graphql line-numbers">query allSchemaTypes {
     __schema {
         types {
             name
@@ -290,7 +290,7 @@ types then recursively enumerate all individual types.</p>
 </code></pre>
 
 <h3 id="all-available-queries">All Available Queries</h3>
-<pre><code class="language-graphql">query availableQueries {
+<pre><code class="language-graphql line-numbers">query availableQueries {
   __schema {
     queryType {
       fields {
@@ -303,7 +303,7 @@ types then recursively enumerate all individual types.</p>
 </code></pre>
 
 <h3 id="details-about-an-individual-type">Details about an Individual Type</h3>
-<pre><code class="language-graphql">query liftType {
+<pre><code class="language-graphql line-numbers">query liftType {
   __type(name: &quot;&lt;TYPE&gt;&quot;) {
     fields {
       name
@@ -340,6 +340,7 @@ types then recursively enumerate all individual types.</p>
     <script>var base_url = '..';</script>
     <script src="../js/theme.js"></script>
     <script src="../js/prism-core.min.js"></script>
+    <script src="../js/prism-line-numbers.min.js"></script>
     <script src="../js/prism-clike.min.js"></script>
     <script src="../js/prism-yaml.min.js"></script>
     <script src="../js/prism-powershell.min.js"></script>

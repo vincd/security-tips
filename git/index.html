@@ -281,12 +281,12 @@
 <h2 id="exploit-git-exposed-over-http">Exploit git exposed over HTTP</h2>
 <p>Some website exposes <code>.git</code> to the Internet. To check if the website is vulnerable, then check for
 the following path:</p>
-<pre><code>https://&lt;domain&gt;/some/path/.git/HEAD
+<pre><code class="language-none line-numbers">https://&lt;domain&gt;/some/path/.git/HEAD
 </code></pre>
 
 <p>If the server return a status 200, then it might be possible to clone the repository. For that, you
 can use (<code>GitTools</code>)[https://github.com/internetwache/GitTools):</p>
-<pre><code>Dumper/gitdumper.sh http://&lt;domain&gt;/some/path/.git/ ~/&lt;domain&gt;
+<pre><code class="language-none line-numbers">Dumper/gitdumper.sh http://&lt;domain&gt;/some/path/.git/ ~/&lt;domain&gt;
 Extractor/extractor.sh ~/&lt;domain&gt; ~/&lt;domain&gt;_dump
 </code></pre>
 
@@ -299,7 +299,7 @@ is a Directory Listing, then it's easier to dump using <code>wget</code>.</p>
 <li><a href="https://github.com/dxa4481/truffleHog" target="_blank">truffleHog</a></li>
 </ul>
 <p>Or you can use the <code>git</code> command:</p>
-<pre><code class="language-bash">git log
+<pre><code class="language-bash line-numbers">git log
 git diff &lt;commit_hash&gt;
 </code></pre>
 
@@ -308,12 +308,12 @@ git diff &lt;commit_hash&gt;
 <p>You can use <code>git</code> (therefore <code>ssh</code>) over an HTTP Proxy using the <code>ProxyCommand</code>
 configuration.</p>
 <p>For <code>ssh</code> the command looks like:</p>
-<pre><code class="language-bash">ssh &lt;ssh_user&gt;@&lt;ssh_host&gt; -o &quot;ProxyCommand=nc -X connect -x &lt;proxy_host&gt;:&lt;proxy_port&gt; %h %p&quot;
+<pre><code class="language-bash line-numbers">ssh &lt;ssh_user&gt;@&lt;ssh_host&gt; -o &quot;ProxyCommand=nc -X connect -x &lt;proxy_host&gt;:&lt;proxy_port&gt; %h %p&quot;
 </code></pre>
 
 <p>Or you can edit the <code>~/.ssh/config</code>  file to add the <code>ProxyCommand</code> to a specific
 host. For example, if you want to use Github through an HTTP proxy:</p>
-<pre><code>Host github.com
+<pre><code class="language-none line-numbers">Host github.com
     User                  git
     ProxyCommand          nc -X connect -x &lt;proxy_host&gt;:&lt;proxy_port&gt; %h %p
     ServerAliveInterval   10
@@ -346,6 +346,7 @@ host. For example, if you want to use Github through an HTTP proxy:</p>
     <script>var base_url = '..';</script>
     <script src="../js/theme.js"></script>
     <script src="../js/prism-core.min.js"></script>
+    <script src="../js/prism-line-numbers.min.js"></script>
     <script src="../js/prism-clike.min.js"></script>
     <script src="../js/prism-yaml.min.js"></script>
     <script src="../js/prism-powershell.min.js"></script>

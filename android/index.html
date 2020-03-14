@@ -291,10 +291,10 @@ Then, you need to install the GApps. Click on the top right button "Open Gapps".
 <h2 id="connect-with-adb">Connect with ADB</h2>
 <p>GenyMotion has it's own <code>adb</code>, but you can still use your own version. On Windows,
 it's located here: <code>C:\Program Files\Genymobile\Genymotion\tools</code>.</p>
-<pre><code class="language-bash">$ cd &quot;C:\Program Files\Genymobile\Genymotion\tools&quot;
-$ adb.exe devices
-$ adb.exe connect &lt;device ip&gt;
-$ adb.exe shell
+<pre><code class="language-bash line-numbers">cd &quot;C:\Program Files\Genymobile\Genymotion\tools&quot;
+adb.exe devices
+adb.exe connect &lt;device ip&gt;
+adb.exe shell
 vbox86p:/ #
 </code></pre>
 
@@ -310,7 +310,7 @@ to handle certificate pinning. Therefore, the easiest way to bypass the pinning
 is to change the framework logic.
 The logic is located inside the file <code>CertificatePinner.kt</code> (or <code>CertificatePinner.java</code>
 for old versions).</p>
-<pre><code class="language-java">for (peerCertificate in peerCertificates) {
+<pre><code class="language-java line-numbers">for (peerCertificate in peerCertificates) {
   // Lazily compute the hashes for each certificate.
   var sha1: ByteString? = null
   var sha256: ByteString? = null
@@ -336,21 +336,21 @@ conditions <code>pin.hash == sha256</code> and <code>pin.hash == sha1</code>. TO
 edit the smali code. By the way, I find quite handy to use <code>jadx</code> to match smali
 to Java code.</p>
 <p>The smali code for the check is the following :</p>
-<pre><code>    .line 180
-    :cond_2
-    iget-object v9, v9, Lokhttp3/CertificatePinner$Pin;-&gt;hash:Lokio/ByteString;
+<pre><code class="language-none line-numbers">.line 180
+:cond_2
+iget-object v9, v9, Lokhttp3/CertificatePinner$Pin;-&gt;hash:Lokio/ByteString;
 
-    invoke-virtual {v9, v7}, Lokio/ByteString;-&gt;equals(Ljava/lang/Object;)Z
+invoke-virtual {v9, v7}, Lokio/ByteString;-&gt;equals(Ljava/lang/Object;)Z
 
-    move-result v9
+move-result v9
 
-    **if-eqz** v9, :cond_5
+**if-eqz** v9, :cond_5
 </code></pre>
 
 <p>At the end, we need to inverse the condition from <code>if-eqz</code> (<code>if equal zero</code>) to
 <code>if-nez</code> (<code>if non-zero</code>). There is a list of all <code>opcode</code> <a href="http://pallergabor.uw.hu/androidblog/dalvik_opcodes.html" target="_blank">here</a>.
 Don't forget to check your code is correct to <code>jadx</code>:</p>
-<pre><code class="language-java">if (!pin.hash.equals(byteString)) {
+<pre><code class="language-java line-numbers">if (!pin.hash.equals(byteString)) {
   return;
 }
 </code></pre>
@@ -358,21 +358,21 @@ Don't forget to check your code is correct to <code>jadx</code>:</p>
 <h3 id="add-burp-ac">Add Burp AC</h3>
 <p>Export the certificate with DER format. Then use <code>openssl</code> to convert to PEM format
 and get the hash:</p>
-<pre><code class="language-bash">$ openssl x509 -inform DER -in cacert.der -out cacert.pem
-$ openssl x509 -inform PEM -subject_hash_old -in cacert.pem |head -1
-$ mv cacert.pem &lt;hash&gt;.0
+<pre><code class="language-bash line-numbers">openssl x509 -inform DER -in cacert.der -out cacert.pem
+openssl x509 -inform PEM -subject_hash_old -in cacert.pem |head -1
+mv cacert.pem &lt;hash&gt;.0
 </code></pre>
 
 <p>Once you have the file with the correct name, push it to the phone using <code>adb</code>:</p>
-<pre><code class="language-bash">$ adb root
-$ adb remount
-$ adb push &lt;cert&gt;.0 /sdcard/
-$ adb shell
+<pre><code class="language-bash line-numbers">adb root
+adb remount
+adb push &lt;cert&gt;.0 /sdcard/
+adb shell
 </code></pre>
 
 <p>On the phone, move the file to the cert store and fix the permissions:</p>
-<pre><code class="language-bash">$ mv /sdcard/&lt;cert&gt;.0 /system/etc/security/cacerts/
-$ chmod 644 /system/etc/security/cacerts/&lt;cert&gt;.0
+<pre><code class="language-bash line-numbers">mv /sdcard/&lt;cert&gt;.0 /system/etc/security/cacerts/
+chmod 644 /system/etc/security/cacerts/&lt;cert&gt;.0
 </code></pre>
 
 <p>Then you need to reboot the device (<code>adb reboot</code>). After the device reboots,
@@ -380,28 +380,28 @@ check if everything is fine in <code>Settings / Security / Trusted Credentials</
 should show a new "Portswigger CA" as a system trusted CA.</p>
 <h2 id="edit-android-apk">Edit Android APK</h2>
 <h3 id="edit-an-apk-file-using-apktool">Edit an APK file using apktool</h3>
-<pre><code class="language-bash">$ apktool d example/ -o example.unaligned.apk
+<pre><code class="language-bash line-numbers">apktool d example/ -o example.unaligned.apk
 </code></pre>
 
 <p>Then when you finished to edit the files (smali, AndroidManifest, ...) you can
 recompile and sign the new apk file.</p>
-<pre><code class="language-bash">$ apktool b example/ -o example.unaligned.apk
-$ jarsigner -verbose -sigalg MD5withRSA -digestalg SHA1 -keystore ~/.android/debug.keystore -storepass android example.unaligned.apk androiddebugkey
-$ zipalign -v 4 example.unaligned.apk example.smali.apk
+<pre><code class="language-bash line-numbers">apktool b example/ -o example.unaligned.apk
+jarsigner -verbose -sigalg MD5withRSA -digestalg SHA1 -keystore ~/.android/debug.keystore -storepass android example.unaligned.apk androiddebugkey
+zipalign -v 4 example.unaligned.apk example.smali.apk
 </code></pre>
 
 <h2 id="adb">ADB</h2>
 <h3 id="list-packages">List packages</h3>
-<pre><code class="language-bash">$ adb shell pm list packages
+<pre><code class="language-bash line-numbers">adb shell pm list packages
 </code></pre>
 
 <h3 id="get-apk-from-android-device">Get APK from Android device</h3>
-<pre><code class="language-bash">adb shell pm path com.example.someapp
+<pre><code class="language-bash line-numbers">adb shell pm path com.example.someapp
 adb pull &lt;apk_path&gt; &lt;path_on_your_disk&gt;
 </code></pre>
 
 <h3 id="install-application">Install application</h3>
-<pre><code class="language-bash">adb shell settings put global verifier_verify_adb_installs 0
+<pre><code class="language-bash line-numbers">adb shell settings put global verifier_verify_adb_installs 0
 # adb shell settings put global package_verifier_enable 0
 adb install &lt;app.apk&gt;
 </code></pre>
@@ -433,6 +433,7 @@ adb install &lt;app.apk&gt;
     <script>var base_url = '..';</script>
     <script src="../js/theme.js"></script>
     <script src="../js/prism-core.min.js"></script>
+    <script src="../js/prism-line-numbers.min.js"></script>
     <script src="../js/prism-clike.min.js"></script>
     <script src="../js/prism-yaml.min.js"></script>
     <script src="../js/prism-powershell.min.js"></script>

@@ -277,15 +277,15 @@
 <h2 id="kafka-api">Kafka API</h2>
 <p>There is a Kafka API exposed over HTTP on port <code>8083</code>. This API can be used to get
 sensitive informations using the following URLs:</p>
-<pre><code>http://&lt;ip&gt;:8083
+<pre><code class="language-none line-numbers">http://&lt;ip&gt;:8083
 {&quot;version&quot;:&quot;2.3.0&quot;,&quot;commit&quot;:&quot;&lt;hash&gt;&quot;,&quot;kafka_cluster_id&quot;:&quot;&lt;id&gt;&quot;}
 </code></pre>
 
-<pre><code>http://&lt;ip&gt;:8083/connectors
+<pre><code class="language-none line-numbers">http://&lt;ip&gt;:8083/connectors
 [&quot;mongo-Release&quot;, &quot;&lt;connector_name&gt;&quot;, ..., &quot;my-sqldata&quot;]
 </code></pre>
 
-<pre><code>http://&lt;ip&gt;:8083/connectors/&lt;connector_name&gt;
+<pre><code class="language-none line-numbers">http://&lt;ip&gt;:8083/connectors/&lt;connector_name&gt;
 {
     &quot;name&quot;: &quot;&lt;connector_name&gt;&quot;,
     &quot;config&quot;: {...},
@@ -324,6 +324,7 @@ sensitive informations using the following URLs:</p>
     <script>var base_url = '..';</script>
     <script src="../js/theme.js"></script>
     <script src="../js/prism-core.min.js"></script>
+    <script src="../js/prism-line-numbers.min.js"></script>
     <script src="../js/prism-clike.min.js"></script>
     <script src="../js/prism-yaml.min.js"></script>
     <script src="../js/prism-powershell.min.js"></script>

@@ -282,7 +282,7 @@
 <p>It's possible to bypass blacklist upload while uploading a <code>web.config</code> file.
 For this, you need to set execution rights to <code>.config</code> and then adding <code>ASP</code> code
 in the <code>web.config</code>.</p>
-<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+<pre><code class="language-xml line-numbers">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
 &lt;configuration&gt;
    &lt;system.webServer&gt;
       &lt;handlers accessPolicy=&quot;Read, Script, Write&quot;&gt;
@@ -348,6 +348,7 @@ might be activate on the server. For example, check <code>/trace.axd</code>.</p>
     <script>var base_url = '..';</script>
     <script src="../js/theme.js"></script>
     <script src="../js/prism-core.min.js"></script>
+    <script src="../js/prism-line-numbers.min.js"></script>
     <script src="../js/prism-clike.min.js"></script>
     <script src="../js/prism-yaml.min.js"></script>
     <script src="../js/prism-powershell.min.js"></script>

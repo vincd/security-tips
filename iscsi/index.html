@@ -268,7 +268,7 @@
           <div class="section">
             
               <h1 id="iscsi">ISCSI</h1>
-<pre><code class="language-bash">$ ISCSI_TARGET_PORTAL=172.17.247.210
+<pre><code class="language-bash line-numbers">$ ISCSI_TARGET_PORTAL=172.17.247.210
 $ sudo iscsiadm -m discovery -t st -p &quot;${ISCSI_TARGET_PORTAL}&quot;
 $ ISCSI_TARGET_NAME=iqn.1992-04.com.emc:cx.ckm00142002019.b4
 $ sudo iscsiadm --mode node --targetname &quot;${ISCSI_TARGET_NAME}&quot; -p &quot;${ISCSI_TARGET_PORTAL}&quot; -l
@@ -302,6 +302,7 @@ $ dmesg | grep sd
     <script>var base_url = '..';</script>
     <script src="../js/theme.js"></script>
     <script src="../js/prism-core.min.js"></script>
+    <script src="../js/prism-line-numbers.min.js"></script>
     <script src="../js/prism-clike.min.js"></script>
     <script src="../js/prism-yaml.min.js"></script>
     <script src="../js/prism-powershell.min.js"></script>
