@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/" xmlns:referrer="http://a9.com/-/opensearch/extensions/referrer/1.0/">
+  <ShortName>Security Tips</ShortName>
+  <Description>Search a tips</Description>
+  <Image width="16" height="16">https://security-tips.vincd.com/img/favicon.ico</Image>
+  <InputEncoding>UTF-8</InputEncoding>
+  <SearchForm>https://security-tips.vincd.com</SearchForm>
+  <Url type="text/html" method="GET" template="https://security-tips.vincd.com/search.html?q={searchTerms}"/>
+  <Url type="application/opensearchdescription+xml" rel="self" template="https://security-tips.vincd.com/opensearch.xml" />
+</OpenSearchDescription>
