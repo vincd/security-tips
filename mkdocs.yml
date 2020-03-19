@@ -27,6 +27,7 @@ google_analytics: ['UA-128044070-2', 'security-tips.vincd.com']
 
 nav:
   - Home: index.md
+  - Ports: ports.md
   - Android: android.md
   - AWS: aws.md
   - Containers:
