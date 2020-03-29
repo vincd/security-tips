@@ -125,6 +125,8 @@
     
         <li><a class="" href="#extract-microsoft-update-files">Extract Microsoft Update files</a></li>
     
+        <li><a class="" href="#ldap-search">LDAP search</a></li>
+    
     </ul>
     
 
@@ -522,6 +524,10 @@ contains the new binaries (<code>.dll</code>, <code>.exe</code>, ...). To extrac
 can use the <code>expand</code> command:</p>
 <pre><code class="language-bash line-numbers">expand -f:* &quot;update.msu&quot; &quot;%temp%\\update.msu&quot;
 expand -f:* &quot;%temp%\\update.msu\\update.cab&quot; &quot;%temp%\\update.msu\\update.cab&quot;
+</code></pre>
+
+<h3 id="ldap-search">LDAP search</h3>
+<pre><code class="language-bash line-numbers">ldapsearch -h &lt;host&gt; -x -s base namingcontext
 </code></pre>
             
           </div>

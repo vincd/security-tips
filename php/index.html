@@ -153,6 +153,8 @@
     
         <li><a class="" href="#laravel-configuration-file">Laravel configuration file</a></li>
     
+        <li><a class="" href="#php-session-files">PHP session files</a></li>
+    
     </ul>
     
 
@@ -357,6 +359,31 @@ file at the root level of the web server:</p>
 <p>You can find vulnerable target using a Google dork:</p>
 <pre><code class="language-none line-numbers">&quot;DB_PASSWORD&quot; filetype:env
 </code></pre>
+
+<h2 id="php-session-files">PHP session files</h2>
+<p>On PHP the directive <a href="https://www.php.net/manual/en/session.configuration.php#ini.session.save-path" target="_blank"><code>session.save_path</code></a>
+set the folder where PHP will store the session files. So the session files are
+written on the disk. A malicious user may read this files to retrieve information.</p>
+<p>On a Windows system (IIS), the default value create files in <code>C:\Windows\Temp</code>
+with the name <code>sess_&lt;session_id&gt;</code>. The <code>&lt;session_id&gt;</code> is the value of the
+<code>PHPSESSIONID</code> cookie. When you have a <code>Local File Inclusion</code> (LFI) vulnerability,
+it's possible to include this kind of files.</p>
+<p>This file contains some user's session variable. So a user can write some PHP
+code like <code>&lt;?php phpinfo() ?&gt;</code> (as a username for example) in his session and
+try to include the file to execute the PHP code.</p>
+<p>Here is 2 examples of exploitation:</p>
+<ul>
+<li>
+<p>The <code>Alcatel Omnivista 8770</code> uses this trick to fetch some internal session variable
+from the user session. The <a href="https://www.exploit-db.com/exploits/47761" target="_blank">exploit</a>
+gets the session file that is accessible on the server <code>/session/sess_&lt;session_id&gt;</code>.</p>
+</li>
+<li>
+<p><code>ippsec</code> use this technique in the HTB box <a href="https://www.youtube.com/watch?v=k7gD4ufex9Q&amp;t=3255s" target="_blank"><code>Sniper</code></a>
+to create a use with a username that contains some PHP code. Then he includes
+the session file with a LFI.</p>
+</li>
+</ul>
             
           </div>
           <footer>
