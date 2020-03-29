@@ -266,3 +266,10 @@ can use the `expand` command:
 expand -f:* "update.msu" "%temp%\\update.msu"
 expand -f:* "%temp%\\update.msu\\update.cab" "%temp%\\update.msu\\update.cab"
 ```
+
+
+### LDAP search
+
+```bash
+ldapsearch -h <host> -x -s base namingcontext
+```
