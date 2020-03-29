@@ -93,3 +93,29 @@ You can find vulnerable target using a Google dork:
 ```
 "DB_PASSWORD" filetype:env
 ```
+
+
+## PHP session files
+
+On PHP the directive [`session.save_path`](https://www.php.net/manual/en/session.configuration.php#ini.session.save-path)
+set the folder where PHP will store the session files. So the session files are
+written on the disk. A malicious user may read this files to retrieve information.
+
+On a Windows system (IIS), the default value create files in `C:\Windows\Temp`
+with the name `sess_<session_id>`. The `<session_id>` is the value of the
+`PHPSESSIONID` cookie. When you have a `Local File Inclusion` (LFI) vulnerability,
+it's possible to include this kind of files.
+
+This file contains some user's session variable. So a user can write some PHP
+code like `<?php phpinfo() ?>` (as a username for example) in his session and
+try to include the file to execute the PHP code.
+
+Here is 2 examples of exploitation:
+
+- The `Alcatel Omnivista 8770` uses this trick to fetch some internal session variable
+from the user session. The [exploit](https://www.exploit-db.com/exploits/47761)
+gets the session file that is accessible on the server `/session/sess_<session_id>`.
+
+- `ippsec` use this technique in the HTB box [`Sniper`](https://www.youtube.com/watch?v=k7gD4ufex9Q&t=3255s)
+to create a use with a username that contains some PHP code. Then he includes
+the session file with a LFI.
