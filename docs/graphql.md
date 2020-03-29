@@ -2,8 +2,17 @@ GraphQL
 =======
 
 ## Request useful informations
-Introspection is explained [here](https://graphql.org/learn/introspection/). First we need to collect all available
-types then recursively enumerate all individual types.
+Introspection is explained [here](https://graphql.org/learn/introspection/).
+First we need to collect all available types then recursively enumerate all
+individual types.
+
+[`inql`](https://github.com/doyensec/inql) can be use to fetch graphql metadata
+on an endpoint.
+
+```bash
+inql -t https://<host>/graphql
+```
+
 
 ### Querying All Available Types in a Schema
 ```graphql
