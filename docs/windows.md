@@ -282,10 +282,27 @@ expand -f:* "%temp%\\update.msu\\update.cab" "%temp%\\update.msu\\update.cab"
 ```
 
 
+## User enumeration
+
 ### LDAP search
 
+Here is two queries to fetch informations of a domain controller using LDAP:
+
 ```bash
-ldapsearch -h <host> -x -s base namingcontext
+ldapsearch -h <host> -x -s base namingcontexts
+ldapsearch -h <host> -x -b "DC=xxx,DC=yyy" '(objectClass=Person)' sAMAccountName
+```
+
+
+### RPCClient
+
+If the NULL session is activated on the Windows domain, then you can list the users
+with `rpcclient`:
+
+```bash
+rpcclient -U '' <host>
+rpcclient $> enumdomusers
+rpcclient $> queryuser <user>
 ```
 
 
