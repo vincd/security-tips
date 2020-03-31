@@ -127,7 +127,7 @@
     
         <li><a class="" href="#extract-microsoft-update-files">Extract Microsoft Update files</a></li>
     
-        <li><a class="" href="#ldap-search">LDAP search</a></li>
+        <li><a class="" href="#user-enumeration">User enumeration</a></li>
     
         <li><a class="" href="#powershell">PowerShell</a></li>
     
@@ -539,8 +539,19 @@ can use the <code>expand</code> command:</p>
 expand -f:* &quot;%temp%\\update.msu\\update.cab&quot; &quot;%temp%\\update.msu\\update.cab&quot;
 </code></pre>
 
+<h2 id="user-enumeration">User enumeration</h2>
 <h3 id="ldap-search">LDAP search</h3>
-<pre><code class="language-bash line-numbers">ldapsearch -h &lt;host&gt; -x -s base namingcontext
+<p>Here is two queries to fetch informations of a domain controller using LDAP:</p>
+<pre><code class="language-bash line-numbers">ldapsearch -h &lt;host&gt; -x -s base namingcontexts
+ldapsearch -h &lt;host&gt; -x -b &quot;DC=xxx,DC=yyy&quot; '(objectClass=Person)' sAMAccountName
+</code></pre>
+
+<h3 id="rpcclient">RPCClient</h3>
+<p>If the NULL session is activated on the Windows domain, then you can list the users
+with <code>rpcclient</code>:</p>
+<pre><code class="language-bash line-numbers">rpcclient -U '' &lt;host&gt;
+rpcclient $&gt; enumdomusers
+rpcclient $&gt; queryuser &lt;user&gt;
 </code></pre>
 
 <h2 id="powershell">PowerShell</h2>
