@@ -42,6 +42,13 @@ Search a PoC for a CVE on Github:
 https://github.com/search?q="<CVE-ID>"+AND+exploit+in:name+in:description+in:readme
 ```
 
+
+## Default passwords
+
+The website [cirt.net](https://cirt.net/passwords?vendor=) lists the default
+passwords on equipments or applications.
+
+
 ## Download recursively an Apache Directory Listing
 
 ```bash
