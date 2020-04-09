@@ -37,3 +37,22 @@ Content-Type: application/xml;charset=UTF-8
 ```
 
 If the request is accepted by the API, then you can try to attack with an XXE payload.
+
+
+## Exploit application routing
+
+[@samwcyo](twitter.com/samwcyo) explains how to exploit some mis-configuration
+on [web routing](https://docs.google.com/presentation/d/1N9Ygrpg0Z-1GFDhLMiG3jJV6B_yGqBk8tuRWO1ZicV8/edit).
+That's mean a server may internally call an other resource based on the user URL.
+The rewriting can be modify using techniques such as `Directory traversal` (`../`)
+or add `Control characters` (%23 (#), %3f (?), %26 (&), %2e (.), %2f (/), %40 (@))
+with double or triple encoding in the URL.
+
+
+He shows some real examples where he can raise an exception on the internal
+application using some encoding on control characters:
+
+```
+GET /files/lol.png%23 HTTP/1.1
+GET /files/..%2f%23 HTTP/1.1
+```
