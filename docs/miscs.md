@@ -1,18 +1,24 @@
 Miscellaneous
 ============
 
-## Web
-### Serve a file locally
-
-```bash
-$ while :; do (echo -ne "HTTP/1.1 200 OK\r\nContent-Length: $(wc -c < index.html)\r\n\r\n"; cat index.html) | nc -l -p 8080; done
-```
-
 ## SSL/TLS
 
 ### SSL configuration examples
 
-[Mozilla Config](https://ssl-config.mozilla.org/)
+Mozilla provides a tool to [generate configuration](https://ssl-config.mozilla.org/)
+files for various technologies of servers (web, SQL, ...).
+
+
+### testssl.sh
+
+[This tool](https://github.com/drwetter/testssl.sh/) let you scan a SSL/TLS
+server to check the supported protocols and ciphers.
+
+```bash
+git clone --depth 1 https://github.com/drwetter/testssl.sh.git
+cd testssl.sh
+./testssl.sh <ip>(:<port>)
+```
 
 
 ## Nmap
@@ -20,6 +26,13 @@ $ while :; do (echo -ne "HTTP/1.1 200 OK\r\nContent-Length: $(wc -c < index.html
 ```bash
 nmap -sC -sV -oA <output_name> <host>
 ```
+
+### Performance
+
+If you scan a large range of IP the option `--min-rate` is handy to force nmap
+not to slow down and send at least this number of packet per second. I set the
+value to `1500` so one IP scan take about 45 seconds and a `/24` about 1h30.
+
 
 
 ## Google API key
@@ -53,4 +66,15 @@ passwords on equipments or applications.
 
 ```bash
 wget -r -N --no-parent --reject '*index.html*' -nH --cut-dirs=1  <url>
+```
+
+## Web
+
+### Serve a file locally
+
+Here is a onliner (I don't remember from where) to expose a simple web server
+using `netcat`:
+
+```bash
+while :; do (echo -ne "HTTP/1.1 200 OK\r\nContent-Length: $(wc -c < index.html)\r\n\r\n"; cat index.html) | nc -l -p 8080; done
 ```
