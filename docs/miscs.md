@@ -31,7 +31,7 @@ nmap -sC -sV -oA <output_name> <host>
 
 If you scan a large range of IP the option `--min-rate` is handy to force nmap
 not to slow down and send at least this number of packet per second. I set the
-value to `1500` so one IP scan take about 45 seconds and a `/24` about 1h30.
+value to `1500` so one IP scan take about 45 seconds and a `/24` about 3 hours.
 
 
 
