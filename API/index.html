@@ -135,6 +135,8 @@
     
         <li><a class="" href="#json-to-xml-to-xxe">JSON to XML to XXE</a></li>
     
+        <li><a class="" href="#exploit-application-routing">Exploit application routing</a></li>
+    
     </ul>
     
 
@@ -317,6 +319,18 @@ Content-Type: application/xml;charset=UTF-8
 </code></pre>
 
 <p>If the request is accepted by the API, then you can try to attack with an XXE payload.</p>
+<h2 id="exploit-application-routing">Exploit application routing</h2>
+<p><a href="twitter.com/samwcyo">@samwcyo</a> explains how to exploit some mis-configuration
+on <a href="https://docs.google.com/presentation/d/1N9Ygrpg0Z-1GFDhLMiG3jJV6B_yGqBk8tuRWO1ZicV8/edit" target="_blank">web routing</a>.
+That's mean a server may internally call an other resource based on the user URL.
+The rewriting can be modify using techniques such as <code>Directory traversal</code> (<code>../</code>)
+or add <code>Control characters</code> (%23 (#), %3f (?), %26 (&amp;), %2e (.), %2f (/), %40 (@))
+with double or triple encoding in the URL.</p>
+<p>He shows some real examples where he can raise an exception on the internal
+application using some encoding on control characters:</p>
+<pre><code class="language-none line-numbers">GET /files/lol.png%23 HTTP/1.1
+GET /files/..%2f%23 HTTP/1.1
+</code></pre>
             
           </div>
           <footer>
