@@ -260,8 +260,6 @@
     
     <ul>
     
-        <li><a class="" href="#web">Web</a></li>
-    
         <li><a class="" href="#ssltls">SSL/TLS</a></li>
     
         <li><a class="" href="#nmap">Nmap</a></li>
@@ -273,6 +271,8 @@
         <li><a class="" href="#default-passwords">Default passwords</a></li>
     
         <li><a class="" href="#download-recursively-an-apache-directory-listing">Download recursively an Apache Directory Listing</a></li>
+    
+        <li><a class="" href="#web">Web</a></li>
     
     </ul>
     
@@ -293,18 +293,26 @@
           <div class="section">
             
               <h1 id="miscellaneous">Miscellaneous</h1>
-<h2 id="web">Web</h2>
-<h3 id="serve-a-file-locally">Serve a file locally</h3>
-<pre><code class="language-bash line-numbers">$ while :; do (echo -ne &quot;HTTP/1.1 200 OK\r\nContent-Length: $(wc -c &lt; index.html)\r\n\r\n&quot;; cat index.html) | nc -l -p 8080; done
-</code></pre>
-
 <h2 id="ssltls">SSL/TLS</h2>
 <h3 id="ssl-configuration-examples">SSL configuration examples</h3>
-<p><a href="https://ssl-config.mozilla.org/" target="_blank">Mozilla Config</a></p>
+<p>Mozilla provides a tool to <a href="https://ssl-config.mozilla.org/" target="_blank">generate configuration</a>
+files for various technologies of servers (web, SQL, ...).</p>
+<h3 id="testsslsh">testssl.sh</h3>
+<p><a href="https://github.com/drwetter/testssl.sh/" target="_blank">This tool</a> let you scan a SSL/TLS
+server to check the supported protocols and ciphers.</p>
+<pre><code class="language-bash line-numbers">git clone --depth 1 https://github.com/drwetter/testssl.sh.git
+cd testssl.sh
+./testssl.sh &lt;ip&gt;(:&lt;port&gt;)
+</code></pre>
+
 <h2 id="nmap">Nmap</h2>
 <pre><code class="language-bash line-numbers">nmap -sC -sV -oA &lt;output_name&gt; &lt;host&gt;
 </code></pre>
 
+<h3 id="performance">Performance</h3>
+<p>If you scan a large range of IP the option <code>--min-rate</code> is handy to force nmap
+not to slow down and send at least this number of packet per second. I set the
+value to <code>1500</code> so one IP scan take about 45 seconds and a <code>/24</code> about 1h30.</p>
 <h2 id="google-api-key">Google API key</h2>
 <p>There is potential miss-configuration when an application uses the Google Maps API:</p>
 <ul>
@@ -324,6 +332,13 @@ used to detect invalid permissions on Google Maps API.</p>
 passwords on equipments or applications.</p>
 <h2 id="download-recursively-an-apache-directory-listing">Download recursively an Apache Directory Listing</h2>
 <pre><code class="language-bash line-numbers">wget -r -N --no-parent --reject '*index.html*' -nH --cut-dirs=1  &lt;url&gt;
+</code></pre>
+
+<h2 id="web">Web</h2>
+<h3 id="serve-a-file-locally">Serve a file locally</h3>
+<p>Here is a onliner (I don't remember from where) to expose a simple web server
+using <code>netcat</code>:</p>
+<pre><code class="language-bash line-numbers">while :; do (echo -ne &quot;HTTP/1.1 200 OK\r\nContent-Length: $(wc -c &lt; index.html)\r\n\r\n&quot;; cat index.html) | nc -l -p 8080; done
 </code></pre>
             
           </div>
