@@ -310,9 +310,14 @@ cd testssl.sh
 </code></pre>
 
 <h3 id="performance">Performance</h3>
-<p>If you scan a large range of IP the option <code>--min-rate</code> is handy to force nmap
+<p>If you scan a large range of IP the option <code>--min-rate</code> is handy to force <code>nmap</code>
 not to slow down and send at least this number of packet per second. I set the
-value to <code>1500</code> so one IP scan take about 45 seconds and a <code>/24</code> about 3 hours.</p>
+value to <code>1500</code> so one IP scan take a minimum of 45 seconds and a <code>/24</code> about 3 hours.
+<code>nmap</code> may takes more time because of the <code>--max-retries</code> argument. By default
+the value is set to <code>10</code>, so <code>nmap</code> may retries 10 times the same prob and it can
+slow down the scan. However <code>nmap</code> usually does only one retransmission, so one
+host may take up to 1m30s.
+There is more informations about <a href="https://nmap.org/book/man-performance.html" target="_blank">performance on the nmap documentation</a>.</p>
 <h2 id="google-api-key">Google API key</h2>
 <p>There is potential miss-configuration when an application uses the Google Maps API:</p>
 <ul>
