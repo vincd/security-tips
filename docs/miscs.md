@@ -29,10 +29,14 @@ nmap -sC -sV -oA <output_name> <host>
 
 ### Performance
 
-If you scan a large range of IP the option `--min-rate` is handy to force nmap
+If you scan a large range of IP the option `--min-rate` is handy to force `nmap`
 not to slow down and send at least this number of packet per second. I set the
-value to `1500` so one IP scan take about 45 seconds and a `/24` about 3 hours.
-
+value to `1500` so one IP scan take a minimum of 45 seconds and a `/24` about 3 hours.
+`nmap` may takes more time because of the `--max-retries` argument. By default
+the value is set to `10`, so `nmap` may retries 10 times the same prob and it can
+slow down the scan. However `nmap` usually does only one retransmission, so one
+host may take up to 1m30s.
+There is more informations about [performance on the nmap documentation](https://nmap.org/book/man-performance.html).
 
 
 ## Google API key
