@@ -23,7 +23,7 @@ markdown_extensions:
   - markdown_new_tab
   - markdown_prism
 
-google_analytics: ['UA-128044070-2', 'security-tips.vincd.com']
+google_analytics: ['UA-128044070-4', 'security-tips.vincd.com']
 
 nav:
   - Home: index.md
