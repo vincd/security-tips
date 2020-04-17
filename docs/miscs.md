@@ -60,6 +60,18 @@ https://github.com/search?q="<CVE-ID>"+AND+exploit+in:name+in:description+in:rea
 ```
 
 
+## Google dorking
+
+### Find target on public sources
+
+From [@adrien_jeanneau](https://mobile.twitter.com/adrien_jeanneau/status/1250740511402532865),
+you can search on Google for a `target` on website that can contains public information:
+
+```
+site:ideone.com | site:codebeautify.org | site:codeshare.io | site:codepen.io | site:repl.it | site:justpaste.it | site:pastebin.com | site:jsfiddle.net | site:trello.com "<target>"
+```
+
+
 ## Default passwords
 
 The website [cirt.net](https://cirt.net/passwords?vendor=) lists the default
