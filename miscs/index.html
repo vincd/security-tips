@@ -330,8 +330,27 @@ There is more informations about <a href="https://nmap.org/book/man-performance.
 <p>The tool <a href="https://github.com/ozguralp/gmapsapiscanner" target="_blank"><code>gmapsapiscanner</code></a> can be
 used to detect invalid permissions on Google Maps API.</p>
 <h2 id="github-dorking">Github dorking</h2>
-<p>Search a PoC for a CVE on Github:</p>
+<h3 id="search-a-poc">Search a PoC</h3>
+<p>Security researchers often use gist or repository to publish their works. With
+the following URL you can search for a specific CVE exploit tool.</p>
 <pre><code class="language-none line-numbers">https://github.com/search?q=&quot;&lt;CVE-ID&gt;&quot;+AND+exploit+in:name+in:description+in:readme
+https://gist.github.com/search?q=&quot;&lt;CVE-ID&gt;&quot;
+</code></pre>
+
+<h3 id="get-user-ssh-public-keys">Get user SSH public keys</h3>
+<p>When you add <code>.keys</code> in the URL of a user you can see their public SSH keys and
+associated emails addresses.</p>
+<pre><code class="language-none line-numbers">https://github.com/&lt;username&gt;.keys
+</code></pre>
+
+<h3 id="get-raw-commit">Get raw commit</h3>
+<p>When you add <code>.patch</code> to the URL of a commit you retrieve the raw commit file.
+This file contains git log and the user email.</p>
+<pre><code class="language-none line-numbers">https://github.com/&lt;username&gt;/&lt;repo&gt;/commit/&lt;sha&gt;.patch
+</code></pre>
+
+<p>Using the <code>.diff</code> extension you can get the diff with the previous commit.</p>
+<pre><code class="language-none line-numbers">https://github.com/&lt;username&gt;/&lt;repo&gt;/commit/&lt;sha&gt;.diff
 </code></pre>
 
 <h2 id="google-dorking">Google dorking</h2>
