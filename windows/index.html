@@ -119,6 +119,8 @@
     
         <li><a class="" href="#compile-net-without-visual-studio">Compile .Net without Visual Studio</a></li>
     
+        <li><a class="" href="#cmd-hijack">Cmd Hijack</a></li>
+    
         <li><a class="" href="#list-wifi-networks-and-password">List Wifi networks and password</a></li>
     
         <li><a class="" href="#tcp-dump-with-netsh">TCP dump with netsh</a></li>
@@ -500,6 +502,14 @@ public class HelloWorld {
 }
 </code></pre>
 
+<h3 id="cmd-hijack">Cmd Hijack</h3>
+<p>You can confuse the <code>cmd.exe</code> binary with a directory traversal:</p>
+<pre><code class="language-bash line-numbers">cmd.exe /c &quot;ping 127.0.0.1/../../../../../../../../../../windows/system32/calc.exe&quot;
+</code></pre>
+
+<p>Using this, you can hijack an argument such as a IP address in the ping call to
+execute an other binary.
+<a href="https://hackingiscool.pl/cmdhijack-command-argument-confusion-with-path-traversal-in-cmd-exe/" target="_blank">Julian Horoszkiewicz explains the details on his blog</a></p>
 <h3 id="list-wifi-networks-and-password">List Wifi networks and password</h3>
 <pre><code class="language-bash line-numbers">$ netsh wlan show profile
 $ netsh wlan show profile &lt;WiFi name&gt; key=clear
