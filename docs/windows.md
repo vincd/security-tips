@@ -230,6 +230,19 @@ public class HelloWorld {
 }
 ```
 
+### Cmd Hijack
+
+You can confuse the `cmd.exe` binary with a directory traversal:
+
+```bash
+cmd.exe /c "ping 127.0.0.1/../../../../../../../../../../windows/system32/calc.exe"
+```
+
+Using this, you can hijack an argument such as a IP address in the ping call to
+execute an other binary.
+[Julian Horoszkiewicz explains the details on his blog](https://hackingiscool.pl/cmdhijack-command-argument-confusion-with-path-traversal-in-cmd-exe/)
+
+
 ### List Wifi networks and password
 ```bash
 $ netsh wlan show profile
