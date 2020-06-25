@@ -46,6 +46,7 @@ to get the hash in a format that `John` or `Hashcat ` can brute-force:
 python GetUserSPNs.py <domain_name>/<domain_user>:<domain_user_password> -format <john/empty> -outputfile hashes.txt
 ```
 
+
 ### KerberosUnConstrainedDelegation
 
 More information [here](https://adsecurity.org/?p=1667)
@@ -70,7 +71,6 @@ There are two Bitwise operation Extensible Match Rules.
 ```
 
 ![](https://adsecurity.org/wp-content/uploads/2015/08/KerberosUnConstrainedDelegation-PowerShell-DiscoverServers2.png)
-
 
 
 ### Kerberos preauthentication
@@ -104,6 +104,13 @@ From [@harmj0y](https://github.com/SecureAuthCorp/impacket/blob/master/examples/
 $deletedObjectsDom = get-addomain | select DeletedObjectsContainer
 $objects = Get-ADObject -SearchBase $deletedObjectsDom.DeletedObjectsContainer -ldapfilter "(objectClass=user)" -IncludeDeletedObjects -properties *
 foreach ($object in $objects) { $object }
+```
+
+
+### Get user owner
+
+```powershell
+Get-ADUser $USERNAME | ForEach-Object {Get-ACL "AD:\$($_.DistinguishedName)" | Select-Object -ExpandProperty Owner}
 ```
 
 
