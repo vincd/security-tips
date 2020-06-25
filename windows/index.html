@@ -103,6 +103,8 @@
     
         <li><a class="" href="#list-deleted-users">List deleted users</a></li>
     
+        <li><a class="" href="#get-user-owner">Get user owner</a></li>
+    
         <li><a class="" href="#collect-ad-users-information">Collect AD users information</a></li>
     
         <li><a class="" href="#decrypt-gpo-with-cpassword">Decrypt GPO with cpassword</a></li>
@@ -393,6 +395,10 @@ to get the TGT in a format that <code>John</code> or <code>Hashcat</code> can br
 <pre><code class="language-powershell line-numbers">$deletedObjectsDom = get-addomain | select DeletedObjectsContainer
 $objects = Get-ADObject -SearchBase $deletedObjectsDom.DeletedObjectsContainer -ldapfilter &quot;(objectClass=user)&quot; -IncludeDeletedObjects -properties *
 foreach ($object in $objects) { $object }
+</code></pre>
+
+<h3 id="get-user-owner">Get user owner</h3>
+<pre><code class="language-powershell line-numbers">Get-ADUser $USERNAME | ForEach-Object {Get-ACL &quot;AD:\$($_.DistinguishedName)&quot; | Select-Object -ExpandProperty Owner}
 </code></pre>
 
 <h3 id="collect-ad-users-information">Collect AD users information</h3>
