@@ -10,14 +10,14 @@
   
   <meta name="author" content="Vincent D. (@vincd)">
   <link rel="shortcut icon" href="../img/favicon.ico">
-  <title>Ports - Security Tips</title>
+  <title>FTP - Security Tips</title>
   <link rel="stylesheet" href="../css/style.css" type="text/css" />
   
   <script>
     // Current page data
-    var mkdocs_page_name = "Ports";
-    var mkdocs_page_input_path = "ports.md";
-    var mkdocs_page_url = "/ports/";
+    var mkdocs_page_name = "FTP";
+    var mkdocs_page_input_path = "ftp.md";
+    var mkdocs_page_url = "/ftp/";
   </script>
   
   <script src="../js/jquery-2.1.1.min.js" defer></script>
@@ -55,14 +55,9 @@
     <a class="section-link" href="..">Home</a>
           </li>
           
-          <li class="bold active">
+          <li class="bold">
 		        
-    <a class="section-link" href="./">Ports</a>
-    <ul>
-            
-    
-
-    </ul>
+    <a class="section-link" href="../ports/">Ports</a>
           </li>
           
           <li class="bold">
@@ -274,69 +269,22 @@
         <div role="main">
           <div class="section">
             
-              <h1 id="ports">Ports</h1>
-<p>Here is a list of default ports for services and links to the tips:</p>
-<table>
-<thead>
-<tr>
-<th align="center">Port</th>
-<th align="center">Service</th>
-<th align="center">Vulnerabilities</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td align="center">21</td>
-<td align="center"><a href="../ftp/">FTP</a></td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center">2375</td>
-<td align="center"><a href="../docker/">Docker</a></td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center">3268</td>
-<td align="center">LDAP (Global catalog)</td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center">5985</td>
-<td align="center">WinRM (HTTP)</td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center">5986</td>
-<td align="center">WinRM (HTTPS)</td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center">8009</td>
-<td align="center"> AJP</td>
-<td align="center"><a href="../cve/CVE-2020-1938/">AJP Ghostcat</a></td>
-</tr>
-<tr>
-<td align="center">8083</td>
-<td align="center"> <a href="../kafka/">Kafka</a></td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center">9200</td>
-<td align="center"> ElasticSearch</td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center">9300</td>
-<td align="center"> ElasticSearch</td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center">10250</td>
-<td align="center"><a href="../kubernetes/">Kubernetes</a></td>
-<td align="center"></td>
-</tr>
-</tbody>
-</table>
+              <h1 id="ftp">FTP</h1>
+<p>The <strong>File Transfert Protocole</strong> (<code>FTP</code>) is a network protocol used for the
+transfer of files between a client and a server. This service is commonly
+exposed on port <code>21</code>.</p>
+<h2 id="anonymous-login">Anonymous login</h2>
+<p>Some <code>FTP</code> server allow anonymous authentication, that means a user can login
+with the <code>anonymous</code> username and no passwords.</p>
+<p>You can check if the server supports this features with multiple tools:</p>
+<ul>
+<li>with a nmap script: <code>nmap --script=ftp-anon -p{PORT} {HOST}</code></li>
+<li>with a browser: type the following URL <code>ftp://{HOST}:{PORT}</code></li>
+<li>manually with <code>netcat</code> or <code>telnet</code>: <code>telnet {HOST} {PORT}</code></li>
+</ul>
+<h2 id="sftp-port-forwarding">SFTP port forwarding</h2>
+<p><code>SFTP</code> runs as a subsystem of <a href="../ssh/"><code>SSH</code></a>. As with <code>SSH</code>, it's possible to test for
+port forwarding if there is a bad configuration on the <code>SSH</code> server.</p>
             
           </div>
           <footer>
@@ -355,10 +303,6 @@
     <span class="rst-current-version" data-toggle="rst-current-version">
       
       
-        <span><a href=".." style="color: #fcfcfc;">&laquo; Previous</a></span>
-      
-      
-        <span style="margin-left: 15px"><a href="../android/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>
