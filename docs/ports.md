@@ -6,6 +6,7 @@ Here is a list of default ports for services and links to the tips:
 
 |  Port |                  Service               |             Vulnerabilities            |
 |:-----:|:--------------------------------------:|:--------------------------------------:|
+|    21 | [FTP](ftp.md)                          |                                        |
 |  2375 | [Docker](docker.md)                    |                                        |
 |  3268 | LDAP (Global catalog)                  |                                        |
 |  5985 | WinRM (HTTP)                           |                                        |
