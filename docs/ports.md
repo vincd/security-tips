@@ -6,6 +6,7 @@ Here is a list of default ports for services and links to the tips:
 
 |  Port |                  Service               |             Vulnerabilities            |
 |:-----:|:--------------------------------------:|:--------------------------------------:|
+|    22 | [SSH](ssh.md)                          |                                        |
 |    21 | [FTP](ftp.md)                          |                                        |
 |  2375 | [Docker](docker.md)                    |                                        |
 |  3268 | LDAP (Global catalog)                  |                                        |
