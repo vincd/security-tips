@@ -237,6 +237,15 @@ $ lsadump::sam /system:SystemBkup.hiv /sam:SamBkup.hiv
 ```
 
 
+### Calculate NTLM hash
+
+```python
+import hashlib
+pwd = "password"
+print(hashlib.new('md4', f'{pwd}'.encode('utf-16le')).hexdigest())
+```
+
+
 ### List Email aliases
 ```powershell
 $ (Get-ADUser -Identity <user_ad_id> -Properties proxyAddresses).proxyAddresses
