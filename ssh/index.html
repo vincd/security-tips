@@ -105,6 +105,12 @@
     
         <li><a class="" href="#configuration-review">Configuration Review</a></li>
     
+        <li><a class="" href="#ssh-user-enumeration-cve-2018-15473">SSH User Enumeration CVE-2018-15473</a></li>
+    
+        <li><a class="" href="#sftp-command-injection">SFTP Command Injection</a></li>
+    
+        <li><a class="" href="#start-port-forwarding-on-an-existing-session">Start port forwarding on an existing session</a></li>
+    
     </ul>
     
 
@@ -283,6 +289,27 @@
               <h1 id="secure-shell">Secure Shell</h1>
 <h2 id="configuration-review">Configuration Review</h2>
 <p>Here is a good SSH configuration review/hardening guide: <a href="https://community.turgensec.com/ssh-hacking-guide/" target="_blank">https://community.turgensec.com/ssh-hacking-guide/</a></p>
+<h2 id="ssh-user-enumeration-cve-2018-15473">SSH User Enumeration CVE-2018-15473</h2>
+<p>On OpenSSH version before 7.7, there is a bug that allow an unauthenticated user
+to check if a user exist on the remote server. A Python script using Paramiko is
+available on <a href="https://www.exploit-db.com/exploits/45939" target="_blank">here</a>.</p>
+<h2 id="sftp-command-injection">SFTP Command Injection</h2>
+<p>Sometimes the SFTP user can execute a command because the configuration does not
+force the SFTP.</p>
+<pre><code class="language-bash line-numbers">ssh -v {USER}@{IP} id
+</code></pre>
+
+<h2 id="start-port-forwarding-on-an-existing-session">Start port forwarding on an existing session</h2>
+<p>It's possible to start a new port forwarding on an existing session. Simply type
+<code>&lt;enter&gt;~C</code> to bring up a console with your local SSH client. Then you add a
+local (<code>-L</code>) or remote (<code>-R</code>) port forwarding.</p>
+<p>For instance, you type the following command to access the remote HTTPS server
+on the server on your local machine:</p>
+<pre><code class="language-none line-numbers">&lt;enter&gt;~C-L 443:localhost:443&lt;enter&gt;
+</code></pre>
+
+<p>The <code>~</code> is the SSH's default <code>EscapeChar</code>, there is more options available if
+you type <code>~?</code>.</p>
             
           </div>
           <footer>
