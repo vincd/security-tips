@@ -119,6 +119,8 @@
     
         <li><a class="" href="#sam-and-system-backup">SAM and SYSTEM backup</a></li>
     
+        <li><a class="" href="#calculate-ntlm-hash">Calculate NTLM hash</a></li>
+    
         <li><a class="" href="#list-email-aliases">List Email aliases</a></li>
     
         <li><a class="" href="#truster-account">Truster Account</a></li>
@@ -503,6 +505,12 @@ $ reg save HKLM\SAM SamBkup.hiv
 
 <p>Then with <code>mimikatz</code> you can recover the hashes:</p>
 <pre><code class="language-bash line-numbers">$ lsadump::sam /system:SystemBkup.hiv /sam:SamBkup.hiv
+</code></pre>
+
+<h3 id="calculate-ntlm-hash">Calculate NTLM hash</h3>
+<pre><code class="language-python line-numbers">import hashlib
+pwd = &quot;password&quot;
+print(hashlib.new('md4', f'{pwd}'.encode('utf-16le')).hexdigest())
 </code></pre>
 
 <h3 id="list-email-aliases">List Email aliases</h3>
