@@ -636,6 +636,11 @@ You need to add the following line at the end:</p>
 <h3 id="get-domain-password-policy">Get Domain Password Policy</h3>
 <pre><code class="language-powershell line-numbers">$policy = Get-ADDefaultDomainPasswordPolicy -Credential $cred -Server $domain
 </code></pre>
+
+<h3 id="convert-dacl">Convert DACL</h3>
+<pre><code class="language-powershell line-numbers">$acl = get-acl HKLM:\System\CurrentControlSet\Services
+ConvertFrom-SddlString -Sddl $acl -type RegistryRights | { Foreach-Object { $.DiscretionaryAcl } }
+</code></pre>
             
           </div>
           <footer>
