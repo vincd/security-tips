@@ -21,6 +21,8 @@ python -c 'import pty; pty.spawn("/bin/bash")'
 > On macOS use the `netcat` from [homebrew](https://formulae.brew.sh/formula/netcat)
 > instead of the one provided by the OS
 
+You can use [`rlwrap`](https://linux.die.net/man/1/rlwrap) to use arrow keys.
+
 
 ### Upgrade the shell
 

