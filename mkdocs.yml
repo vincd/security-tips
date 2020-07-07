@@ -36,6 +36,7 @@ nav:
   - Windows: windows.md
   - Linux: linux.md
   - SSH: ssh.md
+  - FTP: ftp.md
   - XXE: xxe.md
   - Zip: zip.md
   - Kafka: kafka.md
@@ -59,6 +60,7 @@ nav:
     - CVE-2020-0618: cve/CVE-2020-0618.md
     - CVE-2020-0688: cve/CVE-2020-0688.md
     - CVE-2020-1938: cve/CVE-2020-1938.md
+    - CVE-2020-5902: cve/CVE-2020-5902.md
     - FFmpeg HLS vulnerability: cve/ffmpeg.md
   - SDR:
     - 'Challs Dont Matter Anymore': sdr/challs-dont-matter-anymore/hackingforsoju.md
