@@ -29,7 +29,7 @@ nav:
   - Home: index.md
   - Ports: ports.md
   - Android: android.md
-  - AWS: aws.md
+  - Cloud: cloud.md
   - Containers:
     - Docker: docker.md
     - Kubernetes: kubernetes.md
