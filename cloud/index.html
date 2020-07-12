@@ -65,9 +65,22 @@
     <a class="section-link" href="../android/">Android</a>
           </li>
           
-          <li class="bold">
+          <li class="bold active">
 		        
-    <a class="section-link" href="../aws/">AWS</a>
+    <a class="section-link" href="./">Cloud</a>
+    <ul>
+            
+    
+    <ul>
+    
+        <li><a class="" href="#get-cloud-metadata">Get Cloud Metadata</a></li>
+    
+        <li><a class="" href="#aws">AWS</a></li>
+    
+    </ul>
+    
+
+    </ul>
           </li>
           
           <li class="bold">
@@ -291,10 +304,32 @@ enough.</p>
 </ul>
 <p>Here the documentation for various cloud providers:</p>
 <ul>
-<li><a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instancedata-data-retrieval.html" target="_blank">AWS</a> (and <a href="../aws/">AWS tips</a>)</li>
+<li><a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instancedata-data-retrieval.html" target="_blank">AWS</a> (and <a href="aws.md">AWS tips</a>)</li>
 <li><a href="https://docs.microsoft.com/en-us/azure/virtual-machines/windows/instance-metadata-service" target="_blank">Azure</a></li>
 <li><a href="https://cloud.google.com/compute/docs/storing-retrieving-metadata" target="_blank">GCP</a></li>
 <li><a href="https://developers.digitalocean.com/documentation/metadata/" target="_blank">DigitalOcean</a></li>
+</ul>
+<h2 id="aws">AWS</h2>
+<h3 id="check-if-domain-is-on-a-bucket">Check if domain is on a bucket</h3>
+<pre><code class="language-bash line-numbers">dig +nocmd flaws.cloud any +multiline +noall +answer
+</code></pre>
+
+<h3 id="list-a-bucket">List a bucket</h3>
+<pre><code class="language-bash line-numbers">aws s3 ls s3://flaws.cloud/ --no-sign-request --region us-west-2
+</code></pre>
+
+<h3 id="ssrf-on-aws-to-get-credentials">SSRF on AWS to get credentials</h3>
+<p>On AWS there is a metadata server that can be accessed through the REST API
+located at: <code>http://169.254.169.254</code>.
+Sending a GET requests to the following endpoint will dump a list of roles that
+are attaches to the current EC2 instance.</p>
+<pre><code class="language-none line-numbers">http://169.254.169.254/latest/meta-data/iam/security-credentials/
+http://169.254.169.254/latest/meta-data/iam/security-credentials/&lt;role_name&gt;
+</code></pre>
+
+<h3 id="resources-on-aws">Resources on AWS</h3>
+<ul>
+<li><a href="http://flaws.cloud/" target="_blank">flaws.cloud</a></li>
 </ul>
             
           </div>
@@ -314,6 +349,10 @@ enough.</p>
     <span class="rst-current-version" data-toggle="rst-current-version">
       
       
+        <span><a href="../android/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../docker/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>
