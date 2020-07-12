@@ -26,7 +26,7 @@ of the server:
 https://<host>/path/actuator/heapdump
 ```
 
-A brute-force list can be found here: [spring_boot.txt](./spring_boot.txt)
+A brute-force list can be found here: [spring_boot.txt](./assets/spring_boot.txt)
 
 
 ## Jolokia
