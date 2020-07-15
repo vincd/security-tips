@@ -621,6 +621,14 @@ You need to add the following line at the end:</p>
 <pre><code class="language-powershell line-numbers">$acl = get-acl HKLM:\System\CurrentControlSet\Services
 ConvertFrom-SddlString -Sddl $acl -type RegistryRights | { Foreach-Object { $.DiscretionaryAcl } }
 </code></pre>
+
+<h3 id="list-and-dump-shares-to-find-secrets">List and dump shares to find secrets</h3>
+<p>Using the <code>spider_plus</code> module from <code>CrackMapExec</code>](https://github.com/byt3bl33d3r/CrackMapExec)
+you can list the files from Windows share and dump the small files. After that
+you <code>grep</code> those files to find secrets.</p>
+<pre><code class="language-bash line-numbers">cme {IP} -d {DOMAIN} -u {USERNAME} -p {PASSWORD} -m spider_plus
+grep ./output_folder &quot;password&quot;
+</code></pre>
             
           </div>
           <footer>
