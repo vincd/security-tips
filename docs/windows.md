@@ -400,3 +400,15 @@ $policy = Get-ADDefaultDomainPasswordPolicy -Credential $cred -Server $domain
 $acl = get-acl HKLM:\System\CurrentControlSet\Services
 ConvertFrom-SddlString -Sddl $acl -type RegistryRights | { Foreach-Object { $.DiscretionaryAcl } }
 ```
+
+
+### List and dump shares to find secrets
+
+Using the `spider_plus` module from `CrackMapExec`](https://github.com/byt3bl33d3r/CrackMapExec)
+you can list the files from Windows share and dump the small files. After that
+you `grep` those files to find secrets.
+
+```bash
+cme {IP} -d {DOMAIN} -u {USERNAME} -p {PASSWORD} -m spider_plus
+grep ./output_folder "password"
+```
