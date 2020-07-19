@@ -285,6 +285,8 @@
     
         <li><a class="" href="#web">Web</a></li>
     
+        <li><a class="" href="#shodan">Shodan</a></li>
+    
     </ul>
     
 
@@ -381,6 +383,21 @@ passwords on equipments or applications.</p>
 <p>Here is a onliner (I don't remember from where) to expose a simple web server
 using <code>netcat</code>:</p>
 <pre><code class="language-bash line-numbers">while :; do (echo -ne &quot;HTTP/1.1 200 OK\r\nContent-Length: $(wc -c &lt; index.html)\r\n\r\n&quot;; cat index.html) | nc -l -p 8080; done
+</code></pre>
+
+<h2 id="shodan">Shodan</h2>
+<h3 id="calculate-favicon-hash">Calculate favicon hash</h3>
+<p>Shodan uses the <a href="https://pypi.org/project/mmh3/" target="_blank"><code>MurmurHash</code></a> algorithm to
+search a website by his favicon. The following snippet calculate the favicon
+hash:</p>
+<pre><code class="language-python line-numbers">import requests, mmh3, base64
+r = requests.get('https://{HOST}:{PORT}/favicon.ico')
+favicon = base64.b64encode(r.content)
+print(mmh3.hash(favicon))
+</code></pre>
+
+<p>Then, to search all the website with the same favicon on Shodan:</p>
+<pre><code class="language-none line-numbers">https://www.shodan.io/search?query=http.favicon.hash:{HASH}
 </code></pre>
             
           </div>
