@@ -1,10 +1,9 @@
-PHP
-===
-
+# PHP
 
 ## Deserialization
 
 ### Phar deserialization
+
 The unserialization of a `phar` wrapper is realized in any file operation. Thus,
 file operation such as `file_exists` might be less protected, then it's possible
 to inject a `phar` wrapper within it.
@@ -119,3 +118,40 @@ gets the session file that is accessible on the server `/session/sess_<session_i
 - `ippsec` use this technique in the HTB box [`Sniper`](https://www.youtube.com/watch?v=k7gD4ufex9Q&t=3255s)
 to create a use with a username that contains some PHP code. Then he includes
 the session file with a LFI.
+
+
+## PHP Polyglot file
+
+A polyglot file is valid in two different format. For instance a valid `GIF`
+file that contains a PHP payload.
+
+
+### GIF89
+
+[This file](./assets/polyglot.php.gif)) contains a PHP payload in the [Comment
+Extension](https://www.w3.org/Graphics/GIF/spec-gif89a.txt) of a 1 pixel GIF:
+
+```bash
+hexdump -C assets/polyglot.php.gif
+00000000  47 49 46 38 39 61 01 00  01 00 00 ff 00 2c 00 00  |GIF89a.......,..|
+00000010  00 00 01 00 01 00 00 02  00 21 fe 3c 3f 70 68 70  |.........!.<?php|
+00000020  69 6e 66 6f 28 29 3b                              |info();|
+```
+
+### PDF
+
+You can add a comment (`%`) on the PDF header:
+
+```pdf
+%PDF-1.2 %<?phpinfo()?>
+...
+```
+
+### Others formats
+
+On most formats (mp3, jpg, ...) there is an `EOF` after what we can add the
+payload. So the easiest way is to append to a valid file our payload:
+
+```bash
+cat valid.jpg payload.php > polyglot.php.jpg
+```
