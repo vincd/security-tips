@@ -122,3 +122,25 @@ using `netcat`:
 ```bash
 while :; do (echo -ne "HTTP/1.1 200 OK\r\nContent-Length: $(wc -c < index.html)\r\n\r\n"; cat index.html) | nc -l -p 8080; done
 ```
+
+
+## Shodan
+
+### Calculate favicon hash
+
+Shodan uses the [`MurmurHash`](https://pypi.org/project/mmh3/) algorithm to
+search a website by his favicon. The following snippet calculate the favicon
+hash:
+
+```python
+import requests, mmh3, base64
+r = requests.get('https://{HOST}:{PORT}/favicon.ico')
+favicon = base64.b64encode(r.content)
+print(mmh3.hash(favicon))
+```
+
+Then, to search all the website with the same favicon on Shodan:
+
+```
+https://www.shodan.io/search?query=http.favicon.hash:{HASH}
+```
