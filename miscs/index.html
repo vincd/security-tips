@@ -287,6 +287,8 @@
     
         <li><a class="" href="#shodan">Shodan</a></li>
     
+        <li><a class="" href="#proxychains">ProxyChains</a></li>
+    
     </ul>
     
 
@@ -398,6 +400,36 @@ print(mmh3.hash(favicon))
 
 <p>Then, to search all the website with the same favicon on Shodan:</p>
 <pre><code class="language-none line-numbers">https://www.shodan.io/search?query=http.favicon.hash:{HASH}
+</code></pre>
+
+<h2 id="proxychains">ProxyChains</h2>
+<p><a href="https://github.com/haad/proxychains" target="_blank">ProxyChains</a> hooks the libc network calls
+to redirect the connections through SOCKS4a/5 or HTTP proxies.</p>
+<p>The configuration file need at least the following lines:</p>
+<pre><code class="language-bash line-numbers">vim /etc/proxychains.conf
+dynamic_chain
+[ProxyList]
+socks4 {IP} {PORT}
+socks5 {IP} {PORT}
+</code></pre>
+
+<h3 id="use-a-unix-program-trough-a-socks-proxy">Use a UNIX program trough a socks proxy</h3>
+<pre><code class="language-bash line-numbers">proxychains nc {HOST} {PORT}
+proxychains nmap {HOST}
+</code></pre>
+
+<p>You can specify a custom configuration file with the <code>-f</code> option:</p>
+<pre><code class="language-bash line-numbers">proxychains -f /path/proxychains/config.conf &lt;program&gt; &lt;arguments&gt;
+</code></pre>
+
+<p>Also, you can specify an environment variable for SOCKS5 proxy:</p>
+<pre><code class="language-bash line-numbers">PROXYCHAINS_SOCKS5=4321 proxychains &lt;program&gt; &lt;arguments&gt;
+</code></pre>
+
+<h3 id="use-nessus-through-a-socks-proxy">Use Nessus through a socks proxy</h3>
+<p>Nessus can be proxified to scan hosts over a SOCKS proxy:</p>
+<pre><code class="language-bash line-numbers">cd /opt/nessus/sbin
+proxychains ./nessus-service -D
 </code></pre>
             
           </div>
