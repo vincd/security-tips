@@ -144,3 +144,46 @@ Then, to search all the website with the same favicon on Shodan:
 ```
 https://www.shodan.io/search?query=http.favicon.hash:{HASH}
 ```
+
+## ProxyChains
+
+[ProxyChains](https://github.com/haad/proxychains) hooks the libc network calls
+to redirect the connections through SOCKS4a/5 or HTTP proxies.
+
+The configuration file need at least the following lines:
+
+```bash
+vim /etc/proxychains.conf
+dynamic_chain
+[ProxyList]
+socks4 {IP} {PORT}
+socks5 {IP} {PORT}
+```
+
+### Use a UNIX program trough a socks proxy
+
+```bash
+proxychains nc {HOST} {PORT}
+proxychains nmap {HOST}
+```
+
+You can specify a custom configuration file with the `-f` option:
+
+```bash
+proxychains -f /path/proxychains/config.conf <program> <arguments>
+```
+
+Also, you can specify an environment variable for SOCKS5 proxy:
+
+```bash
+PROXYCHAINS_SOCKS5=4321 proxychains <program> <arguments>
+```
+
+### Use Nessus through a socks proxy
+
+Nessus can be proxified to scan hosts over a SOCKS proxy:
+
+```bash
+cd /opt/nessus/sbin
+proxychains ./nessus-service -D
+```
