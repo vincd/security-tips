@@ -621,6 +621,19 @@ You need to add the following line at the end:</p>
 <pre><code class="language-powershell line-numbers">$acl = get-acl HKLM:\System\CurrentControlSet\Services
 ConvertFrom-SddlString -Sddl $acl -type RegistryRights | { Foreach-Object { $.DiscretionaryAcl } }
 </code></pre>
+
+<h4 id="execute-dll">Execute DLL</h4>
+<pre><code class="language-powershell line-numbers"># Load a dll to Powershell
+[Reflection.Assembly]::LoadFile(&quot;C:\Path\MyNamespace.Service.dll&quot;)
+[Reflection.Assembly]::LoadFile(&quot;C:\Path\MyNamespace.Cryptography.dll&quot;)
+
+# Call a public public static method
+[MyNamespace.Service.Config]::ApplicationKey()
+
+# Instantiate a class and class a method
+$c = New-Object MyNamespace.Cryptography.MyCryptography
+$c.Decrypt(&quot;CIPHER_TEXT&quot;, [MyNamespace.Service.Config]::ApplicationKey())
+</code></pre>
             
           </div>
           <footer>
