@@ -400,3 +400,19 @@ $policy = Get-ADDefaultDomainPasswordPolicy -Credential $cred -Server $domain
 $acl = get-acl HKLM:\System\CurrentControlSet\Services
 ConvertFrom-SddlString -Sddl $acl -type RegistryRights | { Foreach-Object { $.DiscretionaryAcl } }
 ```
+
+
+#### Execute DLL
+
+```powershell
+# Load a dll to Powershell
+[Reflection.Assembly]::LoadFile("C:\Path\MyNamespace.Service.dll")
+[Reflection.Assembly]::LoadFile("C:\Path\MyNamespace.Cryptography.dll")
+
+# Call a public public static method
+[MyNamespace.Service.Config]::ApplicationKey()
+
+# Instantiate a class and class a method
+$c = New-Object MyNamespace.Cryptography.MyCryptography
+$c.Decrypt("CIPHER_TEXT", [MyNamespace.Service.Config]::ApplicationKey())
+```
