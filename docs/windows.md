@@ -402,7 +402,7 @@ ConvertFrom-SddlString -Sddl $acl -type RegistryRights | { Foreach-Object { $.
 ```
 
 
-#### Execute DLL
+### Execute DLL
 
 ```powershell
 # Load a dll to Powershell
@@ -415,4 +415,15 @@ ConvertFrom-SddlString -Sddl $acl -type RegistryRights | { Foreach-Object { $.
 # Instantiate a class and class a method
 $c = New-Object MyNamespace.Cryptography.MyCryptography
 $c.Decrypt("CIPHER_TEXT", [MyNamespace.Service.Config]::ApplicationKey())
+```
+
+
+### List TCP connections
+
+The [`Get-NetTCPConnection`](https://docs.microsoft.com/en-us/powershell/module/nettcpip/get-nettcpconnection?view=win10-ps)
+cmdlets lists TCP connections. By default the processes pid is return, so the
+following command line select the process name instead.
+
+```powershell
+Get-NetTCPConnection -State Listen | Select local*, remote*, state, @{Name="Process";Expression={(Get-Process -Id $_.OwningProcess).CommandLine}} | Format-Table -AutoSize
 ```
