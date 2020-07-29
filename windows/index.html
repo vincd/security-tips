@@ -622,7 +622,7 @@ You need to add the following line at the end:</p>
 ConvertFrom-SddlString -Sddl $acl -type RegistryRights | { Foreach-Object { $.DiscretionaryAcl } }
 </code></pre>
 
-<h4 id="execute-dll">Execute DLL</h4>
+<h3 id="execute-dll">Execute DLL</h3>
 <pre><code class="language-powershell line-numbers"># Load a dll to Powershell
 [Reflection.Assembly]::LoadFile(&quot;C:\Path\MyNamespace.Service.dll&quot;)
 [Reflection.Assembly]::LoadFile(&quot;C:\Path\MyNamespace.Cryptography.dll&quot;)
@@ -633,6 +633,13 @@ ConvertFrom-SddlString -Sddl $acl -type RegistryRights | { Foreach-Object { $.
 # Instantiate a class and class a method
 $c = New-Object MyNamespace.Cryptography.MyCryptography
 $c.Decrypt(&quot;CIPHER_TEXT&quot;, [MyNamespace.Service.Config]::ApplicationKey())
+</code></pre>
+
+<h3 id="list-tcp-connections">List TCP connections</h3>
+<p>The <a href="https://docs.microsoft.com/en-us/powershell/module/nettcpip/get-nettcpconnection?view=win10-ps" target="_blank"><code>Get-NetTCPConnection</code></a>
+cmdlets lists TCP connections. By default the processes pid is return, so the
+following command line select the process name instead.</p>
+<pre><code class="language-powershell line-numbers">Get-NetTCPConnection -State Listen | Select local*, remote*, state, @{Name=&quot;Process&quot;;Expression={(Get-Process -Id $_.OwningProcess).CommandLine}} | Format-Table -AutoSize
 </code></pre>
             
           </div>
