@@ -34,6 +34,7 @@ nav:
     - Docker: docker.md
     - Kubernetes: kubernetes.md
   - Windows: windows.md
+  - Powershell: powershell.md
   - Linux: linux.md
   - SSH: ssh.md
   - FTP: ftp.md
