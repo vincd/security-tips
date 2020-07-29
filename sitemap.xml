@@ -36,6 +36,11 @@
      <changefreq>daily</changefreq>
     </url>
     <url>
+     <loc>https://security-tips.vincd.com/powershell/</loc>
+     <lastmod>2020-07-29</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
      <loc>https://security-tips.vincd.com/linux/</loc>
      <lastmod>2020-07-29</lastmod>
      <changefreq>daily</changefreq>

