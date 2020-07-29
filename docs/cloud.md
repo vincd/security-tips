@@ -27,7 +27,7 @@ enough.
 
 Here the documentation for various cloud providers:
 
-- [AWS](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instancedata-data-retrieval.html) (and [AWS tips](aws.md))
+- [AWS](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instancedata-data-retrieval.html)
 - [Azure](https://docs.microsoft.com/en-us/azure/virtual-machines/windows/instance-metadata-service)
 - [GCP](https://cloud.google.com/compute/docs/storing-retrieving-metadata)
 - [DigitalOcean](https://developers.digitalocean.com/documentation/metadata/)
