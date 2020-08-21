@@ -10,14 +10,14 @@
   
   <meta name="author" content="Vincent D. (@vincd)">
   <link rel="shortcut icon" href="../img/favicon.ico">
-  <title>JDWP - Security Tips</title>
+  <title>Java - Security Tips</title>
   <link rel="stylesheet" href="../css/style.css" type="text/css" />
   
   <script>
     // Current page data
-    var mkdocs_page_name = "JDWP";
-    var mkdocs_page_input_path = "jdwp.md";
-    var mkdocs_page_url = "/jdwp/";
+    var mkdocs_page_name = "Java";
+    var mkdocs_page_input_path = "java.md";
+    var mkdocs_page_url = "/java/";
   </script>
   
   <script src="../js/jquery-2.1.1.min.js" defer></script>
@@ -252,15 +252,15 @@
                 </li>
                 <li class="active">
                     
-    <a class="section-link" href="./">JDWP</a>
+    <a class="section-link" href="./">Java</a>
     <ul>
             
     
     <ul>
     
-        <li><a class="" href="#manual-exploitation">Manual exploitation</a></li>
+        <li><a class="" href="#decompile-java-code">Decompile Java code</a></li>
     
-        <li><a class="" href="#jdwp-shellifier">jdwp-shellifier</a></li>
+        <li><a class="" href="#java-debug-wire-protocol-jdwp">Java Debug Wire Protocol (JDWP)</a></li>
     
     </ul>
     
@@ -296,9 +296,22 @@
         <div role="main">
           <div class="section">
             
-              <h1 id="java-debug-wire-protocol-jdwp">Java Debug Wire Protocol (JDWP)</h1>
+              <h1 id="java">Java</h1>
+<h2 id="decompile-java-code">Decompile Java code</h2>
+<p>I use two tools to decompile Java classes (<code>.class</code>, <code>.jar</code>, <code>.war</code>, ...):</p>
+<ul>
+<li><a href="http://java-decompiler.github.io/" target="_blank"><code>jd-gui</code></a>: it's quick and easy to use with
+its graphical interface. I use it with a small codebase</li>
+<li><a href="https://www.benf.org/other/cfr/" target="_blank"><code>cfr</code></a>: CFR is a command line tool and it's
+focused on modern Java features. I use it when JD-Gui got troubles with large or
+new Java codebase.</li>
+</ul>
+<pre><code class="language-bash line-numbers">java -jar cfr-0.150.jar /path/to/jar --outputdir /path/output/dir
+</code></pre>
+
+<h2 id="java-debug-wire-protocol-jdwp">Java Debug Wire Protocol (JDWP)</h2>
 <p><code>JWDP</code> is the protocol used for communication between a debugger and a Java app (JVM).</p>
-<h2 id="manual-exploitation">Manual exploitation</h2>
+<h3 id="manual-exploitation">Manual exploitation</h3>
 <p>It's possible to execute shell commands using <code>jdb</code>:</p>
 <pre><code class="language-bash line-numbers">jdb -attach 8000
 </code></pre>
@@ -313,7 +326,7 @@ print new java.lang.Runtime().exec(&quot;&lt;cmd&gt;&quot;)
 
 <p>This should execute you command with the privilege of the Java application. But
 be careful, the manual method often fails.</p>
-<h2 id="jdwp-shellifier">jdwp-shellifier</h2>
+<h3 id="jdwp-shellifier">jdwp-shellifier</h3>
 <p><code>jdwp-shellifier</code> is an exploitation tool to exploit <code>JWDP</code>. It's available on
 <a href="https://github.com/IOActive/jdwp-shellifier" target="_blank">github</a>.</p>
 <p>Again we use the <code>indexOf</code> method to break on, it's possible to use an other one.</p>
