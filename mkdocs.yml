@@ -70,7 +70,7 @@ nav:
     - Firefox: firefox.md
     - Git: git.md
     - ISCSI: iscsi.md
-    - JDWP: jdwp.md
+    - Java: java.md
     - Reverse Shell: reverse-shell.md
     - Spring Boot: spring_boot.md
     - WAF: waf.md
