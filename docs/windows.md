@@ -267,6 +267,24 @@ expand -f:* "%temp%\\update.msu\\update.cab" "%temp%\\update.msu\\update.cab"
 ```
 
 
+### Download file with certutil
+
+`certutil` is a useful tool to encode/decode and hash files. You can also
+download files with the following command:
+
+```bash
+certutil -urlcache -split -f "{URL}"
+```
+
+In your current directory there will be downloaded file. Be aware that there is
+cached files of the process in the two directories:
+
+```
+%USERPROFILE%\AppData\LocalLow\Microsoft\CryptnetUrlCache\Content
+%USERPROFILE%\AppData\LocalLow\Microsoft\CryptnetUrlCache\MetaData
+```
+
+
 ## User enumeration
 
 ### LDAP search
