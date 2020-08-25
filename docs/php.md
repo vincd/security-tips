@@ -1,5 +1,22 @@
 # PHP
 
+## Command execution
+
+Here is a list of functions to execute commands on a system:
+
+```
+exec
+passthru
+shell_exec
+system
+proc_open
+popen
+`{CMD}`
+curl_exec
+curl_multi_exec
+```
+
+
 ## Deserialization
 
 ### Phar deserialization
