@@ -157,6 +157,8 @@
     
     <ul>
     
+        <li><a class="" href="#command-execution">Command execution</a></li>
+    
         <li><a class="" href="#deserialization">Deserialization</a></li>
     
         <li><a class="" href="#cve-2012-1823-rce-in-php-cgi">CVE-2012-1823: RCE in PHP-CGI</a></li>
@@ -303,6 +305,19 @@
           <div class="section">
             
               <h1 id="php">PHP</h1>
+<h2 id="command-execution">Command execution</h2>
+<p>Here is a list of functions to execute commands on a system:</p>
+<pre><code class="language-none line-numbers">exec
+passthru
+shell_exec
+system
+proc_open
+popen
+`{CMD}`
+curl_exec
+curl_multi_exec
+</code></pre>
+
 <h2 id="deserialization">Deserialization</h2>
 <h3 id="phar-deserialization">Phar deserialization</h3>
 <p>The unserialization of a <code>phar</code> wrapper is realized in any file operation. Thus,
