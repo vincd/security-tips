@@ -369,6 +369,11 @@ function Get-ADGroupMembers($GroupName) {
     return $GroupMembers.properties
 }
 
+function Get-ADComputerByOS($operatingSystem) {
+    # https://ldapwiki.com/wiki/Active%20Directory%20Computer%20Related%20LDAP%20Query
+    return (New-Object System.DirectoryServices.DirectorySearcher(&quot;(&amp;(&amp;(&amp;(samAccountType=805306369)(objectCategory=computer)(operatingSystem=$operatingSystem*))))&quot;)).FindAll()
+}
+
 # Get &quot;Domain admins&quot; users, be carefull the name may change depending on the DC lang
 $DomainAdmins = Get-ADGroupMembers(&quot;Domain Admins&quot;)
 foreach($user in $DomainAdmins) { echo &quot;$($user.displayname) ($($user.samaccountname))&quot; }
