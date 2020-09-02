@@ -6,7 +6,7 @@
 With the node module `express` you can parse the payload of a request with the
 `body-parser` module:
 
-```node
+```javascript
 var bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -23,9 +23,9 @@ params[key]=value&foo=bar
 
 Then on the node code, there is the following code:
 
-```node
-const params = req.body['params']
-const foo = req.body['foo']
+```javascript
+const params = req.body['params'] // params == { "key": "value" }
+const foo = req.body['foo'] // foo == "bar"
 ```
 
 The `params` variable is not a string but a dictionary (`{"key": "value"}`).
