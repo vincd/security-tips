@@ -302,7 +302,7 @@
 <h2 id="bodyparser-urlencoded">BodyParser urlencoded</h2>
 <p>With the node module <code>express</code> you can parse the payload of a request with the
 <code>body-parser</code> module:</p>
-<pre><code class="language-node line-numbers">var bodyParser = require('body-parser');
+<pre><code class="language-javascript line-numbers">var bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true
@@ -315,8 +315,8 @@ provide a urlencoded payload such as:</p>
 </code></pre>
 
 <p>Then on the node code, there is the following code:</p>
-<pre><code class="language-node line-numbers">const params = req.body['params']
-const foo = req.body['foo']
+<pre><code class="language-javascript line-numbers">const params = req.body['params'] // params == { &quot;key&quot;: &quot;value&quot; }
+const foo = req.body['foo'] // foo == &quot;bar&quot;
 </code></pre>
 
 <p>The <code>params</code> variable is not a string but a dictionary (<code>{"key": "value"}</code>).
