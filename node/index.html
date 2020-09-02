@@ -10,14 +10,14 @@
   
   <meta name="author" content="Vincent D. (@vincd)">
   <link rel="shortcut icon" href="../img/favicon.ico">
-  <title>Git - Security Tips</title>
+  <title>Node - Security Tips</title>
   <link rel="stylesheet" href="../css/style.css" type="text/css" />
   
   <script>
     // Current page data
-    var mkdocs_page_name = "Git";
-    var mkdocs_page_input_path = "git.md";
-    var mkdocs_page_url = "/git/";
+    var mkdocs_page_name = "Node";
+    var mkdocs_page_input_path = "node.md";
+    var mkdocs_page_url = "/node/";
   </script>
   
   <script src="../js/jquery-2.1.1.min.js" defer></script>
@@ -242,24 +242,9 @@
                     
     <a class="section-link" href="../firefox/">Firefox</a>
                 </li>
-                <li class="active">
+                <li class="">
                     
-    <a class="section-link" href="./">Git</a>
-    <ul>
-            
-    
-    <ul>
-    
-        <li><a class="" href="#exploit-git-exposed-over-http">Exploit git exposed over HTTP</a></li>
-    
-        <li><a class="" href="#find-git-secrets">Find git secrets</a></li>
-    
-        <li><a class="" href="#use-git-over-an-http-proxy">Use git over an HTTP Proxy</a></li>
-    
-    </ul>
-    
-
-    </ul>
+    <a class="section-link" href="../git/">Git</a>
                 </li>
                 <li class="">
                     
@@ -269,9 +254,20 @@
                     
     <a class="section-link" href="../java/">Java</a>
                 </li>
-                <li class="">
+                <li class="active">
                     
-    <a class="section-link" href="../node/">Node</a>
+    <a class="section-link" href="./">Node</a>
+    <ul>
+            
+    
+    <ul>
+    
+        <li><a class="" href="#bodyparser-urlencoded">BodyParser urlencoded</a></li>
+    
+    </ul>
+    
+
+    </ul>
                 </li>
                 <li class="">
                     
@@ -302,47 +298,34 @@
         <div role="main">
           <div class="section">
             
-              <h1 id="git">Git</h1>
-<h2 id="exploit-git-exposed-over-http">Exploit git exposed over HTTP</h2>
-<p>Some website exposes <code>.git</code> to the Internet. To check if the website is vulnerable, then check for
-the following path:</p>
-<pre><code class="language-none line-numbers">https://&lt;domain&gt;/some/path/.git/HEAD
+              <h1 id="node">Node</h1>
+<h2 id="bodyparser-urlencoded">BodyParser urlencoded</h2>
+<p>With the node module <code>express</code> you can parse the payload of a request with the
+<code>body-parser</code> module:</p>
+<pre><code class="language-node line-numbers">var bodyParser = require('body-parser');
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
 </code></pre>
 
-<p>If the server return a status 200, then it might be possible to clone the repository. For that, you
-can use <a href="https://github.com/internetwache/GitTools" target="_blank"><code>GitTools</code></a>:</p>
-<pre><code class="language-none line-numbers">Dumper/gitdumper.sh http://&lt;domain&gt;/some/path/.git/ ~/&lt;domain&gt;
-Extractor/extractor.sh ~/&lt;domain&gt; ~/&lt;domain&gt;_dump
+<p>When the <code>extended: true</code> option is passed to the middleware then a user may
+provide a urlencoded payload such as:</p>
+<pre><code class="language-none line-numbers">params[key]=value&amp;foo=bar
 </code></pre>
 
-<p>If the script is not dumping the <code>.git</code> folder, then you can modify it. Sometimes, the <code>/.git/</code> path
-is a Directory Listing, then it's easier to dump using <code>wget</code>.</p>
-<h2 id="find-git-secrets">Find git secrets</h2>
-<p>Here is 2 tools I used to find git secrets:</p>
+<p>Then on the node code, there is the following code:</p>
+<pre><code class="language-node line-numbers">const params = req.body['params']
+const foo = req.body['foo']
+</code></pre>
+
+<p>The <code>params</code> variable is not a string but a dictionary (<code>{"key": "value"}</code>).
+An attacker can with this method to bypass some code logic. There is two
+examples on the Google CTF 2020:</p>
 <ul>
-<li><a href="https://github.com/zricethezav/gitleaks" target="_blank">GitLeaks</a></li>
-<li><a href="https://github.com/dxa4481/truffleHog" target="_blank">truffleHog</a></li>
+<li><a href="https://capturetheflag.withgoogle.com/challenges/web-log-me-in" target="_blank">Google CTF - Log-Me-In</a></li>
+<li><a href="https://capturetheflag.withgoogle.com/challenges/web-pasteurize" target="_blank">Google CTF - Pasteurize</a></li>
 </ul>
-<p>Or you can use the <code>git</code> command:</p>
-<pre><code class="language-bash line-numbers">git log
-git diff &lt;commit_hash&gt;
-</code></pre>
-
-<p>Don't forget to also check the username or email address of the committers.</p>
-<h2 id="use-git-over-an-http-proxy">Use git over an HTTP Proxy</h2>
-<p>You can use <code>git</code> (therefore <code>ssh</code>) over an HTTP Proxy using the <code>ProxyCommand</code>
-configuration.</p>
-<p>For <code>ssh</code> the command looks like:</p>
-<pre><code class="language-bash line-numbers">ssh &lt;ssh_user&gt;@&lt;ssh_host&gt; -o &quot;ProxyCommand=nc -X connect -x &lt;proxy_host&gt;:&lt;proxy_port&gt; %h %p&quot;
-</code></pre>
-
-<p>Or you can edit the <code>~/.ssh/config</code>  file to add the <code>ProxyCommand</code> to a specific
-host. For example, if you want to use Github through an HTTP proxy:</p>
-<pre><code class="language-none line-numbers">Host github.com
-    User                  git
-    ProxyCommand          nc -X connect -x &lt;proxy_host&gt;:&lt;proxy_port&gt; %h %p
-    ServerAliveInterval   10
-</code></pre>
             
           </div>
           <footer>
@@ -361,10 +344,10 @@ host. For example, if you want to use Github through an HTTP proxy:</p>
     <span class="rst-current-version" data-toggle="rst-current-version">
       
       
-        <span><a href="../firefox/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href="../java/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
-        <span style="margin-left: 15px"><a href="../iscsi/" style="color: #fcfcfc">Next &raquo;</a></span>
+        <span style="margin-left: 15px"><a href="../reverse-shell/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>
