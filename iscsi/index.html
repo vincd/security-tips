@@ -19,9 +19,7 @@
     var mkdocs_page_input_path = "iscsi.md";
     var mkdocs_page_url = "/iscsi/";
   </script>
-  
-  <script src="../js/jquery-2.1.1.min.js" defer></script>
-  <script src="../js/modernizr-2.8.3.min.js" defer></script> 
+   
 </head>
 
 <body class="ready sticky">
@@ -293,7 +291,7 @@
           <div class="section">
             
               <h1 id="iscsi">ISCSI</h1>
-<pre><code class="language-bash line-numbers">$ ISCSI_TARGET_PORTAL=172.17.247.210
+<pre><code class="language-bash">$ ISCSI_TARGET_PORTAL=172.17.247.210
 $ sudo iscsiadm -m discovery -t st -p &quot;${ISCSI_TARGET_PORTAL}&quot;
 $ ISCSI_TARGET_NAME=iqn.1992-04.com.emc:cx.ckm00142002019.b4
 $ sudo iscsiadm --mode node --targetname &quot;${ISCSI_TARGET_NAME}&quot; -p &quot;${ISCSI_TARGET_PORTAL}&quot; -l
@@ -325,18 +323,8 @@ $ dmesg | grep sd
     </span>
 </div>
     <script>var base_url = '..';</script>
-    <script src="../js/theme.js"></script>
-    <script src="../js/prism-core.min.js"></script>
-    <script src="../js/prism-line-numbers.min.js"></script>
-    <script src="../js/prism-clike.min.js"></script>
-    <script src="../js/prism-yaml.min.js"></script>
-    <script src="../js/prism-powershell.min.js"></script>
-    <script src="../js/prism-bash.min.js"></script>
-    <script src="../js/prism-nginx.min.js"></script>
-    <script src="../js/prism-python.min.js"></script>
-    <script src="../js/prism-markup.min.js"></script>
-    <script src="../js/prism-markup-templating.min.js"></script>
-    <script src="../js/prism-php.min.js"></script>
+    <script async src="../js/theme.js"></script>
+    <script async src="../js/prism.min.js"></script>
     <script src="../search/main.js"></script>
     
     <script>

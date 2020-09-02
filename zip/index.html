@@ -19,9 +19,7 @@
     var mkdocs_page_input_path = "zip.md";
     var mkdocs_page_url = "/zip/";
   </script>
-  
-  <script src="../js/jquery-2.1.1.min.js" defer></script>
-  <script src="../js/modernizr-2.8.3.min.js" defer></script> 
+   
 </head>
 
 <body class="ready sticky">
@@ -302,7 +300,7 @@
 <h2 id="exploit-path-traversal-on-decompress">Exploit Path Traversal on decompress</h2>
 <p>Some programs do not check the zip path while extracting the archive.
 Then it's possible to exploit this to extract a file to a custom location.</p>
-<pre><code class="language-python line-numbers">import os
+<pre><code class="language-python">import os
 import zipfile
 
 def zip(dst):
@@ -338,18 +336,8 @@ if __name__ == '__main__':
     </span>
 </div>
     <script>var base_url = '..';</script>
-    <script src="../js/theme.js"></script>
-    <script src="../js/prism-core.min.js"></script>
-    <script src="../js/prism-line-numbers.min.js"></script>
-    <script src="../js/prism-clike.min.js"></script>
-    <script src="../js/prism-yaml.min.js"></script>
-    <script src="../js/prism-powershell.min.js"></script>
-    <script src="../js/prism-bash.min.js"></script>
-    <script src="../js/prism-nginx.min.js"></script>
-    <script src="../js/prism-python.min.js"></script>
-    <script src="../js/prism-markup.min.js"></script>
-    <script src="../js/prism-markup-templating.min.js"></script>
-    <script src="../js/prism-php.min.js"></script>
+    <script async src="../js/theme.js"></script>
+    <script async src="../js/prism.min.js"></script>
     <script src="../search/main.js"></script>
     
     <script>

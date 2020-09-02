@@ -19,9 +19,7 @@
     var mkdocs_page_input_path = "sdr/challs-dont-matter-anymore/hackingforsoju.md";
     var mkdocs_page_url = "/sdr/challs-dont-matter-anymore/hackingforsoju/";
   </script>
-  
-  <script src="../../../js/jquery-2.1.1.min.js" defer></script>
-  <script src="../../../js/modernizr-2.8.3.min.js" defer></script> 
+   
 </head>
 
 <body class="ready sticky">
@@ -315,7 +313,7 @@
 <p>If we look at how the input data looks in Audacity, we can see that the signal seems to be partwise constant in blocks of 100 samples with some noise added.</p>
 <p><img alt="Audacity" src="../audacity.png" /></p>
 <p>We can compute the mean value for every time slot and plot.</p>
-<pre><code class="language-python line-numbers">wav = wavio.read('CDMA_interception.wav')
+<pre><code class="language-python">wav = wavio.read('CDMA_interception.wav')
 means = wav.data.reshape((wav.data.size/100,100)).mean(axis=1)
 plt.hist(means,bins=1000)
 plt.plot(sorted(means),range(len(means)))
@@ -324,12 +322,12 @@ plt.plot(sorted(means),range(len(means)))
 <p><img alt="Histogram" src="../means.png" /></p>
 <p>The mean values for the time slots separate into several distinct groups, depending of what the transmitters send. This is the interference pattern. The first side groups are located at +/-7500, so we can compute the number of the bin by dividing by 7500 and rounding to the nearest integer.</p>
 <p>We were given that the transmission uses 32-bit codes, so we can reshape the data into a matrix with 32 columns and find an orthogonal base in that data set. There are several ways, but LLL-lattice reduction worked fine.</p>
-<pre><code class="language-none line-numbers">matrix = (means.reshape((means.size/32,32))/7500.0).round().astype(int)
+<pre><code class="language-none">matrix = (means.reshape((means.size/32,32))/7500.0).round().astype(int)
 base = reduceLattice(matrix)
 </code></pre>
 
 <p>This gave 8 base vectors that span the data set. (It was at this stage the smell of flag started to show, as we were given the information that there were 8 devices.) The base was:</p>
-<pre><code class="language-none line-numbers">[ 1, 1, 1, 1,-1,-1, 1, 1,-1,-1, 1,-1, 1,-1,-1,-1, 1,-1,-1,-1,-1,-1, 1,-1, 1, 1, 1, 1,-1,-1, 1, 1]
+<pre><code class="language-none">[ 1, 1, 1, 1,-1,-1, 1, 1,-1,-1, 1,-1, 1,-1,-1,-1, 1,-1,-1,-1,-1,-1, 1,-1, 1, 1, 1, 1,-1,-1, 1, 1]
 [-1,-1, 1, 1, 1,-1,-1, 1,-1, 1, 1,-1,-1,-1, 1,-1, 1, 1, 1, 1,-1, 1, 1,-1, 1,-1,-1,-1, 1, 1, 1, 1]
 [ 1,-1, 1, 1, 1,-1,-1,-1,-1,-1,-1,-1,-1,-1, 1, 1,-1, 1,-1,-1,-1,-1,-1, 1,-1,-1, 1, 1, 1,-1,-1, 1]
 [-1, 1, 1, 1,-1,-1,-1,-1, 1,-1, 1, 1, 1,-1,-1,-1,-1, 1, 1, 1, 1,-1,-1, 1,-1, 1,-1, 1, 1, 1, 1, 1]
@@ -341,13 +339,13 @@ base = reduceLattice(matrix)
 
 <p>We can see that this base is not perfect, as all base vectors should have been 1 or -1. This is because LLL minimizes vectors with the L2-norm, not the L-inf-norm.</p>
 <p>But the base was good enough to use, if we just reduce the rawdata after decoding with this base. To decode the data, we take the dot product with the base and reduce again:</p>
-<pre><code class="language-python line-numbers">rawdata = base.dot(matrix.transpose())
+<pre><code class="language-python">rawdata = base.dot(matrix.transpose())
 data = reduceLattice(rawdata)
 </code></pre>
 
 <h2 id="source-code">Source code</h2>
 <p>This script solves the challenge:</p>
-<pre><code class="language-python line-numbers">import wavio, fpylll, bitarray, numpy
+<pre><code class="language-python">import wavio, fpylll, bitarray, numpy
 
 def reduceLattice(lattice):
     A = fpylll.IntegerMatrix.from_matrix(lattice)
@@ -382,7 +380,7 @@ for d in data:
 </code></pre>
 
 <p>Running it gives the flag:</p>
-<pre><code class="language-none line-numbers">$ python solve.py
+<pre><code class="language-none">$ python solve.py
 Oh hi, I see you've found my secret device. Want a flag ? Here you go INSA{Elektr0nenklange_Aus_d3m_R4di0l4nD}
 </code></pre>
             
@@ -411,18 +409,8 @@ Oh hi, I see you've found my secret device. Want a flag ? Here you go INSA{Elekt
     </span>
 </div>
     <script>var base_url = '../../..';</script>
-    <script src="../../../js/theme.js"></script>
-    <script src="../../../js/prism-core.min.js"></script>
-    <script src="../../../js/prism-line-numbers.min.js"></script>
-    <script src="../../../js/prism-clike.min.js"></script>
-    <script src="../../../js/prism-yaml.min.js"></script>
-    <script src="../../../js/prism-powershell.min.js"></script>
-    <script src="../../../js/prism-bash.min.js"></script>
-    <script src="../../../js/prism-nginx.min.js"></script>
-    <script src="../../../js/prism-python.min.js"></script>
-    <script src="../../../js/prism-markup.min.js"></script>
-    <script src="../../../js/prism-markup-templating.min.js"></script>
-    <script src="../../../js/prism-php.min.js"></script>
+    <script async src="../../../js/theme.js"></script>
+    <script async src="../../../js/prism.min.js"></script>
     <script src="../../../search/main.js"></script>
     
     <script>

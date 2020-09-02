@@ -19,9 +19,7 @@
     var mkdocs_page_input_path = "index.md";
     var mkdocs_page_url = "/";
   </script>
-  
-  <script src="js/jquery-2.1.1.min.js" defer></script>
-  <script src="js/modernizr-2.8.3.min.js" defer></script> 
+   
 </head>
 
 <body class="ready sticky">
@@ -58,7 +56,9 @@
     
     <ul>
     
-        <li><a class="" href="#search">Search</a></li>
+        <li><a class="" href="#search-by-string">Search by string</a></li>
+    
+        <li><a class="" href="#search-by-ports">Search by ports</a></li>
     
     </ul>
     
@@ -300,11 +300,10 @@
             
               <h1 id="security-tips">Security Tips</h1>
 <p>This is a collection of security tips that I use during my penetration tests.</p>
-<h2 id="search">Search</h2>
-<h3 id="by-string">By string</h3>
-<p>There is a search bar of the left!</p>
-<h3 id="by-ports">By ports</h3>
-<p>Search a tips from a port on the following page: <a href="ports/">ports</a></p>
+<h3 id="search-by-string">Search by string</h3>
+<p>There is a <a href="/search.html?q=">search bar of the left</a>!</p>
+<h3 id="search-by-ports">Search by ports</h3>
+<p>Search a tips from a port on the <a href="ports/">dedicated page</a></p>
             
           </div>
           <footer>
@@ -329,18 +328,8 @@
     </span>
 </div>
     <script>var base_url = '.';</script>
-    <script src="js/theme.js"></script>
-    <script src="js/prism-core.min.js"></script>
-    <script src="js/prism-line-numbers.min.js"></script>
-    <script src="js/prism-clike.min.js"></script>
-    <script src="js/prism-yaml.min.js"></script>
-    <script src="js/prism-powershell.min.js"></script>
-    <script src="js/prism-bash.min.js"></script>
-    <script src="js/prism-nginx.min.js"></script>
-    <script src="js/prism-python.min.js"></script>
-    <script src="js/prism-markup.min.js"></script>
-    <script src="js/prism-markup-templating.min.js"></script>
-    <script src="js/prism-php.min.js"></script>
+    <script async src="js/theme.js"></script>
+    <script async src="js/prism.min.js"></script>
     <script src="search/main.js"></script>
     
     <script>
@@ -359,5 +348,5 @@
 
 <!--
 MkDocs version : 1.0.4
-Build Date UTC : 2020-09-02 11:48:32
+Build Date UTC : 2020-09-02 12:47:17
 -->

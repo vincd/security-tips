@@ -19,9 +19,7 @@
     var mkdocs_page_input_path = "node.md";
     var mkdocs_page_url = "/node/";
   </script>
-  
-  <script src="../js/jquery-2.1.1.min.js" defer></script>
-  <script src="../js/modernizr-2.8.3.min.js" defer></script> 
+   
 </head>
 
 <body class="ready sticky">
@@ -302,7 +300,7 @@
 <h2 id="bodyparser-urlencoded">BodyParser urlencoded</h2>
 <p>With the node module <code>express</code> you can parse the payload of a request with the
 <code>body-parser</code> module:</p>
-<pre><code class="language-javascript line-numbers">var bodyParser = require('body-parser');
+<pre><code class="language-javascript">var bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true
@@ -311,11 +309,11 @@ app.use(bodyParser.urlencoded({
 
 <p>When the <code>extended: true</code> option is passed to the middleware then a user may
 provide a urlencoded payload such as:</p>
-<pre><code class="language-none line-numbers">params[key]=value&amp;foo=bar
+<pre><code class="language-none">params[key]=value&amp;foo=bar
 </code></pre>
 
 <p>Then on the node code, there is the following code:</p>
-<pre><code class="language-javascript line-numbers">const params = req.body['params'] // params == { &quot;key&quot;: &quot;value&quot; }
+<pre><code class="language-javascript">const params = req.body['params'] // params == { &quot;key&quot;: &quot;value&quot; }
 const foo = req.body['foo'] // foo == &quot;bar&quot;
 </code></pre>
 
@@ -352,18 +350,8 @@ examples on the Google CTF 2020:</p>
     </span>
 </div>
     <script>var base_url = '..';</script>
-    <script src="../js/theme.js"></script>
-    <script src="../js/prism-core.min.js"></script>
-    <script src="../js/prism-line-numbers.min.js"></script>
-    <script src="../js/prism-clike.min.js"></script>
-    <script src="../js/prism-yaml.min.js"></script>
-    <script src="../js/prism-powershell.min.js"></script>
-    <script src="../js/prism-bash.min.js"></script>
-    <script src="../js/prism-nginx.min.js"></script>
-    <script src="../js/prism-python.min.js"></script>
-    <script src="../js/prism-markup.min.js"></script>
-    <script src="../js/prism-markup-templating.min.js"></script>
-    <script src="../js/prism-php.min.js"></script>
+    <script async src="../js/theme.js"></script>
+    <script async src="../js/prism.min.js"></script>
     <script src="../search/main.js"></script>
     
     <script>

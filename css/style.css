@@ -834,7 +834,6 @@ footer .content-info {
 
 code[class*="language-"],
 pre[class*="language-"] {
-  color: black;
   background: none;
   text-shadow: 0 1px white;
   font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
@@ -880,6 +879,7 @@ pre[class*="language-"] {
   padding: 1em;
   margin: .5em 0;
   overflow: auto;
+  border-left: 2px solid var(--theme-color, #42b983);;
 }
 
 :not(pre) > code,

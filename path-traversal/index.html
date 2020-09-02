@@ -19,9 +19,7 @@
     var mkdocs_page_input_path = "path-traversal.md";
     var mkdocs_page_url = "/path-traversal/";
   </script>
-  
-  <script src="../js/jquery-2.1.1.min.js" defer></script>
-  <script src="../js/modernizr-2.8.3.min.js" defer></script> 
+   
 </head>
 
 <body class="ready sticky">
@@ -303,14 +301,14 @@
               <h1 id="path-traversal">Path Traversal</h1>
 <h2 id="fake-current-working-directory">Fake current working directory</h2>
 <p>This is a symbolic link to the current working directory of the process:</p>
-<pre><code class="language-none line-numbers">file:///proc/self/cwd/
+<pre><code class="language-none">file:///proc/self/cwd/
 </code></pre>
 
 <h2 id="remediation">Remediation</h2>
 <h3 id="java">Java</h3>
 <p>Before using the <code>path</code> and <code>filename</code> variables from the user inputs, the application
 has to verify the targeted file belongs in the correct directory <code>DIRECTORY_BASE_PATH</code>:</p>
-<pre><code class="language-java line-numbers">// the use controls `path` and `filename`, so he can set the path to something bad
+<pre><code class="language-java">// the use controls `path` and `filename`, so he can set the path to something bad
 File file = new File(DIRECTORY_BASE_PATH, path + filename);
 
 // we check if the canonical path on the disk match the `DIRECTORY_BASE_PATH`
@@ -344,18 +342,8 @@ if (file.getCanonicalPath().startsWith(DIRECTORY_BASE_PATH)) {
     </span>
 </div>
     <script>var base_url = '..';</script>
-    <script src="../js/theme.js"></script>
-    <script src="../js/prism-core.min.js"></script>
-    <script src="../js/prism-line-numbers.min.js"></script>
-    <script src="../js/prism-clike.min.js"></script>
-    <script src="../js/prism-yaml.min.js"></script>
-    <script src="../js/prism-powershell.min.js"></script>
-    <script src="../js/prism-bash.min.js"></script>
-    <script src="../js/prism-nginx.min.js"></script>
-    <script src="../js/prism-python.min.js"></script>
-    <script src="../js/prism-markup.min.js"></script>
-    <script src="../js/prism-markup-templating.min.js"></script>
-    <script src="../js/prism-php.min.js"></script>
+    <script async src="../js/theme.js"></script>
+    <script async src="../js/prism.min.js"></script>
     <script src="../search/main.js"></script>
     
     <script>

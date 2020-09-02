@@ -19,9 +19,7 @@
     var mkdocs_page_input_path = "graphql.md";
     var mkdocs_page_url = "/graphql/";
   </script>
-  
-  <script src="../js/jquery-2.1.1.min.js" defer></script>
-  <script src="../js/modernizr-2.8.3.min.js" defer></script> 
+   
 </head>
 
 <body class="ready sticky">
@@ -305,11 +303,11 @@ First we need to collect all available types then recursively enumerate all
 individual types.</p>
 <p><a href="https://github.com/doyensec/inql" target="_blank"><code>inql</code></a> can be use to fetch graphql metadata
 on an endpoint.</p>
-<pre><code class="language-bash line-numbers">inql -t https://&lt;host&gt;/graphql
+<pre><code class="language-bash">inql -t https://&lt;host&gt;/graphql
 </code></pre>
 
 <h3 id="querying-all-available-types-in-a-schema">Querying All Available Types in a Schema</h3>
-<pre><code class="language-graphql line-numbers">query allSchemaTypes {
+<pre><code class="language-graphql">query allSchemaTypes {
     __schema {
         types {
             name
@@ -321,7 +319,7 @@ on an endpoint.</p>
 </code></pre>
 
 <h3 id="all-available-queries">All Available Queries</h3>
-<pre><code class="language-graphql line-numbers">query availableQueries {
+<pre><code class="language-graphql">query availableQueries {
   __schema {
     queryType {
       fields {
@@ -334,7 +332,7 @@ on an endpoint.</p>
 </code></pre>
 
 <h3 id="details-about-an-individual-type">Details about an Individual Type</h3>
-<pre><code class="language-graphql line-numbers">query liftType {
+<pre><code class="language-graphql">query liftType {
   __type(name: &quot;&lt;TYPE&gt;&quot;) {
     fields {
       name
@@ -369,18 +367,8 @@ on an endpoint.</p>
     </span>
 </div>
     <script>var base_url = '..';</script>
-    <script src="../js/theme.js"></script>
-    <script src="../js/prism-core.min.js"></script>
-    <script src="../js/prism-line-numbers.min.js"></script>
-    <script src="../js/prism-clike.min.js"></script>
-    <script src="../js/prism-yaml.min.js"></script>
-    <script src="../js/prism-powershell.min.js"></script>
-    <script src="../js/prism-bash.min.js"></script>
-    <script src="../js/prism-nginx.min.js"></script>
-    <script src="../js/prism-python.min.js"></script>
-    <script src="../js/prism-markup.min.js"></script>
-    <script src="../js/prism-markup-templating.min.js"></script>
-    <script src="../js/prism-php.min.js"></script>
+    <script async src="../js/theme.js"></script>
+    <script async src="../js/prism.min.js"></script>
     <script src="../search/main.js"></script>
     
     <script>

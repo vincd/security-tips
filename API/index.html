@@ -19,9 +19,7 @@
     var mkdocs_page_input_path = "API.md";
     var mkdocs_page_url = "/API/";
   </script>
-  
-  <script src="../js/jquery-2.1.1.min.js" defer></script>
-  <script src="../js/modernizr-2.8.3.min.js" defer></script> 
+   
 </head>
 
 <body class="ready sticky">
@@ -304,7 +302,7 @@
             
               <h1 id="api">API</h1>
 <h2 id="password-reset">Password reset</h2>
-<pre><code class="language-none line-numbers">From: https://hackerone.com/reports/322985
+<pre><code class="language-none">From: https://hackerone.com/reports/322985
 The attacker was able to send a password reset link to an arbitrary email by sending an array of email addresses instead of a single email address.
 
 POST https://hq.breadcrumb.com/api/v1/password_reset HTTP/1.1
@@ -317,7 +315,7 @@ with body like {&quot;email_address&quot;:[&quot;admin@breadcrumb.com&quot;,&quo
 <p>This extension helps you to modify the JSON request to XML, XML request to JSON and normal form request to JSON in order to play with request and responses.
 https://exploitstube.com/xxe-for-fun-and-profit-converting-json-request-to-xml.html</p>
 </blockquote>
-<pre><code class="language-none line-numbers">PUT /api/search HTTP/1.1
+<pre><code class="language-none">PUT /api/search HTTP/1.1
 Host: test.com
 ...
 Content-Type: application/json;charset=UTF-8
@@ -327,7 +325,7 @@ Content-Type: application/json;charset=UTF-8
 }
 </code></pre>
 
-<pre><code class="language-none line-numbers">PUT /api/message HTTP/1.1
+<pre><code class="language-none">PUT /api/message HTTP/1.1
 Host: test.com
 ...
 Content-Type: application/xml;charset=UTF-8
@@ -346,7 +344,7 @@ or add <code>Control characters</code> (%23 (#), %3f (?), %26 (&amp;), %2e (.), 
 with double or triple encoding in the URL.</p>
 <p>He shows some real examples where he can raise an exception on the internal
 application using some encoding on control characters:</p>
-<pre><code class="language-none line-numbers">GET /files/lol.png%23 HTTP/1.1
+<pre><code class="language-none">GET /files/lol.png%23 HTTP/1.1
 GET /files/..%2f%23 HTTP/1.1
 </code></pre>
             
@@ -375,18 +373,8 @@ GET /files/..%2f%23 HTTP/1.1
     </span>
 </div>
     <script>var base_url = '..';</script>
-    <script src="../js/theme.js"></script>
-    <script src="../js/prism-core.min.js"></script>
-    <script src="../js/prism-line-numbers.min.js"></script>
-    <script src="../js/prism-clike.min.js"></script>
-    <script src="../js/prism-yaml.min.js"></script>
-    <script src="../js/prism-powershell.min.js"></script>
-    <script src="../js/prism-bash.min.js"></script>
-    <script src="../js/prism-nginx.min.js"></script>
-    <script src="../js/prism-python.min.js"></script>
-    <script src="../js/prism-markup.min.js"></script>
-    <script src="../js/prism-markup-templating.min.js"></script>
-    <script src="../js/prism-php.min.js"></script>
+    <script async src="../js/theme.js"></script>
+    <script async src="../js/prism.min.js"></script>
     <script src="../search/main.js"></script>
     
     <script>

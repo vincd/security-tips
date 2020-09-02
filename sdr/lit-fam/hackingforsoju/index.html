@@ -19,9 +19,7 @@
     var mkdocs_page_input_path = "sdr/lit-fam/hackingforsoju.md";
     var mkdocs_page_url = "/sdr/lit-fam/hackingforsoju/";
   </script>
-  
-  <script src="../../../js/jquery-2.1.1.min.js" defer></script>
-  <script src="../../../js/modernizr-2.8.3.min.js" defer></script> 
+   
 </head>
 
 <body class="ready sticky">
@@ -324,7 +322,7 @@ If we zoom out a bit more, we can see that the amplitude of the FSK signal varie
 <p>The trick is based on the fact that the second derivative of <code>sin(w*x)</code> is <code>-w*w * sin(w*x)</code>. If we take the second derivative and divide by the original function value we get <code>-w**2</code>, so we can extract the time.</p>
 <p>We have a sampled sine wave in discrete time <code>f(n) = A * sin(n*dt*w)</code>, so we can not get the exact derivative, but we can use approximations and simplifications. It will be enough to decode the data.</p>
 <p>The second derivative (ignoring discretization constant) can be approximated with</p>
-<pre><code class="language-none line-numbers">f''(n) = f(n-1) - 2*f(n) + f(n+1) =
+<pre><code class="language-none">f''(n) = f(n-1) - 2*f(n) + f(n+1) =
        = A * (sin(n*dt*w - dt*w) - 2*sin(n*dt*w) + sin(n*dt*w + dt*w)) =
        = A * (sin(n*dt*w)*cos(dt*w) - cos(n*dt*w)*sin(dt*w) - 2*sin(n*dt*w) + sin(n*dt*w)*cos(dt*w) + cos(n*dt*w)*sin(w*t) =
        = A * (2*sin(n*dt*w)*cos(dt*w) - 2*sin(n*dt*w)) =
@@ -332,13 +330,13 @@ If we zoom out a bit more, we can see that the amplitude of the FSK signal varie
 </code></pre>
 
 <p>so the value of f''(n) / f(n) is</p>
-<pre><code class="language-none line-numbers">f''(n) / f(n) = (A * 2 * sin(n*dt*w) * (cos(dt*w) - 1)) / A*sin(n*dt*w) =
+<pre><code class="language-none">f''(n) / f(n) = (A * 2 * sin(n*dt*w) * (cos(dt*w) - 1)) / A*sin(n*dt*w) =
               = 2 * (cos(dt*w - 1)
 </code></pre>
 
 <p>This expression only depends on the frequency of the signal, wich is the quantity we want to extract!</p>
 <p>We can now decode and plot the raw frequency dependent data:</p>
-<pre><code class="language-python line-numbers">import wavio
+<pre><code class="language-python">import wavio
 from matplotlib import pyplot as plt
 wav = wavio.read('FAM.wav')
 l = [(a-2*b+c) / float(b) for a,b,c in zip(wav.data[:500], wav.data[1:], wav.data[2:])]
@@ -348,7 +346,7 @@ plt.show()
 
 <p><img alt="Plot of the decoded signal" src="../plot.png" />
 The frequency signal is stable at -0.1 and -0.4, except for at the boundaries where the bit level changes. The bits change every 20th sample, so we can reduce the data set by picking every 20th sample, starting at sample 10. We compute the bit value using 0.25 as a threshold value.</p>
-<pre><code class="language-python line-numbers">&gt;&gt;&gt; b = [int(e&lt;-0.25) for e in l][10::20]
+<pre><code class="language-python">&gt;&gt;&gt; b = [int(e&lt;-0.25) for e in l][10::20]
 &gt;&gt;&gt; numpy.array(b[:80]).reshape((10,8))
 array([[1, 0, 1, 1, 1, 1, 1, 0],
        [1, 1, 0, 1, 0, 0, 1, 0],
@@ -367,7 +365,7 @@ array([[1, 0, 1, 1, 1, 1, 1, 0],
 <p>The simplest circuit to decode an AM signal with is a diode receiver. The digital equivalent is to use the abs() function, we can just write back the rectified data to a WAV-file and listen to it.</p>
 <h2 id="solution-script">Solution script</h2>
 <p>This is the final solution script:</p>
-<pre><code class="language-none line-numbers">import wavio, bitarray
+<pre><code class="language-none">import wavio, bitarray
 wav = wavio.read('FAM.wav')
 wavio.write('rectified.wav', abs(wav.data), wav.rate)
 l = [(a-2*b+c) / float(b) for a,b,c in zip(wav.data[:10000], wav.data[1:], wav.data[2:])]
@@ -375,7 +373,7 @@ print bitarray.bitarray([0]+[int(e&lt;-0.25) for e in l][10::20]).tobytes()
 </code></pre>
 
 <p>Running the script prints the the flag</p>
-<pre><code class="language-none line-numbers">_in_th3_AiR_4_u_4nd_Me}INSA{iS_in_th3_AiR_4_u_4nd_Me}INSA{iS_ih*
+<pre><code class="language-none">_in_th3_AiR_4_u_4nd_Me}INSA{iS_in_th3_AiR_4_u_4nd_Me}INSA{iS_ih*
 </code></pre>
 
 <p>and if we listen to the file rectified.wav we can hear some space sounds followed by the voice message:</p>
@@ -409,18 +407,8 @@ print bitarray.bitarray([0]+[int(e&lt;-0.25) for e in l][10::20]).tobytes()
     </span>
 </div>
     <script>var base_url = '../../..';</script>
-    <script src="../../../js/theme.js"></script>
-    <script src="../../../js/prism-core.min.js"></script>
-    <script src="../../../js/prism-line-numbers.min.js"></script>
-    <script src="../../../js/prism-clike.min.js"></script>
-    <script src="../../../js/prism-yaml.min.js"></script>
-    <script src="../../../js/prism-powershell.min.js"></script>
-    <script src="../../../js/prism-bash.min.js"></script>
-    <script src="../../../js/prism-nginx.min.js"></script>
-    <script src="../../../js/prism-python.min.js"></script>
-    <script src="../../../js/prism-markup.min.js"></script>
-    <script src="../../../js/prism-markup-templating.min.js"></script>
-    <script src="../../../js/prism-php.min.js"></script>
+    <script async src="../../../js/theme.js"></script>
+    <script async src="../../../js/prism.min.js"></script>
     <script src="../../../search/main.js"></script>
     
     <script>
