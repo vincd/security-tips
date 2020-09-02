@@ -66,7 +66,7 @@ to Java code.
 
 The smali code for the check is the following :
 
-```
+```smali
 .line 180
 :cond_2
 iget-object v9, v9, Lokhttp3/CertificatePinner$Pin;->hash:Lokio/ByteString;

@@ -4,13 +4,11 @@ Security Tips
 This is a collection of security tips that I use during my penetration tests.
 
 
-## Search
+### Search by string
 
-### By string
-
-There is a search bar of the left!
+There is a [search bar of the left](/search.html?q=)!
 
 
-### By ports
+### Search by ports
 
-Search a tips from a port on the following page: [ports](ports.md)
+Search a tips from a port on the [dedicated page](ports.md)

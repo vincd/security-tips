@@ -26,8 +26,7 @@ class PrismBlockPreprocessor(Preprocessor):
         r'(?P<fence>^(?:~{3,}|`{3,}))[ ]*(\{?\.?(?P<lang>[a-zA-Z0-9_+-]*)\}?)?[ ]*\n(?P<code>.*?)(?<=\n)(?P=fence)[ ]*$',
         re.MULTILINE | re.DOTALL
     )
-    CODE_WRAP = '<pre><code%s>%s</code></pre>'
-    LANG_TAG = ' class="language-%s line-numbers"'
+    CODE_WRAP = '<pre><code class="language-%s">%s</code></pre>'
 
     def __init__(self, md):
         super(PrismBlockPreprocessor, self).__init__(md)
@@ -51,31 +50,19 @@ class PrismBlockPreprocessor(Preprocessor):
         while 1:
             m = self.PRISM_BLOCK_RE.search(text)
             if m:
-                lang = ''
-                if m.group('lang'):
-                    lang = self.LANG_TAG % m.group('lang')
-                else:
-                    lang = self.LANG_TAG % 'none'
+                lang = m.group('lang') if m.group('lang') else 'none'
 
-                # If config is not empty, then the codehighlite extension
-                # is enabled, so we call it to highlite the code
-                if self.codehilite_conf:
-                    highliter = CodeHilite(m.group('code'),
-                                           linenums=self.codehilite_conf['linenums'][0],
-                                           guess_lang=self.codehilite_conf['guess_lang'][0],
-                                           css_class=self.codehilite_conf['css_class'][0],
-                                           style=self.codehilite_conf['pygments_style'][0],
-                                           lang=(m.group('lang') or None),
-                                           noclasses=self.codehilite_conf['noclasses'][0])
+                add_line_number = False
+                if add_line_number:
+                    lang += ' line-numbers'
 
-                    code = highliter.hilite()
-                else:
-                    code = self.CODE_WRAP % (lang, self._escape(m.group('code')))
+                code = self.CODE_WRAP % (lang, self._escape(m.group('code')))
 
                 placeholder = self.markdown.htmlStash.store(code)
                 text = '%s\n%s\n%s' % (text[:m.start()], placeholder, text[m.end():])
             else:
                 break
+
         return text.split("\n")
 
     def _escape(self, txt):

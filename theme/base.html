@@ -35,8 +35,6 @@
     var mkdocs_page_url = {{ page.abs_url|tojson|safe }};
   </script>
   {% endif %}
-  <script src="{{ 'js/jquery-2.1.1.min.js'|url }}" defer></script>
-  <script src="{{ 'js/modernizr-2.8.3.min.js'|url }}" defer></script>
   {%- endblock %}
 
   {%- block extrahead %} {% endblock %}
@@ -93,13 +91,10 @@
 
   {%- block scripts %}
     <script>var base_url = '{{ base_url }}';</script>
-    <script src="{{ 'js/theme.js'|url }}"></script>
+    <script async src="{{ 'js/theme.js'|url }}"></script>
 
     {%- if config.theme.highlightjs %}
-    <script src="{{ 'js/prism-core.min.js' | url }}"></script>
-    {%- for lang in config.theme.hljs_languages %}
-    <script src="{{ ('js/prism-' + lang + '.min.js') | url }}"></script>
-    {%- endfor %}
+    <script async src="{{ 'js/prism.min.js' | url }}"></script>
     {%- endif %}
 
     {%- for path in config['extra_javascript'] %}
