@@ -10,6 +10,7 @@ Here is a list of default ports for services and links to the tips:
 |    21 | [FTP](ftp.md)                          |                                        |
 |  2375 | [Docker](docker.md)                    |                                        |
 |  3268 | LDAP (Global catalog)                  |                                        |
+|  5432 | [PostgreSQL](postgresql.md)            |                                        |
 |  5985 | WinRM (HTTP)                           |                                        |
 |  5986 | WinRM (HTTPS)                          |                                        |
 |  8009 | AJP                                    | [AJP Ghostcat](cve/CVE-2020-1938.md)   |
