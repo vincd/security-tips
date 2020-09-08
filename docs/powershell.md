@@ -153,3 +153,13 @@ gc ConsoleHost_history.txt
 $acl = get-acl HKLM:\System\CurrentControlSet\Services
 ConvertFrom-SddlString -Sddl $acl -type RegistryRights | { Foreach-Object { $.DiscretionaryAcl } }
 ```
+
+
+### Set Password Remotely
+
+This [script](./assets/Set-PasswordRemotely.ps1) change the password of a user
+on a remote forest.
+
+```powershell
+Set-PasswordRemotely {USERNAME} {DOMAIN}
+```
