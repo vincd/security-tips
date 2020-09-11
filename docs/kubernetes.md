@@ -23,44 +23,47 @@ $ wscat -c "https://<host>:<port>/<location_header>" --no-check
 ```
 
 
-## Lancer un pod qui se supprime automatiquement à la fin
+## Useful commands
+
+#### Start a pod
+
 ```bash
-$ kubectl run k8s-2-test -ti --rm --image=debian --generator=run-pod/v1
+kubectl run k8s-2-test -ti --rm --image=debian --generator=run-pod/v1
 ```
 
-## S'attacher à un pod existant
+#### Attach to an existing pod
+
 ```bash
-$ kubectl exec -it k8s-2-test -- /bin/bash
+kubectl exec -it k8s-2-test -- /bin/bash
 ```
 
-## Se connecter à une session existante
+#### Connect to an existing connection
+
 ```bash
-$ kubectl attach k8s-1-test -c k8s-1-test -i -t
+kubectl attach k8s-1-test -c k8s-1-test -i -t
 ```
 
-## Copier un fichier d'un pod à sa machine
+#### Copy a file from a pod to the local machine
+
 ```bash
-$ kubectl cp default/k8s-1-test:results.nmap ./result_nmaps_banner
+kubectl cp default/k8s-1-test:{FILE} ./{FILE_DEST}
 ```
 
-## Afficher les services (format simple à traiter)
+#### Print services
+
 ```bash
-$ kubectl get services (-o wide)
+kubectl get services (-o wide)
 ```
 
-## Afficher les pods (json)
+#### Print pods
 ```bash
-$ kubectl get pods -o json
+kubectl get pods -o json
+kubectl get pods -o wide
+kubectl get pods -o wide | sed -e 's/\s\+/ /g' | cut -f6 -d " "
 ```
 
-## Afficher les pods (format simple à traiter)
-```bash
-$ kubectl get pods -o wide
-## Get IP list
-$ kubectl get pods -o wide | sed -e 's/\s\+/ /g' | cut -f6 -d " "
-```
+#### Print secrets
 
-## Afficher l'ensemble des secrets
 ```bash
-$ kubectl get secrets -o yaml
+kubectl get secrets -o yaml
 ```
