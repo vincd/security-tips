@@ -86,21 +86,7 @@
     
         <li><a class="" href="#api">API</a></li>
     
-        <li><a class="" href="#lancer-un-pod-qui-se-supprime-automatiquement-a-la-fin">Lancer un pod qui se supprime automatiquement à la fin</a></li>
-    
-        <li><a class="" href="#sattacher-a-un-pod-existant">S'attacher à un pod existant</a></li>
-    
-        <li><a class="" href="#se-connecter-a-une-session-existante">Se connecter à une session existante</a></li>
-    
-        <li><a class="" href="#copier-un-fichier-dun-pod-a-sa-machine">Copier un fichier d'un pod à sa machine</a></li>
-    
-        <li><a class="" href="#afficher-les-services-format-simple-a-traiter">Afficher les services (format simple à traiter)</a></li>
-    
-        <li><a class="" href="#afficher-les-pods-json">Afficher les pods (json)</a></li>
-    
-        <li><a class="" href="#afficher-les-pods-format-simple-a-traiter">Afficher les pods (format simple à traiter)</a></li>
-    
-        <li><a class="" href="#afficher-lensemble-des-secrets">Afficher l'ensemble des secrets</a></li>
+        <li><a class="" href="#useful-commands">Useful commands</a></li>
     
     </ul>
     
@@ -340,38 +326,35 @@
 <pre><code class="language-bash">$ wscat -c &quot;https://&lt;host&gt;:&lt;port&gt;/&lt;location_header&gt;&quot; --no-check
 </code></pre>
 
-<h2 id="lancer-un-pod-qui-se-supprime-automatiquement-a-la-fin">Lancer un pod qui se supprime automatiquement à la fin</h2>
-<pre><code class="language-bash">$ kubectl run k8s-2-test -ti --rm --image=debian --generator=run-pod/v1
+<h2 id="useful-commands">Useful commands</h2>
+<h4 id="start-a-pod">Start a pod</h4>
+<pre><code class="language-bash">kubectl run k8s-2-test -ti --rm --image=debian --generator=run-pod/v1
 </code></pre>
 
-<h2 id="sattacher-a-un-pod-existant">S'attacher à un pod existant</h2>
-<pre><code class="language-bash">$ kubectl exec -it k8s-2-test -- /bin/bash
+<h4 id="attach-to-an-existing-pod">Attach to an existing pod</h4>
+<pre><code class="language-bash">kubectl exec -it k8s-2-test -- /bin/bash
 </code></pre>
 
-<h2 id="se-connecter-a-une-session-existante">Se connecter à une session existante</h2>
-<pre><code class="language-bash">$ kubectl attach k8s-1-test -c k8s-1-test -i -t
+<h4 id="connect-to-an-existing-connection">Connect to an existing connection</h4>
+<pre><code class="language-bash">kubectl attach k8s-1-test -c k8s-1-test -i -t
 </code></pre>
 
-<h2 id="copier-un-fichier-dun-pod-a-sa-machine">Copier un fichier d'un pod à sa machine</h2>
-<pre><code class="language-bash">$ kubectl cp default/k8s-1-test:results.nmap ./result_nmaps_banner
+<h4 id="copy-a-file-from-a-pod-to-the-local-machine">Copy a file from a pod to the local machine</h4>
+<pre><code class="language-bash">kubectl cp default/k8s-1-test:{FILE} ./{FILE_DEST}
 </code></pre>
 
-<h2 id="afficher-les-services-format-simple-a-traiter">Afficher les services (format simple à traiter)</h2>
-<pre><code class="language-bash">$ kubectl get services (-o wide)
+<h4 id="print-services">Print services</h4>
+<pre><code class="language-bash">kubectl get services (-o wide)
 </code></pre>
 
-<h2 id="afficher-les-pods-json">Afficher les pods (json)</h2>
-<pre><code class="language-bash">$ kubectl get pods -o json
+<h4 id="print-pods">Print pods</h4>
+<pre><code class="language-bash">kubectl get pods -o json
+kubectl get pods -o wide
+kubectl get pods -o wide | sed -e 's/\s\+/ /g' | cut -f6 -d &quot; &quot;
 </code></pre>
 
-<h2 id="afficher-les-pods-format-simple-a-traiter">Afficher les pods (format simple à traiter)</h2>
-<pre><code class="language-bash">$ kubectl get pods -o wide
-## Get IP list
-$ kubectl get pods -o wide | sed -e 's/\s\+/ /g' | cut -f6 -d &quot; &quot;
-</code></pre>
-
-<h2 id="afficher-lensemble-des-secrets">Afficher l'ensemble des secrets</h2>
-<pre><code class="language-bash">$ kubectl get secrets -o yaml
+<h4 id="print-secrets">Print secrets</h4>
+<pre><code class="language-bash">kubectl get secrets -o yaml
 </code></pre>
             
           </div>
