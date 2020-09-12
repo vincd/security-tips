@@ -73,6 +73,7 @@ nav:
     - Git: git.md
     - ISCSI: iscsi.md
     - Java: java.md
+    - Python: python.md
     - Node: node.md
     - Reverse Shell: reverse-shell.md
     - Spring Boot: spring_boot.md
