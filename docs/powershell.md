@@ -163,3 +163,22 @@ on a remote forest.
 ```powershell
 Set-PasswordRemotely {USERNAME} {DOMAIN}
 ```
+
+### List Certificates
+
+```powershell
+$NamingContext = "DC=corpo,DC=lan"
+
+$directoryEntry = New-Object System.DirectoryServices.DirectoryEntry("LDAP://CN=Configuration,$NamingContext")
+$adSearcher = New-Object System.DirectoryServices.DirectorySearcher($directoryEntry, "(distinguishedName=CN=NTAuthCertificates,CN=Public Key Services,CN=Services,CN=Configuration,$NamingContext)")
+$NTAuthCertificates = $adSearcher.FindOne()
+$cacertificates = $NTAuthCertificates.Properties.cacertificate
+
+Foreach ($rawByte in $cacertificates) {
+    $cacertificate = [System.Security.Cryptography.X509Certificates.X509Certificate2]$rawByte
+
+    $subjectName = [System.Text.Encoding]::Default.GetString($cacertificate.SubjectName.RawData)
+    $issuerName = [System.Text.Encoding]::Default.GetString($cacertificate.IssuerName.RawData)
+    $signatureAlgorithm = $cacertificate.SignatureAlgorithm.FriendlyName
+}
+```
