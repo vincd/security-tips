@@ -34,7 +34,7 @@ nav:
     - Docker: docker.md
     - Kubernetes: kubernetes.md
   - Windows:
-    - Genral: windows.md
+    - General: windows.md
     - Event ID: eventid.md
     - Powershell: powershell.md
   - Linux: linux.md
