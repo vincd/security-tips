@@ -158,6 +158,8 @@
     
         <li><a class="" href="#fake-current-working-directory">Fake current working directory</a></li>
     
+        <li><a class="" href="#path-traversal-on-http-path">Path Traversal on HTTP path</a></li>
+    
         <li><a class="" href="#remediation">Remediation</a></li>
     
     </ul>
@@ -326,6 +328,10 @@
 <h2 id="fake-current-working-directory">Fake current working directory</h2>
 <p>This is a symbolic link to the current working directory of the process:</p>
 <pre><code class="language-none">file:///proc/self/cwd/
+</code></pre>
+
+<h2 id="path-traversal-on-http-path">Path Traversal on HTTP path</h2>
+<pre><code class="language-http">https://{HOST}/..%5C..%5C..%5C..%5C..%5C..%5C..%5C..%5C..%5C..%5Cetc/passwd
 </code></pre>
 
 <h2 id="remediation">Remediation</h2>

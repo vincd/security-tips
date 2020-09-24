@@ -312,6 +312,8 @@
     
         <li><a class="" href="#default-passwords">Default passwords</a></li>
     
+        <li><a class="" href="#unicode-circles">Unicode circles</a></li>
+    
         <li><a class="" href="#download-recursively-an-apache-directory-listing">Download recursively an Apache Directory Listing</a></li>
     
         <li><a class="" href="#web">Web</a></li>
@@ -407,6 +409,18 @@ you can search on Google for a <code>target</code> on website that can contains 
 <h2 id="default-passwords">Default passwords</h2>
 <p>The website <a href="https://cirt.net/passwords?vendor=" target="_blank">cirt.net</a> lists the default
 passwords on equipments or applications.</p>
+<h2 id="unicode-circles">Unicode circles</h2>
+<p>You can bypass some verification (SSRF, ...) using Unicode characters. Here is
+a list of Unicode circles equivalent characters and numbers:</p>
+<pre><code class="language-none">⓵ ⓶ ⓷ ⓸ ⓹ ⓺ ⓻ ⓼ ⓽ ⓾ ⓿
+① ② ③ ④ ⑤ ⑥ ⑦ ⑧ ⑨ ⑩ ⑪ ⑫ ⑬ ⑭ ⑮ ⑯ ⑰ ⑱ ⑲ ⑳
+⓪ ⓫ ⓬ ⓭ ⓮ ⓯ ⓰ ⓱ ⓲ ⓳ ⓴
+⑴ ⑵ ⑶ ⑷ ⑸ ⑹ ⑺ ⑻ ⑼ ⑽ ⑾ ⑿ ⒀ ⒁ ⒂ ⒃ ⒄ ⒅ ⒆ ⒇
+⒈ ⒉ ⒊ ⒋ ⒌ ⒍ ⒎ ⒏ ⒐ ⒑ ⒒ ⒓ ⒔ ⒕ ⒖ ⒗ ⒘ ⒙ ⒚ ⒛
+⒜ ⒝ ⒞ ⒟ ⒠ ⒡ ⒢ ⒣ ⒤ ⒥ ⒦ ⒧ ⒨ ⒩ ⒪ ⒫ ⒬ ⒭ ⒮ ⒯ ⒰ ⒱ ⒲ ⒳ ⒴ ⒵
+Ⓐ Ⓑ Ⓒ Ⓓ Ⓔ Ⓕ Ⓖ Ⓗ Ⓘ Ⓙ Ⓚ Ⓛ Ⓜ Ⓝ Ⓞ Ⓟ Ⓠ Ⓡ Ⓢ Ⓣ Ⓤ Ⓥ Ⓦ Ⓧ Ⓨ Ⓩ ⓐ ⓑ ⓒ ⓓ ⓔ ⓕ ⓖ ⓗ ⓘ ⓙ ⓚ ⓛ ⓜ ⓝ ⓞ ⓟ ⓠ ⓡ ⓢ ⓣ ⓤ ⓥ ⓦ ⓧ ⓨ ⓩ
+</code></pre>
+
 <h2 id="download-recursively-an-apache-directory-listing">Download recursively an Apache Directory Listing</h2>
 <pre><code class="language-bash">wget -r -N --no-parent --reject '*index.html*' -nH --cut-dirs=1  &lt;url&gt;
 </code></pre>
