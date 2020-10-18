@@ -19,23 +19,23 @@ The following table lists the event you should monitor on an Active Directory to
 detect an attacks.
 
 | Event ID | Summary
-|:--------:|:------------------------------------------------------------------|
-| 4618     | A monitored security event pattern has occurred.
-| 4624     | An account was successfully logged on.                            |
-| 4625     | An account failed to log on.                                      |
-| 4648     | A logon was attempted using explicit credentials.                 |
-| 4649     | A replay attack was detected. May be a harmless false positive due to misconfiguration error.
-| 4662     | An operation was performed on an object.
-| 4692     | Backup of data protection master key was attempted.
-| 4706     | A new trust was created to a domain.
-| 4707     | A trust to a domain was removed.
-| 4716     | Trusted domain information was modified.
-| 4719     | System audit policy was changed.
-| 4738     | A user account was changed.
-| 4765     | SID History was added to an account.
-| 4766     | An attempt to add SID History to an account failed.
-| 4768     | A Kerberos authentication ticket (TGT) was requested.
-| 4769     | A Kerberos service ticket was requested.
+|:------------------------------------------------------------------------------------------------:|:------------------------------------------------------------------|
+| [4618](https://docs.microsoft.com/fr-fr/windows/security/threat-protection/auditing/event-4618)  | A monitored security event pattern has occurred.
+| [4624](https://docs.microsoft.com/fr-fr/windows/security/threat-protection/auditing/event-4624)  | An account was successfully logged on.
+| [4625](https://docs.microsoft.com/fr-fr/windows/security/threat-protection/auditing/event-4625)  | An account failed to log on.
+| [4648](https://docs.microsoft.com/fr-fr/windows/security/threat-protection/auditing/event-4648)  | A logon was attempted using explicit credentials.
+| [4649](https://docs.microsoft.com/fr-fr/windows/security/threat-protection/auditing/event-4649)  | A replay attack was detected. May be a harmless false positive due to misconfiguration error.
+| [4662](https://docs.microsoft.com/fr-fr/windows/security/threat-protection/auditing/event-4662)  | An operation was performed on an object.
+| [4692](https://docs.microsoft.com/fr-fr/windows/security/threat-protection/auditing/event-4692)  | Backup of data protection master key was attempted.
+| [4706](https://docs.microsoft.com/fr-fr/windows/security/threat-protection/auditing/event-4706)  | A new trust was created to a domain.
+| [4707](https://docs.microsoft.com/fr-fr/windows/security/threat-protection/auditing/event-4707)  | A trust to a domain was removed.
+| [4716](https://docs.microsoft.com/fr-fr/windows/security/threat-protection/auditing/event-4716)  | Trusted domain information was modified.
+| [4719](https://docs.microsoft.com/fr-fr/windows/security/threat-protection/auditing/event-4719)  | System audit policy was changed.
+| [4738](https://docs.microsoft.com/fr-fr/windows/security/threat-protection/auditing/event-4738)  | A user account was changed.
+| [4765](https://docs.microsoft.com/fr-fr/windows/security/threat-protection/auditing/event-4765)  | SID History was added to an account.
+| [4766](https://docs.microsoft.com/fr-fr/windows/security/threat-protection/auditing/event-4766)  | An attempt to add SID History to an account failed.
+| [4768](https://docs.microsoft.com/fr-fr/windows/security/threat-protection/auditing/event-4768)  | A Kerberos authentication ticket (TGT) was requested.
+| [4769](https://docs.microsoft.com/fr-fr/windows/security/threat-protection/auditing/event-4769)  | A Kerberos service ticket was requested.
 
 
 ## Detection Rules
