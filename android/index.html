@@ -344,7 +344,6 @@ adb.exe connect &lt;device ip&gt;
 adb.exe shell
 vbox86p:/ #
 </code></pre>
-
 <h2 id="certificate-pinning">Certificate Pinning</h2>
 <p>On Android 7+, you need to install the burp AC on the system store. Technical details
 are explain <a href="https://blog.jeroenhd.nl/article/android-7-nougat-and-certificate-authorities" target="_blank">here</a>.</p>
@@ -377,7 +376,6 @@ for old versions).</p>
   }
 }
 </code></pre>
-
 <p>We should not throw an exception. This is straightforward, let's change the
 conditions <code>pin.hash == sha256</code> and <code>pin.hash == sha1</code>. TO do this, we need to
 edit the smali code. By the way, I find quite handy to use <code>jadx</code> to match smali
@@ -393,7 +391,6 @@ move-result v9
 
 **if-eqz** v9, :cond_5
 </code></pre>
-
 <p>At the end, we need to inverse the condition from <code>if-eqz</code> (<code>if equal zero</code>) to
 <code>if-nez</code> (<code>if non-zero</code>). There is a list of all <code>opcode</code> <a href="http://pallergabor.uw.hu/androidblog/dalvik_opcodes.html" target="_blank">here</a>.
 Don't forget to check your code is correct to <code>jadx</code>:</p>
@@ -401,7 +398,6 @@ Don't forget to check your code is correct to <code>jadx</code>:</p>
   return;
 }
 </code></pre>
-
 <h3 id="add-burp-ac">Add Burp AC</h3>
 <p>Export the certificate with DER format. Then use <code>openssl</code> to convert to PEM format
 and get the hash:</p>
@@ -409,19 +405,16 @@ and get the hash:</p>
 openssl x509 -inform PEM -subject_hash_old -in cacert.pem |head -1
 mv cacert.pem &lt;hash&gt;.0
 </code></pre>
-
 <p>Once you have the file with the correct name, push it to the phone using <code>adb</code>:</p>
 <pre><code class="language-bash">adb root
 adb remount
 adb push &lt;cert&gt;.0 /sdcard/
 adb shell
 </code></pre>
-
 <p>On the phone, move the file to the cert store and fix the permissions:</p>
 <pre><code class="language-bash">mv /sdcard/&lt;cert&gt;.0 /system/etc/security/cacerts/
 chmod 644 /system/etc/security/cacerts/&lt;cert&gt;.0
 </code></pre>
-
 <p>Then you need to reboot the device (<code>adb reboot</code>). After the device reboots,
 check if everything is fine in <code>Settings / Security / Trusted Credentials</code>. You
 should show a new "Portswigger CA" as a system trusted CA.</p>
@@ -429,24 +422,20 @@ should show a new "Portswigger CA" as a system trusted CA.</p>
 <h3 id="edit-an-apk-file-using-apktool">Edit an APK file using apktool</h3>
 <pre><code class="language-bash">apktool d example/ -o example.unaligned.apk
 </code></pre>
-
 <p>Then when you finished to edit the files (smali, AndroidManifest, ...) you can
 recompile and sign the new apk file.</p>
 <pre><code class="language-bash">apktool b example/ -o example.unaligned.apk
 jarsigner -verbose -sigalg MD5withRSA -digestalg SHA1 -keystore ~/.android/debug.keystore -storepass android example.unaligned.apk androiddebugkey
 zipalign -v 4 example.unaligned.apk example.smali.apk
 </code></pre>
-
 <h2 id="adb">ADB</h2>
 <h3 id="list-packages">List packages</h3>
 <pre><code class="language-bash">adb shell pm list packages
 </code></pre>
-
 <h3 id="get-apk-from-android-device">Get APK from Android device</h3>
 <pre><code class="language-bash">adb shell pm path com.example.someapp
 adb pull &lt;apk_path&gt; &lt;path_on_your_disk&gt;
 </code></pre>
-
 <h3 id="install-application">Install application</h3>
 <pre><code class="language-bash">adb shell settings put global verifier_verify_adb_installs 0
 # adb shell settings put global package_verifier_enable 0

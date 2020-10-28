@@ -352,12 +352,10 @@ If we zoom out a bit more, we can see that the amplitude of the FSK signal varie
        = A * (2*sin(n*dt*w)*cos(dt*w) - 2*sin(n*dt*w)) =
        = A * 2 * sin(n*dt*w) * (cos(dt*w) - 1)
 </code></pre>
-
 <p>so the value of f''(n) / f(n) is</p>
 <pre><code class="language-none">f''(n) / f(n) = (A * 2 * sin(n*dt*w) * (cos(dt*w) - 1)) / A*sin(n*dt*w) =
               = 2 * (cos(dt*w - 1)
 </code></pre>
-
 <p>This expression only depends on the frequency of the signal, wich is the quantity we want to extract!</p>
 <p>We can now decode and plot the raw frequency dependent data:</p>
 <pre><code class="language-python">import wavio
@@ -367,7 +365,6 @@ l = [(a-2*b+c) / float(b) for a,b,c in zip(wav.data[:500], wav.data[1:], wav.dat
 plt.plot(l)
 plt.show()
 </code></pre>
-
 <p><img alt="Plot of the decoded signal" src="../plot.png" />
 The frequency signal is stable at -0.1 and -0.4, except for at the boundaries where the bit level changes. The bits change every 20th sample, so we can reduce the data set by picking every 20th sample, starting at sample 10. We compute the bit value using 0.25 as a threshold value.</p>
 <pre><code class="language-python">&gt;&gt;&gt; b = [int(e&lt;-0.25) for e in l][10::20]
@@ -383,7 +380,6 @@ array([[1, 0, 1, 1, 1, 1, 1, 0],
        [1, 0, 0, 0, 0, 0, 1, 0],
        [1, 1, 0, 1, 0, 0, 1, 0]])
 </code></pre>
-
 <p>We can see that the the last bits align nicely and we should be able to decode this as ASCII. However, the challenge creators put in a small trick. The bytes are stored in big endian with only 7 bits given for the first byte. One way to decode the bits is to add a zero to the beginning and decode using bitarray.</p>
 <h2 id="decoding-am">Decoding AM</h2>
 <p>The simplest circuit to decode an AM signal with is a diode receiver. The digital equivalent is to use the abs() function, we can just write back the rectified data to a WAV-file and listen to it.</p>
@@ -395,11 +391,9 @@ wavio.write('rectified.wav', abs(wav.data), wav.rate)
 l = [(a-2*b+c) / float(b) for a,b,c in zip(wav.data[:10000], wav.data[1:], wav.data[2:])]
 print bitarray.bitarray([0]+[int(e&lt;-0.25) for e in l][10::20]).tobytes()
 </code></pre>
-
 <p>Running the script prints the the flag</p>
 <pre><code class="language-none">_in_th3_AiR_4_u_4nd_Me}INSA{iS_in_th3_AiR_4_u_4nd_Me}INSA{iS_ih*
 </code></pre>
-
 <p>and if we listen to the file rectified.wav we can hear some space sounds followed by the voice message:</p>
 <blockquote>
 <p>The flag is I, N, S, A, opening bracket, RADIOACTIVITY, closing bracket. All letters are in uppercase.</p>

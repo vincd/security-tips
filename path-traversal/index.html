@@ -329,11 +329,9 @@
 <p>This is a symbolic link to the current working directory of the process:</p>
 <pre><code class="language-none">file:///proc/self/cwd/
 </code></pre>
-
 <h2 id="path-traversal-on-http-path">Path Traversal on HTTP path</h2>
 <pre><code class="language-http">https://{HOST}/..%5C..%5C..%5C..%5C..%5C..%5C..%5C..%5C..%5C..%5Cetc/passwd
 </code></pre>
-
 <h2 id="remediation">Remediation</h2>
 <h3 id="java">Java</h3>
 <p>Before using the <code>path</code> and <code>filename</code> variables from the user inputs, the application

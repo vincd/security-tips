@@ -352,11 +352,9 @@ server to check the supported protocols and ciphers.</p>
 cd testssl.sh
 ./testssl.sh &lt;ip&gt;(:&lt;port&gt;)
 </code></pre>
-
 <h2 id="nmap">Nmap</h2>
 <pre><code class="language-bash">nmap -sC -sV -oA &lt;output_name&gt; &lt;host&gt;
 </code></pre>
-
 <h3 id="performance">Performance</h3>
 <p>If you scan a large range of IP the option <code>--min-rate</code> is handy to force <code>nmap</code>
 not to slow down and send at least this number of packet per second. I set the
@@ -382,30 +380,25 @@ the following URL you can search for a specific CVE exploit tool.</p>
 <pre><code class="language-none">https://github.com/search?q=&quot;&lt;CVE-ID&gt;&quot;+AND+exploit+in:name+in:description+in:readme
 https://gist.github.com/search?q=&quot;&lt;CVE-ID&gt;&quot;
 </code></pre>
-
 <h3 id="get-user-ssh-public-keys">Get user SSH public keys</h3>
 <p>When you add <code>.keys</code> in the URL of a user you can see their public SSH keys and
 associated emails addresses.</p>
 <pre><code class="language-none">https://github.com/&lt;username&gt;.keys
 </code></pre>
-
 <h3 id="get-raw-commit">Get raw commit</h3>
 <p>When you add <code>.patch</code> to the URL of a commit you retrieve the raw commit file.
 This file contains git log and the user email.</p>
 <pre><code class="language-none">https://github.com/&lt;username&gt;/&lt;repo&gt;/commit/&lt;sha&gt;.patch
 </code></pre>
-
 <p>Using the <code>.diff</code> extension you can get the diff with the previous commit.</p>
 <pre><code class="language-none">https://github.com/&lt;username&gt;/&lt;repo&gt;/commit/&lt;sha&gt;.diff
 </code></pre>
-
 <h2 id="google-dorking">Google dorking</h2>
 <h3 id="find-target-on-public-sources">Find target on public sources</h3>
 <p>From <a href="https://mobile.twitter.com/adrien_jeanneau/status/1250740511402532865" target="_blank">@adrien_jeanneau</a>,
 you can search on Google for a <code>target</code> on website that can contains public information:</p>
 <pre><code class="language-none">site:ideone.com | site:codebeautify.org | site:codeshare.io | site:codepen.io | site:repl.it | site:justpaste.it | site:pastebin.com | site:jsfiddle.net | site:trello.com &quot;&lt;target&gt;&quot;
 </code></pre>
-
 <h2 id="default-passwords">Default passwords</h2>
 <p>The website <a href="https://cirt.net/passwords?vendor=" target="_blank">cirt.net</a> lists the default
 passwords on equipments or applications.</p>
@@ -420,18 +413,15 @@ a list of Unicode circles equivalent characters and numbers:</p>
 ⒜ ⒝ ⒞ ⒟ ⒠ ⒡ ⒢ ⒣ ⒤ ⒥ ⒦ ⒧ ⒨ ⒩ ⒪ ⒫ ⒬ ⒭ ⒮ ⒯ ⒰ ⒱ ⒲ ⒳ ⒴ ⒵
 Ⓐ Ⓑ Ⓒ Ⓓ Ⓔ Ⓕ Ⓖ Ⓗ Ⓘ Ⓙ Ⓚ Ⓛ Ⓜ Ⓝ Ⓞ Ⓟ Ⓠ Ⓡ Ⓢ Ⓣ Ⓤ Ⓥ Ⓦ Ⓧ Ⓨ Ⓩ ⓐ ⓑ ⓒ ⓓ ⓔ ⓕ ⓖ ⓗ ⓘ ⓙ ⓚ ⓛ ⓜ ⓝ ⓞ ⓟ ⓠ ⓡ ⓢ ⓣ ⓤ ⓥ ⓦ ⓧ ⓨ ⓩ
 </code></pre>
-
 <h2 id="download-recursively-an-apache-directory-listing">Download recursively an Apache Directory Listing</h2>
 <pre><code class="language-bash">wget -r -N --no-parent --reject '*index.html*' -nH --cut-dirs=1  &lt;url&gt;
 </code></pre>
-
 <h2 id="web">Web</h2>
 <h3 id="serve-a-file-locally">Serve a file locally</h3>
 <p>Here is a onliner (I don't remember from where) to expose a simple web server
 using <code>netcat</code>:</p>
 <pre><code class="language-bash">while :; do (echo -ne &quot;HTTP/1.1 200 OK\r\nContent-Length: $(wc -c &lt; index.html)\r\n\r\n&quot;; cat index.html) | nc -l -p 8080; done
 </code></pre>
-
 <h2 id="shodan">Shodan</h2>
 <h3 id="calculate-favicon-hash">Calculate favicon hash</h3>
 <p>Shodan uses the <a href="https://pypi.org/project/mmh3/" target="_blank"><code>MurmurHash</code></a> algorithm to
@@ -442,11 +432,9 @@ r = requests.get('https://{HOST}:{PORT}/favicon.ico')
 favicon = base64.b64encode(r.content)
 print(mmh3.hash(favicon))
 </code></pre>
-
 <p>Then, to search all the website with the same favicon on Shodan:</p>
 <pre><code class="language-none">https://www.shodan.io/search?query=http.favicon.hash:{HASH}
 </code></pre>
-
 <h2 id="proxychains">ProxyChains</h2>
 <p><a href="https://github.com/haad/proxychains" target="_blank">ProxyChains</a> hooks the libc network calls
 to redirect the connections through SOCKS4a/5 or HTTP proxies.</p>
@@ -457,20 +445,16 @@ dynamic_chain
 socks4 {IP} {PORT}
 socks5 {IP} {PORT}
 </code></pre>
-
 <h3 id="use-a-unix-program-trough-a-socks-proxy">Use a UNIX program trough a socks proxy</h3>
 <pre><code class="language-bash">proxychains nc {HOST} {PORT}
 proxychains nmap {HOST}
 </code></pre>
-
 <p>You can specify a custom configuration file with the <code>-f</code> option:</p>
 <pre><code class="language-bash">proxychains -f /path/proxychains/config.conf &lt;program&gt; &lt;arguments&gt;
 </code></pre>
-
 <p>Also, you can specify an environment variable for SOCKS5 proxy:</p>
 <pre><code class="language-bash">PROXYCHAINS_SOCKS5=4321 proxychains &lt;program&gt; &lt;arguments&gt;
 </code></pre>
-
 <h3 id="use-nessus-through-a-socks-proxy">Use Nessus through a socks proxy</h3>
 <p>Nessus can be proxified to scan hosts over a SOCKS proxy:</p>
 <pre><code class="language-bash">cd /opt/nessus/sbin

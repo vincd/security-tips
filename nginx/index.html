@@ -330,7 +330,6 @@ location /static {
     alias /srv/app/static/;
 }
 </code></pre>
-
 <p>The location value does not end with a <code>/</code> but the alias value does. Which means that if we query: <code>https://example.com/static../foo</code> then the location will match and will concatenate <code>../foo</code> to the alias, which gives us this local file access: <code>/srv/app/static/../foo</code></p>
 <h2 id="rce-in-php-fpm-cve-2019-11043">RCE in php-fpm (CVE-2019-11043)</h2>
 <p>If a webserver runs nginx + php-fpm and nginx have a configuration like</p>
@@ -342,7 +341,6 @@ location /static {
   ...
 }
 </code></pre>
-
 <p>More informations on <a href="https://github.com/neex/phuip-fpizdam" target="_blank">https://github.com/neex/phuip-fpizdam</a>.</p>
             
           </div>

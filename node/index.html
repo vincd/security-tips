@@ -330,17 +330,14 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 </code></pre>
-
 <p>When the <code>extended: true</code> option is passed to the middleware then a user may
 provide a urlencoded payload such as:</p>
 <pre><code class="language-none">params[key]=value&amp;foo=bar
 </code></pre>
-
 <p>Then on the node code, there is the following code:</p>
 <pre><code class="language-javascript">const params = req.body['params'] // params == { &quot;key&quot;: &quot;value&quot; }
 const foo = req.body['foo'] // foo == &quot;bar&quot;
 </code></pre>
-
 <p>The <code>params</code> variable is not a string but a dictionary (<code>{"key": "value"}</code>).
 An attacker can with this method to bypass some code logic. There is two
 examples on the Google CTF 2020:</p>

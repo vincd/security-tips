@@ -329,13 +329,11 @@
 <pre><code class="language-bash">$ ls -al /*a*/www/*l/*la*/*la*.*
 #        /var/www/html/flag/flag.php
 </code></pre>
-
 <pre><code class="language-bash">$ ls
 -al
 $ ls *
 -rw-rw-r-- 1 root root 0 jun 28 21:38 -al
 </code></pre>
-
 <h3 id="run-elf-using-ld-linux">Run ELF using ld-linux</h3>
 <p>You can run an ELF binary without the <code>x</code> flag using <code>ld-linux</code>:</p>
 <pre><code class="language-bash"># From: https://twitter.com/leonjza/status/1201946856005259264
@@ -350,7 +348,6 @@ $ ./ls
 $ /lib64/ld-linux-x86-64.so.2 ./ls
 ls
 </code></pre>
-
 <p>It can be useful when you can't set the bit or you have a capability on <code>ld-linux</code> set.</p>
 <h3 id="compile-cc-including-a-file">Compile C/C++ including a file</h3>
 <p>From <a href="https://twitter.com/Poita_/status/1198413809670598662" target="_blank">@Poita_</a> and <a href="https://blog.hboeck.de/archives/898-include-etcshadow.html" target="_blank">hboeck</a>. You can include a file or even <code>/dev/stdin</code>
@@ -365,7 +362,6 @@ int main() {
   return 0;
 }
 </code></pre>
-
 <pre><code class="language-bash">$ g++ a.cpp &amp;&amp; ./a.out
 </code></pre>
             
