@@ -182,3 +182,24 @@ Foreach ($rawByte in $cacertificates) {
     $signatureAlgorithm = $cacertificate.SignatureAlgorithm.FriendlyName
 }
 ```
+
+
+### List inactive computers
+
+```powershell
+$computers = (New-Object System.DirectoryServices.DirectorySearcher("(&(&(samAccountType=805306369)(objectCategory=computer)))")).FindAll()
+
+$inactiveDays = 180
+$limit = (Get-Date).AddDays(-1 * $inactiveDays)
+$path = "C:\Temp\Inactive_Computers_$($inactiveDays)days.csv"
+
+foreach($computer in $computers) {
+    $c = $computer
+    $lastlogontimestamp = [datetime]::FromFileTime($c.Properties.lastlogontimestamp[0])
+    $pwdlastset = [datetime]::FromFileTime($c.Properties.pwdlastset[0])
+
+    if ($lastlogontimestamp -lt $limit) {
+        Add-Content $path "$($c.Properties.name),$($pwdlastset),$($lastlogontimestamp),$($c.Properties.operatingsystem)"
+    }
+}
+```
