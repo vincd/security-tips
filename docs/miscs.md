@@ -140,6 +140,13 @@ while :; do (echo -ne "HTTP/1.1 200 OK\r\nContent-Length: $(wc -c < index.html)\
 ```
 
 
+### Trace browser request
+
+```url
+https://www.cloudflare.com/cdn-cgi/trace
+```
+
+
 ## Shodan
 
 ### Calculate favicon hash
@@ -203,3 +210,5 @@ Nessus can be proxified to scan hosts over a SOCKS proxy:
 cd /opt/nessus/sbin
 proxychains ./nessus-service -D
 ```
+
+###
