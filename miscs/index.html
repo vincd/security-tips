@@ -422,6 +422,9 @@ a list of Unicode circles equivalent characters and numbers:</p>
 using <code>netcat</code>:</p>
 <pre><code class="language-bash">while :; do (echo -ne &quot;HTTP/1.1 200 OK\r\nContent-Length: $(wc -c &lt; index.html)\r\n\r\n&quot;; cat index.html) | nc -l -p 8080; done
 </code></pre>
+<h3 id="trace-browser-request">Trace browser request</h3>
+<pre><code class="language-url">https://www.cloudflare.com/cdn-cgi/trace
+</code></pre>
 <h2 id="shodan">Shodan</h2>
 <h3 id="calculate-favicon-hash">Calculate favicon hash</h3>
 <p>Shodan uses the <a href="https://pypi.org/project/mmh3/" target="_blank"><code>MurmurHash</code></a> algorithm to
@@ -460,6 +463,7 @@ proxychains nmap {HOST}
 <pre><code class="language-bash">cd /opt/nessus/sbin
 proxychains ./nessus-service -D
 </code></pre>
+<h3 id="_1"></h3>
             
           </div>
           <footer>
