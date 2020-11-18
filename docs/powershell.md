@@ -49,6 +49,21 @@ $c = New-Object MyNamespace.Cryptography.MyCryptography
 $c.Decrypt("CIPHER_TEXT", [MyNamespace.Service.Config]::ApplicationKey())
 ```
 
+## ActiveDirectory Module without RSAT
+
+To use the [ActiveDirectory Module](https://docs.microsoft.com/en-us/powershell/module/addsadministration/?view=win10-ps
+) you only need to import the dll `Microsoft.ActiveDirectory.Management.dll`.
+It located in the following folder on a system where [RAST](https://docs.microsoft.com/en-us/troubleshoot/windows-server/system-management-components/remote-server-administration-tools) is installed :
+
+```
+C:\Windows\Microsoft.NET\assembly\GAC_64\Microsoft.ActiveDirectory.Management\
+```
+
+On the distant machine, you copy this dll then import it in Powershell:
+
+```powershell
+Import-Module .\Microsoft.ActiveDirectory.Management.dll
+```
 
 ## Domain commands
 
@@ -202,4 +217,32 @@ foreach($computer in $computers) {
         Add-Content $path "$($c.Properties.name),$($pwdlastset),$($lastlogontimestamp),$($c.Properties.operatingsystem)"
     }
 }
+```
+
+### List GPO
+
+The following script use the `DirectorySearcher` module to search for all the GPO
+on the current domain. The cmdlet [`Get-GPO`](https://docs.microsoft.com/en-us/powershell/module/grouppolicy/get-gpo?view=win10-ps) could also be used.
+
+```powershell
+# https://gallery.technet.microsoft.com/scriptcenter/Get-GroupPolicyObject-05aaef2d
+
+$GPOSearcher = New-Object DirectoryServices.DirectorySearcher -Property @{
+    Filter = '(objectClass=groupPolicyContainer)'
+    PageSize = 100
+}
+$GPOSearcher.FindAll() | ForEach-Object {
+    New-Object -TypeName PSCustomObject -Property @{
+        'DisplayName' = $_.properties.displayname -join ''
+        'DistinguishedName' = $_.properties.distinguishedname -join ''
+        'CommonName' = $_.properties.cn -join ''
+        'FilePath' = $_.properties.gpcfilesyspath -join ''
+    } | Select-Object -Property DisplayName,CommonName,FilePath,DistinguishedName
+}
+```
+
+To get the permissions on a GPO, you can use the cmdlet [`Get-GPPermission`](https://docs.microsoft.com/en-us/powershell/module/grouppolicy/get-gppermission?view=win10-ps):
+
+```powershell
+Get-GPPermission -Name "GPO_NAME" -All
 ```
