@@ -109,6 +109,8 @@
     
         <li><a class="" href="#execute-c-dll-from-powershell">Execute C# DLL from Powershell</a></li>
     
+        <li><a class="" href="#activedirectory-module-without-rsat">ActiveDirectory Module without RSAT</a></li>
+    
         <li><a class="" href="#domain-commands">Domain commands</a></li>
     
         <li><a class="" href="#miscellaneous-commands">Miscellaneous commands</a></li>
@@ -361,6 +363,14 @@ You need to add the following line at the end:</p>
 $c = New-Object MyNamespace.Cryptography.MyCryptography
 $c.Decrypt(&quot;CIPHER_TEXT&quot;, [MyNamespace.Service.Config]::ApplicationKey())
 </code></pre>
+<h2 id="activedirectory-module-without-rsat">ActiveDirectory Module without RSAT</h2>
+<p>To use the <a href="https://docs.microsoft.com/en-us/powershell/module/addsadministration/?view=win10-ps" target="_blank">ActiveDirectory Module</a> you only need to import the dll <code>Microsoft.ActiveDirectory.Management.dll</code>.
+It located in the following folder on a system where <a href="https://docs.microsoft.com/en-us/troubleshoot/windows-server/system-management-components/remote-server-administration-tools" target="_blank">RAST</a> is installed :</p>
+<pre><code class="language-none">C:\Windows\Microsoft.NET\assembly\GAC_64\Microsoft.ActiveDirectory.Management\
+</code></pre>
+<p>On the distant machine, you copy this dll then import it in Powershell:</p>
+<pre><code class="language-powershell">Import-Module .\Microsoft.ActiveDirectory.Management.dll
+</code></pre>
 <h2 id="domain-commands">Domain commands</h2>
 <h3 id="collect-ad-users-information">Collect AD users information</h3>
 <p>Here is snippets of Powershell commands to interact with AD LDAP. You can also
@@ -466,6 +476,27 @@ foreach($computer in $computers) {
         Add-Content $path &quot;$($c.Properties.name),$($pwdlastset),$($lastlogontimestamp),$($c.Properties.operatingsystem)&quot;
     }
 }
+</code></pre>
+<h3 id="list-gpo">List GPO</h3>
+<p>The following script use the <code>DirectorySearcher</code> module to search for all the GPO
+on the current domain. The cmdlet <a href="https://docs.microsoft.com/en-us/powershell/module/grouppolicy/get-gpo?view=win10-ps" target="_blank"><code>Get-GPO</code></a> could also be used.</p>
+<pre><code class="language-powershell"># https://gallery.technet.microsoft.com/scriptcenter/Get-GroupPolicyObject-05aaef2d
+
+$GPOSearcher = New-Object DirectoryServices.DirectorySearcher -Property @{
+    Filter = '(objectClass=groupPolicyContainer)'
+    PageSize = 100
+}
+$GPOSearcher.FindAll() | ForEach-Object {
+    New-Object -TypeName PSCustomObject -Property @{
+        'DisplayName' = $_.properties.displayname -join ''
+        'DistinguishedName' = $_.properties.distinguishedname -join ''
+        'CommonName' = $_.properties.cn -join ''
+        'FilePath' = $_.properties.gpcfilesyspath -join ''
+    } | Select-Object -Property DisplayName,CommonName,FilePath,DistinguishedName
+}
+</code></pre>
+<p>To get the permissions on a GPO, you can use the cmdlet <a href="https://docs.microsoft.com/en-us/powershell/module/grouppolicy/get-gppermission?view=win10-ps" target="_blank"><code>Get-GPPermission</code></a>:</p>
+<pre><code class="language-powershell">Get-GPPermission -Name &quot;GPO_NAME&quot; -All
 </code></pre>
             
           </div>
