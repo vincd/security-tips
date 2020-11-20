@@ -8,14 +8,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="search" href="/opensearch.xml" type="application/opensearchdescription+xml" title="Security Tips">
 
-  {% if page and page.is_homepage %}<meta name="description" content="{{ config.site_description }}">{% endif %}
+  {% if page and page.is_homepage %}<meta name="description" content="{{ config.site_description }}">
+  {% elif page and page.meta.description %}<meta name="description" content="{{ page.meta.description }}">{% endif %}
+  {% if page and page.meta.tags %}<meta name="keywords" content="{% for tag in page.meta.tags %}{{ tag }}{% if not loop.last %}, {% endif %}{% endfor %}">{% endif %}
+
   {% if config.site_author %}<meta name="author" content="{{ config.site_author }}">{% endif %}
   {% if config.site_favicon %}<link rel="shortcut icon" href="{{ config.site_favicon|url }}">
   {% else %}<link rel="shortcut icon" href="{{ 'img/favicon.ico'|url }}">{% endif %}
   {%- endblock %}
 
   {%- block htmltitle %}
-  <title>{% if page and page.title and not page.is_hompage %}{{ page.title }} - {% endif %}{{ config.site_name }}</title>
+  <title>
+    {% if page and page.title and not page.is_hompage %}{{ page.title }} - {{ config.site_name }}
+    {% elif page and page.meta.title %}{{ page.meta.title }} - {{ config.site_name }}
+    {% else %}{{ config.site_name }}
+    {% endif %}
+  </title>
   {%- endblock %}
 
   {%- block styles %}
@@ -59,10 +67,10 @@
       <div class="sidebar-nav">
         {%- block site_nav %}
         <ul>
-    	    {% set navlevel = 1 %}
+          {% set navlevel = 1 %}
           {% for nav_item in nav %}
           <li class="bold{% if nav_item.active and not nav_item.children %} active{%endif%}">
-		        {% include 'nav.html' %}
+            {% include 'nav.html' %}
           </li>
           {% endfor %}
         </ul>

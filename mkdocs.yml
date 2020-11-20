@@ -22,6 +22,7 @@ theme:
 markdown_extensions:
   - markdown_new_tab
   - markdown_prism
+  - meta
 
 google_analytics: ['UA-128044070-4', 'security-tips.vincd.com']
 
