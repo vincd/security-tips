@@ -84,6 +84,7 @@
         <div role="main">
           <div class="section">
             {% block content %}
+              <h1>{% if page and page.meta.title %}{{ page.meta.title }}{% endif %}</h1>
               {{ page.content }}
             {% endblock %}
           </div>
