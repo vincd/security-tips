@@ -7,8 +7,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="search" href="/opensearch.xml" type="application/opensearchdescription+xml" title="Security Tips">
 
-  
-  
+  <meta name="description" content="GraphQL queries to enumerates structures, types and fields.">
+  <meta name="keywords" content="graphql, api">
 
   <meta name="author" content="Vincent D. (@vincd)">
   <link rel="shortcut icon" href="../img/favicon.ico">
@@ -165,7 +165,13 @@
     
     <ul>
     
-        <li><a class="" href="#request-useful-informations">Request useful informations</a></li>
+        <li><a class="" href="#querying-all-available-types-in-a-schema">Querying All Available Types in a Schema</a></li>
+    
+        <li><a class="" href="#all-available-queries">All Available Queries</a></li>
+    
+        <li><a class="" href="#enumerate-type-definition">Enumerate type definition</a></li>
+    
+        <li><a class="" href="#details-about-an-individual-type">Details about an Individual Type</a></li>
     
     </ul>
     
@@ -329,8 +335,7 @@
         <div role="main">
           <div class="section">
             
-              <h1 id="graphql">GraphQL</h1>
-<h2 id="request-useful-informations">Request useful informations</h2>
+              <h2 id="request-useful-informations">Request useful informations</h2>
 <p>Introspection is explained <a href="https://graphql.org/learn/introspection/" target="_blank">here</a>.
 First we need to collect all available types then recursively enumerate all
 individual types.</p>
@@ -349,6 +354,14 @@ on an endpoint.</p>
     }
 }
 </code></pre>
+<pre><code class="language-graphql">query availableTypes {
+  __schema {
+    types {
+      name, fields {name,description}
+    }
+  }
+}
+</code></pre>
 <h3 id="all-available-queries">All Available Queries</h3>
 <pre><code class="language-graphql">query availableQueries {
   __schema {
@@ -356,6 +369,17 @@ on an endpoint.</p>
       fields {
         name
         description
+      }
+    }
+  }
+}
+</code></pre>
+<h3 id="enumerate-type-definition">Enumerate type definition</h3>
+<pre><code class="language-graphql">{
+  __type (name: \&quot;User\&quot;) {
+    name fields {
+      name type {
+        name kind ofType{name kind}
       }
     }
   }
