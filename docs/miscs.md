@@ -210,5 +210,3 @@ Nessus can be proxified to scan hosts over a SOCKS proxy:
 cd /opt/nessus/sbin
 proxychains ./nessus-service -D
 ```
-
-###
