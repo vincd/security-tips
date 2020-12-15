@@ -103,7 +103,7 @@ Some `Group Policy Preferences` (GPP) GPO stored at `\<DOMAIN>\SYSVOL\<DOMAIN>\P
 contains an account credentials for administration on a remote host.
 The credentials are encrypted using a [static AES key provided by Microsoft](https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-gppref/2c15cbf0-f086-4c74-8b70-1f2fa45dd4be?redirectedfrom=MSDN).
 A domain user can access the GPP XML files on read the encrypted password. To
-get the clear text credentials the [Python script can be used](./assets/cpassword.py).
+get the clear text credentials the [Python script can be used](/assets/cpassword.py).
 
 This [article on AdSecurity](https://adsecurity.org/?p=2288) presents other tools
 and the protection ([KB2962486](https://support.microsoft.com/en-us/help/2962486/ms14-025-vulnerability-in-group-policy-preferences-could-allow-elevati)).

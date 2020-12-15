@@ -24,4 +24,4 @@ https://{HOST}/epa/scripts/win/nsepa_setup.exe
 Extract the binary `nsepa_setup.exe\nsepa.msi\nsepa.cab\nsepa.exe` and read the
 properties:
 
-![Citrix NetScaller nsepa.exe version](./assets/citrix_netscaler_nsepa.exe_version.png)
+![Citrix NetScaller nsepa.exe version](/assets/citrix_netscaler_nsepa.exe_version.png)

@@ -6,18 +6,6 @@ site_author: Vincent D. (@vincd)
 theme:
   name: readthedocs
   custom_dir: 'theme/'
-  highlightjs: true
-  hljs_languages:
-    - line-numbers
-    - clike
-    - yaml
-    - powershell
-    - bash
-    - nginx
-    - python
-    - markup
-    - markup-templating
-    - php
 
 markdown_extensions:
   - markdown_new_tab
@@ -29,31 +17,24 @@ google_analytics: ['UA-128044070-4', 'security-tips.vincd.com']
 nav:
   - Home: index.md
   - Ports: ports.md
-  - Android: android.md
   - Cloud: cloud.md
-  - Containers:
-    - Docker: docker.md
-    - Kubernetes: kubernetes.md
   - Windows:
     - General: windows.md
     - Event ID: eventid.md
     - Powershell: powershell.md
+  - Android: android.md
   - Linux: linux.md
-  - SSH: ssh.md
-  - FTP: ftp.md
-  - XXE: xxe.md
-  - Zip: zip.md
-  - Kafka: kafka.md
   - Web:
+    - HTTP: http.md
     - XSS: xss.md
     - API: API.md
     - OAuth: oauth.md
     - 'Path Traversal': path-traversal.md
-    - GraphQL: graphql.md
-    - PHP: php.md
     - JWT: jwt.md
     - IIS: iis.md
     - Nginx: nginx.md
+    - GraphQL: graphql.md
+    - Spring Boot: spring_boot.md
   - SQL:
     - PostgreSQL: postgresql.md
   - CVE:
@@ -72,18 +53,24 @@ nav:
   - SDR:
     - 'Challs Dont Matter Anymore': sdr/challs-dont-matter-anymore/hackingforsoju.md
     - 'lit-fam': sdr/lit-fam/hackingforsoju.md
-  - Misc:
-    - Firefox: firefox.md
-    - Citrix: citrix.md
-    - Git: git.md
-    - HTTP: http.md
-    - ISCSI: iscsi.md
+  - Languages:
+    - PHP: php.md
     - Java: java.md
     - Python: python.md
     - Node: node.md
+  - Misc:
+    - Firefox: firefox.md
+    - Docker: docker.md
+    - Kubernetes: kubernetes.md
+    - Citrix: citrix.md
+    - SSH: ssh.md
+    - FTP: ftp.md
+    - Git: git.md
+    - Kafka: kafka.md
+    - ISCSI: iscsi.md
     - Reverse Shell: reverse-shell.md
-    - Spring Boot: spring_boot.md
-    - WAF: waf.md
+    - Zip: zip.md
+    - XXE: xxe.md
     - Others: miscs.md
 
 dev_addr: 0.0.0.0:4000

@@ -94,6 +94,14 @@ POST https://<host>/file.php?-d%20allow_url_include%3d1%20-d%20auto_prepend_file
 More details can be found on the Metasploit script [here](https://github.com/rapid7/metasploit-framework/blob/master/modules/exploits/multi/http/php_cgi_arg_injection.rb)
 
 
+## Bypass WAF in PHP
+
+From [Abusing PHP query string parser to bypass IDS, IPS, and WAF](https://www.secjuice.com/abusing-php-query-string-parser-bypass-ids-ips-waf/):
+
+```
+/news.php?%20news[id%00=42 ==> $_GET["news_id"]
+```
+
 
 ## Laravel configuration file
 
@@ -145,7 +153,7 @@ file that contains a PHP payload.
 
 ### GIF89
 
-[This file](./assets/polyglot.php.gif)) contains a PHP payload in the [Comment
+[This file](/assets/polyglot.php.gif)) contains a PHP payload in the [Comment
 Extension](https://www.w3.org/Graphics/GIF/spec-gif89a.txt) of a 1 pixel GIF:
 
 ```bash
