@@ -76,6 +76,7 @@ nav:
     - Firefox: firefox.md
     - Citrix: citrix.md
     - Git: git.md
+    - HTTP: http.md
     - ISCSI: iscsi.md
     - Java: java.md
     - Python: python.md
