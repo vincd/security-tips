@@ -111,6 +111,10 @@
     
         <li><a class="" href="#http-method-override">HTTP method override</a></li>
     
+        <li><a class="" href="#http-path-override">HTTP path override</a></li>
+    
+        <li><a class="" href="#bypass-user-ip-restriction">Bypass user IP restriction</a></li>
+    
         <li><a class="" href="#max-forward">Max forward</a></li>
     
     </ul>
@@ -341,6 +345,26 @@ application which uses the header value as method.</p>
 Host: ...
 X-HTTP-Method: TRACE
 ...
+</code></pre>
+<h3 id="http-path-override">HTTP path override</h3>
+<p>The headers <code>X-Original-URL</code> or <code>X-Rewrite-URL</code> may be supported by applications
+in order to override the requested path in the request.
+The reverse proxy may check the real path and passes the request to the
+application which uses the header value as a path.</p>
+<pre><code class="language-none">GET / HTTP/1.1
+Host: ...
+X-Original-URL: /admin
+...
+</code></pre>
+<h3 id="bypass-user-ip-restriction">Bypass user IP restriction</h3>
+<p>The following headers can be used to override the IP address of the user to
+bypass some restrictions based on the user IP.</p>
+<pre><code class="language-none">X-Forwarded-For
+X-Forward-For
+X-Remote-IP
+X-Originating-IP
+X-Remote-Addr
+X-Client-IP
 </code></pre>
 <h3 id="max-forward">Max forward</h3>
 <p>The <code>Max-Forwards</code> header provides a mechanism to limit the number of times that
