@@ -152,6 +152,14 @@
                     
     <a class="section-link" href="../postgresql/">PostgreSQL</a>
                 </li>
+                <li class="">
+                    
+    <a class="section-link" href="../mariadb/">MariaDB</a>
+                </li>
+                <li class="">
+                    
+    <a class="section-link" href="../oracle/">Oracle</a>
+                </li>
     </ul>
           </li>
           
@@ -322,6 +330,8 @@
     
         <li><a class="" href="#unicode-circles">Unicode circles</a></li>
     
+        <li><a class="" href="#bypass-url-block-list">Bypass URL block list</a></li>
+    
         <li><a class="" href="#download-recursively-an-apache-directory-listing">Download recursively an Apache Directory Listing</a></li>
     
         <li><a class="" href="#web">Web</a></li>
@@ -420,7 +430,35 @@ a list of Unicode circles equivalent characters and numbers:</p>
 ⑴ ⑵ ⑶ ⑷ ⑸ ⑹ ⑺ ⑻ ⑼ ⑽ ⑾ ⑿ ⒀ ⒁ ⒂ ⒃ ⒄ ⒅ ⒆ ⒇
 ⒈ ⒉ ⒊ ⒋ ⒌ ⒍ ⒎ ⒏ ⒐ ⒑ ⒒ ⒓ ⒔ ⒕ ⒖ ⒗ ⒘ ⒙ ⒚ ⒛
 ⒜ ⒝ ⒞ ⒟ ⒠ ⒡ ⒢ ⒣ ⒤ ⒥ ⒦ ⒧ ⒨ ⒩ ⒪ ⒫ ⒬ ⒭ ⒮ ⒯ ⒰ ⒱ ⒲ ⒳ ⒴ ⒵
-Ⓐ Ⓑ Ⓒ Ⓓ Ⓔ Ⓕ Ⓖ Ⓗ Ⓘ Ⓙ Ⓚ Ⓛ Ⓜ Ⓝ Ⓞ Ⓟ Ⓠ Ⓡ Ⓢ Ⓣ Ⓤ Ⓥ Ⓦ Ⓧ Ⓨ Ⓩ ⓐ ⓑ ⓒ ⓓ ⓔ ⓕ ⓖ ⓗ ⓘ ⓙ ⓚ ⓛ ⓜ ⓝ ⓞ ⓟ ⓠ ⓡ ⓢ ⓣ ⓤ ⓥ ⓦ ⓧ ⓨ ⓩ
+Ⓐ Ⓑ Ⓒ Ⓓ Ⓔ Ⓕ Ⓖ Ⓗ Ⓘ Ⓙ Ⓚ Ⓛ Ⓜ Ⓝ Ⓞ Ⓟ Ⓠ Ⓡ Ⓢ Ⓣ Ⓤ Ⓥ Ⓦ Ⓧ Ⓨ Ⓩ
+ⓐ ⓑ ⓒ ⓓ ⓔ ⓕ ⓖ ⓗ ⓘ ⓙ ⓚ ⓛ ⓜ ⓝ ⓞ ⓟ ⓠ ⓡ ⓢ ⓣ ⓤ ⓥ ⓦ ⓧ ⓨ ⓩ
+</code></pre>
+<h2 id="bypass-url-block-list">Bypass URL block list</h2>
+<h3 id="ipv6">IPv6</h3>
+<pre><code class="language-none">http://[::]:80
+http://0000::1:80/
+http://::1/
+</code></pre>
+<h3 id="localhost-representation">Localhost representation</h3>
+<pre><code class="language-none">http://0/
+http://127.1/
+http://0.0.0.0/
+http://127.127.127.127/
+</code></pre>
+<h3 id="url-parser-logic">URL parser logic</h3>
+<pre><code class="language-none">http://evil$google.com
+http://127.1.1.1\@127.2.2.2:80/
+http://127.1.1.1\@@127.2.2.2:80/
+0://evil.com:80;http://google.com:80/
+</code></pre>
+<h3 id="unicode-normalization">Unicode normalization</h3>
+<pre><code class="language-none">http://ⓔⓧⓐⓜⓟⓛⓔ.ⓒⓞⓜ
+</code></pre>
+<h3 id="address-encoding">Address encoding</h3>
+<pre><code class="language-none">Octal: http://0177.0.0.01
+Decimal: http://2130706433/
+Hex: http://0x7f.0x0.0x0.0x1
+Mixed: http://0177.0x0.0x0.1
 </code></pre>
 <h2 id="download-recursively-an-apache-directory-listing">Download recursively an Apache Directory Listing</h2>
 <pre><code class="language-bash">wget -r -N --no-parent --reject '*index.html*' -nH --cut-dirs=1  &lt;url&gt;

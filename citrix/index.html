@@ -152,6 +152,14 @@
                     
     <a class="section-link" href="../postgresql/">PostgreSQL</a>
                 </li>
+                <li class="">
+                    
+    <a class="section-link" href="../mariadb/">MariaDB</a>
+                </li>
+                <li class="">
+                    
+    <a class="section-link" href="../oracle/">Oracle</a>
+                </li>
     </ul>
           </li>
           
@@ -274,6 +282,8 @@
     
         <li><a class="" href="#citrix-netscaler-gateway">Citrix NetScaler Gateway</a></li>
     
+        <li><a class="" href="#execute-commands">Execute commands</a></li>
+    
     </ul>
     
 
@@ -338,6 +348,12 @@
 <p>Extract the binary <code>nsepa_setup.exe\nsepa.msi\nsepa.cab\nsepa.exe</code> and read the
 properties:</p>
 <p><img alt="Citrix NetScaller nsepa.exe version" src="/assets/citrix_netscaler_nsepa.exe_version.png" /></p>
+<h2 id="execute-commands">Execute commands</h2>
+<h3 id="execute-powershell-from-rundll32">Execute Powershell from rundll32</h3>
+<p>Copy the <code>powershdll.dll</code> file from the host to the target then execute the
+command:</p>
+<pre><code class="language-bash">rundll32 powershdll.dll, main -w
+</code></pre>
             
           </div>
           <footer>

