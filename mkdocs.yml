@@ -37,6 +37,8 @@ nav:
     - Spring Boot: spring_boot.md
   - SQL:
     - PostgreSQL: postgresql.md
+    - MariaDB: mariadb.md
+    - Oracle: oracle.md
   - CVE:
     - CVE-2016-3714: cve/CVE-2016-3714.md
     - CVE-2017-8291: cve/CVE-2017-8291.md
