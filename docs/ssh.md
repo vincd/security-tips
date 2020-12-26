@@ -38,3 +38,10 @@ on the server on your local machine:
 
 The `~` is the SSH's default `EscapeChar`, there is more options available if
 you type `~?`.
+
+
+## Log SSH connection
+
+```bash
+strace -e trace=read -fp <USERSPID> 2>&1 | awk -F, '! /\\/ {print $2}'
+```

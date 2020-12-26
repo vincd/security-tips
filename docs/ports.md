@@ -6,8 +6,13 @@ Here is a list of default ports for services and links to the tips:
 
 |  Port |                  Service               |             Vulnerabilities            |
 |:-----:|:--------------------------------------:|:--------------------------------------:|
-|    22 | [SSH](ssh.md)                          |                                        |
 |    21 | [FTP](ftp.md)                          |                                        |
+|    22 | [SSH](ssh.md)                          |                                        |
+|    23 | Telnet                                 |                                        |
+|    25 | SMTP                                   |                                        |
+|   137 | NetBIOS                                |                                        |
+|   139 | NetBIOS                                |                                        |
+|   445 | Microsoft DS                           |                                        |
 |  1090 | Java RMI                               |                                        |
 |  1098 | Java RMI                               |                                        |
 |  1099 | Java RMI                               |                                        |
@@ -37,3 +42,6 @@ Here is a list of default ports for services and links to the tips:
 | 47001 | Java RMI                               |                                        |
 | 47002 | Java RMI                               |                                        |
 | 50500 | JMX                                    |                                        |
+
+
+[IANA Service Name and Transport Protocol Port Number Registry](https://www.iana.org/assignments/service-names-port-numbers/service-names-port-numbers.xhtml)
