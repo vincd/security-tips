@@ -255,3 +255,10 @@ Nessus can be proxified to scan hosts over a SOCKS proxy:
 cd /opt/nessus/sbin
 proxychains ./nessus-service -D
 ```
+
+
+## SalesForce
+
+### SalesForce community
+
+[Salesforce Lightning - An in-depth look at exploitation vectors for the everyday community](https://www.enumerated.de/index/salesforce#exploitation)
