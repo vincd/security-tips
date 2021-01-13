@@ -2,6 +2,7 @@ IIS
 ===
 
 ## Bypass blacklist upload
+
 It's possible to bypass blacklist upload while uploading a `web.config` file.
 For this, you need to set execution rights to `.config` and then adding `ASP` code
 in the `web.config`.
@@ -41,10 +42,12 @@ Response.write("</pre><!-"&"-") %>
 
 
 ## Upload XAMLX file to get RCE
+
 [NCCGroup](https://www.nccgroup.trust/uk/about-us/newsroom-and-events/blogs/2019/august/getting-shell-with-xamlx-files/)
 describes how to upload a `XAMLX` file to execute code on a remote IIS server.
 
 
 ## Tracing
+
 [Tracing](https://docs.microsoft.com/en-us/previous-versions/dotnet/articles/ms972204(v=msdn.10)?redirectedfrom=MSDN)
 might be activate on the server. For example, check `/trace.axd`.

@@ -30,6 +30,7 @@ nav:
     - API: API.md
     - OAuth: oauth.md
     - 'Path Traversal': path-traversal.md
+    - 'File Upload': file-upload.md
     - JWT: jwt.md
     - IIS: iis.md
     - Nginx: nginx.md
