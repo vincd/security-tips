@@ -7,22 +7,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="search" href="/opensearch.xml" type="application/opensearchdescription+xml" title="Security Tips">
 
-  
-  
+  <meta name="description" content="Tips to bypass protection on file upload functionality">
+  <meta name="keywords" content="HTTP, file upload, web">
 
   <meta name="author" content="Vincent D. (@vincd)">
   <link rel="shortcut icon" href="../img/favicon.ico">
   <title>
-    Switch - Security Tips
+    File Upload - Security Tips
     
   </title>
   <link rel="stylesheet" href="../css/style.css" type="text/css" />
   
   <script>
     // Current page data
-    var mkdocs_page_name = "Switch";
-    var mkdocs_page_input_path = "configuration-review.md";
-    var mkdocs_page_url = "/configuration-review/";
+    var mkdocs_page_name = "File Upload";
+    var mkdocs_page_input_path = "file-upload.md";
+    var mkdocs_page_url = "/file-upload/";
   </script>
    
 </head>
@@ -99,7 +99,7 @@
           
           <li class="bold">
             
-    <span class="section-link ">Web</span>
+    <span class="section-link active">Web</span>
     <ul>
                 <li class="">
                     
@@ -121,9 +121,46 @@
                     
     <a class="section-link" href="../path-traversal/">Path Traversal</a>
                 </li>
-                <li class="">
+                <li class="active">
                     
-    <a class="section-link" href="../file-upload/">File Upload</a>
+    <a class="section-link" href="./">File Upload</a>
+    <ul>
+            
+    
+    <ul>
+    
+        <li><a class="" href="#add-special-chars-to-the-extension">Add special chars to the extension</a></li>
+    
+        <li><a class="" href="#use-an-other-extension-for-the-file">Use an other extension for the file</a></li>
+    
+        <li><a class="" href="#change-content-type">Change Content Type</a></li>
+    
+    </ul>
+    
+
+    
+
+    
+    <ul>
+    
+        <li><a class="" href="#upload-configuration-file-on-iis">Upload configuration file on IIS</a></li>
+    
+        <li><a class="" href="#upload-configuration-file-on-php">Upload configuration file on PHP</a></li>
+    
+    </ul>
+    
+
+    
+
+    
+    <ul>
+    
+        <li><a class="" href="#zip-like-file-formats">Zip like file formats</a></li>
+    
+    </ul>
+    
+
+    </ul>
                 </li>
                 <li class="">
                     
@@ -329,13 +366,64 @@
         <div role="main">
           <div class="section">
             
-              <h1></h1>
-              <h1 id="switch">Switch</h1>
-<h2 id="switch-hirschmann">Switch Hirschmann</h2>
-<p>Un switch Hirschmann est un équipement réseau industriel. Pour récupérer sa configuration, il est possible d'utiliser le logiciel HiVision. Le fichier de configuration est un fichier texte au format XML contenant un noeud chiffrée. Depuis l'interface il est possible de le déchiffrer.</p>
-<h1 id="pare-feu">Pare-feu</h1>
-<h2 id="fortinet">Fortinet</h2>
-<p>Il est possible de se connecter sur une interface Web. Pour récupérer la configuration du pare-feu il convient de télécharger une sauvegarde de la configuration.</p>
+              <h1>File upload</h1>
+              <h2 id="bypass-file-extension-verification">Bypass file extension verification</h2>
+<h3 id="add-special-chars-to-the-extension">Add special chars to the extension</h3>
+<p>When the application allows only an image to be upload (<code>.jpg</code> files), then you
+can check how the extension is checked by using specials chars or multiple
+extensions :</p>
+<pre><code class="language-none">file.jpg.{EXT}
+file.{EXT}.jpg
+file.{EXT}.xxxjpg
+file.{EXT}%00.jpg
+file.{EXT}\x00.jpg
+file.{EXT}%00
+file.{EXT}\x00
+file.{EXT}%20
+file.{EXT}%0d%0a.jpg
+file.{EXT}/
+file.{EXT}.\
+</code></pre>
+<h3 id="use-an-other-extension-for-the-file">Use an other extension for the file</h3>
+<ul>
+<li>PHP: <code>php</code>, <code>php2</code>, <code>php3</code>, <code>php4</code>, <code>php5</code>, <code>php6</code>, <code>php7</code>, <code>phps</code>, <code>pht</code>, <code>phtml</code>, <code>pgif</code>, <code>shtml</code>, <code>htaccess</code>, <code>phar</code>, <code>inc</code></li>
+<li>ASP: <code>asp</code>, <code>aspx</code>, <code>config</code>, <code>ashx</code>, <code>asmx</code>, <code>aspq</code>, <code>axd</code>, <code>cshtm</code>, <code>cshtml</code>, <code>rem</code>, <code>soap</code>, <code>vbhtm</code>, <code>vbhtml</code>, <code>asa</code>, <code>asp</code>, <code>cer</code>, <code>shtml</code></li>
+<li>JSP: <code>jsp</code>, <code>jspx</code>, <code>jsw</code>, <code>jsv</code>, <code>jspf</code></li>
+</ul>
+<h3 id="change-content-type">Change Content Type</h3>
+<p>Some application checks only the <code>content-type</code> field, then you can specify a
+legit content-type with a bad extension:</p>
+<pre><code class="language-none">application/octect-stream
+image/jpg
+image/png
+image/gif
+</code></pre>
+<h2 id="use-polyglot-file">Use polyglot file</h2>
+<p>An example of polyglot file is explained on the <a href="/php/#php-polyglot-file">PHP page</a>.</p>
+<h2 id="change-server-configuration">Change server configuration</h2>
+<h3 id="upload-configuration-file-on-iis">Upload configuration file on IIS</h3>
+<p>You can upload a <a href="/iis/#bypass-blacklist-upload">web.config file to bypass protection on IIS</a>.</p>
+<h3 id="upload-configuration-file-on-php">Upload configuration file on PHP</h3>
+<p>You can upload a <code>.htaccess</code> file to reconfigure the destination folder and
+execute code.</p>
+<h2 id="injection-on-filename">Injection on filename</h2>
+<p>The filename can be stored on a database or reflected on the web page, therefore
+it can present vulnerabilities such as :</p>
+<ul>
+<li>SQL Injection : <code>sleep(5) -- - .jpg</code></li>
+<li>Cross Site Scripting : <code>&lt;script&gt;alert(location)&lt;/script&gt;.jpg</code></li>
+<li>Command injection : <code>; sleep 5;</code></li>
+<li>Directory Traversal : <code>../filename.jpg</code></li>
+</ul>
+<h2 id="zip-extraction">Zip extraction</h2>
+<p>You can craft a specific zip file to find Directory Traversal vulnerabilities.
+Some examples can be found on the <a href="../zip/">Zip page</a>.</p>
+<h3 id="zip-like-file-formats">Zip like file formats</h3>
+<p>Some file format such as Microsoft Office files (<code>docx</code>, <code>xlsx</code>, ...) are <code>zip</code>
+files with a specific structure. You can also use the zip extraction tips on
+these files. Moreover, you can include payload such as <a href="/xxe">xxe</a>,
+<a href="/php/#php-polyglot-file">polyglot files</a> <a href="../cve/CVE-2016-3714/">ImageTragick</a>,
+etc.</p>
             
           </div>
           <footer>
@@ -354,6 +442,10 @@
     <span class="rst-current-version" data-toggle="rst-current-version">
       
       
+        <span><a href="../path-traversal/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../jwt/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>

