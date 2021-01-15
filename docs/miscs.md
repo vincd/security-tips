@@ -102,8 +102,10 @@ site:ideone.com | site:codebeautify.org | site:codeshare.io | site:codepen.io | 
 
 ## Default passwords
 
-The website [cirt.net](https://cirt.net/passwords?vendor=) lists the default
-passwords on equipments or applications.
+The following resources contain default credentials databases:
+
+- [cirt.net](https://cirt.net/passwords?vendor=)
+- [DefaultCreds-cheat-sheet](https://github.com/ihebski/DefaultCreds-cheat-sheet)
 
 
 ## Unicode circles
