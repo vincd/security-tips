@@ -42,6 +42,7 @@ nav:
     - Oracle: oracle.md
   - CVE:
     - CVE-2016-3714: cve/CVE-2016-3714.md
+    - CVE-2017-5638: cve/CVE-2017-5638.md
     - CVE-2017-8291: cve/CVE-2017-8291.md
     - CVE-2019-1388: cve/CVE-2019-1388/index.md
     - CVE-2019-11510: cve/CVE-2019-11510.md
