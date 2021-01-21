@@ -39,6 +39,7 @@ nav:
   - SQL:
     - PostgreSQL: postgresql.md
     - MariaDB: mariadb.md
+    - MSSQL: mssql.md
     - Oracle: oracle.md
   - CVE:
     - CVE-2016-3714: cve/CVE-2016-3714.md
