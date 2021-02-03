@@ -28,9 +28,12 @@ Here is a list of default ports for services and links to the tips:
 |  5556 | HP Data Protector                      |                                        |
 |  5985 | WinRM (HTTP)                           |                                        |
 |  5986 | WinRM (HTTPS)                          |                                        |
+|  6379 | Redis                                  |                                        |
 |  8009 | AJP                                    | [AJP Ghostcat](cve/CVE-2020-1938.md)   |
 |  8083 | [Kafka](kafka.md)                      |                                        |
+|  8088 | Apache Hadoop                          |                                        |
 |  8686 | JMX                                    |                                        |
+|  8983 | Apache Solr                            |                                        |
 |  9012 | JMX                                    |                                        |
 |  9200 | ElasticSearch                          |                                        |
 |  9300 | ElasticSearch                          |                                        |
