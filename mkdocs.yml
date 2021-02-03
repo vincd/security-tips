@@ -36,6 +36,7 @@ nav:
     - Nginx: nginx.md
     - GraphQL: graphql.md
     - Spring Boot: spring_boot.md
+    - SharePoint: sharepoint.md
   - SQL:
     - PostgreSQL: postgresql.md
     - MariaDB: mariadb.md
