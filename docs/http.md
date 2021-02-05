@@ -71,3 +71,9 @@ Host: ...
 Max-Forwards: 2
 ...
 ```
+
+
+## Cache
+
+[Cache-Key Normalization](https://iustin24.github.io/Cache-Key-Normalization-Denial-of-Service/)
+
