@@ -7,8 +7,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="search" href="/opensearch.xml" type="application/opensearchdescription+xml" title="Security Tips">
 
-  
-  
+  <meta name="description" content="Commands to start a reverse shell on multiple languages">
+  <meta name="keywords" content="netcat, bash, shell">
 
   <meta name="author" content="Vincent D. (@vincd)">
   <link rel="shortcut icon" href="../img/favicon.ico">
@@ -320,13 +320,35 @@
     
     <ul>
     
-        <li><a class="" href="#on-local-machine">On local machine</a></li>
+        <li><a class="" href="#listen-with-netcat">Listen with NetCat</a></li>
     
-        <li><a class="" href="#on-the-remote-server">On the remote server</a></li>
+        <li><a class="" href="#listen-with-pwncat">Listen with PwnCat</a></li>
     
-        <li><a class="" href="#forward-shell">Forward shell</a></li>
+        <li><a class="" href="#upgrade-the-shell">Upgrade the shell</a></li>
     
     </ul>
+    
+
+    
+    <ul>
+    
+        <li><a class="" href="#windows">Windows</a></li>
+    
+        <li><a class="" href="#powershell">PowerShell</a></li>
+    
+        <li><a class="" href="#python">Python</a></li>
+    
+        <li><a class="" href="#bash">Bash</a></li>
+    
+        <li><a class="" href="#netcat">Netcat</a></li>
+    
+        <li><a class="" href="#java">Java</a></li>
+    
+        <li><a class="" href="#php">PHP</a></li>
+    
+    </ul>
+    
+
     
 
     </ul>
@@ -356,9 +378,8 @@
         <div role="main">
           <div class="section">
             
-              <h1></h1>
-              <h1 id="reverse-shell">Reverse-Shell</h1>
-<p>A list of Reverse Shells on multiple languages. Replace <code>{IP}</code> and <code>{PORT}</code> values
+              <h1>Reverse-Shell</h1>
+              <p>A list of Reverse Shells on multiple languages. Replace <code>{IP}</code> and <code>{PORT}</code> values
 with a couple <code>IP:port</code> the server can access. Then, on your local machine you open
 a listener with <code>netcat</code>:</p>
 <h2 id="on-local-machine">On local machine</h2>
@@ -374,6 +395,10 @@ python -c 'import pty; pty.spawn(&quot;/bin/bash&quot;)'
 instead of the one provided by the OS</p>
 </blockquote>
 <p>You can use <a href="https://linux.die.net/man/1/rlwrap" target="_blank"><code>rlwrap</code></a> to use arrow keys.</p>
+<h3 id="listen-with-pwncat">Listen with PwnCat</h3>
+<p><a href="https://pwncat.org/" target="_blank"><code>pwncat</code></a> is a <code>netcat</code> with advanced features.</p>
+<pre><code class="language-bash">pwncat -lv {PORT}
+</code></pre>
 <h3 id="upgrade-the-shell">Upgrade the shell</h3>
 <p>Then, <code>Ctrl-Z</code> to suspend the connection and return to your own terminal.
 Type on your terminal:</p>
