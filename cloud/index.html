@@ -69,11 +69,17 @@
     <ul>
             
     
+
+    
     <ul>
     
-        <li><a class="" href="#get-cloud-metadata">Get Cloud Metadata</a></li>
+        <li><a class="" href="#check-if-domain-is-on-a-bucket">Check if domain is on a bucket</a></li>
     
-        <li><a class="" href="#aws">AWS</a></li>
+        <li><a class="" href="#list-a-bucket">List a bucket</a></li>
+    
+        <li><a class="" href="#ssrf-on-aws-to-get-credentials">SSRF on AWS to get credentials</a></li>
+    
+        <li><a class="" href="#resources-on-aws">Resources on AWS</a></li>
     
     </ul>
     
@@ -355,8 +361,7 @@
           <div class="section">
             
               <h1>Cloud</h1>
-              <h1 id="cloud">Cloud</h1>
-<h2 id="get-cloud-metadata">Get Cloud Metadata</h2>
+              <h2 id="get-cloud-metadata">Get Cloud Metadata</h2>
 <p>When you have access to the internal network (SSRF, RCE, ...) you can read
 metadata of the server instance. All cloud providers use the same endpoint:
 <code>169.254.169.254</code>.</p>

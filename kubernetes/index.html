@@ -7,8 +7,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="search" href="/opensearch.xml" type="application/opensearchdescription+xml" title="Security Tips">
 
-  
-  
+  <meta name="description" content="Check Kubernetes API and execute commands">
+  <meta name="keywords" content="docker, kubernetes">
 
   <meta name="author" content="Vincent D. (@vincd)">
   <link rel="shortcut icon" href="../img/favicon.ico">
@@ -292,9 +292,31 @@
     
     <ul>
     
-        <li><a class="" href="#api">API</a></li>
+        <li><a class="" href="#list-pods">List pods</a></li>
     
-        <li><a class="" href="#useful-commands">Useful commands</a></li>
+        <li><a class="" href="#execute-commands">Execute commands</a></li>
+    
+    </ul>
+    
+
+    
+    <ul>
+    
+        <li><a class="" href="#kubernetes-version">Kubernetes version</a></li>
+    
+        <li><a class="" href="#start-a-pod">Start a pod</a></li>
+    
+        <li><a class="" href="#attach-to-an-existing-pod">Attach to an existing pod</a></li>
+    
+        <li><a class="" href="#connect-to-an-existing-connection">Connect to an existing connection</a></li>
+    
+        <li><a class="" href="#copy-a-file-from-a-pod-to-the-local-machine">Copy a file from a pod to the local machine</a></li>
+    
+        <li><a class="" href="#print-services">Print services</a></li>
+    
+        <li><a class="" href="#print-pods">Print pods</a></li>
+    
+        <li><a class="" href="#print-secrets">Print secrets</a></li>
     
     </ul>
     
@@ -354,22 +376,29 @@
         <div role="main">
           <div class="section">
             
-              <h1></h1>
-              <h1 id="kubernetes">Kubernetes</h1>
-<h2 id="api">API</h2>
-<p>The Kubernetes API exposes the port <code>10250</code>. This API can be used to interact with the Kubernetes engine which basically give us the right to do anything you desire unauthenticated.</p>
-<p>To confirm that the host is running Docker you can make a GET requests to <code>/pods</code> :</p>
+              <h1>Kubernetes</h1>
+              <h2 id="api">API</h2>
+<p>The Kubernetes API exposes the ports <code>10250</code> and <code>10255</code> (HTTP read-only).
+This API can be used to interact with the Kubernetes engine which basically
+give us the right to do anything you desire unauthenticated.</p>
+<h3 id="list-pods">List pods</h3>
+<p>To confirm that the host is running Docker you can make a GET requests to <code>/pods</code>:</p>
 <pre><code class="language-none">https://&lt;host&gt;:&lt;port&gt;/pods
-
-{&quot;kind&quot;:&quot;PodList&quot;,&quot;apiVersion&quot;:&quot;v1&quot;,&quot;metadata&quot;:{},&quot;items&quot;:[{&quot;metadata&quot;:{&quot;name&quot;:&quot;dind-sgz8n&quot;,&quot;generateName&quot;:&quot;dind-&quot;,&quot;namespace&quot;:&quot;default&quot;,&quot;selfLink&quot;:&quot;/api/v1/namespaces/default/pods/dind-sgz8n&quot;,`...}],&quot;qosClass&quot;:&quot;BestEffort&quot;}}]}
 </code></pre>
-<p>With the above information it's possible to send requests to the API to execute commands:</p>
+<pre><code class="language-json">{&quot;kind&quot;:&quot;PodList&quot;,&quot;apiVersion&quot;:&quot;v1&quot;,&quot;metadata&quot;:{},&quot;items&quot;:[{&quot;metadata&quot;:{&quot;name&quot;:&quot;dind-sgz8n&quot;,&quot;generateName&quot;:&quot;dind-&quot;,&quot;namespace&quot;:&quot;default&quot;,&quot;selfLink&quot;:&quot;/api/v1/namespaces/default/pods/dind-sgz8n&quot;,`...}],&quot;qosClass&quot;:&quot;BestEffort&quot;}}]}
+</code></pre>
+<h3 id="execute-commands">Execute commands</h3>
+<p>With the above information it's possible to send requests to the API to execute
+commands:</p>
 <pre><code class="language-bash">$ curl --insecure -v -H &quot;W-Stream-Protocol-Version: v2.channel.k8s.io&quot; -H &quot;X-Stream-Protocol-Version: channel.k8s.io&quot; -H &quot;Connection: upgrade&quot; -H &quot;Upgrade: SPDY/3.1&quot; -X POST &quot;https://&lt;host&gt;:&lt;port&gt;/exec/&lt;namespace&gt;/&lt;pod_name&gt;/&lt;container_name&gt;?command=&lt;cmd&gt;&amp;input=1&amp;output=1&amp;tty=1&quot;
 </code></pre>
 <p>In the response, there is a <code>Location</code> header to create a WebSocket connection:</p>
 <pre><code class="language-bash">$ wscat -c &quot;https://&lt;host&gt;:&lt;port&gt;/&lt;location_header&gt;&quot; --no-check
 </code></pre>
 <h2 id="useful-commands">Useful commands</h2>
+<h4 id="kubernetes-version">Kubernetes version</h4>
+<pre><code class="language-bash">kubectl version
+</code></pre>
 <h4 id="start-a-pod">Start a pod</h4>
 <pre><code class="language-bash">kubectl run k8s-2-test -ti --rm --image=debian --generator=run-pod/v1
 </code></pre>
