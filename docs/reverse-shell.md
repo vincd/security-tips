@@ -1,5 +1,15 @@
-Reverse-Shell
-=============
+---
+title: "Reverse-Shell"
+description: "Commands to start a reverse shell on multiple languages"
+date: 24/11/2019
+categories:
+ - Misc
+tags:
+ - netcat
+ - bash
+ - shell
+---
+
 
 A list of Reverse Shells on multiple languages. Replace `{IP}` and `{PORT}` values
 with a couple `IP:port` the server can access. Then, on your local machine you open
@@ -22,6 +32,15 @@ python -c 'import pty; pty.spawn("/bin/bash")'
 > instead of the one provided by the OS
 
 You can use [`rlwrap`](https://linux.die.net/man/1/rlwrap) to use arrow keys.
+
+
+### Listen with PwnCat
+
+[`pwncat`](https://pwncat.org/) is a `netcat` with advanced features.
+
+```bash
+pwncat -lv {PORT}
+```
 
 
 ### Upgrade the shell
