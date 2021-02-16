@@ -38,6 +38,7 @@ Here is a list of default ports for services and links to the tips:
 |  9200 | ElasticSearch                          |                                        |
 |  9300 | ElasticSearch                          |                                        |
 | 10250 | [Kubernetes](kubernetes.md)            |                                        |
+| 10255 | [Kubernetes](kubernetes.md)            |                                        |
 | 10999 | Java RMI                               |                                        |
 | 11099 | Java RMI                               |                                        |
 | 45000 | JDWP                                   |                                        |

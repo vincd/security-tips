@@ -10,8 +10,6 @@ tags:
  - SSRF
 ---
 
-# Cloud
-
 
 ## Get Cloud Metadata
 
