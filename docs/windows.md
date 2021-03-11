@@ -249,9 +249,9 @@ Converted 3948 frames
 
 ```bash
 # create a local user
-$ net user <username> <password> /add
-# add user to local admin group
-$ net localgroup Administrators <username> /add
+net user <username> <password> /add
+# add user to local admin group, if the user is from a domain then use <domain>\<username>
+net localgroup Administrators <username> /add
 ```
 
 
