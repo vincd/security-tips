@@ -156,6 +156,10 @@
                 </li>
                 <li class="">
                     
+    <a class="section-link" href="../webshell/">Webshell</a>
+                </li>
+                <li class="">
+                    
     <a class="section-link" href="../xss/">XSS</a>
                 </li>
                 <li class="">
@@ -542,9 +546,9 @@ Converted 3948 frames
 </code></pre>
 <h3 id="add-user-to-local-admin">Add user to local admin</h3>
 <pre><code class="language-bash"># create a local user
-$ net user &lt;username&gt; &lt;password&gt; /add
-# add user to local admin group
-$ net localgroup Administrators &lt;username&gt; /add
+net user &lt;username&gt; &lt;password&gt; /add
+# add user to local admin group, if the user is from a domain then use &lt;domain&gt;\&lt;username&gt;
+net localgroup Administrators &lt;username&gt; /add
 </code></pre>
 <h3 id="extract-microsoft-update-files">Extract Microsoft Update files</h3>
 <p>A Windows Update is a <code>.msu</code> archive that contains a <code>.cab</code> archive. This file
