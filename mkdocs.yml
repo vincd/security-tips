@@ -26,6 +26,7 @@ nav:
   - Linux: linux.md
   - Web:
     - HTTP: http.md
+    - Webshell: webshell.md
     - XSS: xss.md
     - API: API.md
     - OAuth: oauth.md
