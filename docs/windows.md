@@ -1,4 +1,16 @@
-# Windows
+---
+title: "Windows"
+description: "Tips to pentest Windows systems."
+date: 31/07/2019
+categories:
+ - Windows
+tags:
+ - lsass
+ - Kerberos
+ - commands
+mitre:
+ - T1003/001
+---
 
 
 ### List SPN accounts
