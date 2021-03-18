@@ -133,7 +133,7 @@ There is various methods to dump the `lsass` process memory:
 - TaskManager
 - Rundll32 & comsvcs.dll
 - [lsassy](https://github.com/Hackndo/lsassy)
-- [Silent Process Exit mechanism)(https://www.deepinstinct.com/2021/02/16/lsass-memory-dumps-are-stealthier-than-ever-before-part-2/)
+- [Silent Process Exit mechanism](https://www.deepinstinct.com/2021/02/16/lsass-memory-dumps-are-stealthier-than-ever-before-part-2/)
 
 
 #### Procdump
