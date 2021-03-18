@@ -7,8 +7,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="search" href="/opensearch.xml" type="application/opensearchdescription+xml" title="Security Tips">
 
-  
-  
+  <meta name="description" content="Tips to pentest Windows systems.">
+  <meta name="keywords" content="lsass, Kerberos, commands">
 
   <meta name="author" content="Vincent D. (@vincd)">
   <link rel="shortcut icon" href="../img/favicon.ico">
@@ -78,47 +78,59 @@
     <ul>
             
     
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
     <ul>
     
-        <li><a class="" href="#list-spn-accounts">List SPN accounts</a></li>
+        <li><a class="" href="#procdump">Procdump</a></li>
     
-        <li><a class="" href="#kerberoast">Kerberoast</a></li>
+        <li><a class="" href="#rundll32-comsvcsdll">Rundll32 &amp; comsvcs.dll</a></li>
     
-        <li><a class="" href="#kerberosunconstraineddelegation">KerberosUnConstrainedDelegation</a></li>
+        <li><a class="" href="#sqldumper">SQLDumper</a></li>
     
-        <li><a class="" href="#kerberos-preauthentication">Kerberos preauthentication</a></li>
+    </ul>
     
-        <li><a class="" href="#decrypt-gpo-with-cpassword">Decrypt GPO with cpassword</a></li>
+
     
-        <li><a class="" href="#use-win32-api-in-python">Use Win32 API in Python</a></li>
+
     
-        <li><a class="" href="#get-ntp-configuration-server">Get NTP configuration server</a></li>
+
     
-        <li><a class="" href="#windows-10-versions">Windows 10 versions</a></li>
+
     
-        <li><a class="" href="#dump-lsass-process">Dump LSASS process</a></li>
+
     
-        <li><a class="" href="#sam-and-system-backup">SAM and SYSTEM backup</a></li>
+
     
-        <li><a class="" href="#calculate-ntlm-hash">Calculate NTLM hash</a></li>
+
     
-        <li><a class="" href="#truster-account">Truster Account</a></li>
+
     
-        <li><a class="" href="#compile-net-without-visual-studio">Compile .Net without Visual Studio</a></li>
+
     
-        <li><a class="" href="#cmd-hijack">Cmd Hijack</a></li>
+
     
-        <li><a class="" href="#list-wifi-networks-and-password">List Wifi networks and password</a></li>
+
     
-        <li><a class="" href="#tcp-dump-with-netsh">TCP dump with netsh</a></li>
+    <ul>
     
-        <li><a class="" href="#add-user-to-local-admin">Add user to local admin</a></li>
+        <li><a class="" href="#ldap-search">LDAP search</a></li>
     
-        <li><a class="" href="#extract-microsoft-update-files">Extract Microsoft Update files</a></li>
-    
-        <li><a class="" href="#download-file-with-certutil">Download file with certutil</a></li>
-    
-        <li><a class="" href="#user-enumeration">User enumeration</a></li>
+        <li><a class="" href="#rpcclient">RPCClient</a></li>
     
     </ul>
     
@@ -394,9 +406,8 @@
         <div role="main">
           <div class="section">
             
-              <h1></h1>
-              <h1 id="windows">Windows</h1>
-<h3 id="list-spn-accounts">List SPN accounts</h3>
+              <h1>Windows</h1>
+              <h3 id="list-spn-accounts">List SPN accounts</h3>
 <p>An account can be used to executes features (Service) on a server. Theses features
 are calls SPNs and are represented as follow:</p>
 <pre><code class="language-none">service-class/hostname-FQDN(:port)(/arbitrary-name)
