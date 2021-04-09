@@ -36,6 +36,9 @@ Response.write("</pre>")
 %>
 ```
 
+This payload can be include on a [`web.config` file](/iis/#bypass-blacklist-upload)
+
+
 ## ColdFusion
 
 ```cfm
