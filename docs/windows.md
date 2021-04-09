@@ -150,6 +150,9 @@ There is various methods to dump the `lsass` process memory:
 - [Silent Process Exit mechanism](https://www.deepinstinct.com/2021/02/16/lsass-memory-dumps-are-stealthier-than-ever-before-part-2/)
 
 
+To prevent an Administrator to dump `lsass` you can enable [LSA Protection (`RunAsPPL`)](https://docs.microsoft.com/en-us/windows-server/security/credentials-protection-and-management/configuring-additional-lsa-protection).
+
+
 #### Procdump
 
 ```bash
