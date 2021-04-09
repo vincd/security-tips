@@ -7,8 +7,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="search" href="/opensearch.xml" type="application/opensearchdescription+xml" title="Security Tips">
 
-  
-  
+  <meta name="description" content="Exploit vulnerabilities on IIS servers">
+  <meta name="keywords" content="IIS, rce, Windows">
 
   <meta name="author" content="Vincent D. (@vincd)">
   <link rel="shortcut icon" href="../img/favicon.ico">
@@ -139,15 +139,9 @@
     <ul>
             
     
-    <ul>
+
     
-        <li><a class="" href="#bypass-blacklist-upload">Bypass blacklist upload</a></li>
-    
-        <li><a class="" href="#upload-xamlx-file-to-get-rce">Upload XAMLX file to get RCE</a></li>
-    
-        <li><a class="" href="#tracing">Tracing</a></li>
-    
-    </ul>
+
     
 
     </ul>
@@ -360,9 +354,8 @@
         <div role="main">
           <div class="section">
             
-              <h1></h1>
-              <h1 id="iis">IIS</h1>
-<h2 id="bypass-blacklist-upload">Bypass blacklist upload</h2>
+              <h1>IIS</h1>
+              <h2 id="bypass-blacklist-upload">Bypass blacklist upload</h2>
 <p>It's possible to bypass blacklist upload while uploading a <code>web.config</code> file.
 For this, you need to set execution rights to <code>.config</code> and then adding <code>ASP</code> code
 in the <code>web.config</code>.</p>
