@@ -172,6 +172,17 @@ You can add a comment (`%`) on the PDF header:
 ...
 ```
 
+
+### PNG and IDAT chunks
+
+[In this blog post](https://www.idontplaydarts.com/2012/06/encoding-web-shells-in-png-idat-chunks/),
+there is an example to create a PNG file that encode a [webshell](/webshell/)
+in IDAT chunks.
+
+The goal is to bypass some `PHP` functions such as `imagecreatefrompng`. The
+exploit is [here](/assets/gen.php.png).
+
+
 ### Others formats
 
 On most formats (mp3, jpg, ...) there is an `EOF` after what we can add the
