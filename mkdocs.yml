@@ -38,6 +38,7 @@ nav:
     - GraphQL: graphql.md
     - Spring Boot: spring_boot.md
     - SharePoint: sharepoint.md
+    - WASM: wasm.md
   - SQL:
     - PostgreSQL: postgresql.md
     - MariaDB: mariadb.md
