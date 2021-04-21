@@ -495,6 +495,12 @@ Extension</a> of a 1 pixel GIF:</p>
 <pre><code class="language-pdf">%PDF-1.2 %&lt;?phpinfo()?&gt;
 ...
 </code></pre>
+<h3 id="png-and-idat-chunks">PNG and IDAT chunks</h3>
+<p><a href="https://www.idontplaydarts.com/2012/06/encoding-web-shells-in-png-idat-chunks/" target="_blank">In this blog post</a>,
+there is an example to create a PNG file that encode a <a href="/webshell/">webshell</a>
+in IDAT chunks.</p>
+<p>The goal is to bypass some <code>PHP</code> functions such as <code>imagecreatefrompng</code>. The
+exploit is <a href="/assets/gen.php.png">here</a>.</p>
 <h3 id="others-formats">Others formats</h3>
 <p>On most formats (mp3, jpg, ...) there is an <code>EOF</code> after what we can add the
 payload. So the easiest way is to append to a valid file our payload:</p>
