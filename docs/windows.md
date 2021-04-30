@@ -360,7 +360,7 @@ Converted 3948 frames
 ### Add user to local admin
 
 ```bash
-# create a local user
+# create a local user. End the username with a `$` to create a hidden local account
 net user <username> <password> /add
 # add user to local admin group, if the user is from a domain then use <domain>\<username>
 net localgroup Administrators <username> /add
