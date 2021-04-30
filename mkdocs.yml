@@ -22,7 +22,6 @@ nav:
     - General: windows.md
     - Event ID: eventid.md
     - Powershell: powershell.md
-  - Android: android.md
   - Linux: linux.md
   - Web:
     - HTTP: http.md
@@ -39,6 +38,9 @@ nav:
     - Spring Boot: spring_boot.md
     - SharePoint: sharepoint.md
     - WASM: wasm.md
+  - Smartphone:
+    - Android: android.md
+    - iOS: ios.md
   - SQL:
     - PostgreSQL: postgresql.md
     - MariaDB: mariadb.md

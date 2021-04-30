@@ -1,7 +1,17 @@
-Android
-=======
+---
+title: "Android"
+description: "Android tips"
+date: 04/05/2021
+categories:
+ - Smartphone
+tags:
+ - android
+---
 
-## Installation
+
+## GenyMotion
+
+### Installation
 Download [GenyMotion](https://www.genymotion.com/) and install it. It's free for
 a personal use.
 Create a new VM, I personally use a Custom Tablet 8.0 with API 26. It's about
@@ -9,7 +19,7 @@ Create a new VM, I personally use a Custom Tablet 8.0 with API 26. It's about
 Then, you need to install the GApps. Click on the top right button "Open Gapps".
 
 
-## Connect with ADB
+### Connect with ADB
 GenyMotion has it's own `adb`, but you can still use your own version. On Windows,
 it's located here: `C:\Program Files\Genymobile\Genymotion\tools`.
 
@@ -22,7 +32,7 @@ vbox86p:/ #
 ```
 
 
-## Certificate Pinning
+### Certificate Pinning
 On Android 7+, you need to install the burp AC on the system store. Technical details
 are explain [here](https://blog.jeroenhd.nl/article/android-7-nougat-and-certificate-authorities).
 
@@ -30,7 +40,11 @@ Then, on the application you may need to patch some instructions. You will need
 some Android tools and patch the `smali` code. One again, technical details are
 explained [here](https://medium.com/@felipecsl/bypassing-certificate-pinning-on-android-for-fun-and-profit-1b0d14beab2b).
 
+
+## Bypass certificate pinning
+
 ### OkHTTP3
+
 The framework allows the developers to set `SHA1` or `SHA256` certificate signature
 to handle certificate pinning. Therefore, the easiest way to bypass the pinning
 is to change the framework logic.
@@ -90,6 +104,7 @@ if (!pin.hash.equals(byteString)) {
 
 
 ### Add Burp AC
+
 Export the certificate with DER format. Then use `openssl` to convert to PEM format
 and get the hash:
 
