@@ -154,11 +154,6 @@
           
           <li class="bold">
             
-    <a class="section-link" href="../android/">Android</a>
-          </li>
-          
-          <li class="bold">
-            
     <a class="section-link" href="../linux/">Linux</a>
           </li>
           
@@ -217,6 +212,25 @@
                 <li class="">
                     
     <a class="section-link" href="../sharepoint/">SharePoint</a>
+                </li>
+                <li class="">
+                    
+    <a class="section-link" href="../wasm/">WASM</a>
+                </li>
+    </ul>
+          </li>
+          
+          <li class="bold">
+            
+    <span class="section-link ">Smartphone</span>
+    <ul>
+                <li class="">
+                    
+    <a class="section-link" href="../android/">Android</a>
+                </li>
+                <li class="">
+                    
+    <a class="section-link" href="../ios/">iOS</a>
                 </li>
     </ul>
           </li>
@@ -615,7 +629,7 @@ IF: medium=eth  ID=0    IfIndex=13
 Converted 3948 frames
 </code></pre>
 <h3 id="add-user-to-local-admin">Add user to local admin</h3>
-<pre><code class="language-bash"># create a local user
+<pre><code class="language-bash"># create a local user. End the username with a `$` to create a hidden local account
 net user &lt;username&gt; &lt;password&gt; /add
 # add user to local admin group, if the user is from a domain then use &lt;domain&gt;\&lt;username&gt;
 net localgroup Administrators &lt;username&gt; /add

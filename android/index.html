@@ -7,8 +7,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="search" href="/opensearch.xml" type="application/opensearchdescription+xml" title="Security Tips">
 
-  
-  
+  <meta name="description" content="Android tips">
+  <meta name="keywords" content="android">
 
   <meta name="author" content="Vincent D. (@vincd)">
   <link rel="shortcut icon" href="../img/favicon.ico">
@@ -87,30 +87,6 @@
     </ul>
           </li>
           
-          <li class="bold active">
-            
-    <a class="section-link" href="./">Android</a>
-    <ul>
-            
-    
-    <ul>
-    
-        <li><a class="" href="#installation">Installation</a></li>
-    
-        <li><a class="" href="#connect-with-adb">Connect with ADB</a></li>
-    
-        <li><a class="" href="#certificate-pinning">Certificate Pinning</a></li>
-    
-        <li><a class="" href="#edit-android-apk">Edit Android APK</a></li>
-    
-        <li><a class="" href="#adb">ADB</a></li>
-    
-    </ul>
-    
-
-    </ul>
-          </li>
-          
           <li class="bold">
             
     <a class="section-link" href="../linux/">Linux</a>
@@ -171,6 +147,70 @@
                 <li class="">
                     
     <a class="section-link" href="../sharepoint/">SharePoint</a>
+                </li>
+                <li class="">
+                    
+    <a class="section-link" href="../wasm/">WASM</a>
+                </li>
+    </ul>
+          </li>
+          
+          <li class="bold">
+            
+    <span class="section-link active">Smartphone</span>
+    <ul>
+                <li class="active">
+                    
+    <a class="section-link" href="./">Android</a>
+    <ul>
+            
+    
+    <ul>
+    
+        <li><a class="" href="#installation">Installation</a></li>
+    
+        <li><a class="" href="#connect-with-adb">Connect with ADB</a></li>
+    
+        <li><a class="" href="#certificate-pinning">Certificate Pinning</a></li>
+    
+    </ul>
+    
+
+    
+    <ul>
+    
+        <li><a class="" href="#okhttp3">OkHTTP3</a></li>
+    
+        <li><a class="" href="#add-burp-ac">Add Burp AC</a></li>
+    
+    </ul>
+    
+
+    
+    <ul>
+    
+        <li><a class="" href="#edit-an-apk-file-using-apktool">Edit an APK file using apktool</a></li>
+    
+    </ul>
+    
+
+    
+    <ul>
+    
+        <li><a class="" href="#list-packages">List packages</a></li>
+    
+        <li><a class="" href="#get-apk-from-android-device">Get APK from Android device</a></li>
+    
+        <li><a class="" href="#install-application">Install application</a></li>
+    
+    </ul>
+    
+
+    </ul>
+                </li>
+                <li class="">
+                    
+    <a class="section-link" href="../ios/">iOS</a>
                 </li>
     </ul>
           </li>
@@ -364,15 +404,15 @@
         <div role="main">
           <div class="section">
             
-              <h1></h1>
-              <h1 id="android">Android</h1>
-<h2 id="installation">Installation</h2>
+              <h1>Android</h1>
+              <h2 id="genymotion">GenyMotion</h2>
+<h3 id="installation">Installation</h3>
 <p>Download <a href="https://www.genymotion.com/" target="_blank">GenyMotion</a> and install it. It's free for
 a personal use.
 Create a new VM, I personally use a Custom Tablet 8.0 with API 26. It's about
 300Mo to download.
 Then, you need to install the GApps. Click on the top right button "Open Gapps".</p>
-<h2 id="connect-with-adb">Connect with ADB</h2>
+<h3 id="connect-with-adb">Connect with ADB</h3>
 <p>GenyMotion has it's own <code>adb</code>, but you can still use your own version. On Windows,
 it's located here: <code>C:\Program Files\Genymobile\Genymotion\tools</code>.</p>
 <pre><code class="language-bash">cd &quot;C:\Program Files\Genymobile\Genymotion\tools&quot;
@@ -381,12 +421,13 @@ adb.exe connect &lt;device ip&gt;
 adb.exe shell
 vbox86p:/ #
 </code></pre>
-<h2 id="certificate-pinning">Certificate Pinning</h2>
+<h3 id="certificate-pinning">Certificate Pinning</h3>
 <p>On Android 7+, you need to install the burp AC on the system store. Technical details
 are explain <a href="https://blog.jeroenhd.nl/article/android-7-nougat-and-certificate-authorities" target="_blank">here</a>.</p>
 <p>Then, on the application you may need to patch some instructions. You will need
 some Android tools and patch the <code>smali</code> code. One again, technical details are
 explained <a href="https://medium.com/@felipecsl/bypassing-certificate-pinning-on-android-for-fun-and-profit-1b0d14beab2b" target="_blank">here</a>.</p>
+<h2 id="bypass-certificate-pinning">Bypass certificate pinning</h2>
 <h3 id="okhttp3">OkHTTP3</h3>
 <p>The framework allows the developers to set <code>SHA1</code> or <code>SHA256</code> certificate signature
 to handle certificate pinning. Therefore, the easiest way to bypass the pinning
@@ -496,10 +537,10 @@ adb install &lt;app.apk&gt;
     <span class="rst-current-version" data-toggle="rst-current-version">
       
       
-        <span><a href="../powershell/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href="../wasm/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
-        <span style="margin-left: 15px"><a href="../linux/" style="color: #fcfcfc">Next &raquo;</a></span>
+        <span style="margin-left: 15px"><a href="../ios/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>
