@@ -124,6 +124,9 @@ a list of Unicode circles equivalent characters and numbers:
 ⓐ ⓑ ⓒ ⓓ ⓔ ⓕ ⓖ ⓗ ⓘ ⓙ ⓚ ⓛ ⓜ ⓝ ⓞ ⓟ ⓠ ⓡ ⓢ ⓣ ⓤ ⓥ ⓦ ⓧ ⓨ ⓩ
 ```
 
+[This repository](https://github.com/filedescriptor/Unicode-Mapping-on-Domain-names)
+lists the Unicode mapping on domain names.
+
 
 ## Bypass URL block list
 
