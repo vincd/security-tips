@@ -22,6 +22,7 @@ nav:
     - General: windows.md
     - Event ID: eventid.md
     - Powershell: powershell.md
+    - Exchange: exchange.md
   - Linux: linux.md
   - Web:
     - HTTP: http.md
