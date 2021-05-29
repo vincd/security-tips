@@ -1,12 +1,21 @@
-# PostgreSQL
-
+---
+title: "PostgreSQL"
+description: "PostgreSQL commands to extract data while exploiting SQL injection"
+date: 08/09/2020
+categories:
+ - SQL
+tags:
+ - postgresql
+ - sql
+ - sql-injection
+---
 
 
 ## Injection SQL
 
 ### Cheat Sheet
 
-Here is some userfull commands to deal with SQL injection:
+Here is some useful commands to deal with SQL injection:
 
 | Detail                              | SQL command                                                                                          |
 |:------------------------------------|:-----------------------------------------------------------------------------------------------------|
@@ -26,7 +35,7 @@ Here is some userfull commands to deal with SQL injection:
 
 ### XML functions
 
-#### query_to_xml and
+#### query_to_xml
 
 The following functions map the contents of relational tables to XML values:
 
@@ -57,4 +66,22 @@ server:
 
 ```sql
 ... UNION SELECT '1', '2', database_to_xml(true, true, ''), '4', ...
+```
+
+
+### JSON functions
+
+PostgreSQL implements JSON functions to interact with this data structure.
+
+
+### to_jsonb - extract line as a JSON object
+
+```sql
+SELECT to_jsonb(t.*) FROM my_table t;
+```
+
+### jsonb_object_keys - extract columns names
+
+```sql
+SELECT jsonb_object_keys((SELECT to_jsonb(t.*) FROM my_table t LIMIT 1));
 ```
