@@ -63,6 +63,10 @@ https://github.com/search?q="<CVE-ID>"+AND+exploit+in:name+in:description+in:rea
 https://gist.github.com/search?q="<CVE-ID>"
 ```
 
+Also, you can use the application [`grep.app`](https://grep.app) to search across
+public git repositories.
+
+
 ### Get user SSH public keys
 
 When you add `.keys` in the URL of a user you can see their public SSH keys and
