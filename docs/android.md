@@ -136,6 +136,24 @@ check if everything is fine in `Settings / Security / Trusted Credentials`. You
 should show a new "Portswigger CA" as a system trusted CA.
 
 
+### Add a Security Configuration File
+
+It appear you can ask the application to check a custom CA file. You need the
+application to be in `DEBUG` mode then you add a custom `networkSecurityConfig`:
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<manifest ... >
+    <application android:networkSecurityConfig="@xml/network_security_config"
+                    ... >
+        ...
+    </application>
+</manifest>
+```
+
+More information on the official documentation: [Security Config](https://developer.android.com/training/articles/security-config).
+
+
 ## Edit Android APK
 
 ### Edit an APK file using apktool
