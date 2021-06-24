@@ -7,8 +7,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="search" href="/opensearch.xml" type="application/opensearchdescription+xml" title="Security Tips">
 
-  
-  
+  <meta name="description" content="Docker commands">
+  <meta name="keywords" content="docker, API">
 
   <meta name="author" content="Vincent D. (@vincd)">
   <link rel="shortcut icon" href="../img/favicon.ico">
@@ -308,13 +308,9 @@
     <ul>
             
     
-    <ul>
+
     
-        <li><a class="" href="#api">API</a></li>
-    
-        <li><a class="" href="#privilege-escalation">Privilege Escalation</a></li>
-    
-    </ul>
+
     
 
     </ul>
@@ -376,9 +372,8 @@
         <div role="main">
           <div class="section">
             
-              <h1></h1>
-              <h1 id="docker">Docker</h1>
-<h2 id="api">API</h2>
+              <h1>Docker</h1>
+              <h2 id="docker-api">Docker API</h2>
 <p>The docker API expose the port <code>2375</code>. This API can be used to interact with the docker engine which basically give ou the right to do anything you desire unauthenticated.</p>
 <p>To confirm that the host is running Docker you can make a GET requests to <code>/version</code> :</p>
 <pre><code class="language-http">http://&lt;host&gt;:&lt;port&gt;/version
@@ -394,6 +389,22 @@ be2dd8aa8222        ubuntu:14.04        &quot;bash&quot;              5 years ag
 $ docker -H &lt;host&gt;:&lt;port&gt; exec -it &lt;container_name&gt; /bin/bash
 root@abc:/# whoami
 root
+</code></pre>
+<h2 id="registry-server">Registry server</h2>
+<p>The registry server is deployed on port <code>5000</code>. Go to <code>/v2/_catalog</code> on your browser to
+check if this is a registry server.</p>
+<pre><code class="language-http">http://&lt;host&gt;:5000/v2/_catalog
+</code></pre>
+<p>The server responds with the list of repositories:</p>
+<pre><code class="language-json">{&quot;repositories&quot;:[&quot;repostitory-1&quot;]}
+</code></pre>
+<p>You can configure your docker client to connect to this server.</p>
+<pre><code class="language-bash">sudo docker login &lt;host&gt;:5000
+</code></pre>
+<p>If there is a custom certificate, then add an exception in <code>/etc/docker/daemon.json</code> with:</p>
+<pre><code class="language-json">{
+    &quot;insecure-registries&quot;:[ &quot;&lt;host&gt;:5000&quot;]
+}
 </code></pre>
 <h2 id="privilege-escalation">Privilege Escalation</h2>
 <p>If the current user belong to the <code>docker</code> group then he can start a container
