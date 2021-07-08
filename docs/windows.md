@@ -310,10 +310,26 @@ $ csc.exe /t:exe /out:path\to\main.exe path\to\main.cs
 using System;
 
 public class HelloWorld {
-    public static void Main()
-    {
+    public static void Main() {
         Console.WriteLine("Hello world!");
     }
+}
+```
+
+### Basic Service in C#
+
+```csharp
+using System.Diagnostics;
+using System.ServiceProcess;
+
+namespace DotNetService {
+    public class Service:ServiceBase {
+        protected override void OnStart(string[] args) {
+            Process.Start(@"C:\Windows\System32\cmd.exe", @"/C ""<cmd>""");
+        }
+    }
+
+    static class Program { static void Main() { ServiceBase.Run(new ServiceBase[] { new Service() } ); }}
 }
 ```
 
