@@ -295,15 +295,16 @@ $ w32tm /query /status
 
 
 ### Compile .Net without Visual Studio
+
 ```bash
-$ cd \Windows\Microsoft.NET\Framework\v4*
-$ msbuild "path\to\SharpUp-master\SharpUp.sln" /t:Rebuild /p:Configuration=Release /p:Platform="Any CPU"
+cd \Windows\Microsoft.NET\Framework\v4*
+msbuild "path\to\SharpUp-master\SharpUp.sln" /t:Rebuild /p:Configuration=Release /p:Platform="Any CPU"
 ```
 
 Or to compile a single file:
 ```bash
-$ cd \Windows\Microsoft.NET\Framework\v4.0.30319
-$ csc.exe /t:exe /out:path\to\main.exe path\to\main.cs
+cd \Windows\Microsoft.NET\Framework\v4*
+csc.exe /t:exe /out:path\to\main.exe path\to\main.cs
 ```
 
 ```csharp
@@ -316,13 +317,13 @@ public class HelloWorld {
 }
 ```
 
-### Basic Service in C#
+### Basic Service in C# #
 
 ```csharp
 using System.Diagnostics;
 using System.ServiceProcess;
 
-namespace DotNetService {
+namespace MyService {
     public class Service:ServiceBase {
         protected override void OnStart(string[] args) {
             Process.Start(@"C:\Windows\System32\cmd.exe", @"/C ""<cmd>""");
