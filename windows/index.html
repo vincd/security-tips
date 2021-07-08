@@ -126,6 +126,8 @@
     
         <li><a class="" href="#compile-net-without-visual-studio">Compile .Net without Visual Studio</a></li>
     
+        <li><a class="" href="#basic-service-in-c">Basic Service in C</a></li>
+    
         <li><a class="" href="#cmd-hijack">Cmd Hijack</a></li>
     
         <li><a class="" href="#tcp-dump-with-netsh">TCP dump with netsh</a></li>
@@ -603,10 +605,23 @@ $ csc.exe /t:exe /out:path\to\main.exe path\to\main.cs
 <pre><code class="language-csharp">using System;
 
 public class HelloWorld {
-    public static void Main()
-    {
+    public static void Main() {
         Console.WriteLine(&quot;Hello world!&quot;);
     }
+}
+</code></pre>
+<h3 id="basic-service-in-c">Basic Service in C</h3>
+<pre><code class="language-csharp">using System.Diagnostics;
+using System.ServiceProcess;
+
+namespace DotNetService {
+    public class Service:ServiceBase {
+        protected override void OnStart(string[] args) {
+            Process.Start(@&quot;C:\Windows\System32\cmd.exe&quot;, @&quot;/C &quot;&quot;&lt;cmd&gt;&quot;&quot;&quot;);
+        }
+    }
+
+    static class Program { static void Main() { ServiceBase.Run(new ServiceBase[] { new Service() } ); }}
 }
 </code></pre>
 <h3 id="cmd-hijack">Cmd Hijack</h3>
