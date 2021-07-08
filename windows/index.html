@@ -126,7 +126,7 @@
     
         <li><a class="" href="#compile-net-without-visual-studio">Compile .Net without Visual Studio</a></li>
     
-        <li><a class="" href="#basic-service-in-c">Basic Service in C</a></li>
+        <li><a class="" href="#basic-service-in-c">Basic Service in C#</a></li>
     
         <li><a class="" href="#cmd-hijack">Cmd Hijack</a></li>
     
@@ -595,12 +595,12 @@ quit
 <h3 id="windows-10-versions">Windows 10 versions</h3>
 <p><a href="https://docs.microsoft.com/fr-fr/windows/release-information/" target="_blank">Release Informations</a></p>
 <h3 id="compile-net-without-visual-studio">Compile .Net without Visual Studio</h3>
-<pre><code class="language-bash">$ cd \Windows\Microsoft.NET\Framework\v4*
-$ msbuild &quot;path\to\SharpUp-master\SharpUp.sln&quot; /t:Rebuild /p:Configuration=Release /p:Platform=&quot;Any CPU&quot;
+<pre><code class="language-bash">cd \Windows\Microsoft.NET\Framework\v4*
+msbuild &quot;path\to\SharpUp-master\SharpUp.sln&quot; /t:Rebuild /p:Configuration=Release /p:Platform=&quot;Any CPU&quot;
 </code></pre>
 <p>Or to compile a single file:</p>
-<pre><code class="language-bash">$ cd \Windows\Microsoft.NET\Framework\v4.0.30319
-$ csc.exe /t:exe /out:path\to\main.exe path\to\main.cs
+<pre><code class="language-bash">cd \Windows\Microsoft.NET\Framework\v4*
+csc.exe /t:exe /out:path\to\main.exe path\to\main.cs
 </code></pre>
 <pre><code class="language-csharp">using System;
 
@@ -610,11 +610,11 @@ public class HelloWorld {
     }
 }
 </code></pre>
-<h3 id="basic-service-in-c">Basic Service in C</h3>
+<h3 id="basic-service-in-c">Basic Service in C#</h3>
 <pre><code class="language-csharp">using System.Diagnostics;
 using System.ServiceProcess;
 
-namespace DotNetService {
+namespace MyService {
     public class Service:ServiceBase {
         protected override void OnStart(string[] args) {
             Process.Start(@&quot;C:\Windows\System32\cmd.exe&quot;, @&quot;/C &quot;&quot;&lt;cmd&gt;&quot;&quot;&quot;);
