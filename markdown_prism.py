@@ -26,7 +26,12 @@ class PrismBlockPreprocessor(Preprocessor):
         r'(?P<fence>^(?:~{3,}|`{3,}))[ ]*(\{?\.?(?P<lang>[a-zA-Z0-9_+-]*)\}?)?[ ]*\n(?P<code>.*?)(?<=\n)(?P=fence)[ ]*$',
         re.MULTILINE | re.DOTALL
     )
-    CODE_WRAP = '<pre><code class="language-%s">%s</code></pre>'
+    CODE_WRAP = '<div class="clipboard-content">'
+    CODE_WRAP += '  <pre><code class="language-{lang}">{code}</code></pre>'
+    CODE_WRAP += '  <div class="clipboard-container"><button class="clipboard-btn" value="{code}">'
+    CODE_WRAP += '    Copy'
+    CODE_WRAP += '  </button></div>'
+    CODE_WRAP += '</div>'
 
     def __init__(self, md):
         super(PrismBlockPreprocessor, self).__init__(md)
@@ -56,7 +61,10 @@ class PrismBlockPreprocessor(Preprocessor):
                 if add_line_number:
                     lang += ' line-numbers'
 
-                code = self.CODE_WRAP % (lang, self._escape(m.group('code')))
+                code = self.CODE_WRAP.format(
+                    lang=lang,
+                    code=self._escape(m.group('code'))
+                )
 
                 placeholder = self.markdown.htmlStash.store(code)
                 text = '%s\n%s\n%s' % (text[:m.start()], placeholder, text[m.end():])
