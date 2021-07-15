@@ -406,7 +406,7 @@
 <p>When the application allows only an image to be upload (<code>.jpg</code> files), then you
 can check how the extension is checked by using specials chars or multiple
 extensions :</p>
-<pre><code class="language-none">file.jpg.{EXT}
+<div class="clipboard-content">  <pre><code class="language-none">file.jpg.{EXT}
 file.{EXT}.jpg
 file.{EXT}.xxxjpg
 file.{EXT}%00.jpg
@@ -417,7 +417,18 @@ file.{EXT}%20
 file.{EXT}%0d%0a.jpg
 file.{EXT}/
 file.{EXT}.\
-</code></pre>
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="file.jpg.{EXT}
+file.{EXT}.jpg
+file.{EXT}.xxxjpg
+file.{EXT}%00.jpg
+file.{EXT}\x00.jpg
+file.{EXT}%00
+file.{EXT}\x00
+file.{EXT}%20
+file.{EXT}%0d%0a.jpg
+file.{EXT}/
+file.{EXT}.\
+">    Copy  </button></div></div>
 <h3 id="use-an-other-extension-for-the-file">Use an other extension for the file</h3>
 <ul>
 <li>PHP: <code>php</code>, <code>php2</code>, <code>php3</code>, <code>php4</code>, <code>php5</code>, <code>php6</code>, <code>php7</code>, <code>phps</code>, <code>pht</code>, <code>phtml</code>, <code>pgif</code>, <code>shtml</code>, <code>htaccess</code>, <code>phar</code>, <code>inc</code></li>
@@ -427,11 +438,15 @@ file.{EXT}.\
 <h3 id="change-content-type">Change Content Type</h3>
 <p>Some application checks only the <code>content-type</code> field, then you can specify a
 legit content-type with a bad extension:</p>
-<pre><code class="language-none">application/octect-stream
+<div class="clipboard-content">  <pre><code class="language-none">application/octect-stream
 image/jpg
 image/png
 image/gif
-</code></pre>
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="application/octect-stream
+image/jpg
+image/png
+image/gif
+">    Copy  </button></div></div>
 <h2 id="use-polyglot-file">Use polyglot file</h2>
 <p>An example of polyglot file is explained on the <a href="/php/#php-polyglot-file">PHP page</a>.</p>
 <h2 id="change-server-configuration">Change server configuration</h2>

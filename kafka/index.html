@@ -379,13 +379,17 @@
 <h2 id="kafka-api">Kafka API</h2>
 <p>There is a Kafka API exposed over HTTP on port <code>8083</code>. This API can be used to get
 sensitive informations using the following URLs:</p>
-<pre><code class="language-none">http://&lt;ip&gt;:8083
+<div class="clipboard-content">  <pre><code class="language-none">http://&lt;ip&gt;:8083
 {&quot;version&quot;:&quot;2.3.0&quot;,&quot;commit&quot;:&quot;&lt;hash&gt;&quot;,&quot;kafka_cluster_id&quot;:&quot;&lt;id&gt;&quot;}
-</code></pre>
-<pre><code class="language-none">http://&lt;ip&gt;:8083/connectors
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="http://&lt;ip&gt;:8083
+{&quot;version&quot;:&quot;2.3.0&quot;,&quot;commit&quot;:&quot;&lt;hash&gt;&quot;,&quot;kafka_cluster_id&quot;:&quot;&lt;id&gt;&quot;}
+">    Copy  </button></div></div>
+<div class="clipboard-content">  <pre><code class="language-none">http://&lt;ip&gt;:8083/connectors
 [&quot;mongo-Release&quot;, &quot;&lt;connector_name&gt;&quot;, ..., &quot;my-sqldata&quot;]
-</code></pre>
-<pre><code class="language-none">http://&lt;ip&gt;:8083/connectors/&lt;connector_name&gt;
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="http://&lt;ip&gt;:8083/connectors
+[&quot;mongo-Release&quot;, &quot;&lt;connector_name&gt;&quot;, ..., &quot;my-sqldata&quot;]
+">    Copy  </button></div></div>
+<div class="clipboard-content">  <pre><code class="language-none">http://&lt;ip&gt;:8083/connectors/&lt;connector_name&gt;
 {
     &quot;name&quot;: &quot;&lt;connector_name&gt;&quot;,
     &quot;config&quot;: {...},
@@ -395,7 +399,17 @@ sensitive informations using the following URLs:</p>
     }],
     &quot;type&quot;: &quot;sink&quot;
 }
-</code></pre>
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="http://&lt;ip&gt;:8083/connectors/&lt;connector_name&gt;
+{
+    &quot;name&quot;: &quot;&lt;connector_name&gt;&quot;,
+    &quot;config&quot;: {...},
+    &quot;tasks&quot;: [{
+        &quot;connector&quot;: &quot;&lt;connector_name&gt;&quot;,
+        &quot;task&quot;: 0
+    }],
+    &quot;type&quot;: &quot;sink&quot;
+}
+">    Copy  </button></div></div>
             
           </div>
           <footer>

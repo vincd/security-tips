@@ -379,20 +379,28 @@
 <h2 id="bodyparser-urlencoded">BodyParser urlencoded</h2>
 <p>With the node module <code>express</code> you can parse the payload of a request with the
 <code>body-parser</code> module:</p>
-<pre><code class="language-javascript">var bodyParser = require('body-parser');
+<div class="clipboard-content">  <pre><code class="language-javascript">var bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true
 }));
-</code></pre>
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="var bodyParser = require('body-parser');
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
+">    Copy  </button></div></div>
 <p>When the <code>extended: true</code> option is passed to the middleware then a user may
 provide a urlencoded payload such as:</p>
-<pre><code class="language-none">params[key]=value&amp;foo=bar
-</code></pre>
+<div class="clipboard-content">  <pre><code class="language-none">params[key]=value&amp;foo=bar
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="params[key]=value&amp;foo=bar
+">    Copy  </button></div></div>
 <p>Then on the node code, there is the following code:</p>
-<pre><code class="language-javascript">const params = req.body['params'] // params == { &quot;key&quot;: &quot;value&quot; }
+<div class="clipboard-content">  <pre><code class="language-javascript">const params = req.body['params'] // params == { &quot;key&quot;: &quot;value&quot; }
 const foo = req.body['foo'] // foo == &quot;bar&quot;
-</code></pre>
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="const params = req.body['params'] // params == { &quot;key&quot;: &quot;value&quot; }
+const foo = req.body['foo'] // foo == &quot;bar&quot;
+">    Copy  </button></div></div>
 <p>The <code>params</code> variable is not a string but a dictionary (<code>{"key": "value"}</code>).
 An attacker can with this method to bypass some code logic. There is two
 examples on the Google CTF 2020:</p>

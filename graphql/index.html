@@ -387,10 +387,11 @@ First we need to collect all available types then recursively enumerate all
 individual types.</p>
 <p><a href="https://github.com/doyensec/inql" target="_blank"><code>inql</code></a> can be use to fetch graphql metadata
 on an endpoint.</p>
-<pre><code class="language-bash">inql -t https://&lt;host&gt;/graphql
-</code></pre>
+<div class="clipboard-content">  <pre><code class="language-bash">inql -t https://&lt;host&gt;/graphql
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="inql -t https://&lt;host&gt;/graphql
+">    Copy  </button></div></div>
 <h3 id="querying-all-available-types-in-a-schema">Querying All Available Types in a Schema</h3>
-<pre><code class="language-graphql">query allSchemaTypes {
+<div class="clipboard-content">  <pre><code class="language-graphql">query allSchemaTypes {
     __schema {
         types {
             name
@@ -399,17 +400,33 @@ on an endpoint.</p>
         }
     }
 }
-</code></pre>
-<pre><code class="language-graphql">query availableTypes {
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="query allSchemaTypes {
+    __schema {
+        types {
+            name
+            kind
+            description
+        }
+    }
+}
+">    Copy  </button></div></div>
+<div class="clipboard-content">  <pre><code class="language-graphql">query availableTypes {
   __schema {
     types {
       name, fields {name,description}
     }
   }
 }
-</code></pre>
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="query availableTypes {
+  __schema {
+    types {
+      name, fields {name,description}
+    }
+  }
+}
+">    Copy  </button></div></div>
 <h3 id="all-available-queries">All Available Queries</h3>
-<pre><code class="language-graphql">query availableQueries {
+<div class="clipboard-content">  <pre><code class="language-graphql">query availableQueries {
   __schema {
     queryType {
       fields {
@@ -419,9 +436,19 @@ on an endpoint.</p>
     }
   }
 }
-</code></pre>
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="query availableQueries {
+  __schema {
+    queryType {
+      fields {
+        name
+        description
+      }
+    }
+  }
+}
+">    Copy  </button></div></div>
 <h3 id="enumerate-type-definition">Enumerate type definition</h3>
-<pre><code class="language-graphql">{
+<div class="clipboard-content">  <pre><code class="language-graphql">{
   __type (name: \&quot;User\&quot;) {
     name fields {
       name type {
@@ -430,9 +457,18 @@ on an endpoint.</p>
     }
   }
 }
-</code></pre>
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="{
+  __type (name: \&quot;User\&quot;) {
+    name fields {
+      name type {
+        name kind ofType{name kind}
+      }
+    }
+  }
+}
+">    Copy  </button></div></div>
 <h3 id="details-about-an-individual-type">Details about an Individual Type</h3>
-<pre><code class="language-graphql">query liftType {
+<div class="clipboard-content">  <pre><code class="language-graphql">query liftType {
   __type(name: &quot;&lt;TYPE&gt;&quot;) {
     fields {
       name
@@ -440,7 +476,15 @@ on an endpoint.</p>
     }
   }
 }
-</code></pre>
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="query liftType {
+  __type(name: &quot;&lt;TYPE&gt;&quot;) {
+    fields {
+      name
+      description
+    }
+  }
+}
+">    Copy  </button></div></div>
             
           </div>
           <footer>

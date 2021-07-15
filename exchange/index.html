@@ -373,18 +373,25 @@
               <h1>Exchange </h1>
               <h2 id="get-exchange-server-version">Get Exchange server version</h2>
 <p>Touch the following file:</p>
-<pre><code class="language-http">https://{HOST}:{PORT}/ecp/Current/exporttool/microsoft.exchange.ediscovery.exporttool.application
-</code></pre>
+<div class="clipboard-content">  <pre><code class="language-http">https://{HOST}:{PORT}/ecp/Current/exporttool/microsoft.exchange.ediscovery.exporttool.application
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="https://{HOST}:{PORT}/ecp/Current/exporttool/microsoft.exchange.ediscovery.exporttool.application
+">    Copy  </button></div></div>
 <p>The result file contains the version of the server:</p>
-<pre><code class="language-xml">&lt;assemblyIdentity name=&quot;microsoft.exchange.ediscovery.exporttool&quot; version=&quot;15.1.2242.5&quot; publicKeyToken=&quot;deffc2c208a0af39&quot; language=&quot;neutral&quot; processorArchitecture=&quot;msil&quot; type=&quot;win32&quot; /&gt;
-</code></pre>
+<div class="clipboard-content">  <pre><code class="language-xml">&lt;assemblyIdentity name=&quot;microsoft.exchange.ediscovery.exporttool&quot; version=&quot;15.1.2242.5&quot; publicKeyToken=&quot;deffc2c208a0af39&quot; language=&quot;neutral&quot; processorArchitecture=&quot;msil&quot; type=&quot;win32&quot; /&gt;
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="&lt;assemblyIdentity name=&quot;microsoft.exchange.ediscovery.exporttool&quot; version=&quot;15.1.2242.5&quot; publicKeyToken=&quot;deffc2c208a0af39&quot; language=&quot;neutral&quot; processorArchitecture=&quot;msil&quot; type=&quot;win32&quot; /&gt;
+">    Copy  </button></div></div>
 <p>The HTTP headers give the internal FQDN of the backend Exchange server:</p>
-<pre><code class="language-http">HTTP/1.1 200 OK
+<div class="clipboard-content">  <pre><code class="language-http">HTTP/1.1 200 OK
 ...
 X-CalculatedBETarget: internal-exchange.contoso.com
 X-FEServer: INTERNAL-EXCHANGE
 ...
-</code></pre>
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="HTTP/1.1 200 OK
+...
+X-CalculatedBETarget: internal-exchange.contoso.com
+X-FEServer: INTERNAL-EXCHANGE
+...
+">    Copy  </button></div></div>
 <h2 id="known-exchange-cve">Known Exchange CVE</h2>
 <ul>
 <li><a href="/cve/CVE-2020-0688/">RCE in Microsoft Exchange Web Interface (CVE-2020-0688)</a></li>

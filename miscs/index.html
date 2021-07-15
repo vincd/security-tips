@@ -407,13 +407,17 @@ files for various technologies of servers (web, SQL, ...).</p>
 <h3 id="testsslsh">testssl.sh</h3>
 <p><a href="https://github.com/drwetter/testssl.sh/" target="_blank">This tool</a> let you scan a SSL/TLS
 server to check the supported protocols and ciphers.</p>
-<pre><code class="language-bash">git clone --depth 1 https://github.com/drwetter/testssl.sh.git
+<div class="clipboard-content">  <pre><code class="language-bash">git clone --depth 1 https://github.com/drwetter/testssl.sh.git
 cd testssl.sh
 ./testssl.sh &lt;ip&gt;(:&lt;port&gt;)
-</code></pre>
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="git clone --depth 1 https://github.com/drwetter/testssl.sh.git
+cd testssl.sh
+./testssl.sh &lt;ip&gt;(:&lt;port&gt;)
+">    Copy  </button></div></div>
 <h2 id="nmap">Nmap</h2>
-<pre><code class="language-bash">nmap -sC -sV -oA &lt;output_name&gt; &lt;host&gt;
-</code></pre>
+<div class="clipboard-content">  <pre><code class="language-bash">nmap -sC -sV -oA &lt;output_name&gt; &lt;host&gt;
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="nmap -sC -sV -oA &lt;output_name&gt; &lt;host&gt;
+">    Copy  </button></div></div>
 <h3 id="performance">Performance</h3>
 <p>If you scan a large range of IP the option <code>--min-rate</code> is handy to force <code>nmap</code>
 not to slow down and send at least this number of packet per second. I set the
@@ -436,30 +440,36 @@ used to detect invalid permissions on Google Maps API.</p>
 <h3 id="search-a-poc">Search a PoC</h3>
 <p>Security researchers often use gist or repository to publish their works. With
 the following URL you can search for a specific CVE exploit tool.</p>
-<pre><code class="language-none">https://github.com/search?q=&quot;&lt;CVE-ID&gt;&quot;+AND+exploit+in:name+in:description+in:readme
+<div class="clipboard-content">  <pre><code class="language-none">https://github.com/search?q=&quot;&lt;CVE-ID&gt;&quot;+AND+exploit+in:name+in:description+in:readme
 https://gist.github.com/search?q=&quot;&lt;CVE-ID&gt;&quot;
-</code></pre>
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="https://github.com/search?q=&quot;&lt;CVE-ID&gt;&quot;+AND+exploit+in:name+in:description+in:readme
+https://gist.github.com/search?q=&quot;&lt;CVE-ID&gt;&quot;
+">    Copy  </button></div></div>
 <p>Also, you can use the application <a href="https://grep.app" target="_blank"><code>grep.app</code></a> to search across
 public git repositories.</p>
 <h3 id="get-user-ssh-public-keys">Get user SSH public keys</h3>
 <p>When you add <code>.keys</code> in the URL of a user you can see their public SSH keys and
 associated emails addresses.</p>
-<pre><code class="language-none">https://github.com/&lt;username&gt;.keys
-</code></pre>
+<div class="clipboard-content">  <pre><code class="language-none">https://github.com/&lt;username&gt;.keys
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="https://github.com/&lt;username&gt;.keys
+">    Copy  </button></div></div>
 <h3 id="get-raw-commit">Get raw commit</h3>
 <p>When you add <code>.patch</code> to the URL of a commit you retrieve the raw commit file.
 This file contains git log and the user email.</p>
-<pre><code class="language-none">https://github.com/&lt;username&gt;/&lt;repo&gt;/commit/&lt;sha&gt;.patch
-</code></pre>
+<div class="clipboard-content">  <pre><code class="language-none">https://github.com/&lt;username&gt;/&lt;repo&gt;/commit/&lt;sha&gt;.patch
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="https://github.com/&lt;username&gt;/&lt;repo&gt;/commit/&lt;sha&gt;.patch
+">    Copy  </button></div></div>
 <p>Using the <code>.diff</code> extension you can get the diff with the previous commit.</p>
-<pre><code class="language-none">https://github.com/&lt;username&gt;/&lt;repo&gt;/commit/&lt;sha&gt;.diff
-</code></pre>
+<div class="clipboard-content">  <pre><code class="language-none">https://github.com/&lt;username&gt;/&lt;repo&gt;/commit/&lt;sha&gt;.diff
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="https://github.com/&lt;username&gt;/&lt;repo&gt;/commit/&lt;sha&gt;.diff
+">    Copy  </button></div></div>
 <h2 id="google-dorking">Google dorking</h2>
 <h3 id="find-target-on-public-sources">Find target on public sources</h3>
 <p>From <a href="https://mobile.twitter.com/adrien_jeanneau/status/1250740511402532865" target="_blank">@adrien_jeanneau</a>,
 you can search on Google for a <code>target</code> on website that can contains public information:</p>
-<pre><code class="language-none">site:ideone.com | site:codebeautify.org | site:codeshare.io | site:codepen.io | site:repl.it | site:justpaste.it | site:pastebin.com | site:jsfiddle.net | site:trello.com &quot;&lt;target&gt;&quot;
-</code></pre>
+<div class="clipboard-content">  <pre><code class="language-none">site:ideone.com | site:codebeautify.org | site:codeshare.io | site:codepen.io | site:repl.it | site:justpaste.it | site:pastebin.com | site:jsfiddle.net | site:trello.com &quot;&lt;target&gt;&quot;
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="site:ideone.com | site:codebeautify.org | site:codeshare.io | site:codepen.io | site:repl.it | site:justpaste.it | site:pastebin.com | site:jsfiddle.net | site:trello.com &quot;&lt;target&gt;&quot;
+">    Copy  </button></div></div>
 <h2 id="default-passwords">Default passwords</h2>
 <p>The following resources contain default credentials databases:</p>
 <ul>
@@ -469,7 +479,7 @@ you can search on Google for a <code>target</code> on website that can contains 
 <h2 id="unicode-circles">Unicode circles</h2>
 <p>You can bypass some verification (SSRF, ...) using Unicode characters. Here is
 a list of Unicode circles equivalent characters and numbers:</p>
-<pre><code class="language-none">⓵ ⓶ ⓷ ⓸ ⓹ ⓺ ⓻ ⓼ ⓽ ⓾ ⓿
+<div class="clipboard-content">  <pre><code class="language-none">⓵ ⓶ ⓷ ⓸ ⓹ ⓺ ⓻ ⓼ ⓽ ⓾ ⓿
 ① ② ③ ④ ⑤ ⑥ ⑦ ⑧ ⑨ ⑩ ⑪ ⑫ ⑬ ⑭ ⑮ ⑯ ⑰ ⑱ ⑲ ⑳
 ⓪ ⓫ ⓬ ⓭ ⓮ ⓯ ⓰ ⓱ ⓲ ⓳ ⓴
 ⑴ ⑵ ⑶ ⑷ ⑸ ⑹ ⑺ ⑻ ⑼ ⑽ ⑾ ⑿ ⒀ ⒁ ⒂ ⒃ ⒄ ⒅ ⒆ ⒇
@@ -477,86 +487,129 @@ a list of Unicode circles equivalent characters and numbers:</p>
 ⒜ ⒝ ⒞ ⒟ ⒠ ⒡ ⒢ ⒣ ⒤ ⒥ ⒦ ⒧ ⒨ ⒩ ⒪ ⒫ ⒬ ⒭ ⒮ ⒯ ⒰ ⒱ ⒲ ⒳ ⒴ ⒵
 Ⓐ Ⓑ Ⓒ Ⓓ Ⓔ Ⓕ Ⓖ Ⓗ Ⓘ Ⓙ Ⓚ Ⓛ Ⓜ Ⓝ Ⓞ Ⓟ Ⓠ Ⓡ Ⓢ Ⓣ Ⓤ Ⓥ Ⓦ Ⓧ Ⓨ Ⓩ
 ⓐ ⓑ ⓒ ⓓ ⓔ ⓕ ⓖ ⓗ ⓘ ⓙ ⓚ ⓛ ⓜ ⓝ ⓞ ⓟ ⓠ ⓡ ⓢ ⓣ ⓤ ⓥ ⓦ ⓧ ⓨ ⓩ
-</code></pre>
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="⓵ ⓶ ⓷ ⓸ ⓹ ⓺ ⓻ ⓼ ⓽ ⓾ ⓿
+① ② ③ ④ ⑤ ⑥ ⑦ ⑧ ⑨ ⑩ ⑪ ⑫ ⑬ ⑭ ⑮ ⑯ ⑰ ⑱ ⑲ ⑳
+⓪ ⓫ ⓬ ⓭ ⓮ ⓯ ⓰ ⓱ ⓲ ⓳ ⓴
+⑴ ⑵ ⑶ ⑷ ⑸ ⑹ ⑺ ⑻ ⑼ ⑽ ⑾ ⑿ ⒀ ⒁ ⒂ ⒃ ⒄ ⒅ ⒆ ⒇
+⒈ ⒉ ⒊ ⒋ ⒌ ⒍ ⒎ ⒏ ⒐ ⒑ ⒒ ⒓ ⒔ ⒕ ⒖ ⒗ ⒘ ⒙ ⒚ ⒛
+⒜ ⒝ ⒞ ⒟ ⒠ ⒡ ⒢ ⒣ ⒤ ⒥ ⒦ ⒧ ⒨ ⒩ ⒪ ⒫ ⒬ ⒭ ⒮ ⒯ ⒰ ⒱ ⒲ ⒳ ⒴ ⒵
+Ⓐ Ⓑ Ⓒ Ⓓ Ⓔ Ⓕ Ⓖ Ⓗ Ⓘ Ⓙ Ⓚ Ⓛ Ⓜ Ⓝ Ⓞ Ⓟ Ⓠ Ⓡ Ⓢ Ⓣ Ⓤ Ⓥ Ⓦ Ⓧ Ⓨ Ⓩ
+ⓐ ⓑ ⓒ ⓓ ⓔ ⓕ ⓖ ⓗ ⓘ ⓙ ⓚ ⓛ ⓜ ⓝ ⓞ ⓟ ⓠ ⓡ ⓢ ⓣ ⓤ ⓥ ⓦ ⓧ ⓨ ⓩ
+">    Copy  </button></div></div>
 <p><a href="https://github.com/filedescriptor/Unicode-Mapping-on-Domain-names" target="_blank">This repository</a>
 lists the Unicode mapping on domain names.</p>
 <h2 id="bypass-url-block-list">Bypass URL block list</h2>
 <h3 id="ipv6">IPv6</h3>
-<pre><code class="language-none">http://[::]:80
+<div class="clipboard-content">  <pre><code class="language-none">http://[::]:80
 http://0000::1:80/
 http://::1/
-</code></pre>
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="http://[::]:80
+http://0000::1:80/
+http://::1/
+">    Copy  </button></div></div>
 <h3 id="localhost-representation">Localhost representation</h3>
-<pre><code class="language-none">http://0/
+<div class="clipboard-content">  <pre><code class="language-none">http://0/
 http://127.1/
 http://0.0.0.0/
 http://127.127.127.127/
-</code></pre>
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="http://0/
+http://127.1/
+http://0.0.0.0/
+http://127.127.127.127/
+">    Copy  </button></div></div>
 <h3 id="url-parser-logic">URL parser logic</h3>
-<pre><code class="language-none">http://evil$google.com
+<div class="clipboard-content">  <pre><code class="language-none">http://evil$google.com
 http://127.1.1.1\@127.2.2.2:80/
 http://127.1.1.1\@@127.2.2.2:80/
 0://evil.com:80;http://google.com:80/
-</code></pre>
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="http://evil$google.com
+http://127.1.1.1\@127.2.2.2:80/
+http://127.1.1.1\@@127.2.2.2:80/
+0://evil.com:80;http://google.com:80/
+">    Copy  </button></div></div>
 <h3 id="unicode-normalization">Unicode normalization</h3>
-<pre><code class="language-none">http://ⓔⓧⓐⓜⓟⓛⓔ.ⓒⓞⓜ
-</code></pre>
+<div class="clipboard-content">  <pre><code class="language-none">http://ⓔⓧⓐⓜⓟⓛⓔ.ⓒⓞⓜ
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="http://ⓔⓧⓐⓜⓟⓛⓔ.ⓒⓞⓜ
+">    Copy  </button></div></div>
 <h3 id="address-encoding">Address encoding</h3>
-<pre><code class="language-none">Octal: http://0177.0.0.01
+<div class="clipboard-content">  <pre><code class="language-none">Octal: http://0177.0.0.01
 Decimal: http://2130706433/
 Hex: http://0x7f.0x0.0x0.0x1
 Mixed: http://0177.0x0.0x0.1
-</code></pre>
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="Octal: http://0177.0.0.01
+Decimal: http://2130706433/
+Hex: http://0x7f.0x0.0x0.0x1
+Mixed: http://0177.0x0.0x0.1
+">    Copy  </button></div></div>
 <h2 id="download-recursively-an-apache-directory-listing">Download recursively an Apache Directory Listing</h2>
-<pre><code class="language-bash">wget -r -N --no-parent --reject '*index.html*' -nH --cut-dirs=1  &lt;url&gt;
-</code></pre>
+<div class="clipboard-content">  <pre><code class="language-bash">wget -r -N --no-parent --reject '*index.html*' -nH --cut-dirs=1  &lt;url&gt;
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="wget -r -N --no-parent --reject '*index.html*' -nH --cut-dirs=1  &lt;url&gt;
+">    Copy  </button></div></div>
 <h2 id="web">Web</h2>
 <h3 id="serve-a-file-locally">Serve a file locally</h3>
 <p>Here is a onliner (I don't remember from where) to expose a simple web server
 using <code>netcat</code>:</p>
-<pre><code class="language-bash">while :; do (echo -ne &quot;HTTP/1.1 200 OK\r\nContent-Length: $(wc -c &lt; index.html)\r\n\r\n&quot;; cat index.html) | nc -l -p 8080; done
-</code></pre>
+<div class="clipboard-content">  <pre><code class="language-bash">while :; do (echo -ne &quot;HTTP/1.1 200 OK\r\nContent-Length: $(wc -c &lt; index.html)\r\n\r\n&quot;; cat index.html) | nc -l -p 8080; done
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="while :; do (echo -ne &quot;HTTP/1.1 200 OK\r\nContent-Length: $(wc -c &lt; index.html)\r\n\r\n&quot;; cat index.html) | nc -l -p 8080; done
+">    Copy  </button></div></div>
 <h3 id="trace-browser-request">Trace browser request</h3>
-<pre><code class="language-url">https://www.cloudflare.com/cdn-cgi/trace
-</code></pre>
+<div class="clipboard-content">  <pre><code class="language-url">https://www.cloudflare.com/cdn-cgi/trace
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="https://www.cloudflare.com/cdn-cgi/trace
+">    Copy  </button></div></div>
 <h2 id="shodan">Shodan</h2>
 <h3 id="calculate-favicon-hash">Calculate favicon hash</h3>
 <p>Shodan uses the <a href="https://pypi.org/project/mmh3/" target="_blank"><code>MurmurHash</code></a> algorithm to
 search a website by his favicon. The following snippet calculate the favicon
 hash:</p>
-<pre><code class="language-python">import requests, mmh3, base64
+<div class="clipboard-content">  <pre><code class="language-python">import requests, mmh3, base64
 r = requests.get('https://{HOST}:{PORT}/favicon.ico')
 favicon = base64.b64encode(r.content)
 print(mmh3.hash(favicon))
-</code></pre>
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="import requests, mmh3, base64
+r = requests.get('https://{HOST}:{PORT}/favicon.ico')
+favicon = base64.b64encode(r.content)
+print(mmh3.hash(favicon))
+">    Copy  </button></div></div>
 <p>Then, to search all the website with the same favicon on Shodan:</p>
-<pre><code class="language-none">https://www.shodan.io/search?query=http.favicon.hash:{HASH}
-</code></pre>
+<div class="clipboard-content">  <pre><code class="language-none">https://www.shodan.io/search?query=http.favicon.hash:{HASH}
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="https://www.shodan.io/search?query=http.favicon.hash:{HASH}
+">    Copy  </button></div></div>
 <h2 id="proxychains">ProxyChains</h2>
 <p><a href="https://github.com/haad/proxychains" target="_blank">ProxyChains</a> hooks the libc network calls
 to redirect the connections through SOCKS4a/5 or HTTP proxies.</p>
 <p>The configuration file need at least the following lines:</p>
-<pre><code class="language-bash">vim /etc/proxychains.conf
+<div class="clipboard-content">  <pre><code class="language-bash">vim /etc/proxychains.conf
 dynamic_chain
 [ProxyList]
 socks4 {IP} {PORT}
 socks5 {IP} {PORT}
-</code></pre>
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="vim /etc/proxychains.conf
+dynamic_chain
+[ProxyList]
+socks4 {IP} {PORT}
+socks5 {IP} {PORT}
+">    Copy  </button></div></div>
 <h3 id="use-a-unix-program-trough-a-socks-proxy">Use a UNIX program trough a socks proxy</h3>
-<pre><code class="language-bash">proxychains nc {HOST} {PORT}
+<div class="clipboard-content">  <pre><code class="language-bash">proxychains nc {HOST} {PORT}
 proxychains nmap {HOST}
-</code></pre>
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="proxychains nc {HOST} {PORT}
+proxychains nmap {HOST}
+">    Copy  </button></div></div>
 <p>You can specify a custom configuration file with the <code>-f</code> option:</p>
-<pre><code class="language-bash">proxychains -f /path/proxychains/config.conf &lt;program&gt; &lt;arguments&gt;
-</code></pre>
+<div class="clipboard-content">  <pre><code class="language-bash">proxychains -f /path/proxychains/config.conf &lt;program&gt; &lt;arguments&gt;
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="proxychains -f /path/proxychains/config.conf &lt;program&gt; &lt;arguments&gt;
+">    Copy  </button></div></div>
 <p>Also, you can specify an environment variable for SOCKS5 proxy:</p>
-<pre><code class="language-bash">PROXYCHAINS_SOCKS5=4321 proxychains &lt;program&gt; &lt;arguments&gt;
-</code></pre>
+<div class="clipboard-content">  <pre><code class="language-bash">PROXYCHAINS_SOCKS5=4321 proxychains &lt;program&gt; &lt;arguments&gt;
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="PROXYCHAINS_SOCKS5=4321 proxychains &lt;program&gt; &lt;arguments&gt;
+">    Copy  </button></div></div>
 <h3 id="use-nessus-through-a-socks-proxy">Use Nessus through a socks proxy</h3>
 <p>Nessus can be proxified to scan hosts over a SOCKS proxy:</p>
-<pre><code class="language-bash">cd /opt/nessus/sbin
+<div class="clipboard-content">  <pre><code class="language-bash">cd /opt/nessus/sbin
 proxychains ./nessus-service -D
-</code></pre>
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="cd /opt/nessus/sbin
+proxychains ./nessus-service -D
+">    Copy  </button></div></div>
 <h2 id="salesforce">SalesForce</h2>
 <h3 id="salesforce-community">SalesForce community</h3>
 <p><a href="https://www.enumerated.de/index/salesforce#exploitation" target="_blank">Salesforce Lightning - An in-depth look at exploitation vectors for the everyday community</a></p>

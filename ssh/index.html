@@ -393,21 +393,24 @@ available on <a href="https://www.exploit-db.com/exploits/45939" target="_blank"
 <h2 id="sftp-command-injection">SFTP Command Injection</h2>
 <p>Sometimes the SFTP user can execute a command because the configuration does not
 force the SFTP.</p>
-<pre><code class="language-bash">ssh -v {USER}@{IP} id
-</code></pre>
+<div class="clipboard-content">  <pre><code class="language-bash">ssh -v {USER}@{IP} id
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="ssh -v {USER}@{IP} id
+">    Copy  </button></div></div>
 <h2 id="start-port-forwarding-on-an-existing-session">Start port forwarding on an existing session</h2>
 <p>It's possible to start a new port forwarding on an existing session. Simply type
 <code>&lt;enter&gt;~C</code> to bring up a console with your local SSH client. Then you add a
 local (<code>-L</code>) or remote (<code>-R</code>) port forwarding.</p>
 <p>For instance, you type the following command to access the remote HTTPS server
 on the server on your local machine:</p>
-<pre><code class="language-none">&lt;enter&gt;~C-L 443:localhost:443&lt;enter&gt;
-</code></pre>
+<div class="clipboard-content">  <pre><code class="language-none">&lt;enter&gt;~C-L 443:localhost:443&lt;enter&gt;
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="&lt;enter&gt;~C-L 443:localhost:443&lt;enter&gt;
+">    Copy  </button></div></div>
 <p>The <code>~</code> is the SSH's default <code>EscapeChar</code>, there is more options available if
 you type <code>~?</code>.</p>
 <h2 id="log-ssh-connection">Log SSH connection</h2>
-<pre><code class="language-bash">strace -e trace=read -fp &lt;USERSPID&gt; 2&gt;&amp;1 | awk -F, '! /\\/ {print $2}'
-</code></pre>
+<div class="clipboard-content">  <pre><code class="language-bash">strace -e trace=read -fp &lt;USERSPID&gt; 2&gt;&amp;1 | awk -F, '! /\\/ {print $2}'
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="strace -e trace=read -fp &lt;USERSPID&gt; 2&gt;&amp;1 | awk -F, '! /\\/ {print $2}'
+">    Copy  </button></div></div>
             
           </div>
           <footer>

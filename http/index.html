@@ -389,41 +389,59 @@
 used to override the real HTTP method on request.
 The reverse proxy may check the real method and passes the request to the
 application which uses the header value as method.</p>
-<pre><code class="language-none">GET / HTTP/1.1
+<div class="clipboard-content">  <pre><code class="language-none">GET / HTTP/1.1
 Host: ...
 X-HTTP-Method: TRACE
 ...
-</code></pre>
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="GET / HTTP/1.1
+Host: ...
+X-HTTP-Method: TRACE
+...
+">    Copy  </button></div></div>
 <h3 id="http-path-override">HTTP path override</h3>
 <p>The headers <code>X-Original-URL</code> or <code>X-Rewrite-URL</code> may be supported by applications
 in order to override the requested path in the request.
 The reverse proxy may check the real path and passes the request to the
 application which uses the header value as a path.</p>
-<pre><code class="language-none">GET / HTTP/1.1
+<div class="clipboard-content">  <pre><code class="language-none">GET / HTTP/1.1
 Host: ...
 X-Original-URL: /admin
 ...
-</code></pre>
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="GET / HTTP/1.1
+Host: ...
+X-Original-URL: /admin
+...
+">    Copy  </button></div></div>
 <h3 id="bypass-user-ip-restriction">Bypass user IP restriction</h3>
 <p>The following headers can be used to override the IP address of the user to
 bypass some restrictions based on the user IP.</p>
-<pre><code class="language-none">X-Forwarded-For
+<div class="clipboard-content">  <pre><code class="language-none">X-Forwarded-For
 X-Forward-For
 X-Remote-IP
 X-Originating-IP
 X-Remote-Addr
 X-Client-IP
-</code></pre>
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="X-Forwarded-For
+X-Forward-For
+X-Remote-IP
+X-Originating-IP
+X-Remote-Addr
+X-Client-IP
+">    Copy  </button></div></div>
 <h3 id="max-forward">Max forward</h3>
 <p>The <code>Max-Forwards</code> header provides a mechanism to limit the number of times that
 the request is forwarded by proxies. This can be useful when the client is
 attempting to trace a request that appears to be failing or looping mid-chain
 (cf <a href="https://tools.ietf.org/html/rfc7231#section-5.1.2" target="_blank">section-5.1.2</a>).</p>
-<pre><code class="language-none">GET / HTTP/1.1
+<div class="clipboard-content">  <pre><code class="language-none">GET / HTTP/1.1
 Host: ...
 Max-Forwards: 2
 ...
-</code></pre>
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="GET / HTTP/1.1
+Host: ...
+Max-Forwards: 2
+...
+">    Copy  </button></div></div>
 <h2 id="cache">Cache</h2>
 <p><a href="https://iustin24.github.io/Cache-Key-Normalization-Denial-of-Service/" target="_blank">Cache-Key Normalization</a></p>
             

