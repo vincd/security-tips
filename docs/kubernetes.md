@@ -1,6 +1,6 @@
 ---
 title: "Kubernetes"
-description: "Check Kubernetes API and execute commands"
+description: "Check Kubernetes API and execute commands with kubectl"
 date: 23/11/2020
 categories:
  - Misc
@@ -46,12 +46,31 @@ $ wscat -c "https://<host>:<port>/<location_header>" --no-check
 ```
 
 
-## Useful commands
+## Useful kubectl commands
+
+You can add the argument `--kubeconfig {CONFIG_PATH]}` to every commands to
+specify a configuration file.
+
+If there is multiple namespace, then add the argument `--namespace {NAMESPACE}`
+to be sure to interact with the correct namespace.
+
 
 #### Kubernetes version
 
 ```bash
 kubectl version
+```
+
+#### Check API access
+
+Use the [`can-i`](https://kubernetes.io/docs/reference/access-authn-authz/authorization/#checking-api-access)
+command to check your rights on the API. Don't forget to check for different
+namespaces.
+
+```bash
+kubectl auth can-i --list --namespace {NAMESPACE}
+kubectl auth can-i create pods/exec --namespace {NAMESPACE}
+kubectl auth can-i get pods/logs --namespace {NAMESPACE}
 ```
 
 #### Start a pod
@@ -96,4 +115,5 @@ kubectl get pods -o wide | sed -e 's/\s\+/ /g' | cut -f6 -d " "
 
 ```bash
 kubectl get secrets -o yaml
+kubectl get secret {SECRET_NAME} -o yaml
 ```
