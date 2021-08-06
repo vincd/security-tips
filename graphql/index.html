@@ -146,6 +146,8 @@
     <ul>
             
     
+
+    
     <ul>
     
         <li><a class="" href="#querying-all-available-types-in-a-schema">Querying All Available Types in a Schema</a></li>
@@ -381,7 +383,33 @@
           <div class="section">
             
               <h1>GrahQL</h1>
-              <h2 id="request-useful-informations">Request useful informations</h2>
+              <h2 id="make-get-requests">Make GET requests</h2>
+<p>By default most GraphQL client will make <code>POST</code> requests with a JSON payload. On
+some servers it's still possible to make a <code>GET</code> request and pass the payload
+as an argument. The <a href="https://www.apollographql.com/docs/apollo-server/requests/#get-requests" target="_blank">Apollo documentation</a>
+describes this feature:</p>
+<pre><code>Apollo Server also accepts GET requests. A GET request must pass query and
+optionally variables and operationName in the URL.
+...
+caveat: Mutations cannot be executed via GET requests.
+</code></pre>
+<p>Therefore a request will be:</p>
+<div class="clipboard-content">  <pre><code class="language-http">https://{HOST}/graphql?
+query=query%20aTest(%24arg1%3A%20String!)%20%7B%20test(who%3A%20%24arg1)%20%7D
+&amp;operationName=aTest
+&amp;variables=me
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="https://{HOST}/graphql?
+query=query%20aTest(%24arg1%3A%20String!)%20%7B%20test(who%3A%20%24arg1)%20%7D
+&amp;operationName=aTest
+&amp;variables=me
+">    Copy  </button></div></div>
+<p>As mention in the documentation, it's not possible to perform a <code>mutation</code> on
+<strong>Apollo Server</strong>. However it's might be possible there is a query call changing
+the application state.</p>
+<p>Moreover, on some servers this will bypass the <code>CSRF</code> protections and you can
+include the URL as an external (script to bypass <code>CORS</code>).</p>
+<p>More information here: <a href="https://blog.doyensec.com/2021/05/20/graphql-csrf.html" target="_blank">https://blog.doyensec.com/2021/05/20/graphql-csrf.html</a>.</p>
+<h2 id="request-useful-informations">Request useful informations</h2>
 <p>Introspection is explained <a href="https://graphql.org/learn/introspection/" target="_blank">here</a>.
 First we need to collect all available types then recursively enumerate all
 individual types.</p>
