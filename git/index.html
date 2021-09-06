@@ -7,8 +7,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="search" href="/opensearch.xml" type="application/opensearchdescription+xml" title="Security Tips">
 
-  
-  
+  <meta name="description" content="Git tips">
+  <meta name="keywords" content="ssh, git">
 
   <meta name="author" content="Vincent D. (@vincd)">
   <link rel="shortcut icon" href="../img/favicon.ico">
@@ -328,15 +328,23 @@
     <ul>
             
     
+
+    
+
+    
+
+    
     <ul>
     
-        <li><a class="" href="#exploit-git-exposed-over-http">Exploit git exposed over HTTP</a></li>
+        <li><a class="" href="#search-a-poc">Search a PoC</a></li>
     
-        <li><a class="" href="#find-git-secrets">Find git secrets</a></li>
+        <li><a class="" href="#get-user-ssh-public-keys">Get user SSH public keys</a></li>
     
-        <li><a class="" href="#use-git-over-an-http-proxy">Use git over an HTTP Proxy</a></li>
+        <li><a class="" href="#get-raw-commit">Get raw commit</a></li>
     
     </ul>
+    
+
     
 
     </ul>
@@ -378,9 +386,8 @@
         <div role="main">
           <div class="section">
             
-              <h1></h1>
-              <h1 id="git">Git</h1>
-<h2 id="exploit-git-exposed-over-http">Exploit git exposed over HTTP</h2>
+              <h1>Git</h1>
+              <h2 id="exploit-git-folder-exposed-over-http">Exploit .git folder exposed over HTTP</h2>
 <p>Some website exposes <code>.git</code> to the Internet. To check if the website is vulnerable, then check for
 the following path:</p>
 <div class="clipboard-content">  <pre><code class="language-none">https://&lt;domain&gt;/some/path/.git/HEAD
@@ -425,6 +432,58 @@ host. For example, if you want to use Github through an HTTP proxy:</p>
     User                  git
     ProxyCommand          nc -X connect -x &lt;proxy_host&gt;:&lt;proxy_port&gt; %h %p
     ServerAliveInterval   10
+">    Copy  </button></div></div>
+<h2 id="github-dorking">Github dorking</h2>
+<h3 id="search-a-poc">Search a PoC</h3>
+<p>Security researchers often use gist or repository to publish their works. With
+the following URL you can search for a specific CVE exploit tool.</p>
+<div class="clipboard-content">  <pre><code class="language-none">https://github.com/search?q=&quot;&lt;CVE-ID&gt;&quot;+AND+exploit+in:name+in:description+in:readme
+https://gist.github.com/search?q=&quot;&lt;CVE-ID&gt;&quot;
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="https://github.com/search?q=&quot;&lt;CVE-ID&gt;&quot;+AND+exploit+in:name+in:description+in:readme
+https://gist.github.com/search?q=&quot;&lt;CVE-ID&gt;&quot;
+">    Copy  </button></div></div>
+<p>Also, you can use the application <a href="https://grep.app" target="_blank"><code>grep.app</code></a> to search across
+public git repositories.</p>
+<h3 id="get-user-ssh-public-keys">Get user SSH public keys</h3>
+<p>When you add <code>.keys</code> in the URL of a user you can see their public SSH keys and
+associated emails addresses.</p>
+<div class="clipboard-content">  <pre><code class="language-none">https://github.com/&lt;username&gt;.keys
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="https://github.com/&lt;username&gt;.keys
+">    Copy  </button></div></div>
+<h3 id="get-raw-commit">Get raw commit</h3>
+<p>When you add <code>.patch</code> to the URL of a commit you retrieve the raw commit file.
+This file contains git log and the user email.</p>
+<div class="clipboard-content">  <pre><code class="language-none">https://github.com/&lt;username&gt;/&lt;repo&gt;/commit/&lt;sha&gt;.patch
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="https://github.com/&lt;username&gt;/&lt;repo&gt;/commit/&lt;sha&gt;.patch
+">    Copy  </button></div></div>
+<p>Using the <code>.diff</code> extension you can get the diff with the previous commit.</p>
+<div class="clipboard-content">  <pre><code class="language-none">https://github.com/&lt;username&gt;/&lt;repo&gt;/commit/&lt;sha&gt;.diff
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="https://github.com/&lt;username&gt;/&lt;repo&gt;/commit/&lt;sha&gt;.diff
+">    Copy  </button></div></div>
+<h2 id="check-if-a-ssh-key-is-used-on-github-or-gitlab">Check if a SSH key is used on Github or Gitlab</h2>
+<p>You can check if a <a href="/ssh/">SSH</a> key is used for an account on Github or Gitlab.
+Connect over SSH to the endpoint.</p>
+<div class="clipboard-content">  <pre><code class="language-bash">ssh -i {SSH_KEY} git@gitlab.com
+
+PTY allocation request failed on channel 0
+Welcome to GitLab, @vincd!
+Connection to gitlab.com closed.
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="ssh -i {SSH_KEY} git@gitlab.com
+
+PTY allocation request failed on channel 0
+Welcome to GitLab, @vincd!
+Connection to gitlab.com closed.
+">    Copy  </button></div></div>
+<div class="clipboard-content">  <pre><code class="language-bash">ssh -i {SSH_KEY} git@github.com
+
+PTY allocation request failed on channel 0
+Hi vincd! You've successfully authenticated, but GitHub does not provide shell access.
+Connection to ssh.github.com closed.
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="ssh -i {SSH_KEY} git@github.com
+
+PTY allocation request failed on channel 0
+Hi vincd! You've successfully authenticated, but GitHub does not provide shell access.
+Connection to ssh.github.com closed.
 ">    Copy  </button></div></div>
             
           </div>
