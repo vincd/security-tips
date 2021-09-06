@@ -51,47 +51,6 @@ The tool [`gmapsapiscanner`](https://github.com/ozguralp/gmapsapiscanner) can be
 used to detect invalid permissions on Google Maps API.
 
 
-## Github dorking
-
-### Search a PoC
-
-Security researchers often use gist or repository to publish their works. With
-the following URL you can search for a specific CVE exploit tool.
-
-```
-https://github.com/search?q="<CVE-ID>"+AND+exploit+in:name+in:description+in:readme
-https://gist.github.com/search?q="<CVE-ID>"
-```
-
-Also, you can use the application [`grep.app`](https://grep.app) to search across
-public git repositories.
-
-
-### Get user SSH public keys
-
-When you add `.keys` in the URL of a user you can see their public SSH keys and
-associated emails addresses.
-
-```
-https://github.com/<username>.keys
-```
-
-### Get raw commit
-
-When you add ` .patch` to the URL of a commit you retrieve the raw commit file.
-This file contains git log and the user email.
-
-```
-https://github.com/<username>/<repo>/commit/<sha>.patch
-```
-
-Using the `.diff` extension you can get the diff with the previous commit.
-
-```
-https://github.com/<username>/<repo>/commit/<sha>.diff
-```
-
-
 ## Google dorking
 
 ### Find target on public sources
