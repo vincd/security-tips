@@ -53,7 +53,7 @@ Response.write("</pre><!-"&"-") %>
 
 ## Upload XAMLX file to get RCE
 
-[NCCGroup](https://www.nccgroup.trust/uk/about-us/newsroom-and-events/blogs/2019/august/getting-shell-with-xamlx-files/)
+[NCCGroup](https://research.nccgroup.com/2019/08/23/getting-shell-with-xamlx-files/)
 describes how to upload a `XAMLX` file to execute code on a remote IIS server.
 
 
