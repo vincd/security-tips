@@ -145,6 +145,18 @@ to create a use with a username that contains some PHP code. Then he includes
 the session file with a LFI.
 
 
+## PHP type juggling
+
+An application may compare a user input with a string value. For instance, a user
+provide an API-Key then it's possible to supply the integer `0` in some `JSON`
+payload to bypass some checks.
+
+*Explanation*
+
+- https://owasp.org/www-pdf-archive/PHPMagicTricks-TypeJuggling.pdf
+- https://www.synacktiv.com/sites/default/files/2021-10/advisory_Jeedom_Auth_Bypass_CVE-2021-42557.pdf
+
+
 ## PHP Polyglot file
 
 A polyglot file is valid in two different format. For instance a valid `GIF`
