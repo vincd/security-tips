@@ -295,6 +295,8 @@
     
         <li><a class="" href="#php-session-files">PHP session files</a></li>
     
+        <li><a class="" href="#php-type-juggling">PHP type juggling</a></li>
+    
         <li><a class="" href="#php-polyglot-file">PHP Polyglot file</a></li>
     
         <li><a class="" href="#xdebug">XDebug</a></li>
@@ -551,6 +553,15 @@ gets the session file that is accessible on the server <code>/session/sess_&lt;s
 to create a use with a username that contains some PHP code. Then he includes
 the session file with a LFI.</p>
 </li>
+</ul>
+<h2 id="php-type-juggling">PHP type juggling</h2>
+<p>An application may compare a user input with a string value. For instance, a user
+provide an API-Key then it's possible to supply the integer <code>0</code> in some <code>JSON</code>
+payload to bypass some checks.</p>
+<p><em>Explanation</em></p>
+<ul>
+<li>https://owasp.org/www-pdf-archive/PHPMagicTricks-TypeJuggling.pdf</li>
+<li>https://www.synacktiv.com/sites/default/files/2021-10/advisory_Jeedom_Auth_Bypass_CVE-2021-42557.pdf</li>
 </ul>
 <h2 id="php-polyglot-file">PHP Polyglot file</h2>
 <p>A polyglot file is valid in two different format. For instance a valid <code>GIF</code>

