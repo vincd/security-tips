@@ -8,21 +8,21 @@
   <link rel="search" href="/opensearch.xml" type="application/opensearchdescription+xml" title="Security Tips">
 
   
-  
+  <meta name="keywords" content="javascript">
 
   <meta name="author" content="Vincent D. (@vincd)">
   <link rel="shortcut icon" href="../img/favicon.ico">
   <title>
-    OAuth - Security Tips
+    Javascript - Security Tips
     
   </title>
   <link rel="stylesheet" href="../css/style.css" type="text/css" />
   
   <script>
     // Current page data
-    var mkdocs_page_name = "OAuth";
-    var mkdocs_page_input_path = "oauth.md";
-    var mkdocs_page_url = "/oauth/";
+    var mkdocs_page_name = "Javascript";
+    var mkdocs_page_input_path = "javascript.md";
+    var mkdocs_page_url = "/javascript/";
   </script>
    
 </head>
@@ -98,7 +98,7 @@
           
           <li class="bold">
             
-    <span class="section-link active">Web</span>
+    <span class="section-link ">Web</span>
     <ul>
                 <li class="">
                     
@@ -116,22 +116,9 @@
                     
     <a class="section-link" href="../API/">API</a>
                 </li>
-                <li class="active">
+                <li class="">
                     
-    <a class="section-link" href="./">OAuth</a>
-    <ul>
-            
-    
-    <ul>
-    
-        <li><a class="" href="#common-vulnerabilities">Common vulnerabilities</a></li>
-    
-        <li><a class="" href="#bypassing-githubs-oauth-flow">Bypassing GitHub's OAuth flow</a></li>
-    
-    </ul>
-    
-
-    </ul>
+    <a class="section-link" href="../oauth/">OAuth</a>
                 </li>
                 <li class="">
                     
@@ -286,7 +273,7 @@
           
           <li class="bold">
             
-    <span class="section-link ">Languages</span>
+    <span class="section-link active">Languages</span>
     <ul>
                 <li class="">
                     
@@ -304,9 +291,18 @@
                     
     <a class="section-link" href="../node/">Node</a>
                 </li>
-                <li class="">
+                <li class="active">
                     
-    <a class="section-link" href="../javascript/">Javascript</a>
+    <a class="section-link" href="./">Javascript</a>
+    <ul>
+            
+    
+
+    
+
+    
+
+    </ul>
                 </li>
     </ul>
           </li>
@@ -384,23 +380,18 @@
         <div role="main">
           <div class="section">
             
-              <h1></h1>
-              <h1 id="oauth">OAuth</h1>
-<h2 id="common-vulnerabilities">Common vulnerabilities</h2>
-<ul>
-<li>CSRF: use state parameter</li>
-<li>Open redirection</li>
-<li>Short-lived and one-time use authorization codes</li>
-<li>Bearer token in the URI parameters</li>
-<li>Attack with pre-approved Client</li>
-<li>PKCE: Proof Key for Code Exchange (https://oauth.net/2/pkce/)</li>
-</ul>
-<h2 id="bypassing-githubs-oauth-flow">Bypassing GitHub's OAuth flow</h2>
-<p>In this <a href="https://blog.teddykatz.com/2019/11/05/github-oauth-bypass.html" target="_blank">article</a>
-Teddy katz bypasses the OAuth flow using a common mistake in Rails router.
-By default, Rails pretend that the <code>HEAD</code> method is a <code>GET</code> without response body.
-Then it's possible to abuse the API (<code>POST</code>requests still need CSRF token) and
-execute <code>GET</code> commands.</p>
+              <h1>Javascript</h1>
+              <h2 id="null-character-in-javascript">Null character in JavaScript</h2>
+<p>The characters <code>/u2028</code> and <code>/u2029</code> are considered line terminators in JavaScript.</p>
+<h2 id="remove-html-element">Remove HTML element</h2>
+<p>You can remove the last element on an HTML object with the following line:</p>
+<div class="clipboard-content">  <pre><code class="language-javascript">document.body.lastElementChild.outerHTML--;
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="document.body.lastElementChild.outerHTML--;
+">    Copy  </button></div></div>
+<h2 id="remove-last-element-of-an-array">Remove last element of an array</h2>
+<div class="clipboard-content">  <pre><code class="language-javascript">theArray.length--;
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="theArray.length--;
+">    Copy  </button></div></div>
             
           </div>
           <footer>
@@ -419,10 +410,10 @@ execute <code>GET</code> commands.</p>
     <span class="rst-current-version" data-toggle="rst-current-version">
       
       
-        <span><a href="../API/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href="../node/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
-        <span style="margin-left: 15px"><a href="../path-traversal/" style="color: #fcfcfc">Next &raquo;</a></span>
+        <span style="margin-left: 15px"><a href="../chrome/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>
