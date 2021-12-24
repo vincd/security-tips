@@ -230,16 +230,3 @@ proxychains ./nessus-service -D
 ### SalesForce community
 
 [Salesforce Lightning - An in-depth look at exploitation vectors for the everyday community](https://www.enumerated.de/index/salesforce#exploitation)
-
-
-## Chrome
-
-### Download manager
-
-Go to `about://download-internals` to download a file manually.
-
-
-### Builtin file explorer
-
-If you have a chromium based explorer, go to `file:///C:/` to list the content
-of the `C:`.

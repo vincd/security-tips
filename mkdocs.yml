@@ -69,7 +69,9 @@ nav:
     - Java: java.md
     - Python: python.md
     - Node: node.md
+    - Javascript: javascript.md
   - Misc:
+    - Chrome: chrome.md
     - Firefox: firefox.md
     - Docker: docker.md
     - Kubernetes: kubernetes.md

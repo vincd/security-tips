@@ -79,3 +79,10 @@ Inside the container shell he can read all the files as root:
 ```bash
 cat /etc/shadow
 ```
+
+
+## Save image to tar file
+
+```bash
+docker save -o output.tar public.ecr.aws/xxx/yyy
+```
