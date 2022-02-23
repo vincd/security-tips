@@ -79,6 +79,8 @@
     
         <li><a class="" href="#generate-eks-token">Generate EKS token</a></li>
     
+        <li><a class="" href="#login-to-amazon-ecr-private-registries-from-instance">Login to Amazon ECR private registries from instance</a></li>
+    
         <li><a class="" href="#extract-secrets-from-metadata-endpoint">Extract secrets from metadata endpoint</a></li>
     
         <li><a class="" href="#resources-on-aws">Resources on AWS</a></li>
@@ -429,6 +431,10 @@ kubectl get pods --all-namespaces --kubeconfig {KUBE_CONFIG_PATH}
 ">    Copy  </button></div></div>
 <p>You may find the parameters value (<code>region</code> and <code>name</code>) on the metadata API.
 The <code>kubectl</code>commands are details on the <a href="/kubernetes/#useful-kubectl-commands">Kubernetes page</a>.</p>
+<h3 id="login-to-amazon-ecr-private-registries-from-instance">Login to Amazon ECR private registries from instance</h3>
+<div class="clipboard-content">  <pre><code class="language-bash">aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin .dkr.ecr.us-east-1.amazonaws.com
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin .dkr.ecr.us-east-1.amazonaws.com
+">    Copy  </button></div></div>
 <h3 id="extract-secrets-from-metadata-endpoint">Extract secrets from metadata endpoint</h3>
 <p>On an EC2 instance, you can requests metadata endpoint to collects secrets. This
 endpoint might be accessible while exploiting a <code>SSRF</code> vulnerability.</p>
