@@ -57,6 +57,13 @@ You may find the parameters value (`region` and `name`) on the metadata API.
 The `kubectl`commands are details on the [Kubernetes page](/kubernetes/#useful-kubectl-commands).
 
 
+### Login to Amazon ECR private registries from instance
+
+```bash
+aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin .dkr.ecr.us-east-1.amazonaws.com
+```
+
+
 ### Extract secrets from metadata endpoint
 
 On an EC2 instance, you can requests metadata endpoint to collects secrets. This
