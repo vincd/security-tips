@@ -358,6 +358,8 @@
     
         <li><a class="" href="#symlink">Symlink</a></li>
     
+        <li><a class="" href="#create-zip-with-a-za-z0-9-chars-only">Create zip with [A-Za-z0-9] chars only</a></li>
+    
     </ul>
     
 
@@ -416,6 +418,19 @@ zip --symlinks test.zip test.txt
 </code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="ln -s ../../../index.php test.txt
 zip --symlinks test.zip test.txt
 ">    Copy  </button></div></div>
+<h2 id="create-zip-with-a-za-z0-9-chars-only">Create zip with [A-Za-z0-9] chars only</h2>
+<p>Here is two repositories to create a zip file that use only characters in in the
+[A-Za-z0-9] ASCII byte range.</p>
+<ul>
+<li><a href="https://github.com/molnarg/ascii-zip" target="_blank">https://github.com/molnarg/ascii-zip</a></li>
+<li><a href="https://github.com/Arusekk/ascii-zip" target="_blank">https://github.com/Arusekk/ascii-zip</a></li>
+</ul>
+<p>This can be usefull to create packages (jar, docx, ...) with only "allowed" characters.
+This technic is explained here:</p>
+<ul>
+<li><a href="https://www.youtube.com/watch?v=qA8KB6KndrE" target="_blank">LiveOverflow - Crazy JSP Web Shell to Exploit Tomcat - Real World CTF 2022</a></li>
+<li><a href="https://github.com/voidfyoo/rwctf-4th-desperate-cat/tree/main/writeup" target="_blank">rwctf-4th-desperate-cat</a></li>
+</ul>
             
           </div>
           <footer>

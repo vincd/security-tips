@@ -2,312 +2,312 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
      <loc>https://security-tips.vincd.com/</loc>
-     <lastmod>2022-02-23</lastmod>
+     <lastmod>2022-02-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://security-tips.vincd.com/ports/</loc>
-     <lastmod>2022-02-23</lastmod>
+     <lastmod>2022-02-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://security-tips.vincd.com/cloud/</loc>
-     <lastmod>2022-02-23</lastmod>
+     <lastmod>2022-02-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://security-tips.vincd.com/windows/</loc>
-     <lastmod>2022-02-23</lastmod>
+     <lastmod>2022-02-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://security-tips.vincd.com/eventid/</loc>
-     <lastmod>2022-02-23</lastmod>
+     <lastmod>2022-02-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://security-tips.vincd.com/powershell/</loc>
-     <lastmod>2022-02-23</lastmod>
+     <lastmod>2022-02-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://security-tips.vincd.com/exchange/</loc>
-     <lastmod>2022-02-23</lastmod>
+     <lastmod>2022-02-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://security-tips.vincd.com/linux/</loc>
-     <lastmod>2022-02-23</lastmod>
+     <lastmod>2022-02-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://security-tips.vincd.com/http/</loc>
-     <lastmod>2022-02-23</lastmod>
+     <lastmod>2022-02-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://security-tips.vincd.com/webshell/</loc>
-     <lastmod>2022-02-23</lastmod>
+     <lastmod>2022-02-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://security-tips.vincd.com/xss/</loc>
-     <lastmod>2022-02-23</lastmod>
+     <lastmod>2022-02-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://security-tips.vincd.com/API/</loc>
-     <lastmod>2022-02-23</lastmod>
+     <lastmod>2022-02-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://security-tips.vincd.com/oauth/</loc>
-     <lastmod>2022-02-23</lastmod>
+     <lastmod>2022-02-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://security-tips.vincd.com/path-traversal/</loc>
-     <lastmod>2022-02-23</lastmod>
+     <lastmod>2022-02-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://security-tips.vincd.com/file-upload/</loc>
-     <lastmod>2022-02-23</lastmod>
+     <lastmod>2022-02-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://security-tips.vincd.com/jwt/</loc>
-     <lastmod>2022-02-23</lastmod>
+     <lastmod>2022-02-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://security-tips.vincd.com/iis/</loc>
-     <lastmod>2022-02-23</lastmod>
+     <lastmod>2022-02-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://security-tips.vincd.com/nginx/</loc>
-     <lastmod>2022-02-23</lastmod>
+     <lastmod>2022-02-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://security-tips.vincd.com/graphql/</loc>
-     <lastmod>2022-02-23</lastmod>
+     <lastmod>2022-02-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://security-tips.vincd.com/spring_boot/</loc>
-     <lastmod>2022-02-23</lastmod>
+     <lastmod>2022-02-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://security-tips.vincd.com/sharepoint/</loc>
-     <lastmod>2022-02-23</lastmod>
+     <lastmod>2022-02-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://security-tips.vincd.com/wasm/</loc>
-     <lastmod>2022-02-23</lastmod>
+     <lastmod>2022-02-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://security-tips.vincd.com/android/</loc>
-     <lastmod>2022-02-23</lastmod>
+     <lastmod>2022-02-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://security-tips.vincd.com/ios/</loc>
-     <lastmod>2022-02-23</lastmod>
+     <lastmod>2022-02-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://security-tips.vincd.com/postgresql/</loc>
-     <lastmod>2022-02-23</lastmod>
+     <lastmod>2022-02-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://security-tips.vincd.com/mariadb/</loc>
-     <lastmod>2022-02-23</lastmod>
+     <lastmod>2022-02-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://security-tips.vincd.com/mssql/</loc>
-     <lastmod>2022-02-23</lastmod>
+     <lastmod>2022-02-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://security-tips.vincd.com/oracle/</loc>
-     <lastmod>2022-02-23</lastmod>
+     <lastmod>2022-02-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://security-tips.vincd.com/cve/CVE-2016-3714/</loc>
-     <lastmod>2022-02-23</lastmod>
+     <lastmod>2022-02-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://security-tips.vincd.com/cve/CVE-2017-5638/</loc>
-     <lastmod>2022-02-23</lastmod>
+     <lastmod>2022-02-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://security-tips.vincd.com/cve/CVE-2017-8291/</loc>
-     <lastmod>2022-02-23</lastmod>
+     <lastmod>2022-02-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://security-tips.vincd.com/cve/CVE-2019-1388/</loc>
-     <lastmod>2022-02-23</lastmod>
+     <lastmod>2022-02-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://security-tips.vincd.com/cve/CVE-2019-11510/</loc>
-     <lastmod>2022-02-23</lastmod>
+     <lastmod>2022-02-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://security-tips.vincd.com/cve/CVE-2019-11581/</loc>
-     <lastmod>2022-02-23</lastmod>
+     <lastmod>2022-02-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://security-tips.vincd.com/cve/CVE-2019-16759/</loc>
-     <lastmod>2022-02-23</lastmod>
+     <lastmod>2022-02-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://security-tips.vincd.com/cve/CVE-2019-19781/</loc>
-     <lastmod>2022-02-23</lastmod>
+     <lastmod>2022-02-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://security-tips.vincd.com/cve/CVE-2020-0618/</loc>
-     <lastmod>2022-02-23</lastmod>
+     <lastmod>2022-02-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://security-tips.vincd.com/cve/CVE-2020-0688/</loc>
-     <lastmod>2022-02-23</lastmod>
+     <lastmod>2022-02-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://security-tips.vincd.com/cve/CVE-2020-1938/</loc>
-     <lastmod>2022-02-23</lastmod>
+     <lastmod>2022-02-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://security-tips.vincd.com/cve/CVE-2020-5902/</loc>
-     <lastmod>2022-02-23</lastmod>
+     <lastmod>2022-02-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://security-tips.vincd.com/cve/ffmpeg/</loc>
-     <lastmod>2022-02-23</lastmod>
+     <lastmod>2022-02-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://security-tips.vincd.com/sdr/challs-dont-matter-anymore/hackingforsoju/</loc>
-     <lastmod>2022-02-23</lastmod>
+     <lastmod>2022-02-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://security-tips.vincd.com/sdr/lit-fam/hackingforsoju/</loc>
-     <lastmod>2022-02-23</lastmod>
+     <lastmod>2022-02-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://security-tips.vincd.com/php/</loc>
-     <lastmod>2022-02-23</lastmod>
+     <lastmod>2022-02-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://security-tips.vincd.com/java/</loc>
-     <lastmod>2022-02-23</lastmod>
+     <lastmod>2022-02-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://security-tips.vincd.com/python/</loc>
-     <lastmod>2022-02-23</lastmod>
+     <lastmod>2022-02-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://security-tips.vincd.com/node/</loc>
-     <lastmod>2022-02-23</lastmod>
+     <lastmod>2022-02-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://security-tips.vincd.com/javascript/</loc>
-     <lastmod>2022-02-23</lastmod>
+     <lastmod>2022-02-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://security-tips.vincd.com/chrome/</loc>
-     <lastmod>2022-02-23</lastmod>
+     <lastmod>2022-02-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://security-tips.vincd.com/firefox/</loc>
-     <lastmod>2022-02-23</lastmod>
+     <lastmod>2022-02-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://security-tips.vincd.com/docker/</loc>
-     <lastmod>2022-02-23</lastmod>
+     <lastmod>2022-02-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://security-tips.vincd.com/kubernetes/</loc>
-     <lastmod>2022-02-23</lastmod>
+     <lastmod>2022-02-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://security-tips.vincd.com/citrix/</loc>
-     <lastmod>2022-02-23</lastmod>
+     <lastmod>2022-02-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://security-tips.vincd.com/ssh/</loc>
-     <lastmod>2022-02-23</lastmod>
+     <lastmod>2022-02-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://security-tips.vincd.com/ftp/</loc>
-     <lastmod>2022-02-23</lastmod>
+     <lastmod>2022-02-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://security-tips.vincd.com/git/</loc>
-     <lastmod>2022-02-23</lastmod>
+     <lastmod>2022-02-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://security-tips.vincd.com/kafka/</loc>
-     <lastmod>2022-02-23</lastmod>
+     <lastmod>2022-02-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://security-tips.vincd.com/iscsi/</loc>
-     <lastmod>2022-02-23</lastmod>
+     <lastmod>2022-02-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://security-tips.vincd.com/reverse-shell/</loc>
-     <lastmod>2022-02-23</lastmod>
+     <lastmod>2022-02-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://security-tips.vincd.com/zip/</loc>
-     <lastmod>2022-02-23</lastmod>
+     <lastmod>2022-02-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://security-tips.vincd.com/xxe/</loc>
-     <lastmod>2022-02-23</lastmod>
+     <lastmod>2022-02-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://security-tips.vincd.com/miscs/</loc>
-     <lastmod>2022-02-23</lastmod>
+     <lastmod>2022-02-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
 </urlset>
