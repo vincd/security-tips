@@ -24,6 +24,8 @@ application which uses the header value as method.
 GET / HTTP/1.1
 Host: ...
 X-HTTP-Method: TRACE
+X-HTTP-Method-Override: TRACE
+X-Method-Override: TRACE
 ...
 ```
 
@@ -39,6 +41,7 @@ application which uses the header value as a path.
 GET / HTTP/1.1
 Host: ...
 X-Original-URL: /admin
+X-Rewrite-URL: /admin
 ...
 ```
 
@@ -51,11 +54,29 @@ bypass some restrictions based on the user IP.
 ```
 X-Forwarded-For
 X-Forward-For
+X-Real-IP
 X-Remote-IP
 X-Originating-IP
 X-Remote-Addr
 X-Client-IP
 ```
+
+Also, keep in mind a web server may handle headers as case sensitive, so you
+can send multiple variants of the same header with spaces and different cases:
+
+```
+x-real-ip
+ x-real-ip
+X-rEal-Ip
+```
+
+You may need to make this test multiple times.
+
+**Sources**:
+
+- [Practical HTTP Header Smuggling: Sneaking Past Reverse Proxies to Attack AWS and Beyond](https://www.intruder.io/research/practical-http-header-smuggling)
+- [LiveOverflow - Finding 0day in Apache APISIX During CTF (CVE-2022-24112)](https://www.youtube.com/watch?v=yrCXamnX9No&t=583)
+- [apache/apisix fix real-ip header bypass](https://github.com/apache/apisix/commit/48e8a1ee483caa7150f7ad812953730eb50324bb)
 
 
 ### Max forward
@@ -76,4 +97,3 @@ Max-Forwards: 2
 ## Cache
 
 [Cache-Key Normalization](https://iustin24.github.io/Cache-Key-Normalization-Denial-of-Service/)
-
