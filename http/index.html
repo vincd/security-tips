@@ -400,10 +400,14 @@ application which uses the header value as method.</p>
 <div class="clipboard-content">  <pre><code class="language-none">GET / HTTP/1.1
 Host: ...
 X-HTTP-Method: TRACE
+X-HTTP-Method-Override: TRACE
+X-Method-Override: TRACE
 ...
 </code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="GET / HTTP/1.1
 Host: ...
 X-HTTP-Method: TRACE
+X-HTTP-Method-Override: TRACE
+X-Method-Override: TRACE
 ...
 ">    Copy  </button></div></div>
 <h3 id="http-path-override">HTTP path override</h3>
@@ -414,10 +418,12 @@ application which uses the header value as a path.</p>
 <div class="clipboard-content">  <pre><code class="language-none">GET / HTTP/1.1
 Host: ...
 X-Original-URL: /admin
+X-Rewrite-URL: /admin
 ...
 </code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="GET / HTTP/1.1
 Host: ...
 X-Original-URL: /admin
+X-Rewrite-URL: /admin
 ...
 ">    Copy  </button></div></div>
 <h3 id="bypass-user-ip-restriction">Bypass user IP restriction</h3>
@@ -425,17 +431,35 @@ X-Original-URL: /admin
 bypass some restrictions based on the user IP.</p>
 <div class="clipboard-content">  <pre><code class="language-none">X-Forwarded-For
 X-Forward-For
+X-Real-IP
 X-Remote-IP
 X-Originating-IP
 X-Remote-Addr
 X-Client-IP
 </code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="X-Forwarded-For
 X-Forward-For
+X-Real-IP
 X-Remote-IP
 X-Originating-IP
 X-Remote-Addr
 X-Client-IP
 ">    Copy  </button></div></div>
+<p>Also, keep in mind a web server may handle headers as case sensitive, so you
+can send multiple variants of the same header with spaces and different cases:</p>
+<div class="clipboard-content">  <pre><code class="language-none">x-real-ip
+ x-real-ip
+X-rEal-Ip
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="x-real-ip
+ x-real-ip
+X-rEal-Ip
+">    Copy  </button></div></div>
+<p>You may need to make this test multiple times.</p>
+<p><strong>Sources</strong>:</p>
+<ul>
+<li><a href="https://www.intruder.io/research/practical-http-header-smuggling" target="_blank">Practical HTTP Header Smuggling: Sneaking Past Reverse Proxies to Attack AWS and Beyond</a></li>
+<li><a href="https://www.youtube.com/watch?v=yrCXamnX9No&amp;t=583" target="_blank">LiveOverflow - Finding 0day in Apache APISIX During CTF (CVE-2022-24112)</a></li>
+<li><a href="https://github.com/apache/apisix/commit/48e8a1ee483caa7150f7ad812953730eb50324bb" target="_blank">apache/apisix fix real-ip header bypass</a></li>
+</ul>
 <h3 id="max-forward">Max forward</h3>
 <p>The <code>Max-Forwards</code> header provides a mechanism to limit the number of times that
 the request is forwarded by proxies. This can be useful when the client is
