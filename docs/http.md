@@ -54,11 +54,16 @@ bypass some restrictions based on the user IP.
 ```
 X-Forwarded-For
 X-Forward-For
-X-Real-IP
+X-Real-IP (nginx)
 X-Remote-IP
 X-Originating-IP
 X-Remote-Addr
 X-Client-IP
+CF-Connecting-IP (Cloudflare)
+True-Client-IP (Akamai, Cloudflare)
+Fastly-Client-IP (Fastly)
+X-Azure-ClientIP (Azure)
+X-Azure-SocketIP (Azure)
 ```
 
 Also, keep in mind a web server may handle headers as case sensitive, so you
@@ -74,6 +79,7 @@ You may need to make this test multiple times.
 
 **Sources**:
 
+- [The perils of the “real” client IP](https://adam-p.ca/blog/2022/03/x-forwarded-for/)
 - [Practical HTTP Header Smuggling: Sneaking Past Reverse Proxies to Attack AWS and Beyond](https://www.intruder.io/research/practical-http-header-smuggling)
 - [LiveOverflow - Finding 0day in Apache APISIX During CTF (CVE-2022-24112)](https://www.youtube.com/watch?v=yrCXamnX9No&t=583)
 - [apache/apisix fix real-ip header bypass](https://github.com/apache/apisix/commit/48e8a1ee483caa7150f7ad812953730eb50324bb)
