@@ -240,3 +240,7 @@ proxychains ./nessus-service -D
 defaults write NSGlobalDomain WebKitDeveloperExtras -bool true
 defaults write -g WebKitDeveloperExtras -bool YES
 ```
+
+## Convert curl commands to other languages
+
+[https://curlconverter.com/](https://curlconverter.com/)
