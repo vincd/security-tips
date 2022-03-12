@@ -230,3 +230,13 @@ proxychains ./nessus-service -D
 ### SalesForce community
 
 [Salesforce Lightning - An in-depth look at exploitation vectors for the everyday community](https://www.enumerated.de/index/salesforce#exploitation)
+
+
+## MacOS
+
+### Enable context menu in a system web view
+
+```bash
+defaults write NSGlobalDomain WebKitDeveloperExtras -bool true
+defaults write -g WebKitDeveloperExtras -bool YES
+```
