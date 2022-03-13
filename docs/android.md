@@ -165,8 +165,10 @@ Then when you finished to edit the files (smali, AndroidManifest, ...) you can
 recompile and sign the new apk file.
 
 ```bash
+keytool -genkey -v -keystore debug.keystore -storepass android -alias androiddebugkey -keypass android -keyalg RSA -keysize 2048 -validity 10000
+# password is android
 apktool b example/ -o example.unaligned.apk
-jarsigner -verbose -sigalg MD5withRSA -digestalg SHA1 -keystore ~/.android/debug.keystore -storepass android example.unaligned.apk androiddebugkey
+jarsigner -verbose -sigalg SHA256withRSA -digestalg SHA1 -keystore debug.keystore -storepass android example.unaligned.apk androiddebugkey
 zipalign -v 4 example.unaligned.apk example.smali.apk
 ```
 
