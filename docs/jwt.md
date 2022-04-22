@@ -1,7 +1,17 @@
-JSON Web Token
-==============
+---
+title: "JSON Web Token"
+description: "JWT tips"
+date: 24/11/2019
+categories:
+ - Web
+tags:
+ - JWT
+ - web
+ - authentication
+---
 
 ## Finding Public Keys
+
 Some common locations for public keys are:
 ```
 /api/keys
@@ -12,14 +22,24 @@ Some common locations for public keys are:
 ```
 
 ## Vulnerabilities
+
 There is know vulnerabilities on JWT:
 
 - [CVE-2015-2951](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2015-2951): The alg=none signature-bypass vulnerability in `JWT.php`
 - [CVE-2016-10555](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2016-10555): The RS/HS256 public key mismatch vulnerability because the server does not enforce "algorithm"
 - [CVE-2018-0114](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2018-0114): It's possible to re-sign a token using a key that is embedded within the token
+- [CVE-2022-21449](https://neilmadden.blog/2022/04/19/psychic-signatures-in-java/) : bypass signature checks using ECDSA signatures with point (0, 0)
+
+PoC from [DataDog/security-labs-pocs](https://github.com/DataDog/security-labs-pocs/tree/main/proof-of-concept-exploits/jwt-null-signature-vulnerable-app):
+
+```python
+payload = 'eyJz....'
+jwt = f'eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NiJ9.{payload}.MAYCAQACAQA'
+```
 
 
 ## JWT Toolkit
+
 ```bash
 jwt_tool.py is a toolkit for validating, forging and cracking JWTs (JSON Web Tokens).
 ```
