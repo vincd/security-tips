@@ -8,4 +8,5 @@ install:
 	echo "Install done."
 
 build:
-	./venv/bin/python -m mkdocs build
+	./venv/bin/python -m mkdocs build && \
+	echo "Build done."
