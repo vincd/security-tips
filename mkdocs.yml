@@ -61,6 +61,7 @@ nav:
     - CVE-2020-1938: cve/CVE-2020-1938.md
     - CVE-2020-5902: cve/CVE-2020-5902.md
     - FFmpeg HLS vulnerability: cve/ffmpeg.md
+    - Hashicorp Consul RCE: cve/hashicorp-consul-rce.md
   - SDR:
     - 'Challs Dont Matter Anymore': sdr/challs-dont-matter-anymore/hackingforsoju.md
     - 'lit-fam': sdr/lit-fam/hackingforsoju.md
